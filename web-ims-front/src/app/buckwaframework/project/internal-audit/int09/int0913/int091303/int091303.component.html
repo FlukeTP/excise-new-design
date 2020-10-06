@@ -1,0 +1,128 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายงานค่าสาธารณูปโภค" [loading]="false">
+    <div form [formGroup]="saveFormQuarter">
+        <br>
+      <div class="ui center aligned grid">
+
+        <div inline>
+          <label>เงินที่ได้รับจัดสรร</label>
+          <button class="ui large button btn-custom" (click)="searchQuarter(1)"
+            [ngClass]="{'primary': quarterActivate(1)}">
+            ไตรมาสที่ ๑ (ต.ค. - ธ.ค.)
+          </button>
+          <button class="ui large button btn-custom" (click)="searchQuarter(2)"
+            [ngClass]="{'primary': quarterActivate(2)}">
+            ไตรมาสที่ ๒ (ม.ค. - มี.ค.)
+          </button>
+          <button class="ui large button btn-custom" (click)="searchQuarter(3)"
+            [ngClass]="{'primary': quarterActivate(3)}">
+            ไตรมาสที่ ๓ (เม.ย. - มิ.ย.)
+          </button>
+          <button class="ui large button btn-custom" (click)="searchQuarter(4)"
+            [ngClass]="{'primary': quarterActivate(4)}">
+            ไตรมาสที่ ๔ (ก.ค. - ก.ย.)
+          </button>
+        </div>
+      </div>
+      <br>
+      <div class="inline fields  ui grid">
+        <div class="three wide field ">
+          <label class="text-right full-width">เงินงบประมาณ</label>
+        </div>
+        <div class="three wide field ">
+          <input class="custom ng-untouched ng-pristine ng-valid" id="budgetAmt" name="budgetAmt" type="number"
+            formControlName="budgetAmt">
+        </div>
+        <div class="one wide field ">
+          <label class="text-left full-width">บาท</label>
+        </div>
+        <div class="three wide field ">
+          <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่/สาขา</label>
+        </div>
+        <div class="four wide field ">
+          <input class="custom ng-untouched ng-pristine ng-valid" id="exciseOffice" name="exciseOffice" type="text"
+            formControlName="exciseOffice" disabled>
+        </div>
+      </div>
+      <div class="inline fields  ui grid">
+        <div class="three wide field ">
+          <label class="text-right full-width">เงินนอกงบประมาณ</label>
+        </div>
+        <div class="three wide field ">
+          <input class="custom ng-untouched ng-pristine ng-valid" id="outsideBudgetAmt" name="outsideBudgetAmt"
+            type="number" formControlName="outsideBudgetAmt">
+        </div>
+        <div class="one wide field ">
+          <label class="text-left full-width">บาท</label>
+        </div>
+        <div class="three wide field ">
+          <label class="text-right full-width">ปีงบประมาณ</label>
+        </div>
+        <div class="four wide field ">
+          <div class="ui calendar" id="budgetyearCld" style="width:100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" formControlName="budgetYear" placeholder="ปปปป" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields  ui grid">
+        <div class="three wide field ">
+          <label class="text-right full-width">รวมเงินที่ได้รับจัดสรร</label>
+        </div>
+        <div class="three wide field ">
+          <input class="custom ng-untouched ng-pristine ng-valid" id="totalAllocatedFunds" name="totalAllocatedFunds"
+            type="number" formControlName="totalAllocatedFunds">
+        </div>
+        <div class="one wide field ">
+          <label class="text-left full-width">บาท</label>
+        </div>
+        <div class="seven wide field ">
+        </div>
+      </div>
+    </div>
+    <br>
+    <label>รายการสรุปค่าสาธารณูปโภค</label>
+    <table class="ui small collapsing celled table aligned hover striped selectable" style="width:100%">
+      <thead>
+        <tr style="text-align: center">
+          <th>เดือนที่เบิกจ่าย</th>
+          <th>ค่าไฟฟ้า</th>
+          <th>ค่าน้ำประปา</th>
+          <th>ค่าโทรศัพท์</th>
+          <th>ค่าโทรศัพท์เคลื่อนที่</th>
+          <th>ค่าบริการไปรษณีย์โทรเลข</th>
+          <th>ค่าบริการสื่อสารและโทรคมนาคม</th>
+          <th>รวมจำนวนเงิน</th>
+          <th>จำนวนเงินคงเหลือ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="datas == 0">
+          <td [attr.colspan]="10" class="text-center">ไม่พบข้อมูล</td>
+        </tr>
+        <ng-container *ngFor="let data of datas">
+          <tr>
+            <td  style="text-align: right">{{data.billType1Amt | number:'1.2-5'}}</td>
+            <td  style="text-align: right">{{data.billType2Amt | number:'1.2-5'}}</td>
+            <td  style="text-align: right">{{data.billType3Amt | number:'1.2-5'}}</td>
+            <td  style="text-align: right">{{data.billType4Amt | number:'1.2-5'}}</td>
+            <td  style="text-align: right">{{data.billType5Amt | number:'1.2-5'}}</td>
+            <td  style="text-align: right">{{data.billType6Amt | number:'1.2-5'}}</td>
+            <td  style="text-align: right">{{data.billType7Amt | number:'1.2-5'}}</td>
+            <td  style="text-align: right">{{data.sumBillAmt   | number:'1.2-5'}}</td>
+            <td  style="text-align: right"> - </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-save (click)="saveQuarter()"></app-button-save>
+        <app-button-export></app-button-export>
+        <app-button-back (click)="routeTo('/int09/13/01')"></app-button-back>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

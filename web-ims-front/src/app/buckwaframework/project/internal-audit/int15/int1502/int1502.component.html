@@ -1,0 +1,228 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment [loading]="false" id="backcl">
+    <div class="large ui buttons" id="topview" *ngIf="tap == '2'">
+      <button class="large ui button"
+        (click)="tabSlite('1')">รายการจับคู่รหัสหมวดภาษีระบบรายได้กับรหัสบัญชีระบบ</button>
+      <button class="large ui positive button active" (click)="tabSlite('2')">เพิ่มรายการ</button>
+    </div>
+    <div class="large ui buttons"  id="topview" *ngIf="tap == '1'">
+      <button class="large ui positive button active"
+        (click)="tabSlite('1')">รายการจับคู่รหัสหมวดภาษีระบบรายได้กับรหัสบัญชีระบบ</button>
+      <button class="large ui button " (click)="tabSlite('2')">เพิ่มรายการ</button>
+    </div>
+
+    <div class="large ui buttons"  id="topview" *ngIf="tap == '3'">
+      <button class="large ui button "
+        (click)="tabSlite('1')">รายการจับคู่รหัสหมวดภาษีระบบรายได้กับรหัสบัญชีระบบ</button>
+      <button class="large ui positive button active" (click)="tabSlite('2')">แก้ไขรายการ</button>
+    </div>
+    <!-- ------------------------------tab1-------------------------------------- -->
+    <div class="tabcontent" *ngIf="tap == '1' ">
+      <segment [loading]="false">
+        <table class="ui small celled nowrap table striped selectable" style="width:100%" id="datatableall">
+          <thead id="thHeader">
+            <tr style="text-align: center;">
+              <th class="text-center">รหัสภาษี</th>
+              <th class="text-center">รายการ</th>
+              <th class="text-center">รหัสบัญชี</th>
+              <th class="text-center">ชื่อบัญชี</th>
+              <th class="text-center">การจัดการ</th>
+            </tr>
+          </thead>
+          <!-- <tbody>
+            <tr *ngFor="let item of dataList">
+              <td style="text-align: center !important">{{item.incCode}} </td>
+              <td>{{item.incName}} </td>
+              <td style="text-align: center !important">{{item.coaCode}} </td>
+              <td>{{item.coaName}} </td>
+              <td style="text-align: center !important">
+                <app-button-edit (click)="editData(item.chartAndIncId)"></app-button-edit>
+              </td>
+            </tr>
+          </tbody> -->
+          <!-- <tbody>
+            <tr class="text-center">
+              <td colspan="5">ไม่พบข้อมูล</td>
+            </tr>
+          </tbody> -->
+        </table>
+      </segment>
+    </div>
+    <!-- ------------------------------tab2-------------------------------------- -->
+    <div class="tabcontent" *ngIf="tap == '2' || tap == '3'">
+      <segment header="บันทึกจับคู่รหัสหมวดภาษีกับรหัสบัญชี" [loading]="false">
+        <form [formGroup]="formsearch">
+          <div class="ui form">
+            <div class="ui grid">
+              <div class="sixteen wide column">
+                <!-- row 1 -->
+                <div inline>
+                  <div field [col]="3">
+                  </div>
+                  <div field [col]="3">
+                    <label class="text-right full-width">รหัสภาษี</label>
+                  </div>
+                  <div field [col]="4">
+                    <div class="ui fluid action input">
+                      <input type="text" placeholder="เลขรหัสภาษี" formControlName="incCode">
+                      <div class="ui button" (click)="viewDetail2()">ค้นหา</div>
+                    </div>
+                  </div>
+                </div>
+                <div inline>
+                  <div field [col]="3">
+                  </div>
+                  <div field [col]="3">
+                    <label class="text-right full-width">ชื่อภาษี</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="incName" readonly class="custom-readonly">
+                  </div>
+                </div>
+                <div inline>
+                  <div field [col]="3">
+                  </div>
+                  <div field [col]="3">
+                    <label class="text-right full-width">รหัสบัญชี</label>
+                  </div>
+                  <div field [col]="4">
+                    <div class="ui fluid action input">
+                      <input type="text" placeholder="เลขรหัสบัญชี" formControlName="coaCode">
+                      <div class="ui button" (click)="viewDetail1()">ค้นหา</div>
+                    </div>
+                  </div>
+                </div>
+                <div inline>
+                  <div field [col]="3">
+                  </div>
+                  <div field [col]="3">
+                    <label class="text-right full-width">ชื่อบัญชี</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="coaName" readonly class="custom-readonly">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="ui center aligned grid">
+          <div class="column">
+            <app-button-edit (click)="editApi()" *ngIf="tap == '3'"></app-button-edit>
+            <app-button-save (click)="saveTwoData()" *ngIf="tap == '2'"></app-button-save>
+            <app-button-delete (click)="deleteData()" *ngIf="tap == '3'"></app-button-delete>
+            <app-button-back (click)="tabSlite('1')"></app-button-back>
+          </div>
+        </div>
+      </segment>
+    </div>
+  </segment>
+</with-breadcrumb>
+
+<ui-modal [id]="'detail1'" [size]="'large'" [type]="'custom'">
+  <div class="ui header">
+    ค้นหารหัสบัญชี
+  </div>
+  <br>
+  <form form [formGroup]="formSearchModal">
+    <div inline>
+      <div field [col]="4">
+        <label class="text-right full-width">ประเภทบัญชี</label>
+      </div>
+      <div field [col]="3">
+        <select class="ui dropdown full-width" id="coaType" formControlName="coaType" (change)="onChangeCoa($event)">
+          <option value="">ทั้งหมด</option>
+          <option value="0">ทั้งหมด</option>
+          <option *ngFor="let item of coaParametor" value="{{item.value2}}">{{item.value1}}</option>
+        </select>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">รหัสบัญชี</label>
+      </div>
+      <div field [col]="3">
+        <select id="coaCode" name="coaCode" class="ui fluid dropdown ia-dropdown search " formControlName="coaCode"
+          (change)="onChangeCoaCode($event)">
+          <option value="">เลขรหัสบัญชี</option>
+          <option value="0">ทั้งหมด</option>
+          <option *ngFor="let item of datain1" value="{{item.coaCode}}">{{item.coaCode}}</option>
+        </select>
+        <!-- <input id="coaCode" formControlName="coaCode" (change)="onChangeCoaCode($event)" numberOnly> -->
+      </div>
+    </div>
+  </form>
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <div class="ui grid">
+        <div class="sixteen wide column">
+          <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableCoa">
+            <thead class="text-center">
+              <tr>
+                <th class="text-center">ลำดับ</th>
+                <th class="text-center">รหัสบัญชี</th>
+                <th class="text-center">ชื่อบัญชี</th>
+              </tr>
+            </thead>
+          </table>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions ">
+    <div class="ui right aligned grid">
+      <div class="sixteen wide column">
+        <app-button-cancel (click)="closeModal()"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>
+
+
+
+<ui-modal [id]="'detail2'" [size]="'large'" [type]="'custom'">
+  <div class="ui header">
+    ค้นหารหัสภาษี
+  </div>
+  <br>
+  <form form [formGroup]="formSearchModal">
+    <div inline>
+      <div field [col]="7">
+        <label class="text-right full-width">รหัสภาษี</label>
+      </div>
+      <div field [col]="3">
+        <select id="incCode" name="incCode" class="ui fluid dropdown ia-dropdown search " formControlName="incCode"
+          (change)="onChangeIncCode($event)">
+          <option value="">เลขรหัสภาษี</option>
+          <option value="0">ทั้งหมด</option>
+          <option *ngFor="let item of incDropdown" value="{{item.incCode}}">{{item.incCode}}</option>
+        </select>
+      </div>
+    </div>
+  </form>
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <div class="ui grid">
+        <div class="sixteen wide column">
+          <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableInc">
+            <thead class="text-center">
+              <tr>
+                <th class="text-center">ลำดับ</th>
+                <th class="text-center">รหัสภาษี</th>
+                <th class="text-center">ชื่อภาษี</th>
+                <th class="text-center">รหัสบัญชี</th>
+              </tr>
+            </thead>
+          </table>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions ">
+    <div class="ui right aligned grid">
+      <div class="sixteen wide column">
+        <app-button-cancel (click)="closeModal2()"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>

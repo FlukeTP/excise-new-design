@@ -1,0 +1,133 @@
+.ui.menu .item img.logo {
+  margin-right: 1.5em;
+}
+
+.ui.menu {
+  border-bottom: solid 1px #c5d6de;
+}
+
+.menu.fixed > * {
+  color: white !important;
+  border-bottom: 0 !important;
+}
+
+.ui.sidebar.vertical.menu.left {
+  padding: 71px 0 0 0 !important;
+  overflow: visible !important;
+}
+
+.pushable {
+  width: 100% !important;
+  margin: 0 !important;
+  min-height: 100%;
+  padding-top: 71px !important;
+}
+
+.pushabled {
+  width: 100% !important;
+  margin: 0 !important;
+  min-height: 100%;
+  padding-top: 0 !important;
+  margin-top: -1em !important;
+}
+
+.pushed {
+  margin: 0 !important;
+  padding: 0 0 0 0 !important;
+  height: calc(100vh - 71px) !important;
+  min-height: calc(100vh - 71px) !important;
+  overflow-y: auto;
+}
+
+#userDetail {
+  line-height: 1.4em;
+}
+
+.bg-acd {
+  background-color: #1e83db !important;
+  margin-top: 0px !important;
+}
+
+.adjust-space {
+  padding: 0px 0px !important;
+  background-color: rgb(31, 86, 158, 0.8) !important;
+}
+
+.item .transition .visible {
+  padding: 0px 13px !important;
+}
+
+.box-none {
+  box-shadow: none !important;
+}
+
+.acd-text {
+  color: white !important;
+}
+
+.padding-none {
+  padding: 0px !important;
+}
+
+.bg-title {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.title.sub {
+  background-color: #1d71bb !important;
+  font-size: 1em !important;
+  margin: 0 !important;
+  padding-left: 1.25em !important;
+  outline: none !important;
+}
+
+.title.sub.empty {
+  padding-left: calc(2em + 16px) !important;
+  outline: none !important;
+}
+
+.title.sub.empty.active {
+  background: #549ddd !important;
+}
+
+.content .item {
+  font-size: 0.8em !important;
+  padding-left: 4em !important;
+}
+
+.title {
+  /* background-color: #1e83db !important; */
+  background-color: #1e67a7 !important;
+  font-size: 1.1em !important;
+  outline: none !important;
+  padding: 0.75em 0.25em !important;
+}
+
+.title .icon {
+  outline: none !important;
+}
+
+.left {
+  font-size: medium !important;
+}
+
+.bg-child {
+  background-color: rgb(31, 86, 158, 0.8) !important;
+}
+
+.hv:hover {
+  background-color: #87cefa !important;
+}
+
+.accordion {
+  background-color: #1d71bb !important;
+  margin: 0 !important;
+}
+
+.notify {
+  background: black;
+}
+
+i.icon, i.icons {
+  font-size: 0.9em !important;
+}

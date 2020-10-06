@@ -1,0 +1,14 @@
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('font/Sarabun/Sarabun-Regular.ttf'),
+    		url('font/Sarabun/Sarabun-Medium.ttf'),
+    	 	url('font/Sarabun/Sarabun-SemiBold.ttf'); 
+}
+
+html{
+	font-family:"Sarabun" !important;
+}
+:not(i) {
+	font-family:"Sarabun" !important;
+}

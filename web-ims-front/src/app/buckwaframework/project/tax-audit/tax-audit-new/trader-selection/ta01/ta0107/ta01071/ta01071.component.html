@@ -1,0 +1,27 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+    <segment header="รายที่เลือก (TA01071)" [loading]="false">
+      <div class="ui grid">
+        <div class="sixteen wide column">
+          <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tablePlan">
+            <thead class="text-center">
+              <tr>
+                <th  class="text-center">ลำดับ</th>
+                <th  class="text-center">เลขทะเบียนสรรพสามิต</th>
+                <th  class="text-center">ชื่อผู้ประกอบการ</th>
+                <th  class="text-center">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+                <th  class="text-center">ที่อยู่โรงอุตสาหกรรม/สถานบริการ</th>
+                <th  class="text-center">ภาค</th>
+                <th class="text-center">พื้นที่</th>
+                <th class="text-center" >พิกัดสินค้า/บริการ</th>
+              </tr>
+            </thead>
+          </table>
+          <br>
+        </div>
+      </div>
+      <div class="ui centered grid">
+        <app-button-back (click)="clickBack()"></app-button-back>
+      </div><br>
+    </segment>
+  </with-breadcrumb>

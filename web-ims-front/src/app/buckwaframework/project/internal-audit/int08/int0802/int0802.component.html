@@ -1,0 +1,180 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="กระดาษทำการตรวจสอบความถูกต้องของงบทดลอง" [loading]="loading">
+
+    <div class="ui form">
+      <form [formGroup]="formSearch">
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="2" class="required">
+            <label class="text-right full-width">หน่วยเบิกจ่าย</label>
+          </div>
+          <div field [col]="6" [ngClass]="{'error': validateField('gfDisburseUnit')}">
+            <select class="ui search dropdown full-width" formControlName="gfDisburseUnit"
+              (change)="dropdownChange($event)">
+              <option value="">หน่วยเบิกจ่าย</option>
+              <option *ngFor="let item of gfDisburseUnitList" value="{{item.gfDisburseUnit}}">
+                {{ item.gfDisburseUnit }} - {{ item.gfExciseName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="2" class="required">
+            <label class="text-right full-width">ประจำงวด</label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': validateField('periodFrom')}">
+            <select class="ui dropdown full-width" formControlName="periodFrom">
+              <option *ngFor="let item of periodFromList" value="{{item.periodFrom}}">
+                {{item.periodFrom}}
+              </option>
+            </select>
+          </div>
+
+          <!-- <div field [col]="2">
+            <label class="text-right full-width">ปีงบประมาณ</label>
+          </div> -->
+          <div field [col]="2">
+            <div class="ui calendar" id="fromYearCld">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" formControlName="fromYear" autocomplete="off" placeholder="ปปปป" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div field [col]="1" class="required">
+            <label class="text-center full-width">ถึงงวด</label>
+          </div>
+          <div field [col]="2" style="padding-right: 1px;" [ngClass]="{'error': validateField('periodTo')}">
+            <input type="text" formControlName="periodTo">
+          </div>
+          <!-- <div
+            *ngIf="formSearch.get('periodTo').hasError('minlength')"></div>
+            <span>input should contain 3 characters</span>
+          </div> -->
+
+          <!-- <div field [col]="2">
+            <label class="text-right full-width">ปีงบประมาณ</label>
+          </div> -->
+          <div field [col]="2">
+            <div class="ui calendar" id="toYearCld">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" formControlName="toYear" autocomplete="off" placeholder="ปปปป" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui center aligned grid">
+          <div class="column">
+            <app-button-search (click)="search()"></app-button-search>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="ui divider"></div>
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <div form>
+          <button class="ui medium button btn-custom" [ngClass]="{'primary': flagHdr === 'A' }"
+            (click)="changeFlagBtn('A')">
+            เปรียบเทียบแยกประเภท
+          </button>
+          <button class="ui medium button btn-custom" [ngClass]="{'primary': flagHdr === 'B' }"
+            (click)="changeFlagBtn('B')">
+            เปรียบเทียบรายงานเคลื่อนไหว
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="ui divider"></div>
+
+    <div id="ShowDataTable1">
+      <table id="dataTable" class="ui small celled nowrap table striped selectable sticky" style="width:100%">
+        <thead>
+          <tr class="text-center">
+            <th colspan="2" class="bg-th-left">บัญชีแยกประเภท</th>
+            <th colspan="4" class="bg-th-left">งบทดลอง(1)</th>
+            <th colspan="2" class="bg-th-right">แยกประเภท(2)</th>
+            <th colspan="2" class="bg-th-blank">ผลต่าง(3) = (1)-(2)</th>
+          </tr>
+
+          <tr class="text-center">
+            <th class="bg-th-left">รหัส</th>
+            <th class="bg-th-left">ชื่อบัญชี</th>
+            <th class="bg-th-left">ยอดยกมา</th>
+            <th class="bg-th-left">เดบิต(40)</th>
+            <th class="bg-th-left">เครดิต(50)</th>
+            <th class="bg-th-left">ยอดยกไป</th>
+            <th class="bg-th-right">เดบิต(40)</th>
+            <th class="bg-th-right">เครดิต(50)</th>
+            <th class="bg-th-blank">เดบิต(40)</th>
+            <th class="bg-th-blank">เครดิต(50)</th>
+          </tr>
+        </thead>
+        <tfoot id="footer1">
+          <tr>
+            <th colspan="2" style="background-color: #cccc"><b>รวม</b></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div id="ShowDataTable2">
+      <table id="dataTable2" class="ui small celled nowrap table striped selectable sticky" style="width:100%">
+        <thead>
+          <tr class="text-center">
+            <th colspan="2" class="bg-th-left">บัญชีแยกประเภท</th>
+            <th colspan="4" class="bg-th-left">งบทดลอง(1)</th>
+            <th colspan="2" class="bg-th-left">แยกประเภท(2)</th>
+            <th colspan="2" class="bg-th-right">รายงานความเคลื่อนไหวคลัง(4)</th>
+            <th colspan="2" class="bg-th-blank">ผลต่าง(5) = (1)-(4)</th>
+          </tr>
+
+          <tr class="text-center">
+            <th class="bg-th-left">รหัส</th>
+            <th class="bg-th-left">ชื่อบัญชี</th>
+            <th class="bg-th-left">ยอดยกมา</th>
+            <th class="bg-th-left">เดบิต(40)</th>
+            <th class="bg-th-left">เครดิต(50)</th>
+            <th class="bg-th-left">ยอดยกไป</th>
+            <th class="bg-th-left">เดบิต(40)</th>
+            <th class="bg-th-left">เครดิต(50)</th>
+            <th class="bg-th-right">เดบิต</th>
+            <th class="bg-th-right">เครดิต</th>
+            <th class="bg-th-blank">เดบิต</th>
+            <th class="bg-th-blank">เครดิต</th>
+          </tr>
+        </thead>
+        <tfoot id="footer2">
+          <tr>
+            <th colspan="2" style="background-color: #cccc"><b>รวม</b></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+            <th style="background-color: #cccc"></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+  </segment>
+</with-breadcrumb>

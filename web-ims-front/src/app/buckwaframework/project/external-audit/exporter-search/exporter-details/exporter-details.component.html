@@ -1,0 +1,124 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<br>
+<div class="sixteen wide column">
+  <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>รายละเอียดผู้ส่งออก</span>
+  </div>
+  <div class="ui attached segment">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">ข้อมูลผู้ส่งออกของ</label>
+        </div>
+        <div class="two wide field">
+          <input type="text" value="คุณเฟรม" class="custom-readonly" disabled>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">เลขที่ผู้รับ</label>
+        </div>
+        <div class="two wide field">
+          <input type="text" value="00001" class="custom-readonly" disabled>
+        </div>
+
+        <div class="two wide field">
+          <label class="text-right full-width">เจ้าหน้าที่รับ</label>
+        </div>
+
+        <div class="two wide field">
+          <input type="text" value="คุณสมชาย" class="custom-readonly" disabled>
+        </div>
+
+        <div class="two wide field">
+          <label class="text-right full-width">วันที่รับ</label>
+        </div>
+
+        <div class="two wide field">
+          <input type="text" value="17/12/2561" class="custom-readonly" disabled>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="seven wide field">
+          <label class="text-right full-width">ชื่อผู้ส่งออก</label>
+        </div>
+        <div class="five wide field">
+          <input type="text" value="บริษัท เป๊ปซี่-โคล่า(ไทย) เทรดดิ้ง จำกัด" class="custom-readonly" disabled>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="seven wide field">
+          <label class="text-right full-width">มีความประสงค์ขอนำสิรคฃน้าออกจาก โรงอุสาหกรรมชื่อ</label>
+        </div>
+        <div class="five wide field">
+          <input type="text" value="บริษัท เป๊ปซี่-โคล่า(ไทย) เทรดดิ้ง จำกัด" class="custom-readonly" disabled>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="seven wide field">
+          <label class="text-right full-width">ทะเบียนสรรพสามิตเลขที่</label>
+        </div>
+        <div class="five wide field">
+          <input type="text" value="0000110200132-6-723" class="custom-readonly" disabled>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="ten wide field">
+          <label class="text-right full-width">มีความประสงค์เพื่อส่งออกนอกราชอาณาจักรโดย ขอยกเว้นภาษี มีสินค้าดังนี้</label>
+        </div>
+      </div>
+
+      <table id="dataTable" class="ui small celled table nowrap striped selectable" style="width: 100%">
+        <thead>
+          <tr>
+            <th rowspan="2">รายการที่</th>
+            <th rowspan="2">ประเภทที่</th>
+            <th colspan="5">รายการสินค้า</th>
+            <th colspan="2">อัตราภาษี</th>
+            <th colspan="2">จำนวนภาษี</th>
+          </tr>
+
+          <tr>
+            <th>ชื่อและชนิดสินค้า</th>
+            <th>แบบหรือรุ่น</th>
+            <th>ขนาด</th>
+            <th>จำนวน (หน่วย)</th>
+            <th>ราคาขายปลีกแนะนำ</th>
+            <th>ตามมูลค่าร้อยละ</th>
+            <th>ตามปริมาณหน่วยละ</th>
+            <th>บาท</th>
+            <th>สต.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of table; let i=index">
+            <td style="border-bottom: 1px solid rgba(34, 36, 38, 0.1)">&nbsp;</td>
+            <td style="border-bottom: 1px solid rgba(34, 36, 38, 0.1)"></td>
+            <td style="border-bottom: 1px solid rgba(34, 36, 38, 0.1)"></td>
+            <td style="border-bottom: 1px solid rgba(34, 36, 38, 0.1)"></td>
+            <td style="border-bottom: 1px solid rgba(34, 36, 38, 0.1)"></td>
+            <td style="border-bottom: 1px solid rgba(34, 36, 38, 0.1)"></td>
+            <td style="border-bottom: 1px solid rgba(34, 36, 38, 0.1)"></td>
+            <td style="border-bottom: 1px solid rgba(34, 36, 38, 0.1)"></td>
+            <td style="border-bottom: 1px solid rgba(34, 36, 38, 0.1)"></td>
+            <td style="border-bottom: 1px solid rgba(34, 36, 38, 0.1)"></td>
+            <td style="border-bottom: 1px solid rgba(34, 36, 38, 0.1)"></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="text-right" colspan="9">รวมทั้งสิ้น</td>
+            <td class="text-right">0</td>
+            <td class="text-right">0</td>
+          </tr>
+        </tfoot>
+      </table>
+
+    </div>
+  </div>
+</div>

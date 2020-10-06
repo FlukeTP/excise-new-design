@@ -1,0 +1,60 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายละเอียดแผนงานการออกตรวจ" [loading]="false">
+    <div class="ui form grid" [formGroup]="form">
+      <div class="two wide column"></div>
+      <div class="twelve wide column">
+        <div class="ui secondary segment">
+          <h4 style="color: #000;">รายชื่อผู้ได้รับอนุญาต</h4>
+          <table class="ui small celled table striped selectable" id="dataTable" style="width: 100%;">
+            <thead>
+              <tr style="text-align: center">
+                <th>สำนักงานสรรพสามิตภาค</th>
+                <th>สำนักงานสรรพสามิตพื้นที่</th>
+                <th>ชื่อผู้ประกอบการ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let list of listApprove; let i = index">
+                <td>{{ list.sectorName }}</td>
+                <td>{{ list.areaName }}</td>
+                <td>{{ list.companyName }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <h4 style="color: #000;">รายชื่อผู้ออกตรวจ</h4>
+          <table class="ui small celled table striped selectable" id="dataTable">
+            <thead>
+              <tr style="text-align: center">
+                <th>ชื่อ-สกุล</th>
+                <th>ตำแหน่ง</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let list of listChecker; let i = index">
+                <td>{{ list.name }}</td>
+                <td>{{ list.position }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <div class="fields">
+            <div class="sixteen wide field">
+              <label>ความคิดเห็น</label>
+              <textarea rows="3" formControlName="remark" *ngIf="data && data.status != '3'"></textarea>
+              <textarea rows="3" formControlName="remark" *ngIf="data && data.status == '3'" readonly></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="two wide column"></div>
+      </div>
+    </div>
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-custom text="อนุมัติ" *ngIf="data && data.status != '3'" color="green" (click)="approve()"></app-button-custom>
+        <app-button-custom text="ไม่อนุมัติ" *ngIf="data && data.status != '3'" color="red" (click)="reject()"></app-button-custom>
+        <app-button-back (click)="back()"></app-button-back>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

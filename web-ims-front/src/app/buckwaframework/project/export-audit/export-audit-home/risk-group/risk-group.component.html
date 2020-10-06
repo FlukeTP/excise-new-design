@@ -1,0 +1,37 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<h2 class="ui header">กลุ่มเสี่ยง</h2>
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <div class="ui four column grid">
+      <div class="column"></div>
+      <div class="column">
+        <div class="ui fluid link card" [ngStyle]="{'background-color': cardStyle1}">
+          <div class="ui relaxed items">
+            <a class="item" (click)="onClickType(1)">
+              <div class="center aligned content" style="padding: 0;">
+                <span>แยกตามกลุ่มความเสี่ยง</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui fluid link card" [ngStyle]="{'background-color': cardStyle2}">
+          <div class="ui relaxed items">
+            <a class="item" (click)="onClickType(2)">
+              <div class="center aligned content" style="padding: 0;">
+                <span>แยกตามพื้นที่</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sixteen column row">
+    <div class="ui segment" style="margin:10px;width: 100%;;">
+      <app-select-area *ngIf="showType"></app-select-area>
+      <app-select-group *ngIf="!showType"></app-select-group>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+
+.card .items {
+     background-color: rgb(25, 118, 210);
+ }
+ 
+ .card .items:hover {
+     background-color: rgb(25, 87, 148);
+ }
+
+ .ui.items>.item>.content>a.header {
+     color: white;
+ }
+
+.ui.items>.item>.content{
+     padding-left: 1.5em;
+     padding-top: 0.75em;
+}
+
+.ui.table thead th {
+     background: #1e83db;
+     color: white;
+}
+
+.ui.form .field > .selection.dropdown {
+     min-width: 100% !important;
+}
+
+.content {
+     padding-top: 0px;
+     padding-left: 0px; 
+}
+
+.content > span {
+     font-size: 18px !important;
+     color: black;
+     font-weight: bold;
+}

@@ -1,0 +1,204 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<div class="ui modal show transition hidden" style="height: calc(6em + 15px);">
+    <i class="close icon"></i>
+    <div class="header">
+        รายละเอียดด้าน{{qtnHeaderName}}
+    </div>
+
+    <div class="ui form content">
+        <div class="inline fields">
+            <div class="four wide field">
+                &nbsp;
+            </div>
+            <div class="one wide field">
+                <label class="custom-label-w-20">รายการ</label>
+            </div>
+            <div class="seven wide field">
+                <input type="text" name="showEdit" id="showEdit" [(ngModel)]="showEdit">
+            </div>
+            <div class="four wide field">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <div class="ui center aligned grid" style="margin: 0px">
+            <div class="eight wide field">
+                <button class="ui small green button" type="button" (click)="onUpdate()">
+                    <i class="save icon"></i> บันทึก
+                </button>
+            </div>
+
+            <div class="eight wide field">
+                <button class="ui small red button" type="button" id="closeList">
+                    <i class="close icon"></i> ยกเลิก
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui grid" style="margin: 2%">
+    <div class="sixteen wide column segments">
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>รายละเอียดด้าน{{qtnHeaderName}}</span>
+        </div>
+
+        <div class="ui attached segment">
+            <div class="ui form">
+                <div class="field">
+                    <div class="inline fields">
+                        <div class="two wide field">
+                            &nbsp;
+                        </div>
+
+                        <div class="one wide field">
+                            <label class="custom-label-w-10">ข้อหลัก</label>
+                        </div>
+
+                        <div class="eleven wide field" style="width:100%">
+                            <input class="custom" type="text" id="mainDetail" name="mainDetail" [(ngModel)]="mainDetail"
+                                [attr.required]="true">
+                        </div>
+
+                        <div class="two wide field">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field" *ngFor="let min of numbers; let i = index">
+                    <div class="inline fields">
+                        <div class="four wide field">
+                            &nbsp;
+                        </div>
+
+                        <div class="two wide field">
+                            <label class="custom-label-w-20">ข้อย่อย[{{ i+1 }}]</label>
+                        </div>
+
+                        <div class="eight wide field">
+                            <input type="text" id="minorDetail{{i}}" name="minorDetail{{i}}" [(ngModel)]="minorDetail[i]">
+                        </div>
+
+                        <div class="two wide field">
+                            <a (click)="onDelField(i)" style="cursor: pointer;color: red">
+                                <i class="delete icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="inline fields">
+                        <div class="four wide field">
+                            &nbsp;
+                        </div>
+
+                        <div class="two wide field">
+                            &nbsp;
+                        </div>
+
+                        <div class="eight wide field">
+                            &nbsp;
+                        </div>
+
+                        <div class="two wide field">
+                            <a class="primary" (click)="onAddField()" style="cursor: pointer;">
+                                <i class="add icon"></i> 
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui center aligned grid">
+                    <div class="row">
+                        <div class="column">
+
+                            <button class="ui small green button " type="button" (click)="onSaveData()">
+                                <i class="add icon "></i> เพิ่ม
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="ui segment">
+            <div class="ui grid">
+                <div class="sixteen wide column">
+                    <label> </label>
+                    <div class="dataTables_scroll">
+                        <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+                            <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 100%; padding-right: 0px;">
+                                <table class="ui small celled table aligned hover dataTable no-footer striped selectable" role="grid"
+                                    style="margin-left: 0px; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: left !important ;width: 5%">
+                                                <input type="checkbox" name="chk1" id="chk1" (click)="chkAll($event, 'table', 1)">
+                                            </th>
+                                            <th style="text-align: center !important ;width: 80%">รายการ</th>
+                                            <th style="text-align: center !important ;width: 15%">จัดการ</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="dataTables_scrollBody" style="position: relative; overflow: auto; max-height: 360px; width: 100%;">
+                            <table class="ui small celled table aligned hover dataTable no-footer striped selectable" id="datatable"
+                                role="grid" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: left !important ;width: 5%;display: none"></th>
+                                        <th style="text-align: left !important ;width: 80%;display: none"></th>
+                                        <th style="text-align: left !important ;width: 15%;display: none"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let t of table; let i = index">
+                                        <td style="width: 5%;">
+                                            <input type="checkbox" id="chk1-{{i}}" name="chk1-{{i}}" *ngIf="t.qtnReportHdrId"
+                                                (change)="chck(t.qtnReportManId, 'man', $event, 1, 'table')">
+                                            <input type="checkbox" style="margin-left: 2em" id="chk1-{{i}}" name="chk1-{{i}}"
+                                                *ngIf="!t.qtnReportHdrId" (change)="chck(t.qtnReportDtlId, 'dtl', $event, 1, 'table')">
+                                        </td>
+                                        <td style="width: 80.8%;">{{t.qtnMainDetail}}</td>
+                                        <td style="width: 15%;">
+                                            <div class="ui center aligned grid">
+                                                <div class="row">
+                                                    <div class="column">
+                                                        <button class="ui tiny   yellow button" type="button" name="edit-{{i}}"
+                                                            id="edit-{{i}}" (click)="onEditData(t)">
+                                                            <i class="edit icon "></i> แก้ไข
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui center aligned grid">
+                <div class="row">
+                    <div class="column">
+                        <button class="ui small red button" type="button" (click)="onDeleteData()">
+                            <i class="trash alternate icon"></i> ลบ
+                        </button>
+                        <button class="ui small button" type="button" routerLink="/int02/m3">
+                            <i class=" remove icon "></i> ยกเลิก
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

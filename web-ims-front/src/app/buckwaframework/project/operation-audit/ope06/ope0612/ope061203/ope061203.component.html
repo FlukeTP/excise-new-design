@@ -1,0 +1,40 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+
+      <segment header="กำหนดรายละเอียดการออกตรวจ" [loading]="false">
+        <div class="ui grid">
+          <div class="sixteen wide column">
+            <ope-details-datepicker [(dateFrom)]="dateFrom" [(dateTo)]="dateTo"></ope-details-datepicker>
+            <div class="ui two column grid">
+              <div class="column">
+                <ope-details-search [(lists)]="lists"></ope-details-search>
+              </div>
+              <div class="column aligned left">
+                <button class="ui mini primary button" type="button">
+                  <i class="search icon"></i>
+                  ค้นหา
+                </button>
+              </div>
+            </div>
+            <div class="ui one column centered grid">
+              <div class="column aligned center">
+                <button [routerLink]="['/cop-home/cop-home-m/cop-plan-level']" class="ui mini primary button" type="button"
+                  (click)="approve()">
+                  <i class="save icon"></i>
+                  บันทึก
+                </button>
+                <button [routerLink]="['/cop-home/cop-home-m/cop-plan-level']" class="ui mini grey button" type="button"
+                  (click)="goBack()">
+                  <i class="reply icon"></i>
+                  กลับ
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </segment>
+      
+    </div>
+  </div>
+</with-breadcrumb>

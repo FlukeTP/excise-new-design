@@ -1,0 +1,13 @@
+<div *ngIf="header" class="ui top attached clearing segment"
+    style="color: rgb(0, 0, 0); font-size: 13px; border: 1px solid #f1f1f1; padding: 10px 17px ;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2) !important;">
+    <div class="ui left floated header" style="margin: 0; ">
+        <b>{{header}}</b>
+    </div>
+    <div *ngIf="right" class="ui right floated header" style="margin: 0">
+        <ng-content select="[headRight]"></ng-content>
+    </div>
+</div>
+<div *ngIf="showBody" class="ui {{ header ? 'bottom attached' : '' }} {{ loading ? 'loading' : ''}} segment"
+    style=" box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2) !important; margin-bottom: 1em;">
+    <ng-content></ng-content>
+</div>

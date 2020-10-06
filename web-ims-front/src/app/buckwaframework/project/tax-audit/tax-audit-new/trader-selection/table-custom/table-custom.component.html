@@ -1,0 +1,264 @@
+<div grid>
+  <div [column]="10">
+    <!-- <label>แสดง</label>&nbsp;<select class="ui dropdown" id="pageLenght" (change)="onChangePageLenght($event)"
+      style="z-index: 300;">
+      <option *ngFor="let item of lenght" value="{{item}}">{{item}}</option>
+    </select>&nbsp;
+    <label>รายการ</label> -->
+    <ng-content select="[contentLeft]"></ng-content>
+  </div>
+  <div [column]="6" class="text-right" style="margin: 0">
+    <ng-content select="[contentRight]"></ng-content>
+  </div>
+</div>
+
+<div id="parent" style="overflow-x: auto; margin-top: 0; margin-bottom: 16px">
+  <table class="ui celled table small scrollXTableCustom" id="fixTable">
+    <thead class="text-center">
+      <tr>
+        <th rowspan="2" *ngIf="checkbox"><input type="checkbox" class="ui checkbox" id="checkAll"
+            (change)="checkAll($event)" [checked]="checkedAll" [disabled]="disabledCheckbox"></th>
+        <th rowspan="2">ลำดับ</th>
+        <th rowspan="2">เลขทะเบียนสรรพสามิต</th>
+        <th rowspan="2">ชื่อผู้ประกอบการ</th>
+        <!-- <th rowspan="2" *ngIf="objMonth.showCondFlag!='Y'">เงื่อนไขที่ 1<br>ไม่ถูกตรวจภาษี<br>ย้อนหลัง {{objMonth.yearCondSubNoAudit}} ปี</th> -->
+        <th [attr.colspan]="objMonth.countGroup+1" *ngIf="showCondition && objMonth.showCondFlag!='Y'"  colspan="3">เงื่อนไขคัดเลือก
+        </th>
+        <th colspan="3">เงื่อนไขที่ 1 <br> ข้อมูลตรวจสอบภาษี</th> 
+        <!-- <th colspan="3">การตรวจสอบภาษีย้อนหลัง 3 ปี</th> -->
+        <!-- <th colspan="5" *ngIf="showCondition">การชำระภาษีผิดปกติ</th> -->
+        <!-- <th rowspan="2" *ngIf="showCondition">จดทะเบียนใหม่<br>ช่วงวิเคราะห์</th> -->
+
+        <!-- <th colspan="2">ยอดรวมชำระภาษี</th>  -->
+        <th  colspan="3">เงื่อนไขที่ 2 <br> ข้อมูลการชำระภาษี</th>
+
+        <!-- <th rowspan="2">เปลี่ยนแปลง<br>(ร้อยละ)</th>
+         -->
+        <th  >เงื่อนไขที่ 3</th>
+        <!-- <th colspan="2">ยอดรวมชำระภาษี</th> -->
+
+
+        <th rowspan="2">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+        <!-- <th rowspan="2">ที่อยู่โรงอุตสาหกรรม/สถานบริการ</th> -->
+        <th rowspan="2">ภาค</th>
+        <th rowspan="2">พื้นที่</th>
+        <th rowspan="2">ทุนจดทะเบียน</th>
+        <!-- <th rowspan="2">เปอร์เซ็นต์<br>ส่วนเบี่ยงเบนมาตรฐาน</th> -->
+        <th rowspan="2">วันที่จดทะเบียน</th>
+        <th rowspan="2">พิกัด</th>
+
+        <!-- <th rowspan="2">เลขทะเบียนสรรพสามิตเก่า</th> -->
+        <!-- <th rowspan="2">สถานะล่าสุด</th> -->
+        <!-- <th rowspan="2">สถานะ/วันที่</th> -->
+        <!-- <th rowspan="2">ค่าเฉลี่ยภาษี</th> -->
+        <!-- <th rowspan="2">ค่าร้อยละ<br>สูงสุด</th>
+        <th rowspan="2">ค่าร้อยละ<br>ต่ำสุด</th> -->
+
+        <th *ngIf="objMonth.showDetail" [attr.colspan]="months.length/2">การชำระภาษี {{months.length/2}} เดือนแรก</th>
+        <th *ngIf="objMonth.showDetail" [attr.colspan]="months.length/2">การชำระภาษี {{months.length/2}} เดือนหลัง</th>
+
+        <!-- <th rowspan="2">พิกัดอื่นๆ</th> -->
+        <th rowspan="2" *ngIf="checkbox && !isCentral && objMonth.showDetail">เลือกโดย</th>
+        <!-- <th rowspan="2" *ngIf="showCondition">กลุ่มของการชำระภาษี</th> -->
+        <!-- <th rowspan="2" *ngIf="showCondition">ขนาดทุนจดทะเบียน</th> -->
+        <!-- <th rowspan="2" *ngIf="showCondition">ระดับความเสี่ยง</th> -->
+        <!-- <th rowspan="2" *ngIf="showCondition">ผู้ประกอบการที่ไม่มีการตรวจสอบภาษี <br>ในระยะเวลาที่กำหนด</th> -->
+      </tr>
+
+      <tr>
+        <!-- <th class="text-center" *ngIf="showCondition && objMonth.showCondFlag!='Y'">เงื่อนไขที่
+          1<br>ไม่ถูกตรวจภาษี<br>ย้อนหลัง {{objMonth.yearCondSubNoAudit}} ปี</th> -->
+          <th class="text-center" *ngIf="showCondition && objMonth.showCondFlag!='Y'"   >เงื่อนไขที่ 1 </th>
+          <!-- <th class="text-center" *ngIf="showCondition && objMonth.showCondFlag!='Y'">เงื่อนไขที่
+            1</th> -->
+        <!-- <th *ngIf="showCondition && 1<=objMonth.countGroup+1  && objMonth.showCondFlag!='Y'">เงื่อนไขที่ 1
+          <br>ไม่ถูกตรวจภาษี<br>ย้อนหลัง {{objMonth.yearCondSubNoAudit}} ปี</th> -->
+        <th *ngIf="showCondition && 1<=objMonth.countGroup  && objMonth.showCondFlag!='Y'">เงื่อนไขที่ 2</th>
+        <th *ngIf="showCondition && 2<=objMonth.countGroup  && objMonth.showCondFlag!='Y'">เงื่อนไขที่ 3</th>
+        <th *ngIf="showCondition && 3<=objMonth.countGroup  && objMonth.showCondFlag!='Y'">เงื่อนไขที่ 4</th>
+        <th *ngIf="showCondition && 4<=objMonth.countGroup  && objMonth.showCondFlag!='Y'">เงื่อนไขที่ 5</th>
+        <th *ngIf="showCondition && 5<=objMonth.countGroup  && objMonth.showCondFlag!='Y'">เงื่อนไขที่ 6</th>
+        <th *ngIf="showCondition && 6<=objMonth.countGroup  && objMonth.showCondFlag!='Y'">เงื่อนไขที่ 7</th>
+
+
+        <th><span *ngIf="yearLast==0"></span><span *ngIf="yearLast!=0">{{yearLast-3}}</span></th>
+        <th><span *ngIf="yearLast==0"></span><span *ngIf="yearLast!=0">{{yearLast-2}}</span></th>
+        <th><span *ngIf="yearLast==0"></span><span *ngIf="yearLast!=0">{{yearLast-1}}</span></th>
+
+        <th>ปีนี้ <br>({{yearMonthStart | isEmpty}} - {{yearMonthEnd | isEmpty}}) </th>
+        <th>ปีก่อน<br>({{yearMonthStartCompare | isEmpty}} - {{yearMonthEndCompare | isEmpty}})</th>
+          <th>เปลี่ยนแปลง<br>(ร้อยละ)</th>
+        <th rowspan="2">จำนวนเดือน<br>ไม่ชำระภาษี</th>
+        <!-- <th *ngIf="showCondition">ต่ำที่สุด</th> -->
+        <!-- <th *ngIf="showCondition">ต่ำมาก</th>
+        <th *ngIf="showCondition">ต่ำ</th>
+        <th *ngIf="showCondition">ปานกลาง</th>
+        <th *ngIf="showCondition">สูง</th>
+        <th *ngIf="showCondition">สูงมาก</th> -->
+        <!-- <th *ngIf="showCondition">สูงที่สุด</th> -->
+
+        <th *ngIf="months.length/2 == 0 && objMonth.showDetail"></th>
+        <th *ngIf="months.length/2 == 0 && objMonth.showDetail"></th>
+        <ng-container *ngIf="objMonth.showDetail">
+          <th *ngFor="let month of months">{{month}}</th>
+        </ng-container>
+      </tr>
+
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of datas; let i = index"
+        [ngClass]="{'ui inverted error  table': item.selectBy != '' && item.selectBy!= null && checkbox && !isCentral}">
+        <!-- checkbox start-->
+        <td class="text-center" *ngIf="checkbox && disabledCheckbox && objMonth.isDisabled">
+          <input class="ui checkbox" type="checkbox" id="{{item.newRegId}}" (change)="changeCheckbox($event,item)"
+            [checked]="item.checked == 'Y'" [disabled]="disabledCheckbox">
+        </td>
+        <td class="text-center" *ngIf="checkbox && !disabledCheckbox && objMonth.isDisabled">
+          <input class="ui checkbox" type="checkbox" id="{{item.newRegId}}" (change)="changeCheckbox($event,item)"
+            [checked]="item.checked == 'Y'" [disabled]="mychecked(item.newRegId)">
+        </td>
+        <td class="text-center" *ngIf="checkbox && !objMonth.isDisabled">
+          <input class="ui checkbox" type="checkbox" id="{{item.newRegId}}" (change)="changeCheckbox($event,item)"
+            [checked]="item.checked == 'Y'" [disabled]="listChecked(item.newRegId)">
+        </td>
+        <!-- checkbox end  -->
+
+        <td class="text-center fixed-column"> {{ start + i+1 | decimalFormat:"###,###" }}</td>
+
+        <!-- newRegId start -->
+        <td class="fixed-column" *ngIf="item.multiDutyFlag!='Y'">
+          <span *ngIf="item.multiDutyFlag!='Y'">{{item.newRegId}}</span>
+        </td>
+        <td class="fixed-column" *ngIf="item.multiDutyFlag=='Y'" [attr.data-tooltip]="item.multiDutyDesc"  [ngStyle]="{'cursor':item.multiDutyFlag === 'Y' ? 'pointer' : '' }">
+          <span *ngIf="item.multiDutyFlag=='Y'" >{{item.newRegId}}</span>
+          <span *ngIf="item.multiDutyFlag=='Y'">**</span>
+        </td>
+        <!-- newRegId end  -->
+
+        <td class="fixed-column">{{item.cusFullname}}</td>
+
+        <!-- <td class="text-center" *ngIf="showCondition"><i *ngIf="checkRisk(item.condTaxGrp)==1" class="check icon" style="color:green"></i></td> -->
+        <!-- กลุ่มเงื่อนไข -->
+        <td class="text-center" *ngIf="showCondition && objMonth.showCondFlag!='Y'"><i *ngIf="item.condSubNoAudit=='Y'" class="check icon" style="color:green"></i></td>
+        <td class="text-center" *ngIf="showCondition && 1<=objMonth.countGroup && objMonth.showCondFlag!='Y'"><i *ngIf="item.condG1=='Y'" class="check icon" style="color:green"></i></td>
+        <td class="text-center" *ngIf="showCondition && 2<=objMonth.countGroup && objMonth.showCondFlag!='Y'"><i *ngIf="item.condG2=='Y'" class="check icon" style="color:green"></i></td>
+        <td class="text-center" *ngIf="showCondition && 3<=objMonth.countGroup && objMonth.showCondFlag!='Y'"><i *ngIf="item.condG3=='Y'" class="check icon" style="color:green"></i></td>
+        <td class="text-center" *ngIf="showCondition && 4<=objMonth.countGroup && objMonth.showCondFlag!='Y'"><i *ngIf="item.condG4=='Y'" class="check icon" style="color:green"></i></td>
+        <td class="text-center" *ngIf="showCondition && 5<=objMonth.countGroup && objMonth.showCondFlag!='Y'"><i *ngIf="item.condG5=='Y'" class="check icon" style="color:green"></i></td>
+        <td class="text-center" *ngIf="showCondition && 6<=objMonth.countGroup && objMonth.showCondFlag!='Y'"><i *ngIf="item.condG6=='Y'" class="check icon" style="color:green"></i></td>
+
+
+        <!-- ความเสี่ยง -->
+        <!-- <td class="text-center" *ngIf="showCondition"><i *ngIf="checkRisk(item.condTaxGrp)==2" class="check icon" style="color:green"></i></td>
+        <td class="text-center" *ngIf="showCondition"><i *ngIf="checkRisk(item.condTaxGrp)==3" class="check icon" style="color:green"></i></td>
+        <td class="text-center" *ngIf="showCondition"><i *ngIf="checkRisk(item.condTaxGrp)==4" class="check icon" style="color:green"></i></td>
+        <td class="text-center" *ngIf="showCondition"><i *ngIf="checkRisk(item.condTaxGrp)==5" class="check icon" style="color:green"></i></td>
+        <td class="text-center" *ngIf="showCondition"><i *ngIf="checkRisk(item.condTaxGrp)==6" class="check icon" style="color:green"></i></td> -->
+
+
+        <!-- <td class="text-center" *ngIf="showCondition"><i *ngIf="checkRisk(item.condTaxGrp)==7" class="check icon" style="color:green"></i></td> -->
+        <!-- <td class="text-center" *ngIf="showCondition"><i *ngIf="checkRisk(item.condTaxGrp)==null" class="check icon" style="color:green"></i></td> -->
+        <!-- ย้อนหลัง 3 ปี  start -->
+        <!-- <ng-container *ngIf="item.taxAuditLast1MultiFlag!='Y'">
+            <td>{{ item.taxAuditLast3 }}</td>
+        </ng-container>
+        <ng-container *ngIf="item.taxAuditLast1MultiFlag=='Y'">
+            <td [attr.data-tooltip]="item.taxAuditLast1MultiDesc" style="cursor: pointer">{{ item.taxAuditLast3 }} ></td>
+        </ng-container>
+        <ng-container *ngIf="item.taxAuditLast1MultiFlag!='Y'">
+            <td>{{ item.taxAuditLast2 }}</td>
+        </ng-container>
+        <ng-container *ngIf="item.taxAuditLast1MultiFlag=='Y'">
+            <td  [attr.data-tooltip]="item.taxAuditLast2MultiDesc" style="cursor: pointer">{{ item.taxAuditLast2 }} ></td>
+        </ng-container>
+        <ng-container *ngIf="item.taxAuditLast1MultiFlag!='Y'">
+          <td>{{ item.taxAuditLast1 }}</td>
+        </ng-container>
+        <ng-container *ngIf="item.taxAuditLast1MultiFlag=='Y'">
+            <td  [attr.data-tooltip]="item.taxAuditLast3MultiDesc" style="cursor: pointer">{{ item.taxAuditLast1 }} ></td>
+        </ng-container> -->
+        <td *ngIf="item.taxAuditLast3MultiFlag!='Y'">{{ item.taxAuditLast3 }}</td>
+        <td *ngIf="item.taxAuditLast3MultiFlag=='Y'" style="cursor: pointer"><span [attr.data-tooltip]="item.taxAuditLast3MultiDesc">{{ item.taxAuditLast3 }}></span></td>
+        <td *ngIf="item.taxAuditLast2MultiFlag!='Y'">{{ item.taxAuditLast2 }}</td>
+        <td *ngIf="item.taxAuditLast2MultiFlag=='Y'" style="cursor: pointer"><span [attr.data-tooltip]="item.taxAuditLast2MultiDesc">{{ item.taxAuditLast2 }}></span></td>
+        <td *ngIf="item.taxAuditLast1MultiFlag!='Y'">{{ item.taxAuditLast1 }}</td>
+        <td *ngIf="item.taxAuditLast1MultiFlag=='Y'" style="cursor: pointer"><span [attr.data-tooltip]="item.taxAuditLast1MultiDesc">{{ item.taxAuditLast1 }}></span></td>
+        <!-- ย้อนหลัง 3 ปี  end -->
+
+        <td class="text-right">{{item.sumTaxAmtG1}}</td>
+        <td class="text-right">{{item.sumTaxAmtG2}}</td>
+
+        <td class="text-right">{{item.taxAmtChnPnt}}</td>
+        <td class="text-right">{{item.notPayTaxMonthNo}}</td>
+        <!-- <td class="text-right">{{item.sumTaxAmtG1}}</td>
+        <td class="text-right">{{item.sumTaxAmtG2}}</td> -->
+
+        <td><a href="javascript:void(0)" (click)=showDetails(item.newRegId)>{{item.facFullname}}</a></td>
+
+        <!-- <td>{{item.facAddress}}</td> -->
+        <td>{{item.secDesc}}</td>
+        <td>{{item.areaDesc}}</td>
+        <td class="text-right">{{item.regCapital}}</td>
+
+        <!-- <td class="text-right">{{item.taxAmtSd}}</td> -->
+
+        <td class="text-center">{{item.regDate}}</td>
+        <td>{{item.dutyName}}</td>
+        <!-- <td>{{item.oldRegId}}</td> -->
+        <!-- <td>{{item.lastedStatus}}</td> -->
+        <!-- <td>{{item.regStatus}}</td> -->
+        <!-- <td class="text-right">{{item.taxAmtMean}}</td> -->
+        <!-- <td class="text-right">{{item.taxAmtMaxPnt}}</td>
+        <td class="text-right">{{item.taxAmtMinPnt}}</td> -->
+
+        <ng-container *ngIf="objMonth.showDetail">
+          <td class="text-right" *ngFor="let amt of item.taxAmtList">{{amt}}</td>
+        </ng-container>
+        <!-- <td>{{item.otherDutyCode}}</td> -->
+        <td *ngIf="checkbox && !isCentral && objMonth.showDetail">{{item.selectBy}}</td>
+        <!-- <td *ngIf="showCondition">{{item.condTaxGrp}}</td> -->
+        <!-- <td *ngIf="showCondition">{{item.condSubCapitalDesc}}</td> -->
+        <!-- <td *ngIf="showCondition">{{item.condSubRiskDesc}}</td> -->
+        <!-- <td *ngIf="showCondition">{{item.condSubNoAuditDesc}}</td> -->
+      </tr>
+      <tr *ngIf="datas.length == 0">
+        <td *ngIf="!objMonth.showDetail" [attr.colspan]="22+months.length" class="text-center">ไม่พบข้อมูล</td>
+        <td *ngIf="objMonth.showDetail" [attr.colspan]="22" class="text-center">ไม่พบข้อมูล</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="ui grid">
+  <div class="five wide column">
+    <label>แสดง</label>&nbsp;<select class="ui dropdown" id="pageLenght" (change)="onChangePageLenght($event)"
+      style="z-index: 300;">
+      <option *ngFor="let item of lenght" value="{{item}}">{{item}}</option>
+    </select>&nbsp;
+    <label>รายการ</label>
+  </div>
+  <div class="five wide column text-center full-width">
+    <pre>แสดง {{ startDispaly | decimalFormat:"###,###" }} ถึง {{end | decimalFormat:"###,###"}} จากทั้งหมด {{recordTotalDesc}} รายการ</pre>
+  </div>
+  <div class="six wide column text-right">
+    <pagination [step]="pageLenght" [class]="'right floated'" [active]="(start/pageLenght+1)" [pages]="paginationTotal"
+      (length)="pageChange($event)">
+    </pagination>
+  </div>
+</div>
+
+<ui-modal [id]="'tableModal'" type="custom" size="small">
+  <div class="ui header">
+    รายละเอียดผู้ประกอบการ : {{details.facFullname}}
+  </div>
+  <div class="content">
+    <p><b>ที่อยู่ :</b> {{details.facAddress}}</p>
+    <p><b>สถานะ/วันที่ :</b> {{details.regStatus}}</p>
+    <p><b>เลขทะเบียนสรรพสามิตเก่า :</b> {{details.oldRegId}}</p>
+    <p><b>พิกัดสินค้า/บริการ :</b> {{details.multiDutyFlag === 'Y' ? details.multiDutyDesc : details.dutyName}}</p>
+    <p><b>วันที่ปรับปรุงข้อมูลล่าสุด :</b> {{details.syncDate}}</p>
+  </div>
+  <div class="actions">
+    <app-button-custom class="deny" [color]="'gray'" [icon]="'remove'" text="ปิด"></app-button-custom>
+  </div>
+</ui-modal>

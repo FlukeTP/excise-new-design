@@ -1,0 +1,45 @@
+<app-form-search header="ตรวจสอบรายการวัตถุดิบที่ขอลดหย่อนภาษีที่ยื่นต่อกรมสรรพสามิต (ภส. ๐๕-๐๒)" [formSearch]="formGroup"
+  (uploadTemplate)="uploadTemplate($event)" (search)="search($event)" (clear)="clear($event)"></app-form-search>
+<segment header="เลือกไฟล์ Template ข้อมูลสำหรับตรวจสอบรายการวัตถุดิบที่ขอลดหย่อนภาษีที่ยื่นต่อกรมสรรพสามิต (ภส. ๐๕-๐๒)"
+  *ngIf="hideUpload">
+  <form class="ui form ng-untouched ng-pristine ng-valid" id="upload-form" ngnativevalidate="">
+
+    <div class="inline fields  ui grid">
+      <div class="three wide field">
+        <label class="text-right full-width">เลือกไฟล์ Template</label>
+      </div>
+      <div class="four wide field">
+        <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="inputfile" id="fileExel"
+          name="fileExel" required="" type="file">
+      </div>
+      <div class="four wide field">
+        <app-button-upload (click)="upload()"></app-button-upload>
+      </div>
+    </div>
+  </form>
+</segment>
+<segment header="" [loading]="false" *ngIf="hideResult">
+  <div class="inline field btn text-right">
+    <app-button-export (click)="exportFile()"></app-button-export>
+  </div>
+  <table id="dataTable" class="ui small celled nowrap table striped selectable" style="width:100%">
+    <thead class="text-center">
+      <tr>
+        <th rowspan="2" class="one wide text-center">ลำดับ</th>
+        <th rowspan="2" class="three wide text-center">รายการวัตถุดิบ</th>
+        <th colspan="3" class="three wide text-center">ขอลดหย่อนตามแบบ ภส. ๐๕-๐๓</th>
+        <th colspan="4" class="one wide text-center bg-blue">ใบเสร็จรับเงิน</th>
+        <th rowspan="2" class="one wide" style="text-align: center  !important">ผลต่าง</th>
+      </tr>
+      <tr>
+        <th class="one wide text-center">จำนวนภาษี</th>
+        <th class="one wide text-center">ปริมาณที่ใช้</th>
+        <th class="one wide text-center">ภาษีต่อหน่วย</th>
+        <th class="six wide text-center bg-blue">เลขที่ใบเสร็จ</th>
+        <th class="one wide text-center bg-blue">ภาษีรวม</th>
+        <th class="one wide text-center bg-blue">ปริมาณ</th>
+        <th class="one wide text-center bg-blue">ภาษีต่อหน่วย</th>
+      </tr>
+    </thead>
+  </table>
+</segment>

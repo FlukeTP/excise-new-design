@@ -1,0 +1,184 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <!-- segment1 -->
+      <segment header="สรุปผลการตรวจและติดตามอธิบดี" [loading]="false">
+        <form [formGroup]="searchForm">
+          <div class="ui form">
+            <div class="inline fields">
+              <div class="one wide centered field">
+                <label class="text-right full-width">ปีงบประมาณ</label>
+              </div>
+
+              <div class="two wide field">
+                <div class="ui calendar" id="budgetyearCld" style="width:100%">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" name="budgetYear" placeholder="ปปปป" readonly value="2561">
+                  </div>
+                </div>
+              </div>
+              <div class="two wide centered field">
+                <label class="text-right full-width">รูปแบบการตรวจสอบ</label>
+              </div>
+              <div class="five wide field">
+                <select class="ui dropdown ia search selection" style="width: 100% !important;" id="inspectionWork"
+                  (change)="search($event)" formControlName="inspectionWork">
+                  <option *ngFor="let data of inspectionWorkList" value="{{data.paramInfoId}}">{{data.value1}}</option>
+                </select>
+              </div>
+              <div class="two wide centered field">
+
+              </div>
+            </div>
+          </div>
+        </form>
+        <br>
+        <!-- <table id="dataTable" class="ui small celled table nowrap striped selectable dataTable no-footer"
+          style="width: 100%;">
+          <thead>
+            <tr style="text-align: center">
+              <th>ลำดับที่</th>
+              <th>โครงการ</th>
+              <th>ปีงบประมาณ</th>
+              <th>รูปแบบการตรวจสอบ</th>
+              <th>ระหว่างวันที่</th>
+              <th>ถึงวันที่</th>
+              <th>ผู้อนุมัติ</th>
+              <th>สถานะการอนุมัติ</th>
+              <th>อนุมัติวันที่</th>
+              <th>หมายเหตุผู้อนุมัติ</th>
+              <th>จัดการ</th>
+            </tr>
+          </thead>
+        </table> -->
+        <table class="ui small collapsing celled table aligned hover striped selectable" style="width:100%"
+          *ngIf="table">
+          <thead>
+            <tr style="text-align: center">
+              <th>ลำดับที่</th>
+              <th>โครงการ</th>
+              <!-- <th>ปีงบประมาณ</th>
+              <th>รูปแบบการตรวจสอบ</th>
+              <th>ระหว่างวันที่</th>
+              <th>ถึงวันที่</th> -->
+              <th>ผู้อนุมัติ</th>
+              <th>สถานะการอนุมัติ</th>
+              <th>อนุมัติวันที่</th>
+              <th style="width:50px">หมายเหตุผู้อนุมัติ</th>
+              <th>จัดการ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="datacheckEmty == 0">
+              <td [attr.colspan]="11" class="text-center">ไม่พบข้อมูล</td>
+            </tr>
+            <ng-container *ngFor="let data of datas;let i = index">
+              <tr>
+                <td style="text-align: center">{{ i + 1}}</td>
+                <td>{{data.projectName}}</td>
+                <!-- <td style="text-align: center">{{data.budgetYear}}</td>
+                <td>{{data.checkType}}</td>
+                <td style="text-align: center">{{data.dateFromString}}</td>
+                <td style="text-align: center">{{data.dateToString}}</td> -->
+                <td>{{data.approvers==null?'-':data.approvers}}</td>
+                <td style="text-align: center">{{data.checkStatus==null?'-':data.checkStatus}}</td>
+                <td style="text-align: center">{{data.approveDateString==null?'-': data.approveDateString}}</td>
+                <td>{{data.notation==null?'-':data.notation}}</td>
+                <td style="text-align: center">
+                  <button class="ui mini primary button detail-button" (click)="routeTo('/int11/02', data.id)">
+                    <i class="eye icon"></i>รายระเอียดการสรุปผล</button>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+
+        <table class=" ui small celled table nowrap striped selectable dataTable no-footer" style="width: 100%"
+          *ngIf="table2">
+          <thead>
+            <tr style="text-align: center">
+              <th>ลำดับที่</th>
+              <th>ระบบสารสนเทศฯ ของกรมสรรพสามิต</th>
+              <!-- <th>ปีงบประมาณ</th>
+              <th>ระหว่างวันที่</th>
+              <th>ถึงวันที่</th> -->
+              <th>ผู้อนุมัติ</th>
+              <th>สถานะการอนุมัติ</th>
+              <th>อนุมัติวันที่</th>
+              <th>หมายเหตุผู้อนุมัติ</th>
+              <th>จัดการ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="datacheckEmty == 0">
+              <td [attr.colspan]="10" class="text-center">ไม่พบข้อมูล</td>
+            </tr>
+            <ng-container *ngFor="let data of datas;let i = index">
+              <tr>
+                <td style="text-align: center">{{ i + 1}}</td>
+                <td>{{data.systemName}}</td>
+                <!-- <td style="text-align: center">{{data.budgetYear}}</td>
+                <td style="text-align: center">{{data.dateFromString}}</td>
+                <td style="text-align: center">{{data.dateToString}}</td> -->
+                <td>{{data.approvers==null?'-':data.approvers}}</td>
+                <td style="text-align: center">{{data.checkStatus==null?'-':data.checkStatus}}</td>
+                <td style="text-align: center">{{data.approveDateString==null?'-':data.approveDateString}}</td>
+                <td>{{data.notation==null?'-':data.notation}}</td>
+                <td style="text-align: center">
+                  <button class="ui mini primary button detail-button" (click)="routeTo('/int11/02', data.id)">
+                    <i class="eye icon"></i>รายระเอียดการสรุปผล</button>
+                </td>
+                <!-- <app-button-edit (click)="routeTo('/int11/01/01', list.id)"></app-button-edit> -->
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+
+        <table class="ui small celled table nowrap striped selectable dataTable no-footer" style="width: 100%"
+          *ngIf="table3">
+          <thead>
+            <tr style="text-align: center">
+              <th>ลำดับที่</th>
+              <th>สำนัก / สำนักงานสรรพสามิตภาค</th>
+              <th>ฝ่าย / ส่วน / สำนักงานสรรพสามิตพื้นที่</th>
+              <!-- <th>ปีงบประมาณ</th>
+              <th>ระหว่างวันที่</th>
+              <th>ถึงวันที่</th> -->
+              <th>ผู้อนุมัติ</th>
+              <th>สถานะการอนุมัติ</th>
+              <th>อนุมัติวันที่</th>
+              <th>หมายเหตุผู้อนุมัติ</th>
+              <th>จัดการ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="datacheckEmty == 0">
+              <td [attr.colspan]="11" class="text-center">ไม่พบข้อมูล</td>
+            </tr>
+            <ng-container *ngFor="let data of datas;let i = index">
+              <tr>
+                <td style="text-align: center">{{ i + 1}}</td>
+                <td>{{ data["exciseDepartmentVo"]?.sector | isEmpty }}</td>
+                <td>{{ data["exciseDepartmentVo"]?.area | isEmpty }}</td>
+                <!-- <td style="text-align: center">{{data.budgetYear}}</td>
+                <td style="text-align: center">{{data.dateFromString}}</td>
+                <td style="text-align: center">{{data.dateToString}}</td> -->
+                <td>{{data.approvers==null?'-':data.approvers}}</td>
+                <td style="text-align: center">{{data.checkStatus==null?'-':data.checkStatus}}</td>
+                <td style="text-align: center">{{data.approveDateString==null?'-':data.approveDateString}}</td>
+                <td>{{data.notation==null?'-':data.notation}}</td>
+                <td style="text-align: center">
+                  <button class="ui mini primary button detail-button" (click)="routeTo('/int11/02', data.id)">
+                    <i class="eye icon"></i>รายระเอียดการสรุปผล</button>
+                </td>
+                <!-- <app-button-edit (click)="routeTo('/int11/01/01', list.id)"></app-button-edit> -->
+              </tr>
+
+            </ng-container>
+          </tbody>
+        </table>
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>

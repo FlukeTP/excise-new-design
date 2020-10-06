@@ -1,0 +1,278 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <!-- condition -->
+  <segment header="รายการข้อมูลผู้ประกอบการที่เสียภาษีสรรพสามิต (TA0103)" [loading]="loading">
+    <div form [formGroup]="formSearch">
+      <div inline>
+        <div field [col]="3">
+          <label class="text-right full-width">ปีงบประมาณ</label>
+        </div>
+        <div field [col]="4">
+          <select class="ui fluid dropdown full-width" (change)="budgerYearChange($event)" id="budgetYear"
+            formControlName="budgetYear">
+            <option *ngFor="let item of budgetYearList" value="{{item}}">{{item}}</option>
+          </select>
+        </div>
+        <div field [col]="3">
+          <label class="text-right full-width">เลขที่รายการคัดเลือกราย</label>
+        </div>
+        <div field [col]="4">
+          <select class="ui fluid dropdown full-width" (change)="analysisChange($event)" id="analysisNumber"
+            formControlName="analysisNumber">
+            <option *ngFor="let item of analysisList" value="{{item}}">{{item}}</option>
+          </select>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="3">
+          <label class="text-right full-width">ช่วงการชำระภาษีปีนี้</label>
+        </div>
+        <div field [col]="4">
+          <input class="custom-readonly" id="before" placeholder="ดด/ปปปป" readonly="" type="text"
+            value="{{objMonth.yearMonthStart}}">
+          ถึง&nbsp;&nbsp;&nbsp;
+          <input class="custom-readonly" id="last" placeholder="ดด/ปปปป" readonly="" type="text"
+            value="{{objMonth.yearMonthEnd}}">
+        </div>
+        <div field [col]="3">
+          <label class="text-right full-width">เปรียบเทียบกับ ช่วงการชำระภาษีปีก่อน</label>
+        </div>
+        <div field [col]="4">
+          <input class="custom-readonly" id="before" placeholder="ดด/ปปปป" readonly="" type="text"
+            value="{{objMonth.yearMonthStartCompare}}">
+          ถึง&nbsp;&nbsp;&nbsp;
+          <input class="custom-readonly" id="last" placeholder="ดด/ปปปป" readonly="" type="text"
+            value="{{objMonth.yearMonthEndCompare}}">
+        </div>
+
+      </div>
+    </div>
+    <form form [formGroup]="formSearch">
+      <div inline>
+        <div field [col]="3">
+          <label class="text-right full-width"> สำนักงานสรรพสามิตภาค</label>
+        </div>
+        <div field [col]="4">
+          <select class="ui dropdown full-width" id="sector" (change)="onChangeSector($event)" formControlName="sector">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+          </select>
+        </div>
+
+        <div field [col]="3">
+          <label class="text-right full-width"> สำนักงานสรรพสามิตพื้นที่</label>
+        </div>
+        <div field [col]="4" class="ui calendar">
+          <select class="ui dropdown full-width" id="area" formControlName="area">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+          </select>
+        </div>
+        <div field [col]="1">
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="3">
+          <label class="text-right full-width"> ประเภทสินค้า/บริการ</label>
+        </div>
+        <div field [col]="4">
+          <select class="ui dropdown full-width" id="facType" (change)="onChangeFacType($event)"
+            formControlName="facType">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of facTypeList" value="{{item.paramCode}}">{{item.value1}}</option>
+          </select>
+        </div>
+        <div field [col]="3">
+          <label class="text-right full-width"> พิกัด</label>
+        </div>
+        <div field [col]="4" class="ui calendar">
+          <select class="ui  dropdown full-width" id="dutyCode" formControlName="dutyCode">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of dutyCodeList" value="{{item.dutyGroupCode}}">{{item.dutyGroupName}}</option>
+          </select>
+        </div>
+        <div field [col]="1">
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="3">
+          <!-- <b class="text-right full-width">เงื่อนไขหลักในการกวาดข้อมูล</b> -->
+          <label class="text-right full-width">เลขทะเบียนสรรพสามิต</label>
+        </div>
+        <div field [col]="4">
+          <input id="newRegId" formControlName="newRegId">
+        </div>
+        <div field [col]="3">
+          <label class="text-right full-width">ยอดรวมชำระภาษี</label>
+        </div>
+        <div field [col]="4">
+          <input type="text" class="text-right full-width" numberOnly formControlName="sumTaxAmStart" id="sumTaxAmStart" [value]="formSearch.get('sumTaxAmStart').value | decimalFormat:'###,###' ">
+          <!-- <input type="text" class="text-right full-width" numberOnly formControlName="sumTaxAmStart" id="sumTaxAmStart" (click)="clickSum($event)" (blur)="blur($event)"> -->
+
+          ถึง&nbsp;&nbsp;&nbsp;
+          <input type="text" class="text-right full-width" numberOnly formControlName="sumTaxAmEnd" id="sumTaxAmEnd" [value]="formSearch.get('sumTaxAmEnd').value | decimalFormat:'###,###' ">
+          <!-- <input type="text" class="text-right full-width" numberOnly formControlName="sumTaxAmEnd" id="sumTaxAmEnd" (click)="clickSum($event)" (blur)="blur($event)"> -->
+        </div>
+        <div field [col]="1">
+          บาท
+        </div>
+      </div>
+
+      <div inline>
+        <div field [col]="3">
+          <label class="text-right full-width">ประเภทผู้ประกอบการ</label>
+        </div>
+        <div field [col]="4">
+          <select class="ui dropdown full-width" id="cuscatId" formControlName="cuscatId">
+            <option value="">ทั้งหมด</option>
+            <option value="1">ในประเทศ</option>
+            <option value="2">บริการ</option>
+            <option value="3">ผู้นำเข้า</option>
+
+            <!-- <option *ngFor="let item of facTypeList" value="{{item.paramCode}}">{{item.value1}}</option> -->
+          </select>
+        </div>
+      </div>
+      <br>
+      <div class="ui center aligned grid">
+        <div class="eight wide column">
+          <app-button-search (click)="serach()"></app-button-search>
+          <app-button-clear (click)="clear()"></app-button-clear>
+          <!-- <app-button-custom text="เพิ่มรายการคัดเลือกราย" (click)="goToCriteria()"></app-button-custom> -->
+          <app-button-custom text="จัดกลุ่มเงื่อนไข" (click)="showModal()" [disabled]="!showButton"></app-button-custom>
+          <app-button-custom (click)="export()" [color]="'yellow'" [icon]="'print'" text="Export"></app-button-custom>
+        </div>
+      </div>
+    </form>
+  </segment>
+  <!-- result -->
+  <segment header="" [loading]="loading">
+    <!-- <br>
+    <div class="ui grid">
+      <button class="ui button custom-menu" type="button" (click)="munuHide()"><i class="bars icon"></i>เมนู</button>
+    </div>
+    <br><br> -->
+    <div class="ui grid">
+      <!-- <div class="three wide column" [ngClass]="{'menu-hide': menuhide}">
+        <div class="ui styled accordion">
+          <div class="menu-all" [ngClass]="{'font-weight700': activeLinkAll}" (click)="onClickProductType('','')">
+            &nbsp;&nbsp;&nbsp;ทั้งหมด
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            พิกัดสินค้า
+          </div>
+          <div class="content">
+            <p class="transition" [ngClass]="{'font-weight700': activeLinkProduct[i]}"
+              *ngFor="let item of products;let i = index;" (click)="onClickProductType(item.paramCode,'1')"
+              style="cursor: pointer">
+              - {{item.value1}}</p>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            พิกัดบริการ
+          </div>
+          <div class="content ">
+            <p class="transition" [ngClass]="{'font-weight700': activeLinkService[i]}"
+              *ngFor="let item of services;let i = index;" (click)="onClickProductType(item.paramCode,'2')"
+              style="cursor: pointer">
+              - {{item.value1}}</p>
+
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            พิกัดสินค้านำเข้า
+          </div>
+          <div class="content">
+            <p class="transition" [ngClass]="{'font-weight700': activeLinkProduct2[i]}"
+              *ngFor="let item of products;let i = index;" (click)="onClickProductType(item.paramCode,'3')"
+              style="cursor: pointer">
+              - {{item.value1}}</p>
+          </div>
+        </div>
+      </div> -->
+      <!-- <div [ngClass]="{'thirteen ': !menuhide, 'sixteen': menuhide, 'wide column' : true}"> -->
+      <div class="sixteen wide column">
+        <!-- table -->
+        <app-table-custom [datas]="datas" [recordTotal]="recordTotal" [objMonth]="objMonth"
+          [budgetYear]="budgetYearNumber" (pageChangeOutput)="pageChangeOutput($event)">
+
+          <div contentRight>
+            <app-button-custom [icon]="'list alternate icon'" [color]="tableDetail.color" (click)="detailClick()"
+              title="แสดงรายละเอียดเพิ่มเติม" style="border-radius: 0px"></app-button-custom>
+          </div>
+        </app-table-custom>
+        <br>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>
+
+<ui-modal [id]="'condition'" [size]="'large'" [type]="'custom'">
+  <div class="ui header">
+    ยืนยัน
+  </div>
+  <div class="content">
+
+    <div form>
+      <div inline>
+        <div field [col]="16">
+          <b>1. เงื่อนไขหลักในการกวาดข้อมูล</b>
+        </div>
+      </div>
+      <div inline *ngFor="let item of condDtls">
+        <div field [col]="1"></div>
+        <div field [col]="15">
+          <p>{{item.condGroup}} {{item.condDtlDesc}}</p>
+        </div>
+      </div>
+      <!-- ซ่อน ลิสที่ 2 เงื่อนไขในการคัดกรองเพิ่มเติม -->
+      <div hidden>
+        <!-- ซ่อน ลิสที่ 2 เงื่อนไขในการคัดกรองเพิ่มเติม -->
+        <div inline>
+          <div field [col]="16">
+            <b>2. เงื่อนไขในการคัดกรองเพิ่มเติม</b>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="1"></div>
+          <div field [col]="1"><input type="checkbox" id="conSub1" [checked]="objMonth.condSubCapitalFlag != null"
+              disabled>
+          </div>
+          <div field [col]="14">
+            <p>2.1 ขนาดของทุนจดทะเบียน</p>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="1"></div>
+          <div field [col]="1"> <input type="checkbox" id="conSub2" [checked]="objMonth.condSubRiskFlag != null"
+              disabled>
+          </div>
+          <div field [col]="14">
+            <p>2.2 ประเภทสินค้าและบริการที่มีความเสี่ยงในการหลีกเลี่ยงภาษี</p>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="1"></div>
+          <div field [col]="1"><input type="checkbox" id="conSub3" [checked]="objMonth.condSubNoAuditFlag != null"
+              disabled></div>
+          <div field [col]="14">
+            <p>2.3 ผู้เสียภาษีที่ไม่มีการตรวจกำกับดูแลมากกว่า 1 ปี</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui mini primary button" (click)="submit()">
+      ยืนยัน
+    </div>
+    <div class="ui mini deny gray button">
+      ยกเลิก
+    </div>
+  </div>
+</ui-modal>

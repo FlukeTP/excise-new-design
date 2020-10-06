@@ -1,0 +1,173 @@
+<form (submit)="onSubmit($event)" ngNativeValidate>
+  <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>หนังสือเรียกตามพระราชบัญญัติสรรพสามิต พ.ศ. ๒๕๖๐</span>
+  </div>
+
+  <div class="ui attached segment">
+    <div class="ui grid">
+      <div class="ui two wide column">&nbsp;</div>
+      <div class="ui twelve wide column">
+        <div class="ui form">
+
+          <div class="inline fields">
+            <div class="eight wide field">
+              &nbsp;
+            </div>
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width: 20% !important;">วันที่</label>
+              <div class="ui calendar" style="width:100%" id="date">
+                <div class="ui input left icon">
+                 <i class="calendar alternate outline icon"></i>
+                  <input type="text" style="width:100%" name="date" autocomplete="off" [(ngModel)]="obj.date" placeholder="วัน/เดือน/ปี" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="eight wide field">
+              <div class="sixteen wide fields">
+                <div class="four wide field">
+                  <label class="custom-label-w-18" style="width: 20% !important;">ที่</label>
+                </div>
+                <div class="five wide field">
+                  <input type="text" name="at1" autocomplete="off" [(ngModel)]="obj.at1">
+                </div>
+                <div class="two wide field">
+                  <p style="text-align: center; width: 100%"> / </p>
+                </div>
+                <div class="five wide field">
+                  <input type="text" name="at2" autocomplete="off" [(ngModel)]="obj.at2">
+                </div>
+              </div>
+            </div>
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width: 20% !important;">สำนัก</label>
+              <input type="text" name="office" autocomplete="off" [(ngModel)]="obj.office" style="width: 100%">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width: 20% !important;">เรื่อง</label>
+              <input type="text" name="topic" autocomplete="off" [(ngModel)]="obj.topic" style="width: 100%">
+            </div>
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width: 20% !important;">เรียน</label>
+              <input type="text" name="sendTo" autocomplete="off" [(ngModel)]="obj.sendTo" style="width: 100%">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="eight wide field">
+              <div class="sixteen wide fields">
+                <div class="eight wide field">
+                  <label class="custom-label-w-18" style="width: 100% !important;">อ้างถึงหนังสือเรียก</label>
+                </div>
+                <div class="eight wide field">
+                  ......................../............................
+                </div>
+              </div>
+            </div>
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width: 20% !important;">ลงวันที่</label>
+              <div class="ui calendar" style="width:100%" id="date1">
+                <div class="ui input left icon">
+                 <i class="calendar alternate outline icon"></i>
+                  <input type="text" name="date1" autocomplete="off" [(ngModel)]="obj.date1" style="width:100%" placeholder="วัน/เดือน/ปี">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <label class="custom-label-w-20">สิ่งที่ส่งมาด้วย</label>
+            </div>
+          </div>
+
+          <div class="inline fields" *ngFor="let num of numbers; let i = index" [attr.data-index]="i">
+            <div class="sixteen wide field">
+              <label class="custom-label-w-18">
+                &nbsp;&nbsp;&nbsp;{{i+1}}.
+              </label>
+              <input type="text" name="item{{i+1}}" autocomplete="off" [(ngModel)]="obj['item' + (i+1)]">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="ten wide field">
+              <label class="custom-label-w-20" style="width: 110% !important;">มิได้มาพบตามนัดหมาย ในวันที่</label>
+              <div class="ui calendar" style="width:100%" id="date2">
+                <div class="ui input left icon">
+                 <i class="calendar alternate outline icon"></i>
+                  <input type="text" name="date2" autocomplete="off" [(ngModel)]="obj.date2" style="width:100%" placeholder="วัน/เดือน/ปี">
+                </div>
+              </div>
+            </div>
+            <div class="six wide field">
+              <label class="custom-label-w-18">เวลา</label>
+              <div class="ui calendar" style="width:100%" id="time1">
+                <div class="ui input left icon">
+                 <i class="calendar alternate outline icon"></i>
+                  <input type="text" name="time1" autocomplete="off" [(ngModel)]="obj.time1" style="width:100%" placeholder="เวลา">
+                </div>
+              </div>
+              <label class="custom-label-w-18">&nbsp;&nbsp;น.</label>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="ten wide field">
+              <label class="custom-label-w-20" style="width: 110% !important;">นัดหมายใหม่อีกครั้งวันที่</label>
+              <div class="ui calendar" style="width:100%" id="date3">
+                <div class="ui input left icon">
+                 <i class="calendar alternate outline icon"></i>
+                  <input type="text" style="width:100%" name="date3" [(ngModel)]="obj.date3"  autocomplete="off" placeholder="วัน/เดือน/ปี">
+                </div>
+              </div>
+            </div>
+            <div class="six wide field">
+              <label class="custom-label-w-18">เวลา</label>
+              <div class="ui calendar" style="width:100%" id="time2">
+                <div class="ui input left icon">
+                 <i class="calendar alternate outline icon"></i>
+                  <input type="text" name="time2" autocomplete="off" [(ngModel)]="obj.time2" style="width:100%" placeholder="เวลา">
+                </div>
+              </div>
+              <label class="custom-label-w-18">&nbsp;&nbsp;น.</label>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="eight wide field">
+              <label class="custom-label-w-18">ผู้ตรวจสอบ</label>
+              <input type="text" name="checker" [(ngModel)]="obj.checker" style="width: 100%">
+            </div>
+            <div class="eight wide field">
+              <label class="custom-label-w-18">ตำแหน่ง</label>
+              <input type="text" name="position" [(ngModel)]="obj.position" style="width: 100%">
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="ui two wide column">&nbsp;</div>
+    </div>
+  </div>
+
+  <div class="ui bottom centered attached segment">
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <button class="ui mini green button" type="submit">
+          <i class="save icon"></i>
+          พิมพ์เอกสาร
+        </button>
+        <button class="ui mini red button" type="button" (click)="onDiscard()">
+          <i class="times icon"></i>
+          ยกเลิก
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

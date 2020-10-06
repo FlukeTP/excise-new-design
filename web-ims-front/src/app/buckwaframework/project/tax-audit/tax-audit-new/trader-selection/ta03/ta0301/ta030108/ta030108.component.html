@@ -1,0 +1,116 @@
+<segment header="สมุดสั่งการออกตรวจสอบภาษีสรรพสามิต (ตส. ๐๑-๐๘)" [loading]="loading" [right]="true">
+  <div headRight>
+    {{formTS0108.get('formTsNumber').value}}
+  </div>
+
+  <form form form [formGroup]="formTS0108">
+    <div class="ui attached segment">
+      <div class="ui grid">
+        <div class="ui form" style=" padding-left: 0;">
+          <table class="  ui small celled nowrap table striped selectable" style="width:101%">
+            <thead>
+              <tr style="text-align: center !important">
+                <th>เลขที่<br>(๑)</th>
+                <th>วัน เดือน ปี<br>(๒)</th>
+                <th>ชื่อผู้ตรวจ<br>(๓)</th>
+                <th>ตำแหน่ง<br>(๔)</th>
+                <th>เวลาออกตรวจ<br>(๕)</th>
+                <th>ตรวจที่ใด<br>(๖)</th>
+                <th>เรื่องอะไร<br>(๗)</th>
+                <th>ผู้สั่งลงนาม<br>(๘)</th>
+                <th>ผู้ตรวจลงนามรับทราบ<br>(๙)</th>
+                <th>ได้ยื่นรายการแสดงผลการตรวจโดยรายงานที่ ลงวันที่ เดือน ปี<br>(๑๐)</th>
+                <th>หมายเหตุ</th>
+                <th>#</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="taFormTS0108DtlVoList">
+              <ng-container *ngIf="formTS0108.controls">
+                <tr [formGroupName]="i"
+                  *ngFor="let item of formTS0108.controls.taFormTS0108DtlVoList.controls; let i = index;let first = first;let last = last">
+                  <td>
+                    <div class="ui transparent input">
+                      <input type="text" class="text-center" formControlName="recNo" maxlength="20" value="{{i+1}}" readonly>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ui  transparent input" id="auditDate{{i}}">
+                      <input type="calendar"  class="text-center" formControlName="auditDate" placeholder="วว ดดดด ปปปป" readonly>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ui transparent input">
+                      <input type="text" formControlName="officerFullName" maxlength="100">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ui transparent input">
+                      <input type="text" formControlName="officerPosition" maxlength="100">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ui transparent input">
+                      <input type="text" formControlName="auditTime" maxlength="10">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ui transparent input">
+                      <input type="text" formControlName="auditDest" maxlength="200">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ui transparent input">
+                      <input type="text" formControlName="auditTopic" maxlength="200">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ui transparent input">
+                      <input type="text" formControlName="approvedAck" maxlength="50">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ui transparent input">
+                      <input type="text" formControlName="officerAck" maxlength="50">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ui  transparent input" id="auditResultDate{{i}}">
+                      <input type="calendar"  class="text-center" formControlName="auditResultDate" placeholder="วว ดดดด ปปปป" readonly>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ui transparent input">
+                      <input type="text" formControlName="auditComment" maxlength="200">
+                    </div>
+                  </td>
+                  <td>
+                    <i *ngIf="!first && last" class="minus icon" style="color:red;cursor: pointer"
+                      (click)="removeItem(i)"></i>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div inline>
+      <div field [col]="2">
+        <a href="javascript:void(0)" (click)="addItem()"><i class="plus icon" style="color:green;"></i>เพิ่ม</a>
+      </div>
+    </div>
+    <br>
+    <div>
+      <div class="ui center aligned grid">
+        <div class="five wide column"></div>
+        <div class="six wide column">
+          <app-button-save (click)="save($event)"></app-button-save>
+          <app-button-clear (click)="clear($event)"></app-button-clear>
+          <app-button-export (click)="exportFile($event)"></app-button-export>
+        </div>
+        <div class="four wide column"></div>
+      </div>
+    </div>
+  </form>
+</segment>

@@ -1,0 +1,97 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+     <segment header="ข้อมูลผู้ได้รับอนุญาต สุรากลั่นชุมชน" [right]="true" [loading]="false">
+       <div headRight>
+         <div [center]="true" inline *ngIf="roleOperator">
+           <div class="center-all" field>
+             <app-button-add (click)="add()"></app-button-add>
+           </div>
+         </div>
+       </div>
+       <div form>
+         <div [center]="true" inline [formGroup]="form">
+           <div field [col]="2">
+             <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+           </div>
+           <div field [col]="3" [ngClass]="{'disabled': isArea || isSector}">
+             <select name="sector " id="sector" class="ui dropdown ai search full-width office"
+               (change)="sectorChange($event)" formControlName="sector">
+               <option value=""></option>
+               <option *ngFor="let sector of sectors" value="{{sector.officeCode}}">{{sector.deptName}}</option>
+             </select>
+           </div>
+           <div field [col]="2">
+             <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+           </div>
+           <div field [col]="3" [ngClass]="{'disabled': isArea}">
+             <select name="area" id="area" class="ui dropdown ai search full-width office" formControlName="area">
+               <option value=""></option>
+               <option *ngFor="let area of areas" value="{{area.officeCode}}">{{area.deptName}}</option>
+             </select>
+           </div>
+         </div>
+         <div [center]="true" inline *ngIf="!isArea">
+           <div class="center-all btn" field [col]="16">
+             <app-button-search (click)="search()"></app-button-search>
+             <app-button-clear (click)="reset()"></app-button-clear>
+           </div>
+         </div>
+         <!-- main table -->
+         <div inline *ngIf="isMain">
+           <table id="dataTable" class="ui small celled table striped selectable" style="width:100%">
+             <thead>
+               <tr>
+                 <th class="text-center">ลำดับที่</th>
+                 <th class="text-center">สำนักงานสรรพสามิตภาค</th>
+                 <th class="text-center">เลขขอรับที่</th>
+                 <th class="text-center">ชื่อ</th>
+                 <th class="text-center">ชื่อสถานประกอบการ</th>
+                 <th class="text-center">เลขบัตรประชาชน/เลขนิติบุคคล</th>
+                 <th class="text-center">วันที่ได้รับอนุญาต</th>
+                 <th class="text-center">วันที่ใบอนุญาตหมดอายุ</th>
+                 <!-- <th class="text-center">ประเภท</th> -->
+                 <th class="text-center" style="width: 240px">รายละเอียด</th>
+               </tr>
+             </thead>
+           </table>
+         </div>
+         <!-- sector table -->
+         <div inline *ngIf="isSector">
+           <table id="dataTable" class="ui small celled table striped selectable" style="width:100%">
+             <thead>
+               <tr>
+                 <th class="text-center">ลำดับที่</th>
+                 <th class="text-center">สำนักงานสรรพสามิตภาค</th>
+                 <th class="text-center">สำนักงานสรรพสามิตพื้นที่</th>
+                 <th class="text-center">เลขขอรับที่</th>
+                 <th class="text-center">ชื่อ</th>
+                 <th class="text-center">ชื่อสถานประกอบการ</th>
+                 <th class="text-center">เลขบัตรประชาชน/เลขนิติบุคคล</th>
+                 <th class="text-center">วันที่ได้รับอนุญาต</th>
+                 <th class="text-center">วันที่ใบอนุญาตหมดอายุ</th>
+                 <!-- <th class="text-center">ประเภท</th> -->
+                 <th class="text-center" style="width: 240px">รายละเอียด</th>
+               </tr>
+             </thead>
+           </table>
+         </div>
+         <!-- area table -->
+         <div inline *ngIf="isArea">
+           <table id="dataTable" class="ui small celled table striped selectable" style="width:100%">
+             <thead>
+               <tr>
+                 <th class="text-center">ลำดับที่</th>
+                 <th class="text-center">เลขขอรับที่</th>
+                 <th class="text-center">ชื่อ</th>
+                 <th class="text-center">ชื่อสถานประกอบการ</th>
+                 <th class="text-center">เลขบัตรประชาชน/เลขนิติบุคคล</th>
+                 <th class="text-center">วันที่ได้รับอนุญาต</th>
+                 <th class="text-center">วันที่ใบอนุญาตหมดอายุ</th>
+                 <!-- <th class="text-center">ประเภท</th> -->
+                 <th class="text-center" style="width: 240px">รายละเอียด</th>
+               </tr>
+             </thead>
+           </table>
+         </div>
+       </div>
+     </segment>
+   </with-breadcrumb>

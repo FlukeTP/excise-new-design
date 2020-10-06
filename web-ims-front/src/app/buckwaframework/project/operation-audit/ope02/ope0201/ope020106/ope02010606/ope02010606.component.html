@@ -1,0 +1,208 @@
+<div class="ui grid">
+   <div class="sixteen column">
+
+      <segment header="การตรวจสอบบัญชีประจำวันและงบเดือน" [loading]="loading">
+         
+         <div class="ui centered grid">
+            <div class="fourteen wide column">
+
+               <div class="ui form" [formGroup]="forms" >
+                  <!-- line 1 -->
+                  <div class="inline fields">
+                     <div class="ten wide field">
+                        <label class="full-width">
+                           การจัดทำบัญชีประจำวัน
+                        </label>
+                     </div>
+                     <div class="three wide field">
+                        <label class="full-width text-center">
+                           มี
+                        </label>
+                     </div>
+                     <div class="three wide field">
+                        <label class="full-width text-center">
+                           ไม่มี
+                        </label>
+                     </div>
+                  </div>
+                  <!-- line 2 -->
+                  <div class="inline fields">
+                     <div class="one wide field"></div>
+                     <div class="nine wide field">
+                        <label class="full-width">
+                           บัญชีประจำวันแสดงการรับ-จ่ายน้ำมันหล่อลื่นฯ ( สค.๐๓ )
+                        </label>
+                     </div>
+                     <div class="three wide field checkbox-center">
+                        <div class="ui checkbox">
+                           <input type="radio" formControlName="dailyAcc" value="Y" >
+                           <label></label>
+                        </div>
+                     </div>
+                     <div class="three wide field checkbox-center">
+                        <div class="ui checkbox">
+                           <input type="radio" formControlName="dailyAcc" value="N" >
+                           <label></label>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- line 3 -->
+                  <div class="inline fields">
+                     <div class="one wide field"></div>
+                     <div class="nine wide field">
+                        <label class="full-width">
+                           เอกสารประกอบการลงบัญชี
+                        </label>
+                     </div>
+                     <div class="three wide field checkbox-center">
+                        <div class="ui checkbox">
+                           <input type="radio" formControlName="dailyAccDoc" value="Y" checked="checked">
+                           <label></label>
+                        </div>
+                     </div>
+                     <div class="three wide field checkbox-center">
+                        <div class="ui checkbox">
+                           <input type="radio" formControlName="dailyAccDoc" value="N" checked="checked">
+                           <label></label>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- line 4 -->
+                  <div class="fields">
+                     <div class="one wide field"></div>
+                     <div class="fourteen wide field"  [ngClass]="{'error': validateField('dailyAuditRemark')}">
+                        <label>ผลการตรวจสอบ</label>
+                        <textarea rows="3" formControlName="dailyAuditRemark"  ></textarea>
+                     </div>
+                  </div>
+                  <div class="ui divider"></div>
+                  <!-- line 5 -->
+                  <div class="inline fields">
+                     <div class="ten wide field">
+                        <label class="full-width">
+                           การจัดทำงบเดือน
+                        </label>
+                     </div>
+                     <div class="three wide field">
+                        <label class="full-width text-center">
+                           มี
+                        </label>
+                     </div>
+                     <div class="three wide field">
+                        <label class="full-width text-center">
+                           ไม่มี
+                        </label>
+                     </div>
+                  </div>
+                  <!-- line 6 -->
+                  <div class="inline fields">
+                     <div class="one wide field"></div>
+                     <div class="nine wide field">
+                        <label class="full-width">
+                           งบเดือนแสดงรายการรับ-จ่ายน้ำมันหล่อลื่นฯ ( สค.๐๔ )
+                        </label>
+                     </div>
+                     <div class="three wide field checkbox-center">
+                        <div class="ui checkbox">
+                           <input type="radio" formControlName="monthlyAcc" value="Y" >
+                           <label></label>
+                        </div>
+                     </div>
+                     <div class="three wide field checkbox-center">
+                        <div class="ui checkbox">
+                           <input type="radio" formControlName="monthlyAcc" value="N" >
+                           <label></label>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- line 7 -->
+                  <div class="inline fields">
+                     <div class="one wide field"></div>
+                     <div class="nine wide field">
+                        <label class="full-width">
+                           เอกสารประกอบการลงบัญชี
+                        </label>
+                     </div>
+                     <div class="three wide field checkbox-center">
+                        <div class="ui checkbox">
+                           <input type="radio" formControlName="monthlyAccDoc" value="Y" checked="checked">
+                           <label></label>
+                        </div>
+                     </div>
+                     <div class="three wide field checkbox-center">
+                        <div class="ui checkbox">
+                           <input type="radio" formControlName="monthlyAccDoc" value="N" checked="checked">
+                           <label></label>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- line 8 -->
+                  <div class="fields">
+                     <div class="one wide field"></div>
+                     <div class="fourteen wide field" [ngClass]="{'error': validateField('monthlyAuditRemark')}">
+                        <label>ผลการตรวจสอบ</label>
+                        <textarea rows="3" formControlName="monthlyAuditRemark"></textarea>
+                     </div>
+                  </div>
+                  <!-- line 9 -->
+                  <div class="inline fields">
+                     <div class="one wide field"></div>
+                     <div class="nine wide field">
+                        <label class="full-width">
+                           งบเดือนแสดงรายการรับ-จ่ายน้ำมันหล่อลื่นฯ ( สค.๐๔ก )
+                        </label>
+                     </div>
+                     <div class="three wide field checkbox-center">
+                        <div class="ui checkbox">
+                           <input type="radio" formControlName="monthlyAcc04" value="Y" checked="checked">
+                           <label></label>
+                        </div>
+                     </div>
+                     <div class="three wide field checkbox-center">
+                        <div class="ui checkbox" >
+                           <input type="radio" formControlName="monthlyAcc04" value="N" checked="checked">
+                           <label></label>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- line 10 -->
+                  <div class="inline fields">
+                     <div class="one wide field"></div>
+                     <div class="nine wide field">
+                        <label class="full-width">
+                           เอกสารประกอบการลงบัญชี
+                        </label>
+                     </div>
+                     <div class="three wide field checkbox-center">
+                        <div class="ui checkbox">
+                           <input type="radio" formControlName="monthlyAccDoc04" value="Y" checked="checked">
+                           <label></label>
+                        </div>
+                     </div>
+                     <div class="three wide field checkbox-center">
+                        <div class="ui checkbox">
+                           <input type="radio" formControlName="monthlyAccDoc04" value="N" checked="checked">
+                           <label></label>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- line 11 -->
+                  <div class="fields">
+                     <div class="one wide field"></div>
+                     <div class="fourteen wide field" [ngClass]="{'error': validateField('monthlyAuditRemark04')}">
+                        <label>ผลการตรวจสอบ</label>
+                        <textarea rows="3" formControlName="monthlyAuditRemark04"></textarea>
+                     </div>
+                  </div>
+                  <div class="ui divider"></div>
+                  <!-- line 12 -->
+                  <div class="inline field text-center">
+                     <app-button-save (click)="save()"></app-button-save>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </segment>
+
+   </div>
+</div>

@@ -1,0 +1,25 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+
+      <segment header="รายชื่อผู้รับอนุญาต" [loading]="false">
+        <table id="dataTable1" class="ui small celled table striped nowrap selectable" style="width: 100%;">
+          <thead>
+            <tr style="text-align: center">
+              <th style="text-align: center !important;"><input class="ui checkbox" type="checkbox" name="select-all1"
+                  id="select-all1" (click)="checkAll1($event)"></th>
+              <th style="text-align: center !important">ภาค</th>
+              <th style="text-align: center !important">พื้นที่</th>
+              <th style="text-align: center !important">ชื่อผู้ประกอบการ</th>
+              <th style="text-align: center !important"></th>
+            </tr>
+          </thead>
+        </table>
+        <div class="one column text-center">
+          <app-button-back (click)="goBack()"></app-button-back>
+        </div>
+      </segment>
+
+    </div>
+  </div>
+</with-breadcrumb>

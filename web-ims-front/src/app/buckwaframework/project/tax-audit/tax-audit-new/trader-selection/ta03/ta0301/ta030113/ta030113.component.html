@@ -1,0 +1,319 @@
+<segment header="บันทึกผลการตรวจการเสียภาษีสรรพสามิต (ตส. ๐๑-๑๓)" [loading]="loading" [right]="true">
+  <div headRight>
+    {{formGroup.get('formTsNumber').value}}
+  </div>
+
+  <form form [formGroup]="formGroup">
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ที่ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" id="docPlace" formControlName="docPlace" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">วันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDocDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="docDate" placeholder="วว ดดดด ปปปป" id="docDate" name="docDate"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">เวลา :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDocTime">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="docTime" placeholder="เวลา" id="docTime" name="docTime"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label>น.</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ข้าพเจ้า :</label>
+      </div>
+      <div field [col]="6">
+        <div class="ui action input">
+          <input type="text" id="headOfficerFullName" formControlName="headOfficerFullName" maxlength="100">
+          <button class="ui button" (click)="searchModalOpen(1)">ค้นหา</button>
+        </div>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ตำแหน่ง :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" id="headOfficerPosition" formControlName="headOfficerPosition" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">พร้อมคณะตามหนังสือ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" id="refBookNumber1" formControlName="refBookNumber1" maxlength="10">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ลงวันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarRefBookDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="refBookDate" placeholder="วว ดดดด ปปปป" id="refBookDate"
+              name="refBookDate" [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ทะเบียนสรรพสามิตเลขที่ :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" name="newRegId" formControlName="newRegId" maxlength="17">
+      </div>
+      <div field [col]="1">
+        <app-button-custom [icon]="'search'" (click)="searchNewRegId()"></app-button-custom>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ชื่อโรงอุตสาหกรรม/<br>สถานบริการ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" name="factoryName" formControlName="factoryName" maxlength="200">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ได้มาตรวจ ณ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" name="factoryType" formControlName="factoryType" value="1">
+          <label>โรงอุตสาหกรรม</label>
+        </div>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" name="factoryType" formControlName="factoryType" value="2">
+          <label>สถานบริการ</label>
+        </div>
+      </div>
+      <div field [col]="3">
+        <div class="ui radio checkbox">
+          <input type="radio" name="factoryType" formControlName="factoryType" value="3">
+          <label>สถานประกอบการผู้นำเข้า</label>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ในวันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarAuditDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="auditDate" placeholder="วว ดดดด ปปปป" id="auditDate"
+              name="auditDate" [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ตั้งอยู่เลขที่ :</label>
+      </div>
+      <div field [col]="2">
+        <input type="text" name="facAddrNo" formControlName="facAddrNo" maxlength="35">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ซอย :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" name="facSoiName" formControlName="facSoiName" maxlength="50">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ถนน :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" name="facThnName" formControlName="facThnName" maxlength="50">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ตำบล/<br>แขวง :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facTambolSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facTambolName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" name="facTambolName" formControlName="facTambolName"> -->
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">อำเภอ/เขต :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facAmphurSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facAmphurName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" name="facAmphurName" formControlName="facAmphurName"> -->
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">จังหวัด :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facProvinceSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facProvinceName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" name="facProvinceName" formControlName="facProvinceName"> -->
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">รหัสไปรษณีย์ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" name="facZipCode" formControlName="facZipCode" maxlength="5">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ชื่อผู้รับการตรวจ :</label>
+      </div>
+      <div field [col]="6">
+        <div class="ui action input">
+          <input type="text" name="ownerFullName" formControlName="ownerFullName" maxlength="100">
+          <button class="ui button" (click)="searchModalOpen(2)">ค้นหา</button>
+        </div>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ตำแหน่ง :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" name="ownerPosition" formControlName="ownerPosition" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <p>ในการเข้าตรวจครั้งนี้ ข้าพเจ้าผู้รับการตรวจขอยืนยันว่า ผู้เข้าทำการตรวจข้างต้นทุกคนได้
+          กระทำการโดยสุภาพเรียบร้อย และไม่ได้ปฏิบัติหน้าที่ให้เป็นการขัดขวางการปฏิบัติงาน
+          หรือการดำเนินกิจการค้าของข้าพเจ้า</p>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-left full-width">ทั้งมิได้กระทำให้ทรัพย์สินหรือเอกสารของ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" name="factoryName2" formControlName="factoryName2" maxlength="100">
+      </div>
+      <div field [col]="3">
+        <label class="text-left full-width">ชำรุด สูญหายหรือเสียหายแต่อย่างใด</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="9">
+        <p>และข้าพเจ้าขอรับรองว่าข้อความข้างต้นถูกต้องกับข้อเท็จจริง
+          ทุกประการ จึงได้ลงลายมือชื่อไว้เป็นสำคัญ</p>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ตรวจเสร็จเวลา :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarAuditFinishTime">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="auditFinishTime" placeholder="เวลา" id="auditFinishTime"
+              name="auditFinishTime" [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label>น.</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ผู้รับการตรวจ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" name="signOwnerFullName" formControlName="signOwnerFullName" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">พยาน :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" name="signWitnessFullName1" formControlName="signWitnessFullName1" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">พนักงานเจ้าหน้าที่ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" name="signOfficerFullName" formControlName="signOfficerFullName" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">พยาน :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" name="signWitnessFullName2" formControlName="signWitnessFullName2" maxlength="100">
+      </div>
+    </div>
+    <br>
+    <br>
+    <app-button-footer-report (save)="save($event)" (clear)="clear($event)" (export)="export($event)">
+    </app-button-footer-report>
+  </form>
+</segment>
+
+<ui-modal [id]="'searchModal'" type="custom" size="large">
+  <div class="ui header">
+    ค้นหารายชื่อ
+  </div>
+  <br>
+  <!-- <form form [formGroup]="formSearchModal">
+              </form> -->
+
+  <div grid>
+    <div [column]="16">
+      <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableModal">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">ลำดับ</th>
+            <th class="text-center">ชื่อ-นามสกุล</th>
+            <th class="text-center">ตำแหน่ง</th>
+          </tr>
+        </thead>
+      </table>
+      <br>
+    </div>
+  </div>
+
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

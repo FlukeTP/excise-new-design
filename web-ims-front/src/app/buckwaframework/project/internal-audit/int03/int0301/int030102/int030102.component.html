@@ -1,0 +1,744 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="กำหนดปัจจัยเสี่ยง" [loading]="false">
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <form [formGroup]="searchForm">
+          <div class="ui form">
+            <div class="inline fields">
+              <div class="four wide field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="frequency" checked="checked" (change)="ckeckRadio(false)">
+                  <label>กำหนดเอง</label>
+                </div>
+                <div class="ui radio checkbox">
+                  <input type="radio" name="frequency" (change)="ckeckRadio(true)">
+                  <label>เลือกใช้ข้อมูลปีก่อนหน้า</label>
+                </div>
+              </div>
+              <div class="four wide field">
+              </div>
+              <div class="four wide field">
+              </div>
+            </div>
+          </div>
+          <div class="ui form">
+            <input type="hidden" id="riskFactorsLevelBefore" name="riskFactorsLevelBefore">
+            <input type="hidden" id="budgetYearBefore" name="budgetYearBefore">
+            <div class="inline fields">
+              <div class="two wide field">
+                <label class="text-right full-width">งานตรวจสอบ</label>
+              </div>
+              <div class="six wide field">
+                <select class="ui dropdown ia search selection" style="width: 100%;" id="inspectionWork"
+                  (change)="changeSearch(false)">
+                  <option *ngFor="let data of inspectionWorkList" value="{{data.paramInfoId}}">{{data.value1}}</option>
+                </select>
+              </div>
+              <div class="three wide field">
+                <label class="text-right full-width">กำหนดระดับเกณฑ์ความเสี่ยง</label>
+              </div>
+              <div class="two wide field">
+                <select class="ui dropdown ai" id="riskFactorsLevel" name="riskFactorsLevel"
+                  (change)="saveRiskFactorsLevel()">
+                  <option *ngFor="let data of riskFactorsLevelList" value="{{data.value1}}">{{data.value1}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="ui form">
+            <div class="inline fields">
+              <div class="two wide field">
+                <label class="text-right full-width">ปีงบประมาณ</label>
+              </div>
+              <div class="two wide field" [ngClass]="{ 'error': validateField('budgetYear') }">
+                <div class="ui calendar" id="budgetYear2" style="width:100%">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" autocomplete="off" id="budgetYearInput" name="budgetYearInput"
+                      placeholder="ปปปป">
+                  </div>
+                </div>
+              </div>
+              <div class="six wide field" *ngIf="!ckeck"></div>
+              <div class="two wide field" *ngIf="ckeck">
+                <label class="text-right full-width">เลือกใช้ข้อมูลปี</label>
+              </div>
+              <div class="four wide field" *ngIf="ckeck">
+                <select class="ui dropdown ai" id="budgetYear" name="budgetYear" (change)="updateStatus()">
+                  <option *ngFor="let data of budgetYearList" value="{{data.budgetYear}}">{{data.budgetYear}}</option>
+                </select>
+              </div>
+              <div class="six wide field text-right-button">
+                <app-button-custom class="float righted" color="green" icon="add icon" text="เพิ่มปัจจัยเสียง"
+                  (click)="loacationAdd()">
+                </app-button-custom>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="ui form">
+      <table id="dataTable" class="ui small celled table striped selectable" style="width: 100%;">
+        <thead>
+          <tr class="text-center">
+            <th>ลำดับที่</th>
+            <th>ปัจจัยเสี่ยง</th>
+            <th>ปีงบประมาณ</th>
+            <th>ผู้สร้าง</th>
+            <th>วันที่สร้าง</th>
+            <th>สถานะการใช้งาน</th>
+            <th style="width: 300px;">จัดการ</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <br>
+        <app-button-custom color="primary" icon="save icon" text="กำหนดเงื่อนไขความเสี่ยงรวม" (click)="loacationBack()">
+        </app-button-custom>
+        <!-- <app-button-save (click)="viewDetail()"></app-button-save> -->
+        <!-- <app-button-back (click)="loacationBack()"></app-button-back> -->
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>
+
+<!-- modal -->
+<ui-modal [id]="'detail'" [type]="'custom'" [size]="'fullscreen'">
+  <div class="ui header">
+    กำหนดเกณฑ์ความเสี่ยง {{dataselect?.iaRiskFactorsMaster.riskFactorsMaster}}
+  </div>
+  <div class="content">
+    <form ngNativeValidate [formGroup]="formConfigMasterThree" (submit)="saveCondition($event)">
+      <div class="ui form">
+        <div inline>
+          <div field [col]="1"></div>
+          <label class="text-left full-width">ข้อมูลที่ใช้ประเมินความเสี่ยง :
+            {{dataselect?.iaRiskFactorsConfig.infoUsedRiskDesc}}</label>
+        </div>
+        <div inline>
+          <div field [col]="1"></div>
+          <label class="text-left full-width">ตัวชี้วัดความเสี่ยง :
+            {{dataselect?.iaRiskFactorsConfig.riskIndicators}}</label>
+        </div>
+        <div *ngIf="qtnEdit" inline>
+          <div field [col]="1"></div>
+          <div field [col]="2">
+            <label class="full-width text-left">
+              ปีงบประมาณ
+            </label>
+          </div>
+          <div field [col]="2">
+            <select name="qtnYear" [(ngModel)]="qtnYear" [disabled]="years.length == 0" (change)="selectYear()"
+              class="ui fluid dropdown ai">
+              <option value="">ปปปป</option>
+              <option *ngFor="let year of years; let i = index" [value]="year.year">{{year.year}}</option>
+            </select>
+          </div>
+          <div field [col]="3">
+            <select name="qtnName" [(ngModel)]="qtnName" [disabled]="years.length == 0" class="ui fluid dropdown ai">
+              <option value="">แบบสอบถาม</option>
+              <option *ngFor="let name of names; let i = index" [value]="name.id">{{name.name}}</option>
+            </select>
+          </div>
+          <div field [col]="4">
+            <label style="color: red" *ngIf="years.length == 0">ไม่พบข้อมูลแบบสอบถามเดิม</label>
+          </div>
+        </div>
+        <div [ngClass]="{'hidden': qtnEdit}" inline>
+          <div field [col]="1"></div>
+          <div field [col]="2"><label class="">กำหนดช่วงเวลา</label></div>
+          <div field [col]="3">
+            <div class="ui calendar" id="dateCalendarFrom" style="width:100%" [ngClass]="{'disabled': dataEvaluate }">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" autocomplete="off" id="startDate" name="budgetYearstart" placeholder="วัน/เดือน/ปี"
+                  readonly [disabled]="dataEvaluate">
+              </div>
+            </div>
+          </div>
+          <div field [col]="1"><label class="text-center full-width">ถึง</label></div>
+          <div field [col]="3">
+            <div class="ui calendar" id="dateCalendarTo" style="width:100%" [ngClass]="{'disabled': dataEvaluate }">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" autocomplete="off" id="endDate" name="budgetYearend" placeholder="วัน/เดือน/ปี"
+                  readonly [disabled]="dataEvaluate">
+              </div>
+            </div>
+          </div>
+          <div field [col]="7" class="text-right-button">
+            <div *ngIf="dataEvaluate">
+              <app-button-custom color="yellow" icon="upload icon" text="อัพโหลดข้อมูลใหม่" (click)="newUpload()"
+                routerLinkActive="router-link-active"></app-button-custom>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <table id="dataTable" class="ui small celled table selectable">
+          <thead>
+            <tr>
+              <th style="text-align: center !important">ที่</th>
+              <th style="text-align: center !important">เงื่อนไข</th>
+              <th style="text-align: center !important">
+                {{ qtnEdit ? 'ไม่มี/ไม่ใช่ (%)' : 'ค่าเริ่มต้น ('+dataselect?.iaRiskFactorsConfig.riskUnit+')' }}
+              </th>
+              <th style="text-align: center !important">เงื่อนไข</th>
+              <th style="text-align: center !important">
+                {{ qtnEdit ? 'ไม่มี/ไม่ใช่ (%)' : 'ค่าสิ้นสุด ('+dataselect?.iaRiskFactorsConfig.riskUnit+')' }}</th>
+              <th style="text-align: center !important">อัตราความเสี่ยง</th>
+              <th style="text-align: center !important ;">แปลค่าความเสี่ยง</th>
+              <th style="text-align: center !important ;">สี</th>
+            </tr>
+          </thead>
+          <!-- เริ่ม config ของ factorlevel = 3 -->
+          <tbody>
+            <tr>
+              <td class="aligned center">1</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="lowCondition" name="lowCondition" formControlName="lowCondition"
+                  (change)="changeCondution( $event.target.value , 'lowCondition' , 'lowEnd')">
+                  <option *ngFor="let listrange of conditionNon" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="lowStart" id="lowStart" formControlName="lowStart" required>
+                </div>
+              </td>
+              <td class="aligned center ">
+                <select class="ui dropdown ai lowConditionTo" id="lowConditionTo" name="lowConditionTo"
+                  formControlName="lowConditionTo" required>
+                  <option *ngFor="let listrange of conditionRange" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="lowEnd" id="lowEnd" formControlName="lowEnd" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="lowRating" min="0" max="5" id="lowRating" formControlName="lowRating"
+                    required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="low" id="low" formControlName="low" required disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="lowColor" id="lowColor" formControlName="lowColor" required>
+                  <option value="แดง">แดง</option>
+                  <option value="ส้ม">ส้ม</option>
+                  <option value="เหลือง">เหลือง</option>
+                  <option value="เขียว">เขียว</option>
+                  <option value="เขียวเข้ม">เขียวเข้ม</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="aligned center">2</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="mediumCondition" name="mediumCondition"
+                  formControlName="mediumCondition"
+                  (change)="changeCondution($event.target.value , 'mediumCondition' , 'mediumEnd')">
+                  <option *ngFor="let listrange of conditionNon" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="mediumStart" id="mediumStart" formControlName="mediumStart" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai mediumConditionTo" id="mediumConditionTo" name="mediumConditionTo"
+                  formControlName="mediumConditionTo" required>
+                  <option *ngFor="let listrange of conditionRange" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="mediumEnd" id="mediumEnd" formControlName="mediumEnd" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="mediumRating" min="0" max="5" id="mediumRating"
+                    formControlName="mediumRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="medium" id="medium" formControlName="medium" required disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="mediumColor" id="mediumColor" formControlName="mediumColor"
+                  required>
+                  <option value="แดง">แดง</option>
+                  <option value="ส้ม">ส้ม</option>
+                  <option value="เหลือง">เหลือง</option>
+                  <option value="เขียว">เขียว</option>
+                  <option value="เขียวเข้ม">เขียวเข้ม</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="aligned center">3</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="highCondition" name="highCondition" formControlName="highCondition"
+                  (change)="changeCondution($event.target.value , 'highCondition' , 'highEnd' )">
+                  <option *ngFor="let listrange of conditionNon" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="highStart" id="highStart" formControlName="highStart" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai highConditionTo" id="highConditionTo" name="highConditionTo"
+                  formControlName="highConditionTo" required>
+                  <option *ngFor="let listrange of conditionRange" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="highEnd" id="highEnd" formControlName="highEnd" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="highRating" min="0" max="5" id="highRating" formControlName="highRating"
+                    required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="high" id="high" formControlName="high" required disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="highColor" id="highColor" formControlName="highColor" required>
+                  <option value="แดง">แดง</option>
+                  <option value="ส้ม">ส้ม</option>
+                  <option value="เหลือง">เหลือง</option>
+                  <option value="เขียว">เขียว</option>
+                  <option value="เขียวเข้ม">เขียวเข้ม</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+          <!-- จบ config ของ factorlevel = 3 -->
+        </table>
+      </div>
+    </form>
+  </div>
+  <div class="actions ">
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-save (click)="saveCondition($event)"></app-button-save>
+        <app-button-cancel (click)="cancel()" class="positive"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>
+
+
+<!-- modal -->
+<ui-modal [id]="'detail2'" [type]="'custom'" [size]="'fullscreen'">
+  <div class="ui header">
+    กำหนดเกณฑ์ความเสี่ยง {{dataselect?.iaRiskFactorsMaster.riskFactorsMaster}}
+  </div>
+  <div class="content">
+    <form ngNativeValidate [formGroup]="formConfigMasterFive" (submit)="saveCondition($event)">
+      <div class="ui form">
+        <div inline>
+          <div field [col]="1"></div>
+          <label class="text-left full-width">ข้อมูลที่ใช้ประเมินความเสี่ยง :
+            {{dataselect?.iaRiskFactorsConfig.infoUsedRiskDesc}}</label>
+        </div>
+        <div inline>
+          <div field [col]="1"></div>
+          <label class="text-left full-width">ตัวชี้วัดความเสี่ยง :
+            {{dataselect?.iaRiskFactorsConfig.riskIndicators}}</label>
+        </div>
+        <div *ngIf="qtnEdit" inline>
+          <div field [col]="1"></div>
+          <div field [col]="2">
+            <label class="full-width text-left">
+              ปีงบประมาณ
+            </label>
+          </div>
+          <div field [col]="2">
+            <select name="qtnYear" [(ngModel)]="qtnYear" [disabled]="years.length == 0" (change)="selectYear()"
+              class="ui fluid dropdown ai">
+              <option value="">ปปปป</option>
+              <option *ngFor="let year of years; let i = index" [value]="year.year">{{year.year}}</option>
+            </select>
+          </div>
+          <div field [col]="3">
+            <select name="qtnName" [(ngModel)]="qtnName" [disabled]="years.length == 0" class="ui fluid dropdown ai">
+              <option value="">แบบสอบถาม</option>
+              <option *ngFor="let name of names; let i = index" [value]="name.id">{{name.name}}</option>
+            </select>
+          </div>
+          <div field [col]="4">
+            <label style="color: red" *ngIf="years.length == 0">ไม่พบข้อมูลแบบสอบถามเดิม</label>
+          </div>
+        </div>
+        <div [ngClass]="{'hidden': qtnEdit}" inline>
+          <div field [col]="1"></div>
+          <div field [col]="2"><label class="">กำหนดช่วงเวลา</label></div>
+          <div field [col]="3">
+            <div class="ui calendar" id="dateCalendarFrom" style="width:100%" [ngClass]="{'disabled': dataEvaluate }">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" autocomplete="off" id="startDate" name="budgetYearstart" placeholder="วัน/เดือน/ปี"
+                  readonly [disabled]="dataEvaluate">
+              </div>
+            </div>
+          </div>
+          <div field [col]="1"><label class="text-center full-width">ถึง</label></div>
+          <div field [col]="3">
+            <div class="ui calendar" id="dateCalendarTo" style="width:100%" [ngClass]="{'disabled': dataEvaluate }">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" autocomplete="off" id="endDate" name="budgetYearend" placeholder="วัน/เดือน/ปี"
+                  readonly [disabled]="dataEvaluate">
+              </div>
+            </div>
+          </div>
+          <div field [col]="7" class="text-right-button">
+            <div *ngIf="dataEvaluate">
+              <app-button-custom color="yellow" icon="upload icon" text="อัพโหลดข้อมูลใหม่" (click)="newUpload()"
+                routerLinkActive="router-link-active"></app-button-custom>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <table id="dataTable" class="ui small celled table selectable">
+          <thead>
+            <tr>
+              <th style="text-align: center !important">ที่</th>
+              <th style="text-align: center !important">เงื่อนไข</th>
+              <th style="text-align: center !important">
+                {{ qtnEdit ? 'ไม่มี/ไม่ใช่ (%)' : 'ค่าเริ่มต้น ('+dataselect?.iaRiskFactorsConfig.riskUnit+')' }}
+              </th>
+              <th style="text-align: center !important">เงื่อนไข</th>
+              <th style="text-align: center !important">
+                {{ qtnEdit ? 'ไม่มี/ไม่ใช่ (%)' : 'ค่าสิ้นสุด ('+dataselect?.iaRiskFactorsConfig.riskUnit+')' }}</th>
+              <th style="text-align: center !important">อัตราความเสี่ยง</th>
+              <th style="text-align: center !important ;">แปลค่าความเสี่ยง</th>
+              <th style="text-align: center !important ;">สี</th>
+            </tr>
+          </thead>
+          <!-- เริ่ม config ของ factorlevel = 5 -->
+          <tbody>
+            <tr>
+              <td class="aligned center">1</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="verylowCondition" name="verylowCondition"
+                  formControlName="verylowCondition"
+                  (change)="changeCondution($event.target.value ,'verylowCondition','verylowEnd' )">
+                  <option *ngFor="let listrange of conditionNon" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="verylowStart" id="verylowStart" formControlName="verylowStart" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="verylowConditionTo" name="verylowConditionTo"
+                  formControlName="verylowConditionTo" required>
+                  <option *ngFor="let listrange of conditionRange" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="verylowEnd" id="verylowEnd" formControlName="verylowEnd" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="verylowRating" min="0" max="5" id="verylowRating"
+                    formControlName="verylowRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="verylow" id="verylow" formControlName="verylow" required
+                  disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="verylowColor" id="verylowColor" formControlName="verylowColor"
+                  required>
+                  <option value="แดง">แดง</option>
+                  <option value="ส้ม">ส้ม</option>
+                  <option value="เหลือง">เหลือง</option>
+                  <option value="เขียว">เขียว</option>
+                  <option value="เขียวเข้ม">เขียวเข้ม</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="aligned center">2</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="lowCondition" name="lowCondition" formControlName="lowCondition"
+                  (change)="changeCondution($event.target.value , 'lowCondition' , 'lowEnd' )">
+                  <option *ngFor="let listrange of conditionNon" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="lowStart" id="lowStart" formControlName="lowStart" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="lowConditionTo" name="lowConditionTo"
+                  formControlName="lowConditionTo" required>
+                  <option *ngFor="let listrange of conditionRange" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="lowEnd" id="lowEnd" formControlName="lowEnd" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="lowRating" min="0" max="5" id="lowRating" formControlName="lowRating"
+                    required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="low" id="low" formControlName="low" required disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="lowColor" id="lowColor" formControlName="lowColor" required>
+                  <option value="แดง">แดง</option>
+                  <option value="ส้ม">ส้ม</option>
+                  <option value="เหลือง">เหลือง</option>
+                  <option value="เขียว">เขียว</option>
+                  <option value="เขียวเข้ม">เขียวเข้ม</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="aligned center">3</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="mediumCondition" name="mediumCondition"
+                  formControlName="mediumCondition"
+                  (change)="changeCondution($event.target.value , 'mediumCondition' , 'mediumEnd' )">
+                  <option *ngFor="let listrange of conditionNon" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="mediumStart" id="mediumStart" formControlName="mediumStart" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="mediumConditionTo" name="mediumConditionTo"
+                  formControlName="mediumConditionTo" required>
+                  <option *ngFor="let listrange of conditionRange" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="mediumEnd" id="mediumEnd" formControlName="mediumEnd" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="mediumRating" min="0" max="5" id="mediumRating"
+                    formControlName="mediumRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="medium" id="medium" formControlName="medium" required disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="mediumColor" id="mediumColor" formControlName="mediumColor"
+                  required>
+                  <option value="แดง">แดง</option>
+                  <option value="ส้ม">ส้ม</option>
+                  <option value="เหลือง">เหลือง</option>
+                  <option value="เขียว">เขียว</option>
+                  <option value="เขียวเข้ม">เขียวเข้ม</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="aligned center">4</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="highCondition" name="highCondition" formControlName="highCondition"
+                  (change)="changeCondution($event.target.value , 'highCondition' , 'highEnd' )">
+                  <option *ngFor="let listrange of conditionNon" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="highStart" id="highStart" formControlName="highStart" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="highConditionTo" name="highConditionTo"
+                  formControlName="highConditionTo" required>
+                  <option *ngFor="let listrange of conditionRange" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="highEnd" id="highEnd" formControlName="highEnd" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="highRating" min="0" max="5" id="highRating" formControlName="highRating"
+                    required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="high" id="high" formControlName="high" required disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="highColor" id="highColor" formControlName="highColor" required>
+                  <option value="แดง">แดง</option>
+                  <option value="ส้ม">ส้ม</option>
+                  <option value="เหลือง">เหลือง</option>
+                  <option value="เขียว">เขียว</option>
+                  <option value="เขียวเข้ม">เขียวเข้ม</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="aligned center">5</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="veryhighCondition" name="veryhighCondition"
+                  formControlName="veryhighCondition"
+                  (change)="changeCondution($event.target.value , 'veryhighCondition' , 'veryhighEnd' )">
+                  <option *ngFor="let listrange of conditionNon" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="veryhighStart" id="veryhighStart" formControlName="veryhighStart" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="veryhighConditionTo" name="veryhighConditionTo"
+                  formControlName="veryhighConditionTo" required>
+                  <option *ngFor="let listrange of conditionRange" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="veryhighEnd" id="veryhighEnd" formControlName="veryhighEnd" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="veryhighRating" min="0" max="5" id="veryhighRating"
+                    formControlName="veryhighRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="veryhigh" id="veryhigh" formControlName="veryhigh" required
+                  disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="veryhighColor" id="veryhighColor"
+                  formControlName="veryhighColor" required>
+                  <option value="แดง">แดง</option>
+                  <option value="ส้ม">ส้ม</option>
+                  <option value="เหลือง">เหลือง</option>
+                  <option value="เขียว">เขียว</option>
+                  <option value="เขียวเข้ม">เขียวเข้ม</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+          <!-- จบ config ของ factorlevel = 5 -->
+        </table>
+      </div>
+    </form>
+  </div>
+  <div class="actions ">
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-save (click)="saveCondition($event)"></app-button-save>
+        <app-button-cancel (click)="cancel()" class="positive"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>

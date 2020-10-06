@@ -1,0 +1,356 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="ระบุรายละเอียดค่าใช้จ่ายในการเดินทางไปราชการ" [loading]="false">
+
+    <div class="ui form">
+      <div class="sixteen wide column">
+        <form [formGroup]="formDetail">
+          <!-- row 1 -->
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">ชื่อ</label>
+            </div>
+            <div field [col]="3" [ngClass]="{'error': validateField('name')}">
+              <input formControlName="name" type="text">
+            </div>
+            <div class="two wide field">
+              <label class="text-right full-width">นามสกุล</label>
+            </div>
+            <div field [col]="3" [ngClass]="{'error': validateField('lastName')}">
+              <input formControlName="lastName" type="text">
+            </div>
+          </div>
+
+          <!-- row 2 -->
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">ตำแหน่ง</label>
+            </div>
+            <div field [col]="3">
+              <input formControlName="position" type="text">
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">ประเภท</label>
+            </div>
+            <div field [col]="3">
+              <select class="ui dropdown" formControlName="type">
+                <option value="">กรุณาเลือก</option>
+                <option value="1">1</option>
+                <!-- <option *ngFor="let data of typeList" value="{{data.lovId}}">{{data.typeDescription}}</option> -->
+              </select>
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">ระดับ</label>
+            </div>
+            <div field [col]="3">
+              <select class="ui dropdown" formControlName="grade">
+                <option value="">กรุณาเลือก</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <!-- <option *ngFor="let data of gradeList" value="{{data.lovId}}">{{data.typeDescription}}</option> -->
+              </select>
+            </div>
+          </div>
+
+          <!-- row 3 -->
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">วันขออนุญาต</label>
+            </div>
+            <div field [col]="3">
+              <div class="ui calendar" id="permissionDateCld">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" formControlName="permissionDate" autocomplete="off" placeholder="วว/ดด/ปปปป">
+                </div>
+              </div>
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">วันเขียนเบิก</label>
+            </div>
+            <div field [col]="3">
+              <div class="ui calendar" id="writeDateCld">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" formControlName="writeDate" autocomplete="off" placeholder="วว/ดด/ปปปป">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- row 4 -->
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">ออกเดินทางจาก</label>
+            </div>
+            <div field [col]="2">
+              <div class="ui radio checkbox">
+                <input type="radio" name="departureFrom" value="1179">
+                <label>
+                  บ้านพัก
+                </label>
+              </div>
+            </div>
+            <div field [col]="2">
+              <div class="ui radio checkbox">
+                <input type="radio" name="departureFrom" value="1180">
+                <label>
+                  สำนักงาน
+                </label>
+              </div>
+            </div>
+            <div field [col]="2">
+              <div class="ui radio checkbox">
+                <input type="radio" name="departureFrom" value="1181">
+                <label>
+                  ประเทศไทย
+                </label>
+              </div>
+            </div>
+            <!-- <div field [col]="2"></div> -->
+            <div field [col]="2">
+              <label class="text-right full-width">ตั่งแต่วันที่ เวลา</label>
+            </div>
+            <div field [col]="3">
+              <div class="ui calendar" id="departureDateCld">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" id="departureDate" autocomplete="off" placeholder="วว/ดด/ปปปป">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- row 5 -->
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">กลับถึง</label>
+            </div>
+            <div field [col]="2">
+              <div class="ui radio checkbox">
+                <input type="radio" name="departureTo" value="1179">
+                <label class="text-right full-width">
+                  บ้านพัก
+                </label>
+              </div>
+            </div>
+            <div field [col]="2">
+              <div class="ui radio checkbox">
+                <input type="radio" name="departureTo" value="1180">
+                <label class="text-right full-width">
+                  สำนักงาน
+                </label>
+              </div>
+            </div>
+            <div field [col]="2">
+              <div class="ui radio checkbox">
+                <input type="radio" name="departureTo" value="1181">
+                <label>
+                  ประเทศไทย
+                </label>
+              </div>
+            </div>
+            <!-- <div field [col]="2"></div> -->
+            <div field [col]="2">
+              <label class="text-right full-width">กลับถึงวันที่ เวลา</label>
+            </div>
+            <div field [col]="3">
+              <div class="ui calendar" id="returnDateCld">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" name="date-raw" id="returnDate" autocomplete="off" placeholder="วว/ดด/ปปปป">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- <div inline>
+              <div field [col]="3">
+                <label>กรณีค่าเบี้ยเลี้ยง</label>
+              </div>
+              <div field [col]="3">
+                <select class="ui dropdown" id="allowance" style="width: 100%" (change)="ngIfallowance($event)">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let data of allowanceList" value="{{data.lovId}}">{{data.typeDescription}}</option>
+                </select>
+              </div>
+              <div field [col]="2" *ngIf=" ifallowance =='1184' && ifallowance !='' ">
+                <label>กรณีฝึกอบรม</label>
+              </div>
+              <div field [col]="3" *ngIf=" ifallowance =='1184' && ifallowance !=''">
+                <select class="ui dropdown" id="training" style="width: 100%">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let data of trainingList" value="{{data.lovId}}">{{data.typeDescription}}</option>
+                </select>
+              </div>
+            </div>
+            <div inline>
+              <div class="three wide field right aligned">
+                <label>กรณีที่พัก</label>
+              </div>
+              <div field [col]="3">
+                <select class="ui dropdown" id="roost" style="width: 100%" (change)="ngIfroost($event)">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let data of roostList" value="{{data.lovId}}">{{data.typeDescription}}</option>
+                </select>
+              </div>
+              <div class="two wide field right aligned" *ngIf=" ifroost =='1188'  && ifroost !='' ">
+                <label>ประเภทการฝึกอบรม</label>
+              </div>
+              <div field [col]="3" *ngIf=" ifroost =='1188'  && ifroost !='' ">
+                <select class="ui dropdown" id="trainingType" style="width: 100%">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let data of trainingTypeList" value="{{data.lovId}}">{{data.typeDescription}}</option>
+                </select>
+              </div>
+              <div class="two wide field right aligned" *ngIf=" ifroost !='1187' && ifroost !='' ">
+                <label>ประเภทห้อง</label>
+              </div>
+              <div field [col]="3" *ngIf=" ifroost !='1187'  && ifroost !='' ">
+                <select class="ui dropdown" id="roomType" style="width: 100%">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let data of roomTypeList" value="{{data.lovId}}">{{data.typeDescription}}</option>
+                </select>
+              </div>
+    
+            </div> -->
+
+          <!-- row 6 -->
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">จำนวนวัน</label>
+            </div>
+            <div field [col]="2">
+              <input formControlName="numberDateAllowance" type="number" [attr.step]="1">
+            </div>
+            <div field [col]="1">
+              <label>วัน</label>
+            </div>
+            <div field [col]="2">
+              <input formControlName="numberHoursAllowance" type="number" [attr.step]="1">
+            </div>
+            <div field [col]="1">
+              <label>ชั่วโมง</label>
+            </div>
+          </div>
+
+          <!-- row 7 -->
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">ค่าเบี้ยเลี้ยง</label>
+            </div>
+            <div field [col]="3">
+              <input formControlName="allowanceR" type="number" [attr.step]="1">
+            </div>
+            <div field [col]="1">
+              <label>บาท</label>
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">ค่าเบี้ยเลี้ยงรวม</label>
+            </div>
+            <div field [col]="3">
+              <input formControlName="allowanceTotal" type="number" [attr.step]="1">
+            </div>
+            <div field [col]="1">
+              <label>บาท</label>
+            </div>
+          </div>
+
+          <!-- row 8 -->
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">จำนวนวันเข้าพัก</label>
+            </div>
+            <div field [col]="2">
+              <input formControlName="numberDateRoost" type="number" [attr.step]="1">
+            </div>
+            <div field [col]="1">
+              <label>วัน</label>
+            </div>
+          </div>
+
+          <!-- row 9 -->
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">ค่าที่พัก</label>
+            </div>
+            <div field [col]="3">
+              <input formControlName="roostR" type="number" [attr.step]="1">
+            </div>
+            <div field [col]="1">
+              <label>บาท</label>
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">ค่าที่พักรวม</label>
+            </div>
+            <div field [col]="3">
+              <input formControlName="roostTotal" type="number" [attr.step]="1">
+            </div>
+            <div field [col]="1">
+              <label>บาท</label>
+            </div>
+          </div>
+
+          <!-- row 10 -->
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">ค่าพาหนะ</label>
+            </div>
+            <div field [col]="3">
+              <input formControlName="passage" type="number" [attr.step]="1">
+            </div>
+            <div field [col]="1">
+              <label>บาท</label>
+            </div>
+
+            <div class="two wide field">
+              <label class="text-right full-width">ค่าใช้จ่ายอื่น</label>
+            </div>
+            <div field [col]="3">
+              <input formControlName="otherExpenses" type="number" [attr.step]="1">
+            </div>
+            <div field [col]="1">
+              <label>บาท</label>
+            </div>
+          </div>
+
+          <!-- row 11 -->
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">ค่าใช้จ่ายรวม</label>
+            </div>
+            <div field [col]="3">
+              <input formControlName="expensesTotal" type="number" [attr.step]="1">
+            </div>
+            <div field [col]="1">
+              <label>บาท</label>
+            </div>
+          </div>
+
+          <!-- row 12 -->
+          <div class="ui grid">
+            <div class="two wide right aligned column">
+              <label>
+                <b>หมายเหตุ</b>
+              </label>
+            </div>
+            <div class="eleven wide column">
+              <div class="ui form " style="width: 100%">
+                <textarea formControlName="remarkT"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="ui center aligned grid">
+            <div class="column">
+              <!-- <app-button-custom color="green" icon="plus" (click)="addDetails()">เพิ่ม</app-button-custom> -->
+              <app-button-save (click)="saveForm($event)"></app-button-save>
+              <app-button-back (click)="routeTo('/int05/01/01/01')"></app-button-back>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </segment>
+</with-breadcrumb>

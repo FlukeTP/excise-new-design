@@ -1,0 +1,94 @@
+<segment [loading]="loading">
+  <form class="ui form grid" [formGroup]="formGroup">
+    <div class="sixteen wide column">
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="text-right full-width">ประเภทการออกตรวจ</label>
+        </div>
+        <div class="four wide field">
+          <select class="ui dropdown ai selection full-width auditType" id="auditType" formControlName="auditType"
+          (change)="onAuditTypeChange()" >
+            <!-- <option value="00">กรุณาเลือก</option> -->
+            <option *ngFor="let data of auditType" value="{{data.paramCode}}">{{data.value1}}</option>
+          </select>
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">วันที่ออกตรวจ</label>
+        </div>
+        <div class="four wide field">
+          <div class="ui calendar" style="width: 100%" id="auditStartDate">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" [attr.required]="true" autocomplete="off"
+                formControlName="auditStartDate">
+            </div>
+          </div>
+          <label class="text-center"> - </label>&nbsp;&nbsp;
+          <div class="ui calendar" style="width: 100%" id="auditEndDate">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" [attr.required]="true" autocomplete="off"
+                formControlName="auditEndDate">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="thirteen wide field">
+          <div class="ui steps full-width">
+            <div class=" link step " [ngClass]="{'active': colorStep[0]}"
+              (click)="goTo('/tax-audit-new/ta02/02/01/03/01',0)">
+              <div class="content">
+                <div class="title st">ก่อนการออกตรวจ</div>
+              </div>
+            </div>
+            <div class=" link step" [ngClass]="{'active': colorStep[1]}"
+              (click)="goTo('/tax-audit-new/ta02/02/01/03/02',1)">
+              <div class="content">
+                <div class="title st">การออกตรวจ</div>
+              </div>
+            </div>
+            <div class="link  step" [ngClass]="{'active': colorStep[2]}"
+              (click)="goTo('/tax-audit-new/ta02/02/01/03/03',2)">
+              <div class="content">
+                <div class="title st">
+                  หลังการออกตรวจ
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+      <!-- <hr>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="two wide field">
+          <h4>สถานะ</h4>
+        </div>
+        <div class="twelve wide field">
+          <div class="four wide field">
+            <i class="small circular inverted yellow sticky note icon" style="font-size: 1em;"></i>
+            <label>รอดำเนินการ</label>
+          </div>
+          <div class="four wide field">
+            <i class="small circular inverted orange edit alternate icon" style="font-size: 1em;"></i>
+            <label>กำลังดำเนินการ</label>
+          </div>
+          <div class="four wide field">
+            <i class="small circular inverted green check icon" style="font-size: 1em;"></i>
+            <label>สำเร็จ</label>
+          </div>
+        </div>
+      </div> -->
+      <div class="inline field btn text-center">
+        <app-button-save (click)="save()"></app-button-save>
+        <app-button-back (click)="goBack()" style="margin-left: 69px;"></app-button-back>
+        <!-- <app-button-custom color="green" icon="download icon" text="ดาวน์โหลดเอกสาร"
+          routerLink="/tax-audit-new/select07/se05"></app-button-custom> -->
+      </div>
+    </div>
+  </form>
+</segment>

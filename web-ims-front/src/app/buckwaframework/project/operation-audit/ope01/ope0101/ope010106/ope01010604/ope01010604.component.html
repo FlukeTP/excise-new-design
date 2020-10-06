@@ -1,0 +1,241 @@
+<segment header="การเปรียบเทียบจำนวนคงเหลือตามบัญชีกับจำนวนการตรวจวัดสารละลายประเภทไฮโดรคาร์บอน" [loading]="loading">
+   <form [formGroup]="formCompare">
+      <table class="ui celled table striped selectable ">
+         <thead>
+            <tr style="text-align: center">
+               <th width="10%">ลำดับที่</th>
+               <th width="20%">ชื่อสารละลาย </th>
+               <th width="15%">ยอดคงเหลือตามบัญชี ณ <br> วันที่ {{currentDate}} เวลา {{currentTime}} น. </th>
+               <th width="15%">ยอดที่ตรวจวัดได้ ณ <br> วันที่{{currentDate}} เวลา {{currentTime}} น. </th>
+               <th width="10%">เกิน (ขาด) </th>
+               <th width="20%">หมายเหตุ </th>
+               <th width="10%"></th>
+            </tr>
+         </thead>
+         <tbody formArrayName="lubCompireFormArr">
+            <ng-container *ngIf="formCompare.get('lubCompireFormArr')">
+               <tr [formGroupName]="i"
+                  *ngFor="let bean of formCompare.get('lubCompireFormArr').controls; let i = index">
+                  <td style="text-align: center">
+                     {{i+1}}
+                  </td>
+                  <td>
+                     <div class="ui input fluid" [ngClass]="{'error': invalidChildren('name', i)}">
+                        <input type="text" placeholder="กรุณากรอก" formControlName="name">
+                     </div>
+                  </td>
+                  <td>
+                     <div class="ui input fluid" [ngClass]="{'error': invalidChildren('compire1', i)}">
+                        <input type="text" numberOnly placeholder="กรุณากรอก" formControlName="compire1">
+                     </div>
+                  </td>
+                  <td>
+                     <div class="ui input fluid" [ngClass]="{'error': invalidChildren('compire2', i)}">
+                        <input type="text" numberOnly placeholder="กรุณากรอก" formControlName="compire2">
+                     </div>
+                  </td>
+                  <td>
+                     <div class="ui input fluid" [ngClass]="{'error': invalidChildren('overRate', i)}">
+                        <input type="text" numberOnly placeholder="กรุณากรอก" formControlName="overRate">
+                     </div>
+                  </td>
+                  <td>
+                     <div class="ui input fluid" [ngClass]="{'error': invalidChildren('remark', i)}">
+                        <input type="text" placeholder="กรุณากรอก" formControlName="remark">
+                     </div>
+                  </td>
+                  <td style="text-align: center">
+                     <app-button-delete (click)="onDelField(i)"></app-button-delete>
+                  </td>
+               </tr>
+            </ng-container>
+         </tbody>
+
+         <tfoot>
+            <tr>
+               <td style="border-top : 1px solid #CACBCD">รวม</td>
+               <td style="border-top : 1px solid #CACBCD"></td>
+               <td style="border-top : 1px solid #CACBCD"></td>
+               <td style="border-top : 1px solid #CACBCD"></td>
+               <td style="border-top : 1px solid #CACBCD"></td>
+               <td style="border-top : 1px solid #CACBCD"></td>
+               <td style="border-top : 1px solid #CACBCD;text-align: center">
+                  <app-button-add (click)="onAddField()"></app-button-add>
+               </td>
+            </tr>
+         </tfoot>
+      </table>
+      <br>
+      <div class="ui grid">
+         <div class="sixteen wide column">
+            <div class="ui form">
+               <div class="inline fields">
+                  <div class="two wide field">
+                  </div>
+
+                  <div class="one wide field">
+                     <label class="text-right full-width">ตั้งแต่เดือน</label>
+                  </div>
+
+                  <div class="two wide field">
+                     <div class="ui calendar" id="startCld" style="width:100%">
+                        <div class="ui input left icon">
+                           <i class="calendar alter nate outline icon"></i>
+                           <input type="text" placeholder="เดือน" readonly>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="one wide field">
+                     <label class="text-center full-width">ถึง</label>
+                  </div>
+
+                  <div class="two wide field">
+                     <div class="ui calendar" id="endCld" style="width:100%">
+                        <div class="ui input left icon">
+                           <i class="calendar alter nate outline icon"></i>
+                           <input type="text" placeholder="เดือน" readonly>
+                        </div>
+                     </div>
+                  </div>
+
+
+                  <div class="two wide field">
+                     <label class="text-right full-width">ในรอบ</label>
+                  </div>
+
+                  <div class="one wide field">
+                     <!-- <input type="text"> -->
+                     <label class="text-center full-width">{{diffMonth | number:'1.0-1'}}</label>
+                  </div>
+
+                  <div class="one wide field">
+                     <label class="text-left full-width">เดือน</label>
+                  </div>
+
+
+               </div>
+               <br>
+               <div class="inline fields">
+                  <div class="sixteen wide field">
+                     <table class="ui celled table striped selectable" width="100%">
+                        <thead>
+                           <tr class="text-center">
+                              <th rowspan="2">ชนิดสารละลาย</th>
+                              <th colspan="4" *ngFor="let item of monthArray">เดือน {{item}}</th>
+                              <th rowspan="2">จัดการ</th>
+                           </tr>
+                           <tr class="text-center">
+                              <ng-container *ngFor="let item of monthArray">
+                                 <th *ngFor="let item of  ['ยอดยกมา','รับ','จ่าย','คงเหลือ']">
+                                    {{item}}
+                                 </th>
+                              </ng-container>
+
+                           </tr>
+                        </thead>
+                        <tbody formArrayName="formSummaryArray">
+                           <tr [formGroupName]="i"
+                              *ngFor="let item of formCompare.get('formSummaryArray')['controls']; let i = index">
+                              <td style="border: 1px solid#cacbcd">
+                                 <div class="ui input fluid"
+                                    [ngClass]="{'error': invalidChildrenSummaryheader('name', i)}">
+                                    <input type="text" placeholder="กรุณากรอก" formControlName="name">
+                                 </div>
+
+                              </td>
+                              <ng-container formArrayName="fromSummaryMonthArr">
+                                 <ng-container [formGroupName]="month"
+                                    *ngFor="let monthControl of item.get('fromSummaryMonthArr')['controls'];let month = index">
+                                    <!-- <td style="border: 1px solid#cacbcd" *ngFor="let j of [0,1,2,3]">
+                                      <input type="text" numberOnly placeholder="กรุณากรอก">
+                                   </td> -->
+                                    <td style="border: 1px solid#cacbcd">
+
+                                       <div class="ui input fluid"
+                                          [ngClass]="{'error': invalidChildrenSummary('stockLatsMonth', i,month)}">
+                                          <input type="text" numberOnly placeholder="กรุณากรอก"
+                                             formControlName="stockLatsMonth">
+                                       </div>
+
+                                    </td>
+                                    <td style="border: 1px solid#cacbcd">
+                                       <div class="ui input fluid"
+                                          [ngClass]="{'error': invalidChildrenSummary('receive', i,month)}">
+                                          <input type="text" numberOnly placeholder="กรุณากรอก"
+                                             formControlName="receive">
+                                       </div>
+
+                                    </td>
+                                    <td style="border: 1px solid#cacbcd">
+                                       <div class="ui input fluid"
+                                          [ngClass]="{'error': invalidChildrenSummary('sending', i,month)}">
+                                          <input type="text" numberOnly placeholder="กรุณากรอก"
+                                             formControlName="sending">
+                                       </div>
+
+                                    </td>
+                                    <td style="border: 1px solid#cacbcd">
+                                       <div class="ui input fluid"
+                                          [ngClass]="{'error': invalidChildrenSummary('stock', i,month)}">
+                                          <input type="text" numberOnly placeholder="กรุณากรอก" formControlName="stock">
+                                       </div>
+
+                                    </td>
+                                 </ng-container>
+                              </ng-container>
+                              <td class="text-center" style="border: 1px solid#cacbcd">
+                                 <app-button-delete (click)="onDelSummary(i)"></app-button-delete>
+                              </td>
+                           </tr>
+                        </tbody>
+                        <tfoot>
+                           <tr>
+                              <td class="text-right" style="border: 1px solid#CACBCD">รวม</td>
+                              <ng-container *ngFor="let item of monthArray">
+                                 <td style="border: 1px solid#cacbcd" *ngFor="let item of [0,1,2,3]"></td>
+                              </ng-container>
+                              <td class="text-center" style="border: 1px solid#CACBCD">
+                                 <!-- <app-button-add ></app-button-add> -->
+                                 <app-button-add (click)="onAddSummary()"></app-button-add>
+                              </td>
+                           </tr>
+                        </tfoot>
+                     </table>
+                  </div>
+               </div>
+               <br>
+               <div class="fields">
+                  <div class="four wide field"></div>
+                  <div class="eight wide field" [ngClass]="{'error': invalid('result')}">
+                     <label>ผลการตรวจ</label>
+                     <textarea rows="4" formControlName="result"></textarea>
+                  </div>
+               </div>
+               <!-- <div class="inline fields">
+               <div class="two wide field">
+               </div>
+     
+               <div class="two wide field">
+                 <label class="text-right full-width">ผลการตรวจ</label>
+               </div>
+               <div class="eight wide field">
+                 <textarea></textarea>
+               </div>
+             </div> -->
+
+            </div>
+         </div>
+      </div>
+
+      <div class="ui bottom centered attached ">
+         <div class="ui center aligned grid">
+            <div class="eight wide column">
+               <app-button-save (click)="submitForm()"></app-button-save>
+            </div>
+         </div>
+      </div>
+
+
+   </form>
+</segment>

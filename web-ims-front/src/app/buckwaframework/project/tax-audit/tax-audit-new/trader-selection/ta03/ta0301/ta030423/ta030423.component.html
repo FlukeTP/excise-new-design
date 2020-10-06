@@ -1,0 +1,178 @@
+<segment header="บัตรทะเบียนควบคุมการตรวจสอบภาษีสรรพสามิต (ตส. ๐๔-๒๓)" [loading]="loading" [right]="true">
+  <div headRight>
+    {{formGroup0423.get('formTsNumber').value}}
+  </div>
+
+  <form form [formGroup]="formGroup0423">
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">อักษร :</label>
+      </div>
+      <div field [col]="1">
+        <input type="text" maxlength="200" formControlName="alphabet">
+      </div>
+      <div field [col]="5">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">เลขทะเบียนสรรพสามิต :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" maxlength="17" formControlName="newRegId" class="prompt" style=" margin-left: 0px;">
+      </div>
+      <div field [col]="1">
+        <app-button-custom [icon]="'search'" (click)="searchNewRegId()"></app-button-custom>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ประเภทสินค้า/บริการ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="factoryTypeText" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ชื่อผู้เสียภาษี :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="ownerName" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">เลขที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facAddrNo" maxlength="35">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ตรอก/ซอย :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facSoiName" maxlength="50">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ถนน :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facThnName" maxlength="50">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ตำบล/แขวง :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facTambolName" maxlength="100">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">อำเภอ/เขต :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facAmphurName" maxlength="100">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">จังหวัด :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facProvinceName" maxlength="100">
+      </div>
+    </div>
+
+
+    <!-- Table -->
+    <table class="  ui small celled nowrap table striped selectable" style="width:100%">
+      <thead>
+        <tr style="text-align: center !important">
+          <th rowspan="2">ลำดับที่</th>
+          <th rowspan="2">หน่วยงานผู้ตรวจ</th>
+          <th colspan="3" >ช่วงเวลาที่ตรวจสอบ</th>
+          <th rowspan="2">วันที่ขออนุมัติ</th>
+          <th rowspan="2">วันที่อนุมัติ</th>
+          <th rowspan="2">เหตุผลที่ขอตรวจ</th>
+          <th rowspan="2">ผลการตรวจสอบ</th>
+          <th rowspan="2">ชื่อผู้สอบทะเบียน</th>
+          <th rowspan="2">#</th>
+        </tr>
+
+      </thead>
+      <tbody formArrayName="taFormTS0423DtlVoList">
+        <ng-container *ngIf="formGroup0423.controls">
+          <tr [formGroupName]="i" *ngFor="let item of formGroup0423.controls.taFormTS0423DtlVoList.controls; let i = index;let first = first;let last = last">
+
+            <td>
+              <div class="ui  transparent input">
+                <input type="text" maxlength="3" formControlName="recNo" value="{{i+1}}" readonly>
+              </div>
+            </td>
+            <td>
+              <div class="ui  transparent input">
+                <input type="text" maxlength="100" formControlName="operatorOfficeName">
+              </div>
+            </td>
+            <td>
+              <div class="ui transparent input" id="auditDateStart{{i}}">
+                <input type="calendar" placeholder="วว/ดด/ปปปป" formControlName="auditDateStart">
+              </div>
+            </td>
+            <td>
+              <div class="ui  transparent input" >
+               <label for="">ถึง</label>
+              </div>
+            </td>
+            <td>
+              <div class="ui transparent input" id="auditDateEnd{{i}}">
+                <input type="calendar" placeholder="วว/ดด/ปปปป" formControlName="auditDateEnd">
+              </div>
+            </td>
+            <td>
+              <div class="ui transparent input" id="reqDocDate{{i}}">
+                <input type="calendar" placeholder="วว/ดด/ปปปป" formControlName="reqDocDate">
+              </div>
+            </td>
+            <td>
+              <div class="ui transparent input" id="informDocDate{{i}}">
+                <input type="calendar" placeholder="วว/ดด/ปปปป" formControlName="informDocDate">
+              </div>
+            </td>
+            <td>
+              <div class="ui  transparent input">
+                <input type="text" maxlength="200" formControlName="auditReason">
+              </div>
+            </td>
+            <td>
+              <div class="ui  transparent input">
+                <input type="text" maxlength="100" formControlName="auditResult">
+              </div>
+            </td>
+            <td>
+              <div class="ui  transparent input">
+                <input type="text" maxlength="100" formControlName="officerFullName">
+              </div>
+            </td>
+
+
+
+            <td>
+              <i *ngIf="!first && last" class="minus icon" style="color:red;cursor: pointer" (click)="removeItem(i)"></i>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <div class="ui bottom centered attached ">
+      <div class="ui left aligned grid">
+        <div class="one wide column">
+          <a>
+            <a href="javascript:void(0)" (click)="addItem()"><i class="plus icon" style="color:green;"></i>เพิ่ม</a>
+          </a>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <br>
+    <br>
+    <app-button-footer-report (save)="save($event)" (clear)="clear($event)" (export)="export($event)">
+    </app-button-footer-report>
+  </form>
+</segment>

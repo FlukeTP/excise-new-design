@@ -1,0 +1,19 @@
+tr td:nth-child(2), td:nth-child(3), td:nth-child(6), td:nth-child(7), td:nth-child(8) {
+    text-align: right;
+ }
+
+ tr td:nth-child(5) {
+    text-align: center;
+ }
+
+ .full {
+   width: 100% !important;
+}
+
+.ui.calendar, input[type=calendar] {
+   width: 100% !important;
+}
+
+.right2{
+   justify-content: flex-end;
+}

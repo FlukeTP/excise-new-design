@@ -1,0 +1,164 @@
+<form (submit)="onSubmit($event)" ngNativeValidate>
+  <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>สรุปรายงานผลการตรวจปฏิบัติการ</span>
+  </div>
+
+  <div class="ui attached segment">
+    <div class="ui grid">
+      <div class="ui form" style="overflow-x: scroll; padding-left: 0;">
+        <table class="ui celled table striped selectable" style="text-align: center;width: 130vw;border-radius: 0;">
+          <thead>
+            <tr style="text-align: center">
+              <th rowspan="2">ที่</th>
+              <th rowspan="2">พื้นที่ </th>
+              <th rowspan="2">ชื่อผู้ประกอบการ</th>
+              <th colspan="3">ลักษณะการประกอบการ</th>
+              <th colspan="5">การจัดทำบัญชีเอกสารหลักฐาน</th>
+              <th colspan="2">การสุ่มตรวจจํานวนการซื้อเทียบกับจํานวนที่ได้รับอนุญาต</th>
+              <th rowspan="2">ผลการตรวจวัดจริงเทียบกับบัญชีประจําวัน(สค.03)</th>
+              <th rowspan="2">สุ่มตรวจวิเคราะห์จํานวนการใช้เทียบกับสูตรการผลิต</th>
+              <th rowspan="2">หมายเหตุ</th>
+
+            </tr>
+            <tr style="text-align: center">
+              <th>ตัวแทน</th>
+              <th>ผู้ใช้</th>
+              <th>ชนิดสารละลาย</th>
+              <th>สค.03</th>
+              <th>สค.04</th>
+              <th>สค.04ก</th>
+              <th>ใบขน</th>
+              <th>เอกสารประกอบการลงบัญชี</th>
+              <th>ผล</th>
+              <th>รายละเอียดกรณีพบข้อผิดพลาด (ระบุ)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let bean of beans; let i = index">
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="numId{{i}}" id="numId{{i}}"
+                    [(ngModel)]="beans[i].numId">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="area{{i}}" id="area{{i}}" 
+                    [(ngModel)]="beans[i].area">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="operatorName{{i}}" id="operatorName{{i}}"
+                    [(ngModel)]="beans[i].operatorName">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="agent{{i}}" id="agent{{i}}" 
+                    [(ngModel)]="beans[i].agent">
+                </div>
+              </td>
+          
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="user{{i}}" id="user{{i}}"
+                    [(ngModel)]="beans[i].user">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="solutionType{{i}}" id="solutionType{{i}}" 
+                    [(ngModel)]="beans[i].solutionType">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="sk03{{i}}" id="sk03{{i}}" 
+                    [(ngModel)]="beans[i].sk03">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="sk04{{i}}" id="sk04{{i}}" 
+                    [(ngModel)]="beans[i].sk04">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="sk04k{{i}}" id="sk04k{{i}}" 
+                    [(ngModel)]="beans[i].sk04k">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="leaves{{i}}" id="leaves{{i}}"
+                    [(ngModel)]="beans[i].leaves">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="accountingDocuments{{i}}" id="accountingDocuments{{i}}" 
+                    [(ngModel)]="beans[i].accountingDocuments">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="results{{i}}" id="results{{i}}" 
+                    [(ngModel)]="beans[i].results">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="DetailErrors{{i}}" id="DetailErrors{{i}}" 
+                    [(ngModel)]="beans[i].DetailErrors">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="measurement{{i}}" id="measurement{{i}}" 
+                    [(ngModel)]="beans[i].measurement">
+                </div>
+              </td>
+              <td>
+                <div class="ui transparent input">
+                  <input type="text" name="comparedProduction{{i}}" id="comparedProduction{{i}}" 
+                    [(ngModel)]="beans[i].comparedProduction">
+                </div>
+              </td>
+              <td>
+                  <div class="ui transparent input">
+                    <input type="text" name=" note{{i}}" id=" note{{i}}"
+                      [(ngModel)]="beans[i]. note">
+                  </div>
+                </td>
+            
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui bottom centered attached segment">
+    <div class="ui center aligned grid">
+      <div class="four wide column">
+        <button class="ui left floated mini green button" type="button" (click)="onAddField()">
+          <i class="plus icon"></i>
+          เพิ่ม
+        </button>
+      </div>
+      <div class="eight wide column">
+        <button class="ui mini green button" type="submit">
+          <i class="save icon"></i>
+          พิมพ์เอกสาร
+        </button>
+        <button class="ui mini red button" type="button" (click)="onDiscard()">
+          <i class="times icon"></i>
+          ยกเลิก
+        </button>
+      </div>
+      <div class="four wide column"></div>
+    </div>
+  </div>
+</form>

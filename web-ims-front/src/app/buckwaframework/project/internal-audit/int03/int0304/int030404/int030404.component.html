@@ -1,0 +1,276 @@
+<app-breadcrumb style="width: 100%;" [route]="breadcrumb"></app-breadcrumb>
+<div class="sixteen wide column">
+  <segment header="ผลการประเมินความเสี่ยง ปีงบประมาณ {{budgetYear}}" [loading]="false" [right]="true">
+    <div headRight>
+      <app-button-custom color="gray" [text]="toggleButtonTxt" (click)="toggleBody()" (click)="showModal2()">
+      </app-button-custom>
+    </div>
+    <div *ngIf="showBody">
+        <div class="ui form">
+          <div class="inline fields" *ngIf="dataopen2">
+              <div class="two wide field "></div>
+              <div class="two wide field ">
+                <label>อัตราความเสี่ยง  &nbsp; เท่ากับ &nbsp; {{datalist.verylowRating}}</label>
+              </div>
+              <div class="two wide field ">
+                <label>ระดับความเสี่ยง &nbsp; &nbsp; {{datalist.verylow}}</label>
+              </div>
+              <div class="ten wide field ">
+                  <label>{{infoUsedRiskDesc}} &nbsp; {{verylowthai}} &nbsp; {{datalist.verylowStart}} &nbsp; {{datalist.riskUnit}}</label>
+                  <label *ngIf="verylowthai2 != 'ไม่ระบุ' " >และ &nbsp; {{verylowthai2}} &nbsp; {{datalist.verylowEnd}} &nbsp; {{datalist.riskUnit}}</label>
+              </div>
+            </div>
+  
+          <div class="inline fields">
+              <div class="two wide field "></div>
+              <div class="two wide field ">
+                <label>อัตราความเสี่ยง  &nbsp; เท่ากับ &nbsp; {{datalist.lowRating}} </label>
+              </div>
+              <div class="two wide field ">
+                <label>ระดับความเสี่ยง &nbsp; &nbsp; {{datalist.low}}</label>
+              </div>
+              <div class="ten wide field ">
+                <label>{{infoUsedRiskDesc}} &nbsp; {{lowthai}} &nbsp; {{datalist.lowStart}} &nbsp; {{datalist.riskUnit}}</label>
+                <label *ngIf="lowthai2 != 'ไม่ระบุ' " >และ &nbsp; {{lowthai2}}  &nbsp; {{datalist.lowEnd}} &nbsp; {{datalist.riskUnit}}</label>
+              </div>
+            </div>
+  
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label>อัตราความเสี่ยง  &nbsp; เท่ากับ &nbsp; {{datalist.mediumRating}}</label>
+            </div>
+            <div class="two wide field ">
+              <label>ระดับความเสี่ยง &nbsp; &nbsp; {{datalist.medium}}</label>
+            </div>
+            <div class="ten wide field ">
+              <label>{{infoUsedRiskDesc}} &nbsp; {{mediumthai}} &nbsp; {{datalist.mediumStart}} &nbsp; {{datalist.riskUnit}}</label>
+              <label *ngIf="mediumthai2 != 'ไม่ระบุ' " >และ &nbsp; {{mediumthai2}} &nbsp; {{datalist.mediumEnd}} &nbsp; {{datalist.riskUnit}}</label>
+            </div>
+            </div>
+  
+          <div class="inline fields">
+              <div class="two wide field "></div>
+              <div class="two wide field ">
+                <label>อัตราความเสี่ยง  &nbsp; เท่ากับ &nbsp; {{datalist.highRating}}</label>
+              </div>
+              <div class="two wide field ">
+                <label>ระดับความเสี่ยง &nbsp; &nbsp; {{datalist.high}}</label>
+              </div>
+              <div class="ten wide field ">
+                <label>{{infoUsedRiskDesc}} &nbsp; {{highthai}} &nbsp; {{datalist.highStart}} &nbsp; {{datalist.riskUnit}}</label>
+                <label *ngIf="highthai2 != 'ไม่ระบุ' " >และ &nbsp; {{highthai2}} &nbsp; {{datalist.highEnd}} &nbsp; {{datalist.riskUnit}}</label>
+              </div>
+            </div>
+  
+          <div class="inline fields" *ngIf="dataopen2">
+              <div class="two wide field "></div>
+              <div class="two wide field ">
+                <label>อัตราความเสี่ยง  &nbsp; เท่ากับ &nbsp; {{datalist.veryhighRating}}</label>
+              </div>
+              <div class="two wide field ">
+                <label>ระดับความเสี่ยง &nbsp; &nbsp; {{datalist.veryhigh}}</label>
+              </div>
+              <div class="ten wide field ">
+                <label>{{infoUsedRiskDesc}} &nbsp; {{veryhighthai}} &nbsp; {{datalist.veryhighStart}} &nbsp; {{datalist.riskUnit}}</label>
+                <label  *ngIf="veryhighthai2 != 'ไม่ระบุ' " >{{veryhighthai2}} &nbsp; {{datalist.veryhighEnd}} &nbsp; {{datalist.riskUnit}}</label>
+              </div>
+            </div>
+          </div>
+      </div>
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="seven wide field">
+          <label>ปัจจัยเสี่ยง : {{riskFactors}}</label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="nine wide field">
+          <label>ข้อมูลที่ใช้ประเมินความเสี่ยง : {{infoUsedRiskDesc}}</label>
+        </div>
+        <div class="two wide field">
+          <label class="text-right full-width">ข้อมูลวันที่</label>
+        </div>
+        <div class="two wide field">
+          <div class="ui calendar" id="dateCalendarStartDate" style="width:100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" autocomplete="off" id="startDate" name="budgetYearstart" placeholder="วัน/เดือน/ปี">
+            </div>
+          </div>
+        </div>
+        <div class="one wide field">
+          <label class="text-center full-width">ถึง</label>
+        </div>
+        <div class="two wide field">
+          <div class="ui calendar" id="dateCalendarEndDate" style="width:100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" autocomplete="off" id="endDate" name="budgetYearend" placeholder="วัน/เดือน/ปี">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div id="dataTableF1_wrapper" class="dataTables_wrapper dt-semanticUI no-footer">
+        <div class="ui stackable grid">
+          <div class="row">
+            <div class="eight wide column"></div>
+            <div class="right aligned eight wide column"></div>
+          </div>
+          <div class="row dt-table">
+            <div class="sixteen wide column">
+              <div class="dataTables_scroll">
+                <div class="dataTables_scrollBody">
+
+                  <div>
+                    <table class="ui small celled table nowrap striped selectable dataTable no-footer" id="dataTableF1"
+                    style="width: 100%;" role="grid" aria-describedby="dataTableF1_info">
+                    <thead class="text-center">
+                      <tr>
+                        <th rowspan="2">ลำดับที่</th>
+                        
+                        <!-- <th rowspan="2">รหัสแผนงาน</th> -->
+                        <th rowspan="2" style="text-align: center !important">ปีแผนงาน</th>
+                        <th rowspan="2">ชื่อแผนงานโครงการ</th>
+                        <th rowspan="2">ประเภทแผนงานโครงการ</th>
+                        <th rowspan="2">รหัสหน่วยงานที่รับผิดชอบ</th>
+                        <th rowspan="2">ชื่อหน่วยงานที่รับผิดชอบ</th>
+                        <th rowspan="2">ค่าประสิทธิภาพ</th>
+                        <!-- --------------TaskDetail-------------- -->
+                        <!-- <th rowspan="2">รหัสกิจกรรม</th> 
+                         <th rowspan="2">ชื่อกิจกรรม</th> -->
+                        <!-- --------------KpiDetail-------------- -->
+                        <!-- <th rowspan="2">รหัสตัวชี้วัด</th>
+                        <th rowspan="2">เลขที่อ้างอิงตัวชี้วัดที่ผู้ใช้เลือก</th>
+                        <th rowspan="2">ชื่ออ้างอิงตัวชี้วัดที่ผู้ใช้เลือก</th>
+                        <th rowspan="2">ประเภทตัวชี้วัด</th>
+                        <th rowspan="2">ชื่อประเภทตัวชี้วัด</th>
+                        <th rowspan="2">เป้าหมายของตัวชี้วัด</th>
+                        <th rowspan="2">ค่าตัวชี้วัดจริงที่เกิดขึ้น</th> -->
+                        <th colspan="2">ประเมินความเสี่ยง</th>
+                      </tr>
+                      <tr>
+                        <th>อัตราความเสี่ยง</th>
+                        <th>แปลค่าความเสี่ยง</th>
+                      </tr>
+                    </thead>
+                  </table>
+                  </div>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-export (click)="showModal1()"></app-button-export>
+        <app-button-back routerLink="/int03/04"></app-button-back>
+        <!-- <app-button-cancel routerLink="/int03/04"></app-button-cancel> -->
+      </div>
+    </div>
+
+  </segment>
+</div>
+
+<ui-modal [id]="'modal1'" [type]="'custom'">
+    <div class="ui header">
+      รายละเอียดหัวกระดาษทำการ
+    </div>
+    <div class="content">
+      <div class="ui form">
+        <form [formGroup]="dataExport">
+          <div class="inline fields">
+            <div class="three wide field required">
+              <label class="text-right full-width">ชื่อกระดาษทำการ</label>
+            </div>
+            <div class="eight wide field ">
+              <input class="custom ng-untouched ng-pristine ng-valid" id="riskHrdPaperName" maxlength="100"
+                name="riskHrdPaperName" placeholder="ชื่อกระดาษทำการ" type="text" formControlName="riskHrdPaperName">
+            </div>
+            <div class="two wide field required">
+              <label class="text-right full-width">ปีงบประมาณ</label>
+            </div>
+            <div class="four wide field ">
+              <input class="custom ng-untouched ng-pristine" disabled="" id="budgetYear" name="budgetYear"
+                placeholder="ปีงบประมาณ" type="text" formControlName="budgetYear">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="three wide field required">
+              <label class="text-right full-width">ผู้จัดทำ : ชื่อ </label>
+            </div>
+  
+            <div class="three wide field ">
+              <input class="custom ng-untouched ng-pristine ng-valid" id="createUserName" name="createUserName"
+                placeholder="ชื่อผู้จัดทำ" type="text" formControlName="createUserName">
+            </div>
+            <div class="two wide field required">
+              <label class="text-right full-width">นามสกุล</label>
+            </div>
+            <div class="three wide field ">
+              <input class="custom ng-untouched ng-pristine ng-valid" id="createLastName" name="createLastName"
+                placeholder="นามสกุล" type="text" formControlName="createLastName">
+            </div>
+            <div class="two wide field required">
+              <label class="text-right full-width">ตำแหน่ง</label>
+            </div>
+            <div class="four wide field ">
+              <input class="custom ng-untouched ng-pristine ng-valid" id="createPosition" name="createPosition"
+                placeholder="ตำแหน่ง" type="text" formControlName="createPosition">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="three wide field required">
+              <label class="text-right full-width">ผู้ตรวจ : ชื่อ </label>
+            </div>
+            <div class="three wide field ">
+              <input class="custom ng-untouched ng-pristine ng-valid" id="checkUserName" name="checkUserName"
+                placeholder="ชื่อผู้ตรวจ" type="text" formControlName="checkUserName">
+            </div>
+            <div class="two wide field required">
+              <label class="text-right full-width">นามสกุล</label>
+            </div>
+            <div class="three wide field ">
+              <input class="custom ng-untouched ng-pristine ng-valid" id="checkLastName" name="checkLastName"
+                placeholder="นามสกุล" type="text" formControlName="checkLastName">
+            </div>
+            <div class="two wide field required">
+              <label class="text-right full-width">ตำแหน่ง</label>
+            </div>
+            <div class="four wide field ">
+              <input class="custom ng-untouched ng-pristine"  id="checkPosition" name="checkPosition"
+                placeholder="ตำแหน่ง" type="text" formControlName="checkPosition">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="actions ">
+      <div class="ui center aligned grid">
+        <div class="sixteen wide column">
+          <!-- <button class="ui mini primary button" type="submit" ><i class="save icon"></i>บันทึก</button> -->
+          <app-button-save class="positive" (click)="export()"></app-button-save>
+          <app-button-cancel class="negative"></app-button-cancel>
+        </div>
+      </div>
+    </div>
+  </ui-modal>

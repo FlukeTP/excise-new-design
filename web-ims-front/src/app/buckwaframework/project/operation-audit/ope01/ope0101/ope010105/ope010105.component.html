@@ -1,0 +1,87 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายละเอียดผู้ประกอบการ" [loading]="false">
+    <div class="ui form">
+      <div class="inline field">
+        ชื่อผู้ประกอบอุตสาหกรรม <b>{{dataTables?.companyName}}</b>
+      </div>
+      <div class="inline field">
+        ทะเบียนสรรพสามิตเลขที่ <b>{{dataTables?.exciseId}}</b>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">ชื่ออาคาร</div>
+        <div class="four wide field">ห้องเลขที่</div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">ชั้นที่</div>
+        <div class="four wide field">หมู่บ้าน</div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">เลขที่</div>
+        <div class="four wide field">หมู่ที่</div>
+        <div class="four wide field">ตรอก/ซอย </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">ถนน</div>
+        <div class="four wide field">ตำบล/แขวง </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">อำเภอ/เขต</div>
+        <div class="four wide field">จังหวัด </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">รหัสไปรษณีย์</div>
+        <div class="four wide field">โทรศัพท์</div>
+        <div class="four wide field">Email</div>
+      </div>
+    </div>
+  </segment>
+  <segment header="เตรียมเอกสาร" [loading]="false">
+    <div class="ui two column grid">
+      <div class="column">
+        <p>&nbsp;&nbsp;ทะเบียนสรรพสามิต</p>
+      </div>
+      <div class="column">
+        <div class="ui action input">
+          <input type="text" placeholder="อัพโหลดไฟล์" readonly>
+          <input type="file">
+          <div class="ui icon button">
+            <i class="attach icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui two column grid">
+      <div class="column">
+        <p>&nbsp;&nbsp;หนังสือรับรองการจดทะเบียนเป็นนิติบุคคล</p>
+      </div>
+      <div class="column">
+        <div class="ui action input">
+          <input type="text" placeholder="อัพโหลดไฟล์" readonly>
+          <input type="file">
+          <div class="ui icon button">
+            <i class="attach icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui two column grid">
+      <div class="column">
+        <p>&nbsp;&nbsp;รายชื่อผู้ใช้</p>
+      </div>
+      <div class="column">
+        <div class="ui action input">
+          <input type="text" placeholder="อัพโหลดไฟล์" readonly>
+          <input type="file">
+          <div class="ui icon button">
+            <i class="attach icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </segment>
+  <div class="sixteen wide column text-center" style="margin-bottom: 1em">
+    <app-button-save></app-button-save>
+    <app-button-custom color="green" icon="location arrow" (click)="onSend()" text="ส่งอนุมัติ"></app-button-custom>
+    <app-button-back (click)="onSubmit()"></app-button-back>
+  </div>
+</with-breadcrumb>

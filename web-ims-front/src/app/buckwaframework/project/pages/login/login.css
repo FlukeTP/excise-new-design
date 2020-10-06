@@ -1,0 +1,81 @@
+body>.grid {
+    height: 100%;
+}
+
+.image {
+    width: 480px !important;
+    clear: both;
+}
+
+i.icon {
+    margin-left: 2px !important;
+    background: #d9edf7 !important;
+    color: #00547e !important;
+    border-radius: 50% !important;
+    margin: 0.36em !important;
+    width: 2em !important;
+    height: 2em !important;
+}
+
+#background {
+    margin-left: -1em;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 99;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('../../../../../assets/images/bg_new.jpg');
+}
+
+#login {
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    left: 0;
+}
+
+#login-title{
+    color: #0172ce !important;
+    font-weight: initial !important;
+}
+
+#login-footer {
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    bottom: 0;
+    padding: 20px;
+}
+
+#login-content {
+    margin: 0 !important;
+}
+
+.input, input, .button {
+    width: 100% !important;
+    border-radius: 25px !important;
+    height: 38px;
+}
+
+#username, #password {
+    padding-left: 36px !important;
+}
+
+@media only screen and (max-width: 768px) {
+
+    #background {
+        margin-left: -2em !important;
+    }
+
+}
+
+@media only screen and (max-width: 450px) {
+
+    .image {
+        width: 100% !important;
+    }
+
+}

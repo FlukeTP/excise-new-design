@@ -1,0 +1,7 @@
+div.card.column {
+    width: calc(25% - 1.5em) !important;
+    box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08); margin-bottom: 1em !important;
+}
+.card {
+    box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08); margin-bottom: 1em !important;
+}

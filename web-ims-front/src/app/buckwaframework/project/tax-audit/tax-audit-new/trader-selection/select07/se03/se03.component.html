@@ -1,0 +1,126 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="สร้างกระดาษทำการ">
+
+
+    <div class="ui form" [formGroup]="formGroup">
+        
+    <div class="ui grid" style="    margin-bottom: -41px;">
+        <div class="one wide column"></div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">เลขทะเบียนสรรพสามิต เดิม/ใหม่</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="newRegId" readonly>
+            </div>
+  
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">ชื่อโรงอุตสาหกรรม/สถานบริการ</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="facFullname" readonly>
+            </div>
+          </div>
+        </div>
+  
+  
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">ชื่อผู้ประกอบการ</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="cusFullname" readonly> 
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">พิกัดสินค้า/บริการ</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="dutyDesc" readonly>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="four wide column"></div> -->
+      </div>
+  
+      <div class="ui grid">
+        <div class="one wide column"></div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">สำนักงานสรรพสามิต ภาค</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width"formControlName="secDesc" readonly >
+            </div>
+  
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">สำนักงานสรรพสามิต พื้นที่</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="areaDesc" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="seven wide column">
+            <div class="inline fields">
+              <div class="six wide field">
+                <label class="text-right full-width">ที่อยู่โรงอุตสาหกรรม/<br>สถานบริการ</label>
+              </div>
+              <div class="ten wide field">
+                <textarea class="custom-readonly full-width" cols="30" rows="3" formControlName="facAddress"  readonly></textarea>
+              </div>
+            </div>
+          </div>
+      </div>
+      <br>
+   
+<!-- 
+      <div class="inline field btn text-center">
+        <app-button-back routerLink="/tax-audit-new/select07" style="    margin-left: 149px !important;"></app-button-back>
+      </div>
+       -->
+      <br>
+
+    </div>
+
+
+    <!-- contents -->
+    <div class="ui grid ">
+      <div class="three wide column">
+        <div class="ui vertical menu">
+          <a class=" item active" style="background-color:rgb(139, 139, 139)">
+           กระดาษทำการ
+          </a>
+          <a class="blue item " href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se03/s01')" routerLinkActive="active">
+            กระดาษทำการตรวจสอบด้านปริมาณ
+          </a>
+          <a class="blue item" href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se03/s02')" routerLinkActive="active">
+            กระดาษทำการตรวจสอบด้านราคาต่อหน่วย
+          </a>
+          <a class="blue item" href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se03/s03')" routerLinkActive="active">
+            กระดาษทำการตรวจสอบสถานะสมาชิก
+          </a>
+          <a class="blue item" href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se03/s04')" routerLinkActive="active">
+            กระดาษทำการตรวจนับสินค้าคงเหลือ
+          </a>
+          <a class="blue item" href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se03/s05')" routerLinkActive="active">
+            ตารางการคำนวณภาษีที่ต้องชำระเพิ่ม
+          </a>
+        </div>
+      </div>
+      <div class="thirteen wide column">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </segment>
+
+</with-breadcrumb>

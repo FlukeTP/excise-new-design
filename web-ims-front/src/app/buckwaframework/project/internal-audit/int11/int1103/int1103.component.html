@@ -1,0 +1,102 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <!-- segment1 -->
+      <segment header="รายงานผลการตรวจสอบการปฏิบัติงาน" [loading]="false">
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <h2 class="text-center full-width">บันทึกข้อความ</h2>
+            </div>
+          </div>
+          <br />
+
+          <div class="inline fields">
+            <div class="four wide field">
+            </div>
+            <div class="two wide field">
+              <label>ส่วนราชการ</label>
+            </div>
+            <div class="six wide field">
+              <input type="text" value="กลุ่มตรวจสอบภายใน โทร. 51111- 51117">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="four wide field">
+            </div>
+            <div class="two wide field">
+              <label>ที่</label>
+            </div>
+            <div class="two wide field">
+              <input type="text" value="กค 0621/">
+            </div>
+            <div class="one wide field">
+            </div>
+            <div class="one wide field">
+              <label>วันที่</label>
+            </div>
+            <div class="two wide field">
+              <input type="text" value="01/05/2560">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="four wide field">
+            </div>
+            <div class="two wide field">
+              <label>เรื่อง</label>
+            </div>
+            <div class="six wide field">
+              <input type="text" value="ส่งสำเนารายงานผลการตรวจสอบการปฏิบัติงานของสำนักงานสรรพสามิตพื้นที่พระนครศรีอยุธยา 2">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="four wide field">
+            </div>
+            <div class="two wide field">
+              <label>เรียน</label>
+            </div>
+            <div class="six wide field">
+              <input type="text" value="ผู้อำนวยการสำนักงานสรรพสามิตภาคที่ 1">
+            </div>
+          </div>
+
+          <div class="fields">
+            <div class="four wide field"></div>
+            <div class="eight wide field">
+              <textarea rows="10" [value]="comment"></textarea>
+            </div>
+          </div>
+          <br />
+          <br />
+          <br />
+          <div class="inline fields">
+            <div class="nine wide field">
+            </div>
+            <div class="three wide field">
+              (&nbsp;<input type="text" value="นางพัชรี  เพ็ชรสันทัด">&nbsp;)
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="nine wide field">
+            </div>
+            <div class="three wide field">
+              <input type="text" value="ผู้อำนวยการกลุ่มตรวจสอบภายใน">
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <div class="ui center aligned grid">
+          <div class="sixteen wide column">
+            <app-button-save>
+            </app-button-save>
+          </div>
+        </div>
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>

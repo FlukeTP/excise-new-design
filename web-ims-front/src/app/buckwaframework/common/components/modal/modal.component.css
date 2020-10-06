@@ -1,0 +1,7 @@
+.modal {
+    position: absolute !important;
+}
+
+.hidden {
+    display: none !important;
+}

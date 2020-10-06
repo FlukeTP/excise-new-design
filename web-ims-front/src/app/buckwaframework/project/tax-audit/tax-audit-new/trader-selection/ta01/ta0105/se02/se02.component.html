@@ -1,0 +1,397 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <!-- <segment header="ระบุเงื่อนไข" [loading]="false">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="text-right full-width">ระยะเวลาที่ตรวจสอบ</label>
+        </div>
+        <div class="three wide field ui calendar" id="calendar">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" readonly="" value="" id="calendarraw" name="calendarraw" [attr.required]="true"
+              autocomplete="off" placeholder="ดด/ปปปป">
+          </div>
+        </div>
+        <div class="one wide field"></div>
+        <div class="one wide field">
+          <label class="text-right full-width">ถึง</label>
+        </div>
+        <div class="three wide field ui calendar" id="calendar1">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" readonly="" value="" id="calendar1raw" name="calendar1raw" [attr.required]="true"
+              autocomplete="off" placeholder="ดด/ปปปป">
+          </div>
+        </div>
+        <div class="one wide field">
+
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="text-right full-width"> ชื่อผู้ประกอบการ</label>
+        </div>
+        <div class="three wide field ui">
+          <input name="endDate" type="text">
+        </div>
+        <div class="two wide field">
+          <label class="text-right full-width"> ชื่อโรงอุตสาหกรรม/สถานบริการ</label>
+        </div>
+        <div class="three wide field ui calendar">
+          <input name="endDate" type="text">
+        </div>
+        <div class="one wide field">
+
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="text-right full-width">พิกัด</label>
+        </div>
+        <div class="three wide field ui calendar">
+          <div class="ui selection dropdown full-width">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">ทั้งหมด</div>
+            <div class="menu">
+              <div class="item" data-value="1">ทั้งหมด</div>
+              <div class="item" data-value="1">สินค้า</div>
+              <div class="item" data-value="0">บริการ</div>
+              <div class="item" data-value="0">สินค้นนำเข้า</div>
+            </div>
+          </div>
+        </div>
+        <div class="one wide field"></div>
+        <div class="one wide field">
+          <label class="text-right full-width"> ประเภท</label>
+        </div>
+        <div class="three wide field ui calendar">
+          <div class="ui selection dropdown full-width">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">ทั้งหมด</div>
+            <div class="menu">
+              <div class="item" data-value="1">ทั้งหมด</div>
+              <div class="item" data-value="1">สนามกอล์ฟ</div>
+              <div class="item" data-value="0">น้ำมัน</div>
+              <div class="item" data-value="0">เครื่องดื่ม</div>
+              <div class="item" data-value="0">ยาสูบ</div>
+              <div class="item" data-value="0">ไพ่</div>
+              <div class="item" data-value="0">แก้วและเครื่องแก้ว</div>
+              <div class="item" data-value="0">รถยนต์</div>
+              <div class="item" data-value="0">พรมและสิ่งทอปูพื้น</div>
+              <div class="item" data-value="0">แบตเตอรี่</div>
+              <div class="item" data-value="0">ไนท์คลับและดิสโกเธค</div>
+              <div class="item" data-value="0">สถานอาบน้ำหรืออบตัวและนวด</div>
+              <div class="item" data-value="0">สนามแข่งม้า</div>
+            </div>
+          </div>
+        </div>
+        <div class="one wide field">
+
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="text-right full-width"> ภาค</label>
+        </div>
+        <div class="three wide field ui calendar">
+          <div class="ui selection dropdown full-width">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">ทั้งหมด</div>
+            <div class="menu">
+              <div class="item" data-value="1">ทั้งหมด</div>
+              <div class="item" data-value="1">ภาคที่ 1</div>
+              <div class="item" data-value="1">ภาคที่ 2</div>
+              <div class="item" data-value="1">ภาคที่ 3</div>
+              <div class="item" data-value="1">ภาคที่ 4</div>
+              <div class="item" data-value="1">ภาคที่ 5</div>
+              <div class="item" data-value="1">ภาคที่ 6</div>
+              <div class="item" data-value="1">ภาคที่ 7</div>
+              <div class="item" data-value="1">ภาคที่ 8</div>
+              <div class="item" data-value="1">ภาคที่ 9</div>
+              <div class="item" data-value="1">ภาคที่ 10</div>
+            </div>
+          </div>
+        </div>
+        <div class="one wide field"></div>
+        <div class="one wide field">
+          <label class="text-right full-width"> พื้นที่</label>
+        </div>
+        <div class="three wide field ui calendar">
+          <div class="ui selection dropdown full-width">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">ทั้งหมด</div>
+            <div class="menu">
+              <div class="item" data-value="1">ชัยนาท</div>
+              <div class="item" data-value="1">ตราด</div>
+              <div class="item" data-value="0">นครนายก</div>
+              <div class="item" data-value="0">ระยอง 2</div>
+              <div class="item" data-value="0">ฉะเชิงเทรา</div>
+              <div class="item" data-value="0">สิงห์บุรี</div>
+              <div class="item" data-value="0">ชลบุรี 1</div>
+              <div class="item" data-value="0">ระยอง 1</div>
+              <div class="item" data-value="0">ปทุมธานี 1</div>
+            </div>
+          </div>
+        </div>
+        <div class="one wide field">
+
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="ui center aligned grid">
+        <div class="eight wide column">
+          <app-button-search (click)="search()"></app-button-search>
+          <app-button-clear></app-button-clear>
+        </div>
+      </div><br>
+    </div>
+  </segment> -->
+  <segment header="ระบุเงื่อนไข">
+    <form class="ui form ng-untouched ng-pristine ng-invalid" novalidate="" ng-reflect-form="[object Object]">
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="text-right full-width">ระยะเวลาที่ตรวจสอบ</label>
+        </div>
+        <div class="three wide field ui calendar" id="calendar">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" readonly="" value="" id="calendarraw" name="calendarraw" [attr.required]="true"
+              autocomplete="off" placeholder="ดด/ปปปป">
+          </div>
+        </div>
+        <div class="one wide field"></div>
+        <div class="one wide field">
+          <label class="text-right full-width">ถึง</label>
+        </div>
+        <div class="three wide field ui calendar" id="calendar1">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" readonly="" value="" id="calendar1raw" name="calendar1raw" [attr.required]="true"
+              autocomplete="off" placeholder="ดด/ปปปป">
+          </div>
+        </div>
+        <div class="one wide field">
+
+        </div>
+      </div>
+      <br><br>
+      <div class="inline fields  ui grid">
+        <div class="three wide field"></div>
+        <div class="ten wide field">
+          <label class="text-center full-width">
+            <table class="ui small table nowrap striped selectable" style="width: 100%">
+              <thead>
+                <tr>
+                  <th>
+                    <h3>หลักเกณฑ์ในการคัดเลือกรายที่จะออกตรวจในช่วงเวลาที่กำหนด</h3>
+                  </th>
+                  <th style="width: 100px"></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>ผู้เสียภาษีที่มีความเสี่ยง</b></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td><b>ผู้เสียภาษีที่มีแนวโน้มการชำระภาษีผิดปกติ</b></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>กลุ่มที่ 1</b> ผู้ประกอบการที่มีความเสี่ยง<span style="color: green">ต่ำมาก</span>
+                    ชำระภาษีสม่ำเสมอในช่วงเวลาที่กำหนด
+                    และมีอัตราการชำระภาษีครึ่งหลังเพิ่มขึ้นมากกว่าร้อยละ </td>
+                  <td><input type="number" (change)="changeHandler($event)" /></td>
+                  <td>เทียบกับครึ่งแรก</td>
+                </tr>
+                <tr>
+                  <td><b>กลุ่มที่ 2</b> ผู้ประกอบการที่มีความเสี่ยง<span style="color: green">ต่ำ</span>ชำระภาษีสม่ำเสมอในช่วงเวลาที่กำหนด
+                    และมีอัตราการชำระภาษีครึ่งหลังคงที่ +/-
+                    ไม่เกินร้อยละ</td>
+                  <td><input type="number" (change)="changeHandler($event)"></td>
+                  <td>เทียบกับครึ่งแรก</td>
+                </tr>
+                <tr>
+                  <td><b>กลุ่มที่ 3</b> ผู้ประกอบการที่มีความเสี่ยง<span style="color: green">ปานกลาง</span>
+                    ชำระภาษีสม่ำเสมอในช่วงเวลาที่กำหนด
+                    และมีอัตราการชำระภาษีครึ่งหลังลดลงมากกว่าร้อยละ</td>
+                  <td><input type="number" (change)="changeHandler($event)"></td>
+                  <td>เทียบกับครึ่งแรก</td>
+                </tr>
+                <tr>
+                  <td><b>กลุ่มที่ 4</b> ผู้ประกอบการที่มีความเสี่ยง<span style="color: red">สูง</span>
+                    ชำระภาษีไม่สม่ำเสมอในช่วงเวลาที่กำหนด
+                    และมีอัตราการชำระภาษีครึ่งหลังเพิ่มขึ้นมากกว่าร้อยละ</td>
+                  <td><input type="number" (change)="changeHandler($event)"></td>
+                  <td>เทียบกับครึ่งแรก</td>
+                </tr>
+                <tr>
+                  <td><b>กลุ่มที่ 5</b> ผู้ประกอบการที่มีความเสี่ยง<span style="color: red">สูงมาก</span>
+                    ชำระภาษีไม่สม่ำเสมอในช่วงเวลาที่กำหนด
+                    และมีอัตราการชำระภาษีครึ่งหลังเพิ่มขึ้นไม่เกินร้อยละ
+                  </td>
+                  <td> <input type="number" (change)="changeHandler($event)"></td>
+                  <td> หรือชำระภาษีลดลง เทียบกับครึ่งแรก</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td><b>มีการวิเคราะห์ข้อมูลแล้วพบประเด็นสงสัยว่าจะมีการกระทำผิด</b></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td><b>ผู้เสียภาษีที่ไม่มีการตรวจกำกับดูแลมากกว่าหนึ่งปีขึ้นไป</b></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>กลุ่มที่ 6</b> ผู้ประกอบการที่ไม่มีการตรวจสอบภาษี ในระยะเวลา</td>
+                  <td><input type="number" (change)="changeHandler($event)"></td>
+                  <td>ปี</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </label>
+        </div>
+        <div class="three wide field"></div>
+      </div>
+
+      <div class="ui center aligned grid">
+        <div class="six wide column">
+          <app-button-search></app-button-search>
+          <app-button-clear></app-button-clear>
+
+        </div>
+      </div>
+    </form>
+  </segment>
+  <segment header="คัดเลือกรายนอกรายการ" [loading]="false">
+    <div id="divDataTable" [ngClass]="{'thirteen': !toggle, 'sixteen': toggle,'wide': true, 'column': true, 'transition-left-2': toggle}">
+      <div>
+        <!-- <div style="overflow-x: scroll;overflow-y: hidden;padding-bottom: 14px;"> -->
+        <table class="ui small celled table aligned hover striped selectable nowrap scrollX">
+          <thead class="text-center">
+            <tr>
+              <th rowspan="2"><input type="checkbox"></th>
+              <th rowspan="2">ลำดับ</th>
+              <th rowspan="2">ทะเบียนสรรพสามิต เดิม/ใหม่</th>
+              <th rowspan="2">ชื่อผู้ประกอบการ</th>
+              <th rowspan="2">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+              <th rowspan="2">ที่อยู่โรงอุตสาหกรรม/สถานบริการ</th>
+              <th rowspan="2">ภาค</th>
+              <th rowspan="2">พื้นที่</th>
+              <th colspan="4">ความเสี่ยง</th>
+              <th colspan="2">การชำระภาษีในสภาวะปกติ (บาท)</th>
+              <th rowspan="2">เปลี่ยนแปลง (ร้อยละ)</th>
+              <th rowspan="2">เปอร์เซ็นส่วนเบี่ยงเบน</th>
+              <th rowspan="2">ชำระภาษี(เดือน)</th>
+              <th rowspan="2">พิกัด</th>
+
+              <th rowspan="2">สถานะล่าสุด</th>
+              <th rowspan="2">เลขทะเบียนสรรพสามิตเก่า</th>
+              <!-- <th rowspan="2">สถานะ/วันที่</th>
+              <th colspan="3">การชำระภาษี 3 เดือนแรก</th>
+              <th colspan="3">การชำระภาษี 3 เดือนหลัง</th> -->
+            </tr>
+
+            <tr>
+              <th>มีความเสี่ยง</th>
+              <th>ชำระผิดปกติ</th>
+              <th>กระทำความผิด</th>
+              <th>ไม่มีการตรวจกำกับดูแล 1 ปี ขึ้นไป</th>
+
+              <th>3 เดือนแรก</th>
+              <th>3 เดือนหลัง</th>
+              <!-- <th>ม.ค. 61</th>
+              <th>ก.พ. 61</th>
+              <th>มี.ค. 61</th>
+              <th>เม.ย. 61</th>
+              <th>พ.ค. 61</th>
+              <th>มิ.ย. 61</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of datas ; let i = index">
+              <td><input type="checkbox"></td>
+              <td class="text-center">{{i+1}}</td>
+              <td class="text-center">{{item.data1}}</td>
+              <td>{{item.data2}}</td>
+              <td>{{item.data3}}</td>
+              <td class="text-left">{{item.data11}}</td>
+              <td>{{item.data4}}</td>
+              <td>{{item.data5}}</td>
+              <td class="text-center">
+                <!-- <i *ngIf="i!= 1 && i!=5" class="check icon " style="color:red; cursor: pointer;" (click)="showDetail(1)"></i> -->
+              </td>
+              <td class="text-center"><i *ngIf="item.data18 != ''" class="check icon " style="color:red; cursor: pointer;"
+                  (click)="showDetail(item.data18)"></i></td>
+              <td class="text-center"></td>
+              <td class="text-center"></td>
+              <td class="text-center">{{item.data6}}</td>
+              <td class="text-center">{{item.data7}}</td>
+              <td class="text-right">{{item.data8}}</td>
+              <td class="text-right"> </td>
+              <td class="text-center">{{item.data9}}</td>
+              <td class="text-left">{{item.data10}}</td>
+              <td class="text-right"> </td>
+              <td class="text-right"> </td>
+              <!--<td class="text-right"> </td>
+              <td class="text-right">{{item.data12}}</td>
+              <td class="text-right">{{item.data13}}</td>
+              <td class="text-right">{{item.data14}}</td>
+              <td class="text-right">{{item.data15}}</td>
+              <td class="text-right">{{item.data16}}</td>
+              <td class="text-right">{{item.data17}}</td> -->
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <!-- <div>ชื่อผู้ประกอบการที่ถูกเลือก: </div>
+                  <div class="ui bulleted list" *ngFor="let item of dataSelect">
+                    <div class="item">{{item.data.data2}}</div>
+                  </div> -->
+        <br>
+        <div class="ui one column centered grid">
+          <div class="column aligned center">
+            <app-button-custom color="green" routerLink="/tax-audit-new/ta0106">เลือกราย</app-button-custom>
+            <app-button-back routerLink="/tax-audit-new/ta0105"></app-button-back>
+          </div>
+        </div>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>
+<ui-modal [id]="'riskModal'" type="custom" size="small">
+    <div class="ui header">
+      {{txtHead}}
+    </div>
+    <div class="content">
+      <pre>{{txt}}</pre>
+    </div>
+    <div class="actions">
+      <app-button-cancel class="deny"></app-button-cancel>
+    </div>
+  </ui-modal>

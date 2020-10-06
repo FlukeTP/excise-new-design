@@ -1,0 +1,87 @@
+<div class="ui grid">
+    <div class="sixteen wide column">
+        <h2 class="ui header">Message</h2>
+        <div class="ui breadcrumb">
+            <a class="section">Administrator</a>
+            <i class="right angle icon divider"></i>
+            <div class="active section">Message</div>
+        </div>
+
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>Search Criteria</span>
+        </div>
+        <div class="ui attached segment">
+            <div class="ui form">
+                <div class="fields">
+                    <div class="three wide field">
+                        <label>Message Code</label>
+                        <input type="text" id="messageCode" placeholder="Message Code">
+                    </div>
+                    <div class="five wide field">
+                        <label>Message Eng</label>
+                        <input type="text" id="messageEn"  placeholder="Message Eng">
+                    </div>
+                    <div class="five wide field">
+                        <label>Message Tha</label>
+                        <input type="text" id="messageTh"  placeholder="Message Tha">
+                    </div>
+                    <div class="three wide field">
+                        <label>Message Type</label>
+                        <select name="messageTypeSelect" id="messageTypeSelect" class="ui fluid search dropdown">
+                            <option value="">ALL</option>
+                            <option [value]="item.value" *ngFor="let item of messageTypes" >{{item.text}}</option>                         
+                        </select>
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="sixteen wide field">
+                        <div class="ui grid">
+                            <div class="center aligned row">
+                                <div class="column">
+                                    <div class="ui mini primary button" (click)="search()">
+                                        <i class="search icon"></i> Search
+                                    </div>
+                                    <div class="ui mini button" (click)="resetSearch()" >
+                                        <i class="refresh icon"></i> Reset
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui clearing top attached header segment">
+            <div class="ui grid">
+                <div class="two column row">
+                    <div class="column">
+                        Search Result
+                    </div>
+                    <div class="right aligned column">
+                        <div class="ui mini primary button" [routerLink]="['/add-message']">
+                            <i class="add icon"></i> Add Message
+                        </div>
+                        <div class="ui mini  button" (click)="delete()">
+                            <i class="trash icon"></i> Delete
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui attached segment">
+            <table id="messageDt" class="ui small celled table striped selectable">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Message Code</th>
+                        <th>Message Eng</th>
+                        <th>Message Tha</th>
+                        <th>Message Type</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>

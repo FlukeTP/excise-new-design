@@ -1,0 +1,142 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="เพิ่มรอบการผลิต" [loading]="false">
+    <div class="ui form">
+      <!-- <div class="sixteen inline fields"> -->
+
+        <!-- การหมัก -->
+        <!-- <div class="field"> -->
+          <!-- line 1 -->
+          <!-- <div class="inline field">
+            <label class="full-width text-left" style="font-size: 1.25em">การหมัก</label>
+          </div> -->
+          <!-- <div class="ui divider"></div> -->
+          <!-- line 2 -->
+          <div class="sixteen inline fields">
+            <label>ผู้ประกอบการ: {{companyName}}</label>
+            <label>เดือน {{month[1]}} ปี พ.ศ. {{month[2]}}</label>
+          </div>
+          <div class="sixteen inline fields">
+            <div class="field">
+              <label class="full-width text-left">วัตถุดิบ</label>
+            </div>
+            <div class="three wide field">
+              <select class="ui dropdown ai">
+                <!-- <option value="">เลือกวัตถุดิบ</option> -->
+                <option value="1">ข้าวเหนียว</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="full-width text-left">จำนวน</label>
+            </div>
+            <div class="field">
+              <div class="ui right labeled input">
+                <input class="width-60 text-right" type="text" placeholder="จำนวน" value="100">
+                <div class="ui basic label">
+                  กิโลกรัม
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- line 3 -->
+          <!-- <div class="two inline fields">
+            <div class="field">
+              <label class="full-width text-left">จำนวน</label>
+            </div>
+            <div class="field">
+              <div class="ui right labeled input">
+                <input class="width-60" type="text" placeholder="จำนวน">
+                <div class="ui basic label">
+                  กิโลกรัม
+                </div>
+              </div>
+            </div>
+          </div> -->
+        <!-- </div> -->
+        <!-- การหมัก -->
+
+        <!-- การกลั่น -->
+        <!-- <div class="field"> -->
+        <!-- line 1 -->
+        <!-- <div class="inline field">
+            <label class="full-width text-left" style="font-size: 1.25em">การกลั่น</label>
+          </div>
+          <div class="ui divider"></div> -->
+        <!-- line 2 -->
+        <!-- <div class="two inline fields">
+            <div class="field">
+              <label class="full-width text-left">ปริมาตรสุรากลั่น (ประมาณการ)</label>
+            </div>
+            <div class="field">
+              <div class="ui right labeled input">
+                <input class="width-80 custom-readonly" readonly type="text" placeholder="ปริมาตร">
+                <div class="ui basic label">
+                  ลิตร
+                </div>
+              </div>
+            </div>
+          </div> -->
+        <!-- line 3 -->
+        <!-- <div class="two inline fields">
+            <div class="field">
+              <label class="full-width text-left">ปริมาตรสุรากลั่น</label>
+            </div>
+            <div class="field">
+              <div class="ui right labeled input">
+                <input class="width-80" type="text" placeholder="ปริมาตร">
+                <div class="ui basic label">
+                  ลิตร
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <!-- การกลั่น -->
+
+        <!-- การบรรจุ -->
+        <!-- <div class="field"> -->
+        <!-- line 1 -->
+        <!-- <div class="inline field">
+            <label class="full-width text-left" style="font-size: 1.25em">การบรรจุ</label>
+          </div>
+          <div class="ui divider"></div> -->
+        <!-- line 2 -->
+        <!-- <div class="two inline fields">
+            <div class="field">
+              <label class="full-width text-left">ปริมาตรสุราที่บรรจุ (ประมาณการ)</label>
+            </div>
+            <div class="field">
+              <div class="ui right labeled input">
+                <input class="width-80 custom-readonly" readonly type="text" placeholder="จำนวนขวด">
+                <div class="ui basic label">
+                  ขวด
+                </div>
+              </div>
+            </div>
+          </div> -->
+        <!-- line 3 -->
+        <!-- <div class="two inline fields">
+            <div class="field">
+              <label class="full-width text-left">ปริมาตรสุราที่บรรจุ</label>
+            </div>
+            <div class="field">
+              <div class="ui right labeled input">
+                <input class="width-80" type="text" placeholder="จำนวนขวด">
+                <div class="ui basic label">
+                  ขวด
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <!-- การบรรจุ -->
+
+      <!-- </div> -->
+      <div class="inline text-center field btn">
+        <app-button-save (click)="saveTo()"></app-button-save>
+        <app-button-cancel (click)="routeBack()"></app-button-cancel>
+      </div>
+    </div>
+  </segment>
+
+</with-breadcrumb>

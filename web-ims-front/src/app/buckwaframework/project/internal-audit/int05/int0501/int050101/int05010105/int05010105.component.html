@@ -1,0 +1,96 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<br>
+<div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+  <span>รายละเอียดใบบันทึกข้อความ</span>
+</div>
+<div class="ui attached  segment">
+  <br>
+  <div class="inline fields" style="text-align: center !important;">
+    <h1>บันทึกข้อความ</h1>
+  </div>
+  <br>
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="one wide field">
+        <label>ส่วนราชการ</label>
+      </div>
+      <div class="five wide field">
+        <input type="text" name="text" required>
+      </div>
+
+    </div>
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="one wide field">
+        <label>ที่</label>
+      </div>
+      <div class="five wide field">
+        <input type="text" name="text" required>
+      </div>
+      <div class="one wide field">
+        <label>วันที่</label>
+      </div>
+      <div class="five wide field">
+        <div class="ui calendar" id="date1" style="width: 100%">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="text" name="date-raw" autocomplete="off" [attr.readonly]="null" placeholder="ดด/ปปปป"
+              [attr.required]="true">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="one wide field">
+        <label>เรื่อง</label>
+      </div>
+      <div class="five wide field">
+        <input type="text" name="text" required>
+      </div>
+
+    </div>
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="one wide field">
+        <label>เรียน</label>
+      </div>
+      <div class="five wide field">
+        <input type="text" name="text" required>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="three wide field"></div>
+      <div class="eleven wide field">
+        <textarea rows="20" id="remark"></textarea>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="eight wide field"></div>
+      <div class="one wide field">
+        <label>ชื่อ</label>
+      </div>
+      <div class="five wide field">
+        <input type="text" name="text" required>
+      </div>
+
+    </div>
+    <div class="inline fields">
+      <div class="eight wide field"></div>
+      <div class="one wide field">
+        <label>ตำแหน่ง</label>
+      </div>
+      <div class="five wide field">
+        <input type="text" name="text" required>
+      </div>
+    </div>
+  </div>
+  <br> <br> <br>
+  <div class="ui center aligned grid">
+    <div class="eight wide column">
+      <button class="ui mini primary button" type="button" (click)="save()"><i class="save icon"></i>บันทึก</button>
+      <button class="ui mini button" type="button" (click)="clickBack()"><i class="close icon"></i>ยกเลิก</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,480 @@
+<form (submit)="onSubmit($event)" ngNativeValidate>
+
+<div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>หนังสือแจ้งผลการตรวจสอบภาษี ณ สถานประกอบการ</span>
+</div>
+
+<div class="ui attached segment">
+  <div class="ui grid">
+    <div class="ui two wide column">&nbsp;</div>
+    <div class="ui twelve wide column">
+      <div class="ui form">
+
+          <div class="inline fields">
+              <div class="nine wide field">
+              </div>
+              <div class="one wide field">
+                  <label>วันที่ :</label>
+              </div>
+              <div class="six wide field">
+                  <div class="ui calendar" style="width:100%" id="date1">
+                      <div class="ui input left icon">
+                       <i class="calendar alternate outline icon"></i>
+                        <input type="text"  placeholder="วัน เดือน ปี">
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+          <div class="inline fields">
+            <div class="nine wide field"></div>
+            <div class="one wide field">
+              <p>ที่ : </p>
+            </div>
+            <div class="six wide field">
+              <input type="text" name="at1" [(ngModel)]="obj.at1">
+              <p style="padding-right: 14px">/</p>
+              <input type="text" name="at2" [(ngModel)]="obj.at2">
+            </div>
+          </div>
+
+        <div class="inline fields">
+            <div class="one wide field">
+                <label>เรียน : </label>
+            </div>
+            <div class="six wide field">
+                <input type="text" name="study" [(ngModel)]="obj.study">
+            </div>
+        </div>
+
+        <div class="inline fields">
+            <div class="six wide field">
+                <label>อ้างถึง  หนังสือนำตัวออกตรวจการเสียภาษีสรรพสามิต ที่ : </label>
+            </div>
+            <div class="six wide field">
+              <input type="text" name="at1" [(ngModel)]="obj.at3">
+              <p style="padding-right: 14px">/</p>
+              <input type="text" name="at2" [(ngModel)]="obj.at4">
+            </div>
+        </div>
+
+
+        <div class="inline fields">
+          <div class="two wide field">
+            <label>ลงวันที่ : </label>
+          </div>
+          <div class="five wide field">
+              <div class="ui calendar" style="width:100%" id="date2">
+                <div class="ui input left icon">
+                <i class="calendar alternate outline icon"></i>
+                  <input type="text"  placeholder="วัน เดือน ปี">
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <div class="inline fields">
+          <div class="eight wide field">
+            <label>ตามที่พนักงานเจ้าหน้าที่ได้ออกตรวจสอบภาษี ณ สถานประกอบการ เมื่อวันที : </label>
+          </div>
+          <div class="five wide field">
+            <div class="ui calendar" style="width:100%" id="date3">
+              <div class="ui input left icon">
+               <i class="calendar alternate outline icon"></i>
+                <input type="text"  placeholder="วัน เดือน ปี">
+              </div>
+          </div>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="six wide field">
+            <label>ตามหนังสือนำตัวออกตรวจการเสียภาษีสรรพสามิต ที่ : </label>
+          </div>
+          <div class="six wide field">
+            <input type="text" name="at1" [(ngModel)]="obj.at5">
+            <p style="padding-right: 14px">/</p>
+            <input type="text" name="at2" [(ngModel)]="obj.at6">
+          </div>
+        </div>
+
+        <div class="inline fields">
+            <div class="two wide field">
+              <label>ลงวันที่ : </label>
+            </div>
+            <div class="five wide field">
+                <div class="ui calendar" style="width:100%" id="date4">
+                  <div class="ui input left icon">
+                  <i class="calendar alternate outline icon"></i>
+                    <input type="text"  placeholder="วัน เดือน ปี">
+                  </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="inline fields">
+          <div class="three wide field">
+            <p>เลขทะเบียนสรรพสามิต :</p>
+          </div>
+          <div class="five wide field">
+            <input type="text" name="exciseId" [(ngModel)]="obj.exciseId">
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="three wide field">
+            <label>สถานที่ตั้งเลขที่ :</label>
+          </div>
+          <div class="five wide field">
+            <input type="text"  name="homeNumber" [(ngModel)]="obj.homeNumber"   >
+          </div>
+          <div class="two wide field">
+              <label>หมู่ที่ :</label>
+          </div>
+          <div class="six wide field">
+            <input type="text"  name="moo" [(ngModel)]="obj.moo"   >
+          </div>
+      </div>
+      <div class="inline fields">
+          <div class="three wide field">
+            <label>ตรอก/ซอย :</label>
+          </div>
+          <div class="five wide field">
+            <input type="text"  name="byWay" [(ngModel)]="obj.byWay"   >
+          </div>
+          <div class="two wide field">
+              <label>ถนน :</label>
+          </div>
+          <div class="six wide field">
+            <input type="text"  name="street" [(ngModel)]="obj.street"   >
+          </div>
+      </div>
+      <div class="inline fields">
+          <div class="three wide field">
+            <label>ตำบล/แขวง :</label>
+          </div>
+          <div class="five wide field">
+            <input type="text"  name="tambol" [(ngModel)]="obj.tambol"   >
+          </div>
+          <div class="two wide field">
+              <label>อำเภอ/เขต :</label>
+          </div>
+          <div class="six wide field">
+            <input type="text"  name="district" [(ngModel)]="obj.district"   >
+          </div>
+      </div>
+      <div class="inline fields">
+          <div class="three wide field">
+            <label>จังหวัด :</label>
+          </div>
+          <div class="five wide field">
+            <input type="text"  name="province" [(ngModel)]="obj.province"   >
+          </div>
+          <div class="two wide field">
+              <label>รหัสไปรษณีย์ :</label>
+          </div>
+          <div class="six wide field">
+            <input type="text"  name="zipCode" [(ngModel)]="obj.zipCode"   >
+          </div>
+      </div>
+
+      <br>
+      <hr>
+      <br>
+
+      <div class="inline fields">
+          <div class="two wide field">
+              <label>ผู้ตรวจ :</label>
+          </div>
+          <div class="five wide field">
+              <input type="text" name="officerName1" [(ngModel)]="obj.officerName1">
+          </div>
+          <div class="two wide field">
+              <label>ตำแหน่ง :</label>
+          </div>
+          <div class="seven wide field">
+            <input type="text" name="officerPosition1" [(ngModel)]="obj.officerPosition1">
+          </div>
+      </div>
+
+      <div class="inline fields">
+          <div class="four wide field">
+              <label>รอบระยะเวลายื่นแบบรายการภาษีเดือน :</label>
+          </div>
+          <div class="three wide field">
+              <div class="ui calendar" style="width:100%" id="month1">
+                  <div class="ui input left icon">
+                   <i class="calendar alternate outline icon"></i>
+                    <input type="text"  placeholder="เดือน">
+                  </div>
+              </div>
+          </div>
+          <div class="one wide field">
+              <label>ถึง :</label>
+          </div>
+          <div class="three wide field">
+              <div class="ui calendar" style="width:100%" id="month2">
+                  <div class="ui input left icon">
+                   <i class="calendar alternate outline icon"></i>
+                    <input type="text"  placeholder="เดือน">
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="inline fields">
+          <div class="twelve wide field">
+              <label>พนักงานเจ้าหน้าได้แจ้งผลการตรวจสอบให้ทราบข้อเท็จจริงและข้อกฎหมายแล้วตามบันทึกคำให้การ(ตส. ๐๔-๐๖) ลงวันที :</label>
+          </div>
+          <div class="four wide field">
+              <div class="ui calendar" style="width:100%" id="date5">
+                  <div class="ui input left icon">
+                   <i class="calendar alternate outline icon"></i>
+                    <input type="text"  placeholder="วัน เดือน ปี">
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      <div class="inline fields">
+        <div class="sixteen wide field">
+          <p>๑. ข้อเท็จจริงและประเด็นที่เป็นเหตุให้ต้องชำระภาษีเพิ่ม</p>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="sixteen wide field">
+          <textarea cols="30" rows="2" style="resize: none;" name="faet" [(ngModel)]="obj.faet"></textarea>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="sixteen wide field">
+          <p>๒. ข้อกฏหมาย</p>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="sixteen wide field">
+          <textarea cols="30" rows="2" style="resize: none;" name="laws" [(ngModel)]="obj.laws"></textarea>
+        </div>
+      </div>
+
+        <div class="inline fields">
+          <div class="four wide field">
+            <p>๓. จากประเด็นความผิดข้างต้น ทำให้</p>
+          </div>
+          <div class="five wide field">
+            <input type="text" name="chargeName" [(ngModel)]="obj.chargeName">
+          </div>
+          <div class="seven wide field">
+            <p> ต้องมีภาระความรับผิดชอบในค่าภาษีสรรพสามิต ดังนี้</p>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="one wide field"></div>
+          <div class="nine wide field">
+            <p>ภาษีสรรพสามิต</p>
+          </div>
+          <div class="five wide field">
+            <input class="number-right" type="text" name="exciseTax" [(ngModel)]="obj.exciseTax" numberOnly (blur)="typeNumber($event, 'exciseTax')">
+          </div>
+          <div class="one wide field">
+            <p>บาท</p>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="one wide field"></div>
+          <div class="nine wide field">
+            <p>เบี้ยปรับ ตามมาตรา ๑๔๐</p>
+          </div>
+          <div class="five wide field">
+            <input class="number-right" type="text" name="fine" [(ngModel)]="obj.fine" numberOnly (blur)="typeNumber($event, 'fine')">
+          </div>
+          <div class="one wide field">
+            <p>บาท</p>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="one wide field"></div>
+          <div class="nine wide field">
+            <p>เงินเพิ่ม ตามมาตรา ๑๔๑</p>
+          </div>
+          <div class="five wide field">
+            <input class="number-right" type="text" name="extraMoney" [(ngModel)]="obj.extraMoney" (blur)="typeNumber($event, 'extraMoney')">
+          </div>
+          <div class="one wide field">
+            <p>บาท</p>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="one wide field"></div>
+          <div class="nine wide field">
+            <p>รวม</p>
+          </div>
+          <div class="five wide field">
+            <input class="custom-readonly number-right" type="text" name="sum"  [(ngModel)]="obj.sum" readonly >
+          </div>
+          <div class="one wide field">
+            <p>บาท</p>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="one wide field"></div>
+          <div class="nine wide field">
+            <p>ภาษีเพื่อราชการส่วนท้องถิ่น ตามมาตรา ๑๕๐</p>
+          </div>
+          <div class="five wide field">
+            <input class="number-right" type="text" name="localTax"  [(ngModel)]="obj.localTax" (blur)="typeNumber($event, 'localTax')">
+          </div>
+          <div class="one wide field">
+            <p>บาท</p>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="one wide field"></div>
+          <div class="nine wide field">
+            <p>รวมทั้งสิ้น</p>
+          </div>
+          <div class="five wide field">
+            <input class="custom-readonly number-right" type="text" name="total" [(ngModel)]="obj.total" readonly >
+          </div>
+          <div class="one wide field">
+            <p>บาท</p>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="four wide field">
+            <p>หมายเหตุ เงินเพิ่มคิดถึงวันที่ :</p>
+          </div>
+          <div class="five wide field">
+              <div class="ui calendar" style="width:100%" id="date6">
+                  <div class="ui input left icon">
+                   <i class="calendar alternate outline icon"></i>
+                    <input type="text"  placeholder="วัน เดือน ปี">
+                  </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="inline fields">
+            <div class="three wide field">
+                <label>ให้ท่านชำระภาษี ณ : </label>
+            </div>
+            <div class="six wide field">
+                <input type="text" name="localName1" [(ngModel)]="obj.localName1">
+            </div>
+            <div class="four wide field">
+                <label>จำนวนภาษีสรรพสามิตทั้งสิ้น :</label>
+            </div>
+            <div class="three wide field">
+              <input type="text" name="taxNum" [(ngModel)]="obj.taxNum">
+            </div>
+        </div>
+        <div class="inline fields">
+            <div class="three wide field">
+                <label>ภายในวันที่ : </label>
+            </div>
+            <div class="five wide field">
+                <div class="ui calendar" style="width:100%" id="date7">
+                    <div class="ui input left icon">
+                     <i class="calendar alternate outline icon"></i>
+                      <input type="text"  placeholder="วัน เดือน ปี">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <br>
+        <hr>
+        <br>
+
+        <div class="inline fields">
+          <div class="sixteen wide field">
+            <p>กรณีผู้เสียหายเห็นว่าประเด็นความผิดข้างต้นไม่ถูกต้อง หรือมีเหตุผลอื่นที่จะไม่ชำระภาษี ให้ติดต่อเจ้าหน้าพร้อมนำเอกสารที่เกี่ยวข้องมาแสดง หรือ</p>
+          </div>
+        </div>
+
+        <div class="inline fields">
+            <div class="three wide field">
+              <p>ส่งมอบให้เจ้าหน้าที่ ณ :</p>
+            </div>
+            <div class="six wide field">
+              <input type="text" name="localName2" [(ngModel)]="obj.localName2">
+            </div>
+            <div class="two wide field">
+              <p>ภายในวันที่ :</p>
+            </div>
+            <div class="five wide field">
+                <div class="ui calendar" style="width:100%" id="date8">
+                    <div class="ui input left icon">
+                     <i class="calendar alternate outline icon"></i>
+                      <input type="text"  placeholder="วัน เดือน ปี">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="inline fields">
+            <div class="two wide field">
+              <p>เวลา :</p>
+            </div>
+            <div class="six wide field">
+              <div class="ui calendar" style="width:100%" id="time">
+                  <div class="ui input left icon">
+                    <i class="calendar alternate outline icon"></i>
+                    <input type="text"  autocomplete="off"  style="width:100%" placeholder="เวลา">
+                  </div>
+              </div>
+              <label class="custom-label-w-18">&nbsp;&nbsp;น.</label>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field">
+            <p>ผู้รับผิดชอบ : </p>
+          </div>
+          <div class="six wide field">
+            <input type="text" name="departName" [(ngModel)]="obj.departName">
+          </div>
+          <div class="two wide field">
+            <p>หน่วยงาน : </p>
+          </div>
+          <div class="six wide field">
+            <input type="text" name="department" [(ngModel)]="obj.department">
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="ui two wide column">&nbsp;</div>
+  </div>
+</div>
+
+<div class="ui bottom centered attached segment">
+  <div class="ui center aligned grid">
+    <div class="eight wide column">
+      <button class="ui mini green button" type="submit">
+        <i class="save icon"></i>
+        พิมพ์เอกสาร
+      </button>
+      <button class="ui mini red button" type="button" (click)="onDiscard()">
+        <i class="times icon"></i>
+        ยกเลิก
+      </button>
+    </div>
+  </div>
+</div>
+</form>

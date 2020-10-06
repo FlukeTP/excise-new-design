@@ -1,0 +1,202 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="รายละเอียดการติดตามผลการปฏิบัติตามข้อเสนอแนะ" [loading]="false">
+
+    <div class="ui form">
+      <div class="sixteen wide column">
+        <form [formGroup]="dataHdr">
+          <!-- row1 -->
+          <div inline>
+            <div field [col]="4">
+              <!-- something -->
+            </div>
+            <div field [col]="4">
+              <strong>ปีงบประมาณ : {{ dataHdr.get('budgetYear').value| isEmpty }}</strong>
+            </div>
+            <div field [col]="6">
+              <strong>รูปแบบการตรวจสอบ : {{ dataHdr.get('checkType').value | isEmpty }}</strong>
+            </div>
+          </div>
+          <!-- row2 -->
+          <div inline>
+            <div field [col]="4">
+              <!-- something -->
+            </div>
+            <div field [col]="12">
+              <strong class="full-width">โครงการ : {{ dataHdr.get('projectName').value | isEmpty }}</strong>
+            </div>
+          </div>
+          <!-- row3 -->
+          <div inline>
+            <div field [col]="4">
+              <!-- something -->
+            </div>
+            <div field [col]="12">
+              <strong>หน่วยรับตรวจ : {{ dataHdr.get('area').value | isEmpty }}</strong>
+            </div>
+          </div>
+          <!-- row4 -->
+          <div inline>
+            <div field [col]="4">
+              <!-- something -->
+            </div>
+            <div field [col]="4">
+              <strong>
+                เลขหนังสือรายงานผลอธิบดี : {{ dataHdr.get('notifyNo').value | isEmpty }}
+              </strong>
+            </div>
+            <div field [col]="4">
+              <strong>อนุมัติวันที่ : {{ dataHdr.get('approveDate').value | isEmpty }}</strong>
+            </div>
+          </div>
+        </form>
+        <hr>
+      </div>
+    </div>
+    <!-- แจ้งติดตามหน่วยรับตรวจครั้งที่ 1 -->
+    <!-- row6 -->
+    <ng-container [formGroup]="dataDtl">
+      <ng-container formArrayName="details" *ngFor="let key of details.controls; let i=index">
+        <div class="ui form">
+          <div class="sixteen wide column">
+            <div inline>
+              <div class="eight wide field">
+                <h3 class="text-left full-width">แจ้งติดตามหน่วยรับตรวจครั้งที่ {{ i+1 }}</h3>
+              </div>
+            </div>
+            <!-- row7 -->
+            <div inline [formGroupName]="i">
+              <div field [col]="4">
+                <label class="text-right full-width">เลขหนังสือ</label>
+              </div>
+              <div field [col]="4" [ngClass]="{'error': validateFieldDtl(i, 'followNotifyBookNumber')}">
+                <input type="text" formControlName="followNotifyBookNumber">
+              </div>
+              <div field [col]="4">
+                <label class="text-right full-width">วันที่</label>
+              </div>
+              <div field [col]="4" [ngClass]="{'error': validateFieldDtl(i, 'followNotifyDateStr')}">
+                <div class="ui calendar" style="width:100%" id="followNotifyDateCld{{i}}">
+                  <div class="ui input left icon">
+                    <i class="calendar alternate outline icon"></i>
+                    <input type="text" placeholder="วว/ดด/ปปปป" formControlName="followNotifyDateStr">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- row8 -->
+            <div inline>
+              <div field [col]="4">
+                <label class="text-left full-width">วันครบกำหนดครั้งที่ {{ i+1 }}</label>
+              </div>
+            </div>
+            <!-- row9 -->
+            <div inline [formGroupName]="i">
+              <div field [col]="4">
+                <label class="text-right full-width">{{key.controls.daedlinesIDiff.value}} วัน</label>
+              </div>
+              <div field [col]="4" [ngClass]="{'error': validateFieldDtl(i, 'daedlinesStartStr')}">
+                <div class="ui calendar" style="width:100%" id="daedlinesICld{{i}}">
+                  <div class="ui input left icon">
+                    <i class="calendar alternate outline icon"></i>
+                    <input type="text" placeholder="วว/ดดดด/ปปปป" formControlName="daedlinesStartStr">
+                  </div>
+                </div>
+              </div>
+              <div field [col]="4">
+                <label class="text-right full-width">{{key.controls.daedlinesIIDiff.value}} วัน</label>
+              </div>
+              <div field [col]="4" [ngClass]="{'error': validateFieldDtl(i, 'daedlinesEndStr')}">
+                <div class="ui calendar" style="width:100%" id="daedlinesIICld{{i}}">
+                  <div class="ui input left icon">
+                    <i class="calendar alternate outline icon"></i>
+                    <input type="text" placeholder="วว/ดดดด/ปปปป" formControlName="daedlinesEndStr">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- row10 -->
+            <div inline>
+              <div class="six wide field">
+                <label class="text-left full-width">หน่วยรับตรวจแจ้งผลการดำเนินงานครั้งที่ {{ i+1 }}</label>
+              </div>
+              <div field [col]="4">
+                <app-button-detail routerLink="/int11/05"></app-button-detail>
+              </div>
+            </div>
+            <!-- row9 -->
+            <div inline [formGroupName]="i">
+              <div field [col]="4">
+                <label class="text-right full-width">เลขหนังสือ</label>
+              </div>
+              <div field [col]="4" [ngClass]="{'error': validateFieldDtl(i, 'resultNotifyBookNumber')}">
+                <input type="text" formControlName="resultNotifyBookNumber">
+              </div>
+              <div field [col]="4">
+                <label class="text-right full-width">วันที่</label>
+              </div>
+              <div field [col]="4" [ngClass]="{'error': validateFieldDtl(i, 'resultNotifyDateStr')}">
+                <div class="ui calendar" style="width:100%" id="resultNotifyDateCld{{i}}">
+                  <div class="ui input left icon">
+                    <i class="calendar alternate outline icon"></i>
+                    <input type="text" placeholder="วว/ดดดด/ปปปป" formControlName="resultNotifyDateStr">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- row10 -->
+            <div inline>
+              <div field [col]="4">
+                <label class="text-left full-width">รายงานการติดตามครั้งที่ {{ i+1 }}</label>
+              </div>
+            </div>
+            <!-- row11 -->
+            <div inline [formGroupName]="i">
+              <div field [col]="4">
+                <label class="text-right full-width">เลขหนังสือ</label>
+              </div>
+              <div field [col]="4" [ngClass]="{'error': validateFieldDtl(i, 'followReportBookNumber')}">
+                <input type="text" formControlName="followReportBookNumber">
+              </div>
+              <div field [col]="4">
+                <label class="text-right full-width">วันที่</label>
+              </div>
+              <div field [col]="4" [ngClass]="{'error': validateFieldDtl(i, 'followReportDateStr')}">
+                <div class="ui calendar" style="width:100%" id="followReportDateCld{{i}}">
+                  <div class="ui input left icon">
+                    <i class="calendar alternate outline icon"></i>
+                    <input type="text" placeholder="วว/ดดดด/ปปปป" formControlName="followReportDateStr">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ui right aligned grid" [formGroupName]="i"
+            *ngIf="details.controls.length > 1 && !key.controls.flagUpdate.value">
+            <div class="column">
+              <app-button-delete (click)="deleteDetail(i)"></app-button-delete>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </ng-container>
+      <div class="ui right aligned grid">
+        <div class="column">
+          <app-button-custom color="green" icon="plus" (click)="addDetails()">เพิ่ม</app-button-custom>
+        </div>
+      </div>
+
+      <!-- row28  Button-->
+      <div class="ui center aligned  grid">
+        <div class="column">
+          <app-button-save (click)="saveDetails($event)"></app-button-save>
+          <app-button-back routerLink="/int11/04"></app-button-back>
+        </div>
+      </div>
+    </ng-container>
+
+
+  </segment>
+
+</with-breadcrumb>

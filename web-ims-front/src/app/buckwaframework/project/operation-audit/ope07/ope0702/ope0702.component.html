@@ -1,0 +1,41 @@
+<segment [loading]="loading">
+
+  <app-table [headerTable]="headerTable" [bodyTable]="bodyTable" [recordTotal]="recordTotal" [enableGraph]="true"
+    (pageChangeOutput)="pageChangeOutput($event)" (showGraph)="graphOnClick($event)">
+  </app-table>
+
+  <ui-modal [id]="'graph'" [type]="'custom'" [size]="sizeModal">
+    <div class="ui header">
+      แนวโน้มการชำระภาษีรายเดือนเปรียนเทียบย้อนหลัง {{formGroup.get('previousYear').value}} ปี
+      {{formGroup.get('facFullname').value}}
+    </div>
+    <div class="scrolling content">
+      <div id="parent" style="overflow-x: auto; margin-top: 15px; margin-bottom: 16px">
+        <canvas id="barChart" class="scrollXTableCustom"></canvas>
+      </div>
+      <div id="parent" style="overflow-x: auto; margin-top: 15px; margin-bottom: 16px"
+        *ngIf="bodyTableChart.length != 0">
+        <table class="ui celled table small scrollXTableCustom" id="fixTable">
+          <thead class="text-center">
+            <tr>
+              <th></th>
+              <th *ngFor="let item of headerTableChart">{{item}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let items of bodyTableChart">
+              <td *ngFor="let item of items; let i = index" class="text-right">{{item}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="actions ">
+      <div class="ui center aligned grid">
+        <div class="sixteen wide column">
+          <app-button-cancel class="deny"></app-button-cancel>
+        </div>
+      </div>
+    </div>
+  </ui-modal>
+</segment>

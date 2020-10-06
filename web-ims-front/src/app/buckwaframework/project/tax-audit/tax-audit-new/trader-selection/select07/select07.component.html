@@ -1,0 +1,423 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+
+<segment header="รายละเอียดผู้ประกอบการ" [loading]="false">
+  <div class="ui form" [formGroup]="dataForm">
+    <!-- <div class="inline fields">
+      <div class="three wide field">
+        <label class="text-right full-width">ทะเบียนสรรพสามิต เดิม/ใหม่</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" class="custom-readonly full-width" readonly value="{{dataDetail.newRegId}}">
+      </div>
+      <div class="three wide field">
+        <label class="text-right full-width">ชื่อผู้ประกอบการ</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" class="custom-readonly full-width" readonly value="{{dataDetail.cusFullname}}">
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div class="three wide field">
+        <label class="text-right full-width">ชื่อโรงอุตสาหกรรม/สถานบริการ</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" class="custom-readonly full-width" readonly value="{{dataDetail.facFullname}}">
+      </div>
+      <div class="three wide field">
+        <label class="text-right full-width">ที่อยู่</label>
+      </div>
+      <div class="four wide field">
+        <textarea class="custom-readonly full-width" cols="30" rows="3">{{dataDetail.facAddress}}</textarea>
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div class="three wide field">
+        <label class="text-right full-width">ภาค</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" class="custom-readonly full-width" readonly value="{{dataDetail.secDesc}}">
+      </div>
+      <div class="three wide field">
+        <label class="text-right full-width">พื้นที่</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" class="custom-readonly full-width" readonly value="{{dataDetail.areaDesc}}">
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div class="three wide field">
+        <label class="text-right full-width">พิกัดสินค้า/บริการ</label>
+      </div>
+      <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly value="{{dataDetail.dutyDesc}}">
+      </div>
+      <div class="three wide field">
+        <label class="text-right full-width">ประเภทการตรวจ</label>
+      </div>
+      <div class="four wide field">
+          <select class="ui dropdown ai full-width">
+              <option value="">กรุณาเลือก</option>
+              <option *ngFor="let item of dropdownType; let i=index" value="{{item.id}}">{{item.description}}</option>
+            </select>
+      </div>
+    </div> -->
+<!-- 
+    <div class="inline fields">
+      <div class="four wide field">
+        <label class="text-right full-width">เลขทะเบียนสรรพสามิต เดิม/ใหม่</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" class="custom-readonly full-width" readonly value="{{dataDetail.newRegId}}">
+      </div>
+      <div class="two wide field">
+        <label class="text-right full-width">ชื่อผู้ประกอบการ</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" class="custom-readonly full-width" readonly value="{{dataDetail.cusFullname}}">
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div class="four wide field">
+        <label class="text-right full-width">ชื่อโรงอุตสาหกรรม/สถานบริการ</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" class="custom-readonly full-width" readonly value="{{dataDetail.facFullname}}">
+      </div>
+      <div class="two wide field">
+        <label class="text-right full-width">พิกัดสินค้า/บริการ</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" class="custom-readonly full-width" readonly value="{{dataDetail.dutyDesc}}">
+      </div>
+    </div> -->
+
+    <div class="ui grid" style="    margin-bottom: -41px;">
+      <div class="one wide column"></div>
+      <div class="seven wide column">
+        <div class="inline fields">
+          <div class="six wide field">
+            <label class="text-right full-width">เลขทะเบียนสรรพสามิต เดิม/ใหม่</label>
+          </div>
+          <div class="ten wide field">
+            <input type="text" class="custom-readonly full-width" formControlName="newRegId" readonly>
+          </div>
+
+        </div>
+        <div class="inline fields">
+          <div class="six wide field">
+            <label class="text-right full-width">ชื่อโรงอุตสาหกรรม/สถานบริการ</label>
+          </div>
+          <div class="ten wide field">
+            <input type="text" class="custom-readonly full-width" formControlName="facFullname" readonly>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="seven wide column">
+        <div class="inline fields">
+          <div class="six wide field">
+            <label class="text-right full-width">ชื่อผู้ประกอบการ</label>
+          </div>
+          <div class="ten wide field">
+            <input type="text" class="custom-readonly full-width" formControlName="cusFullname" readonly> 
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="six wide field">
+            <label class="text-right full-width">พิกัดสินค้า/บริการ</label>
+          </div>
+          <div class="ten wide field">
+            <input type="text" class="custom-readonly full-width" formControlName="dutyDesc" readonly>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="four wide column"></div> -->
+  </div>
+
+    <div class="ui grid">
+      <div class="one wide column"></div>
+      <div class="seven wide column">
+        <div class="inline fields">
+          <div class="six wide field">
+            <label class="text-right full-width">สำนักงานสรรพสามิต ภาค</label>
+          </div>
+          <div class="ten wide field">
+            <input type="text" class="custom-readonly full-width" formControlName="secDesc" readonly>
+          </div>
+
+        </div>
+        <div class="inline fields">
+          <div class="six wide field">
+            <label class="text-right full-width">สำนักงานสรรพสามิต พื้นที่</label>
+          </div>
+          <div class="ten wide field">
+            <input type="text" class="custom-readonly full-width" formControlName="areaDesc" readonly> 
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="one wide column"></div> -->
+
+
+      <div class="seven wide column">
+        <div class="inline fields">
+          <div class="six wide field">
+            <label class="text-right full-width">ที่อยู่โรงอุตสาหกรรม/<br>สถานบริการ</label>
+          </div>
+          <div class="ten wide field">
+            <textarea class="custom-readonly full-width" cols="30" rows="3" formControlName="facAddress"  readonly></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    <!--       
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="text-right full-width">สำนักงานสรรพสามิต ภาค</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly value="{{dataDetail.secDesc}}">
+        </div>
+        <div class="two wide field">
+          <label class="text-right full-width">ที่อยู่โรงอุตสาหกรรม/<br>สถานบริการ</label>
+        </div>
+        <div class="four wide field">
+            <textarea class="custom-readonly full-width" cols="30" rows="3">{{dataDetail.facAddress}}</textarea>
+        </div>
+      </div>
+
+
+      <div class="inline fields">
+        <div class="four wide field">
+           <label class="text-right full-width">สำนักงานสรรพสามิต พื้นที่</label>
+        </div>
+        <div class="four wide field">
+            <input type="text" class="custom-readonly full-width" readonly value="{{dataDetail.areaDesc}}">
+        </div>
+      </div> -->
+
+    <div class="inline field btn text-center">
+      <app-button-custom color="green" icon="download icon" text="ดาวน์โหลดเอกสาร"
+        routerLink="/tax-audit-new/select07/se05"></app-button-custom>
+      <app-button-back routerLink="/tax-audit-new/ta02/02" style="margin-left: 69px;"></app-button-back>
+    </div>
+  </div>
+
+</segment>
+
+<segment header="แผนการตรวจสอบประจำปี" [loading]="false">
+
+  <div class="ui form grid ">
+    <div class="ui eight wide centered  column">
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="eleven wide field">
+          <h4>ขั้นตอนก่อนออกตรวจ</h4>
+        </div>
+        <div class="four wide field">
+          <label class="text-left full-width">สถานะ</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="eleven wide field">
+          <a href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se01')" class="text-left full-width">- วิเคราะห์ข้อมูลเบื้องต้น</a>
+        </div>
+        <div class="four wide field">
+          <div class="description">
+            <label>สำเร็จ</label>
+            &nbsp;
+            <i class=" small circular inverted green check icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="eleven wide field">
+            <a routerLink="/tax-audit-new/select18" href="javascript:void(0)" class="text-left full-width">- กำหนดวันที่ออกตรวจ</a>
+        </div>
+        <div class="four wide field">
+          <div class="description">
+            <label>กำลังดำเนินการ</label>
+            &nbsp;
+            <i class="small circular inverted orange sync alternate icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="eleven wide field">
+            <a routerLink="/tax-audit-new/select18/se01" href="javascript:void(0)" class="text-left full-width">- ขออนุมัติออกตรวจ</a>
+        </div>
+        <div class="four wide field">
+          <div class="description">
+            <label>รอดำเนินการ</label>
+            &nbsp;
+            <i class="small circular inverted yellow   sticky note icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="eleven wide field">
+          <h4>ขั้นตอนการออกตรวจ</h4>
+        </div>
+        <div class="four wide field">
+          <label class="small text-left full-width">สถานะ</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="eleven wide field">
+            <a href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se02')" class="text-left full-width">- สร้างกระดาษทำการ (สินค้า)</a>
+        </div>
+        <div class="four wide field">
+          <div class="description">
+            <label>รอดำเนินการ</label>
+            &nbsp;
+            <i class="small circular inverted yellow   sticky note icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="eleven wide field">
+            <a href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se03')" class="text-left full-width">- สร้างกระดาษทำการ (บริการ)</a>
+        </div>
+        <div class="four wide field">
+          <div class="description">
+            <label>รอดำเนินการ</label>
+            &nbsp;
+            <i class="small circular inverted yellow   sticky note icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="eleven wide field">
+          <h4>ขั้นตอนหลังการออกตรวจ</h4>
+        </div>
+        <div class="four wide field">
+          <label class="text-left full-width">สถานะ</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="eleven wide field">
+            <a routerLink="/tax-audit-new/select18/se02" href="javascript:void(0)" class="text-left full-width">- บันทึกผลการตรวจ</a>
+        </div>
+        <div class="four wide field">
+          <div class="description">
+            <label>รอดำเนินการ</label>
+            &nbsp;
+            <i class="small circular inverted yellow   sticky note icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="eleven wide field">
+          <a routerLink="/tax-audit-new/select07/se04" href="javascript:void(0)" class="text-left full-width">- สรุปผล</a>
+        </div>
+        <div class="four wide field">
+          <div class="description">
+            <label>รอดำเนินการ</label>
+            &nbsp;
+            <i class="small circular inverted yellow   sticky note icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="eleven wide field">
+            <a  href="javascript:void(0)" class="text-left full-width">- ติดตามผลตรวจ</a>
+        </div>
+        <div class="four wide field">
+          <div class="description">
+            <label>รอดำเนินการ</label>
+            &nbsp;
+            <i class="small circular inverted yellow   sticky note icon"></i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- <div class="ui centered grid">
+    <div class="four wide column">
+      <div class="ui link fluid card" (click)="goToSe01()">
+        <div class="topCard">
+          <i class="huge circular alternate clipboard list icon"></i>
+        </div>
+        <div class="content">
+          <a class="header text-center">วิเคราะห์ข้อมูลเบื้องต้น</a>
+        </div>
+      </div>
+    </div>
+    <div class="four wide column">
+      <div class="ui link fluid card" routerLink="/tax-audit-new/select07/se02">
+        <div class="topCard">
+          <i class="huge circular file outline icon"></i>
+        </div>
+        <div class="content">
+          <a class="header text-center">บันทึกผลการตรวจสอบ (พิกัดสินค้า)</a>
+        </div>
+      </div>
+    </div>
+    <div class="four wide column">
+      <div class="ui link fluid card" routerLink="/tax-audit-new/select07/se03">
+        <div class="topCard">
+          <i class="huge circular file outline icon"></i>
+        </div>
+        <div class="content">
+          <a class="header text-center">บันทึกผลการตรวจสอบ (พิกัดบริการ)</a>
+        </div>
+      </div>
+    </div>
+    <div class="four wide column">
+      <div class="ui link fluid card" routerLink="/tax-audit-new/select07/se04">
+        <div class="topCard">
+          <i class="huge circular clipboard list icon"></i>
+        </div>
+        <div class="content">
+          <a class="header text-center">รายงานผลการตรวจสอบสอบภาษี</a>
+        </div>
+      </div>
+    </div>
+  </div>  -->
+
+
+  <!-- <div class="ui center aligned grid">
+    <div class="eight wide column">
+      <app-button-back routerLink="/tax-audit-new/ta0202"></app-button-back>
+    </div>
+  </div> -->
+</segment>

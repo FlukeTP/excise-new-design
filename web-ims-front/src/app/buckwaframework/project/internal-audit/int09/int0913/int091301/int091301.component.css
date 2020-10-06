@@ -1,0 +1,16 @@
+.ui.button {
+    box-shadow: none !important;
+    width: 100%;
+}
+
+.bg-th-left {
+    background-color: #FFFF99 !important;
+}
+
+.bg-th-right {
+    background-color: #00ffad !important;
+}
+
+.bg-blank{
+    background-color: #ffff !important;
+}

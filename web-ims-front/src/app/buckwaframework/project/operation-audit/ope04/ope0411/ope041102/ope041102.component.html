@@ -1,0 +1,57 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+    <div class="ui grid">
+      <div class="sixteen wide column">
+          <segment header="เลือกจากรายการแจ้งเตือน" [loading]="false">
+              <table  class="ui small celled table striped nowrap  " style="width: 100%;">
+                <thead>
+                  <tr class="text-center">
+                    <th>การแจ้งเตือน</th>
+                    <th>ผู้รับอนุญาต</th>
+                    <th style="width: 108px"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td rowspan="3" style="text-align: center">หมัก</td>
+                    <td style="text-align: center">หจก.ประเทืองบริบูรณ์สุราไทย</td>
+                    <td>
+                      <app-button-custom color="primary" icon="check icon" text="เลือก"></app-button-custom>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center">หจก.สาโทลำไยทอง</td>
+                    <td>
+                      <app-button-custom color="primary" icon="check icon" text="เลือก"></app-button-custom>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center">หจก.หนองแฝกการสุรา</td>
+                    <td>
+                      <app-button-custom color="primary" icon="check icon" text="เลือก"></app-button-custom>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center">กลั่น</td>
+                    <td style="text-align: center">หจก.ดวงจันทร์การสุรา</td>
+                    <td>
+                      <app-button-custom color="primary" icon="check icon" text="เลือก"></app-button-custom>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center">บรรจุ</td>
+                    <td style="text-align: center">หจก.วัดพริกสุราชุมชน</td>
+                    <td>
+                      <app-button-custom color="primary" icon="check icon" text="เลือก"></app-button-custom>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="inline field btn text-center">
+                  <!-- <app-button-save ></app-button-save> -->
+                  <app-button-back (click)="goBack()"></app-button-back>
+                </div>
+            </segment>
+ 
+      </div>
+    </div>
+  </with-breadcrumb>

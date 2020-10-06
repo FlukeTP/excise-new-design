@@ -1,0 +1,45 @@
+<!-- <app-breadcrumb [route]="breadcrumb"></app-breadcrumb> -->
+<br>
+<form class="ui grid">
+  <div class="sixteen wide column">
+    <segment header="แบบบันทึกข้อความ (TA0302)" [loading]="loadingHeader">
+      <div class="ui grid">
+        <div class="ui centered sixteen wide column">
+          <div form>
+            <!-- row 1 -->
+            <div inline>
+              <div field [col]="3">
+                <label class="full-width text-right">บันทึกข้อความ</label>
+              </div>
+              <ng-container>
+                <div field [col]="4">
+                  <select id="topic" class="ui search dropdown full-width" (change)="goToPage($event)">
+                    <option value="" style="color: grey">เลือกเรื่อง</option>
+                    <option *ngFor="let item of docTypeList" value="{{item.code}}">
+                      {{item.value}}
+                    </option>
+                  </select>
+                </div>
+              </ng-container>
+              <div field [col]="3">
+                <label class="full-width text-right">เลขเอกสาร</label>
+              </div>
+              <div field [col]="4">
+                <select id="formTsNumber" class="ui search dropdown full-width">
+                  <option value="" style="color: grey">เลือกเลขเอกสาร</option>
+                </select>
+              </div>
+            </div>
+            <!-- row 4 -->
+            <div class="inline field btn text-center">
+              <app-button-custom color="green" icon="sticky note icon" text="สร้างเอกสารใหม่">
+              </app-button-custom>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </segment>
+    <router-outlet></router-outlet>
+  </div>
+</form>

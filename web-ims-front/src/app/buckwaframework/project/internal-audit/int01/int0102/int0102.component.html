@@ -1,0 +1,101 @@
+<app-breadcrumb style="width: 100%;" [route]="breadcrumb"></app-breadcrumb>
+
+<segment header="รายละเอียดการดำเนินการ" [loading]="false">
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="four wide field ">
+      </div>
+      <div class="two wide field ">
+        <label class="text-right full-width">วันที่เริ่มตรวจ :</label>
+      </div>
+      <div class="two wide field">
+        {{ dataHeader.get('dateStartActivity').value | isEmpty }}
+      </div>
+      <div class="two wide field ">
+        <label class="text-right full-width">วันที่สิ้นสุดการตรวจ :</label>
+      </div>
+      <div class="two wide field">
+        {{  dataHeader.get('dateEndActivity').value | isEmpty }}
+      </div>
+      <div class="four wide field ">
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div class="four wide field ">
+      </div>
+      <div class="two wide field ">
+        <label class="text-right full-width">รูปแบบการตรวจสอบ :</label>
+      </div>
+      <div class="five wide field">
+        {{ dataHeader.get('inspectionWorkStr').value | isEmpty }}
+      </div>
+      <div class="four wide field ">
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div class="four wide field ">
+      </div>
+      <div class="two wide field ">
+        <label class="text-right full-width">ผู้รับตรวจ :</label>
+      </div>
+      <div class="two wide field">
+        {{ dataHeader.get('inspector').value | isEmpty }}
+      </div>
+      <div class="seven wide field ">
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div class="four wide field ">
+      </div>
+      <div class="two wide field ">
+        <label class="text-right full-width">ผู้ตรวจ :</label>
+      </div>
+      <div class="two wide field">
+        {{ dataHeader.get('officer').value | isEmpty }}
+      </div>
+      <div class="two wide field required">
+      </div>
+      <div class="two wide field">
+      </div>
+      <div class="four wide field ">
+      </div>
+    </div>
+
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-custom color="primary" text="รายละเอียดผู้ตรวจ"></app-button-custom>
+      </div>
+    </div>
+  </div>
+</segment>
+
+<div class="ui grid">
+  <div class="sixteen wide column">
+
+    <div class="ui ordered steps" style="width:100% !important">
+      <div class="link completed step" (click)="clickfirst()">
+        <div class="content">
+          <div class="title">ก่อนออกตรวจ</div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="link active step" routerLink="/int01/02/02">
+        <div class="content">
+          <div class="title">ออกตรวจ</div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="link active step" routerLink="/int01/02/03">
+        <div class="content">
+          <div class="title">หลังออกตรวจ</div>
+          <div class="description"></div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <router-outlet></router-outlet>
+  </div>
+</div>

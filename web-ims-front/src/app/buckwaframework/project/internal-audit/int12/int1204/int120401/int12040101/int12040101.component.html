@@ -1,0 +1,346 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="{{(id) ? 'แก้ไขข้อมูลค่าใช้จ่าย' : 'เพิ่มข้อมูลค่าใช้จ่าย'}}" [loading]="loading">
+    <div class="ui form" [formGroup]="formSave">
+      <div class="inline fields"
+        *ngIf="userProfile.officeCode.substring(0, 2) === '00' || userProfile.officeCode.substring(0, 2) === '99'">
+        <div class="three wide field required">
+          <label class="text-right full-width">สรรพสามิตภาค</label>
+        </div>
+        <div class="four wide field" [ngClass]="{'error': invalidSaveControl('officeCode')}">
+          <select class="ui dropdown full-width" formControlName="officeCode" name="sector" id="sector"
+            (change)="changeSector($event.target.value)">
+            <option value="">กรุณาเลือก</option>
+            <option *ngFor="let item of sectorList" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+        <div class="two wide field required">
+          <label class="text-right full-width">สรรพสามิตพื้นที่
+          </label>
+        </div>
+        <div class="four wide field " [ngClass]="{'error': invalidSaveControl('area')}">
+          <select class="ui dropdown full-width" formControlName="area" name="area" id="area"
+            (change)="changeValidate()">
+            <option value="">กรุณาเลือก</option>
+            <option *ngFor="let item of araeList" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="inline fields ui "
+        *ngIf="userProfile.officeCode.substring(0, 2) !== '00' && userProfile.officeCode.substring(0, 2) !== '99'">
+        <div field [col]="3">
+          <label class="text-right full-width">สรรพสามิตภาค</label>
+        </div>
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" readonly [value]="sector">
+        </div>
+        <div field [col]="2">
+          <label class="text-right full-width">สรรพสามิตพื้นที่</label>
+        </div>
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" readonly [value]="userProfile.departmentName">
+        </div>
+      </div>
+      <div class="inline fields ui">
+        <div field [col]="3" class="required">
+          <label class="text-right full-width">เดือนปีค่าใช้จ่าย</label>
+        </div>
+        <div field [col]="2" [ngClass]="{'error': invalidSaveControl('expenseDateStr')}">
+          <div class="ui calendar" id="montBudgetYearCld">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" autocomplete="off" placeholder="ดด/ปปปป" readonly id="montBudgetYearCldInput"
+                formControlName="expenseDateStr">
+            </div>
+          </div>
+        </div>
+        <div field [col]="2" class="required">
+          <label class="text-right full-width">ชื่อบัญชี</label>
+        </div>
+        <div field [col]="2" [ngClass]="{'error': invalidSaveControl('accountId')}">
+          <select class="ui dropdown search  ia" id="coaCode" formControlName="accountId"
+            (change)="changeChartOfAcc($event.target.value, '1')">
+            <option *ngFor="let data of chartOfAccList" value="{{data.coaCode}}">{{data.coaCode}}</option>
+          </select>
+        </div>
+        <!-- <div field [col]="2" class="required">
+          <label class="text-right full-width">ชื่อบัญชี</label>
+        </div> -->
+        &nbsp;
+        <div field [col]="4" [ngClass]="{'error': invalidSaveControl('accountName')}">
+          <select class="ui dropdown search  ia" id="coaName" formControlName="accountName"
+            (change)="changeChartOfAcc($event.target.value, '2')">
+            <option *ngFor="let data of chartOfAccList" value="{{data.coaName}}">{{data.coaName}}</option>
+          </select>
+        </div>
+        <div field [col]="2"></div>
+      </div>
+      <!-- label -->
+      <div class="ui center aligned grid">
+        <div class="sixteen wide column">
+          <app-button-save (click)="onSave()"></app-button-save>
+          <app-button-back routerLink="/int12/04/01"></app-button-back>
+        </div>
+      </div>
+      <br>
+      <div class="inline fields ui centered grid"></div>
+      <div class="inline fields ui centered grid ">
+        <div field [col]="5">
+          <label class="full-width text-right"></label>
+        </div>
+        <div field [col]="4">
+          <label class="full-width text-center underline">เงินงบประมาณ</label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center underline">รับโอน</label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center"></label>
+        </div>
+        <div field [col]="3">
+        </div>
+      </div>
+      <div class="inline fields ui centered grid ">
+        <div field [col]="5">
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center">การบริหาร</label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center">ปราบปราม</label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center">เงินนอกงบประมาณ</label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center">รวม</label>
+        </div>
+        <div field [col]="3">
+        </div>
+      </div>
+      <div class="inline fields ui centered grid ">
+        <div field [col]="5" class="required">
+          <label class="full-width text-right"><u>กิจกรรม (รับโอนจากกรมฯ)</u></label>
+        </div>
+        <div field [col]="2" [ngClass]="{'error': invalidSaveControl('serviceReceive')}">
+          <input type="text" numberOnly name="serviceReceive" class="text-right" (change)="changeReceive()"
+            formControlName="serviceReceive" appNumberInputFormat onclick="select()" />
+          <!-- [value]="formSave.get('serviceReceive').value | decimalFormat:'###,###' "  -->
+        </div>
+        <div field [col]="2" [ngClass]="{'error': invalidSaveControl('suppressReceive')}">
+          <input type="text" numberOnly name="suppressReceive" class="text-right" (change)="changeReceive()"
+            formControlName="suppressReceive" appNumberInputFormat onclick="select()"/>
+        </div>
+        <div field [col]="2" [ngClass]="{'error': invalidSaveControl('budgetReceive')}">
+          <input type="text" numberOnly name="budgetReceive" class="text-right" (change)="changeReceive()"
+            formControlName="budgetReceive" appNumberInputFormat onclick="select()"/>
+        </div>
+        <div field [col]="2">
+          <input type="text" name="sumReceive" class="custom-readonly text-right" formControlName="sumReceive" readonly
+            appNumberInputFormat />
+        </div>
+        <div field [col]="3">
+        </div>
+      </div>
+      <div class="inline fields ui centered grid ">
+        <div field [col]="5" class="required">
+          <label class="full-width text-right"><u>การเบิกจ่ายจริงแยกตามกิจกรรมตามทะเบียนคุม</u></label>
+        </div>
+        <div field [col]="2" [ngClass]="{'error': invalidSaveControl('serviceWithdraw')}">
+          <input type="text" numberOnly name="serviceWithdraw" class="text-right" (change)="changeReceive()"
+            formControlName="serviceWithdraw" appNumberInputFormat onclick="select()"/>
+        </div>
+        <div field [col]="2" [ngClass]="{'error': invalidSaveControl('suppressWithdraw')}">
+          <input type="text" numberOnly name="serviceWithdraw" class="text-right" (change)="changeReceive()"
+            formControlName="suppressWithdraw" appNumberInputFormat onclick="select()"/>
+        </div>
+        <div field [col]="2" [ngClass]="{'error': invalidSaveControl('budgetWithdraw')}">
+          <input type="text" numberOnly name="budgetWithdraw" class="text-right" (change)="changeReceive()"
+            formControlName="budgetWithdraw" appNumberInputFormat onclick="select()"/>
+        </div>
+        <div field [col]="2">
+          <input type="text" name="sumWithdraw" class="custom-readonly text-right" formControlName="sumWithdraw"
+            readonly appNumberInputFormat />
+        </div>
+        <div field [col]="3">
+        </div>
+      </div>
+      <div class="inline fields ui centered grid ">
+        <div field [col]="5">
+          <label class="full-width text-right"><u>คงเหลือ</u></label>
+        </div>
+        <div field [col]="2">
+          <input type="text" name="serviceBalance" class="custom-readonly text-right" formControlName="serviceBalance"
+            readonly [value]="formSave.get('serviceBalance').value | decimalFormat:'###,###.00' " />
+        </div>
+        <div field [col]="2">
+          <input type="text" name="suppressBalance" class="custom-readonly text-right" formControlName="suppressBalance"
+            readonly [value]="formSave.get('suppressBalance').value | decimalFormat:'###,###.00' " />
+        </div>
+        <div field [col]="2">
+          <input type="text" name="budgetBalance" class="custom-readonly text-right" formControlName="budgetBalance"
+            readonly [value]="formSave.get('budgetBalance').value | decimalFormat:'###,###.00' " />
+        </div>
+        <div field [col]="2">
+          <input type="text" name="sumBalance" class="custom-readonly text-right" formControlName="sumBalance" readonly
+            [value]="formSave.get('sumBalance').value | decimalFormat:'###,###.00' " />
+        </div>
+        <div field [col]="3">
+        </div>
+      </div>
+      <div class="inline fields ui centered grid ">
+      </div>
+      <div class="inline fields ui centered grid ">
+        <div field [col]="5">
+          <label class="full-width text-right"></label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center"><u>คงเหลือสุทธิ</u></label>
+        </div>
+        <div field [col]="2">
+          <input type="text" name="moneyBudget" class="custom-readonly text-right" formControlName="moneyBudget"
+            readonly [value]="formSave.get('moneyBudget').value | decimalFormat:'###,###.00' " />
+        </div>
+        <div field [col]="2">
+          <input type="text" name="moneyOut" class="custom-readonly text-right" formControlName="moneyOut" readonly
+            [value]="formSave.get('moneyOut').value | decimalFormat:'###,###.00' " />
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center"></label>
+        </div>
+        <div field [col]="3">
+        </div>
+      </div>
+      <div class="inline fields ui centered grid ">
+      </div>
+      <!-- <div class="inline fields ui centered grid ">
+        <div field [col]="5">
+          <label class="full-width text-right"></label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center">ถัวเป็นเงิน</label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center">ถัวเป็นให้</label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center">ถัวมาเงิน</label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center">ถัวมาจาก</label>
+        </div>
+        <div field [col]="3">
+        </div>
+      </div>
+      <div class="inline fields ui centered grid ">
+        <div field [col]="5">
+          <label class="full-width text-right"><u>ถัวจ่ายเงินงบประมาณ</u></label>
+        </div>
+        <div field [col]="2">
+          <input type="text" numberOnly name="averageCost" class="text-right" formControlName="averageCost"
+            (change)="changeReceive()" [value]="formSave.get('averageCost').value | decimalFormat:'###,###' " />
+        </div>
+        <div field [col]="2">
+          <input type="text" name="averageGive" formControlName="averageGive" />
+        </div>
+        <div field [col]="2">
+          <input type="text" numberOnly name="averageFrom" class="text-right" formControlName="averageFrom"
+            (change)="changeReceive()" [value]="formSave.get('averageFrom').value | decimalFormat:'###,###' " />
+        </div>
+        <div field [col]="2">
+          <input type="text" name="averageComeCost" formControlName="averageComeCost" />
+        </div>
+        <div field [col]="3">
+        </div>
+      </div>
+      <div class="inline fields ui centered grid ">
+        <div field [col]="5">
+          <label class="full-width text-right"><u>ถัวจ่ายเงินนอกงบประมาณ</u></label>
+        </div>
+        <div field [col]="2">
+          <input type="text" numberOnly name="averageCostOut" class="text-right" formControlName="averageCostOut"
+            (change)="changeReceive()" [value]="formSave.get('averageCostOut').value | decimalFormat:'###,###' " />
+        </div>
+        <div field [col]="2">
+          <input type="text" name="averageGiveOut" formControlName="averageGiveOut" />
+        </div>
+        <div field [col]="2">
+          <input type="text" numberOnly name="averageFromOut" class="text-right" formControlName="averageFromOut"
+            (change)="changeReceive()" [value]="formSave.get('averageFromOut').value | decimalFormat:'###,###' " />
+        </div>
+        <div field [col]="2">
+          <input type="text" name="averageComeCostOut" formControlName="averageComeCostOut" />
+        </div>
+        <div field [col]="3">
+        </div>
+      </div> -->
+      <div class="inline fields ui centered grid ">
+      </div>
+      <div class="inline fields ui centered grid ">
+        <div field [col]="4" class="text-right-button">
+          <app-button-custom class="float righted" color="green" icon="add icon" text="" (click)="addDetail()">
+          </app-button-custom>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center">ถัวเป็นเงิน</label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center">ถัวเป็นให้</label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center">ถัวมาเงิน</label>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-center">ถัวมาจาก</label>
+        </div>
+        <div field [col]="4">
+        </div>
+      </div>
+      <ng-container formArrayName="iaExpensesD1" *ngFor="let person of iaExpensesD1.controls; let i = index;">
+        <div class="inline fields ui centered grid ">
+          <div field [col]="4" class="text-right-button" [formGroupName]="i">
+            <app-button-custom class="float righted" color="red" icon="minus icon" text="" (click)="delDetail(i)">
+            </app-button-custom>
+          </div>
+          <div field [col]="2" [formGroupName]="i">
+            <input type="text" (change)="changeCalculate()" numberOnly name="averageCost{{i}}" class="text-right"
+              formControlName="averageCost" appNumberInputFormat onclick="select()"/>
+          </div>
+          <div field [col]="2" [formGroupName]="i">
+            <input type="text" name="averageGive{{i}}" formControlName="averageGive" />
+          </div>
+          <div field [col]="2" [formGroupName]="i">
+            <input type="text" (change)="changeCalculate()" numberOnly name="averageFrom{{i}}" class="text-right"
+              formControlName="averageFrom" appNumberInputFormat onclick="select()"/>
+          </div>
+          <div field [col]="2" [formGroupName]="i">
+            <input type="text" name="averageComeCost{{i}}" formControlName="averageComeCost" />
+          </div>
+          <div field [col]="4" [formGroupName]="i">
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" formControlName="moneyBudgetType" value="1" (change)="changeCalculate()">
+                <label>เงินงบประมาณ</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" formControlName="moneyBudgetType" value="2" (change)="changeCalculate()">
+                <label>เงินนอกงบประมาณ</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class="inline fields ui centered grid ">
+        <div field [col]="1"></div>
+        <div class="three wide field ">
+          <label class="text-right full-width">หมายเหตุ</label>
+        </div>
+        <div class="ten wide field">
+          <textarea rows="2" type="text" name="note" formControlName="note" maxlength="3000"></textarea>
+        </div>
+        <div field [col]="2"></div>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

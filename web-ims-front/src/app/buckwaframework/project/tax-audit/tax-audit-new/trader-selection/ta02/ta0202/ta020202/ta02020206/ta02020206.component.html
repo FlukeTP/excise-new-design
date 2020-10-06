@@ -1,0 +1,28 @@
+<segment header="การวิเคราะห์การยื่นชำระภาษีภายในเวลาที่กำหนด" [loading]="false">
+  <table id="dataTable" class="ui small celled table striped selectable  nowrap" style="width:100%">
+    <thead>
+      <tr class="text-center">
+        <th style="text-align: center">ลำดับ</th>
+        <th style="text-align: center">เดือน</th>
+        <th style="text-align: center">ข้อมูลจากแบบรายการภาษีสรรพสามิต<!--กำหนดชำระภาษีตาม กม.--></th>
+        <th style="text-align: center">กำหนดชำระภาษีตาม กม.</th>
+        <!-- <th style="text-align: center">ข้อมูลจาก ภส. 03-07</th> -->
+        <th style="text-align: center">ผลการตรวจสอบ</th>
+      </tr>
+    </thead>
+
+  </table>
+  <br>
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="five wide field">
+        <label class="text-left full-width">บันทึกการวิเคราะห์ข้อมูลเบื้องต้น</label>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="sixteen wide field">
+        <textarea [(ngModel)]="note" (change)="onChangeNote()"></textarea>
+      </div>
+    </div>
+  </div>
+</segment>

@@ -1,0 +1,41 @@
+<!-- type: alert -->
+<div class="ui {{ size || 'mini' }} hidden transition modal" id="{{ id }}" *ngIf="chkType('alert')">
+    <div class="header" [ngStyle]="headerStyles">{{ title || 'แจ้งแตือน' }}</div>
+    <div class="content">
+        <p>
+            <ng-content></ng-content>
+        </p>
+    </div>
+    <div class="actions">
+        <div class="ui mini green cancel button center floated" *ngIf="success">
+            <i class="check icon"></i> ยืนยัน
+        </div>
+        <div class="ui mini red cancel button center floated"
+            style="background: #e0e1e2 none; color: black; outline: none" *ngIf="!success">
+            <i class="remove icon"></i> ปิด
+        </div>
+    </div>
+</div>
+
+<!-- type: confirm -->
+<div class="ui {{ size || 'mini' }} hidden transition modal" id="{{ id }}" *ngIf="chkType('confirm')">
+    <div class="ui header" [ngStyle]="headerStyles">{{ title || 'การยืนยัน' }}</div>
+    <div class="content">
+        <p>
+            <ng-content></ng-content>
+        </p>
+    </div>
+    <div class="actions" style="justify-content: center;display: flex;">
+        <div class="ui mini positive button" style="background: #2185d0; outline: none">
+            ยืนยัน
+        </div>
+        <div class="ui mini negative button" style="background: #e0e1e2 none; color: black">
+            ยกเลิก
+        </div>
+    </div>
+</div>
+
+<!-- type: custom -->
+<div class="ui {{ size || '' }} hidden transition modal" id="{{ id }}" *ngIf="chkType('custom')">
+    <ng-content></ng-content>
+</div>

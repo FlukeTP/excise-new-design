@@ -1,0 +1,117 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="อนุมัติการออกตรวจ" [loading]="false">
+    <div class="ui form grid">
+      <div class="one wide column"></div>
+      <div class="fourteen wide column">
+        <div class="inline fields">
+          <div class="three wide field"></div>
+          <div class="three wide field">
+            <label class="text-right full-width">ปี</label>
+          </div>
+          <div class="four wide field">
+            <div class="ui calendar" id="budgetYear" style="width:100%">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" autocomplete="off" placeholder="ปปปป" readonly>
+              </div>
+            </div>
+          </div>
+          <app-button-custom color="primary" icon="search icon" text="ค้นหา" (click)="search()">
+          </app-button-custom>
+        </div>
+        <div class="ui secondary segment">
+          <div class="ui grid">
+            <div class="sixteen wide column">
+              <h4 style="color: #000;">
+                <i class="clock outline alternate outline icon large ui" style="color: blue"></i>รออนุมัติ
+              </h4>
+              <div *ngIf="lists && lists.length == 0" style="padding-left: 2em">
+                ไม่พบรายการรออนุมัติ
+              </div>
+            </div>
+          </div>
+          <div class="ui form grid">
+            <div class="sixteen wide column" *ngIf="lists && lists.length > 0">
+              <div class="ui cards">
+                <div class="card" *ngFor="let list of lists; let i = index">
+                  <div class="content">
+                    <div class="header">
+                      แผนการออกตรวจ ประจำปี {{ list.budgetYear }}
+                    </div>
+                    <div class="meta">
+                      วันที่ {{ list.auditStart | dateStringType:"DD MMMM YYYY" }}
+                    </div>
+                    <div class="description">
+                      <ng-container *ngFor="let company of list.companies; let j = index">
+                        <p *ngIf="list.toggleList||j<3">{{ company }}</p>
+                      </ng-container>
+                      <a href="javascript:void(0)" *ngIf="!list.toggleList&&list.companies.length>3"
+                        (click)="toggleShowList(i)">เพิ่มเติม...</a>
+                      <a href="javascript:void(0)" *ngIf="list.toggleList&&list.companies.length>3"
+                        (click)="toggleShowList(i)">ย่อ...</a>
+                    </div>
+                  </div>
+                  <div class="extra content">
+                    <div class="ui two buttons">
+                      <app-button-custom color="primary" icon="eye icon" text="รายละเอียด"
+                        (click)="redirectTo(list.id)">
+                      </app-button-custom>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="one wide column"></div>
+    </div>
+    <div class="ui form grid">
+      <div class="one wide column"></div>
+      <div class="fourteen wide column">
+        <div class="ui secondary segment">
+          <h4 style="color: #000;">
+            <i class="calendar check alternate outline icon large ui" style="color: blue"></i>อนุมัติแล้ว
+          </h4>
+          <div *ngIf="listsApprove && listsApprove.length == 0" style="padding-left: 2em">
+            ไม่พบรายการอนุมัติ
+          </div>
+          <table *ngIf="listsApprove && listsApprove.length > 0" class="ui small celled table striped selectable"
+            id="dataTable" style="width: 100%;">
+            <thead>
+              <tr style="text-align: center">
+                <th>สำนักงานสรรพสามิตภาค</th>
+                <th>สำนักงานสรรพสามิตพื้นที่</th>
+                <th>ชื่อผู้ประกอบการ</th>
+                <th>สถานะ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let listApprove of listsApprove; let i = index">
+                <td class="text-top">{{ listApprove.sectorName }}</td>
+                <td class="text-top">{{ listApprove.areaName }}</td>
+                <td class="text-top">
+                  <ng-container *ngFor="let company of listApprove.companies; let j = index">
+                    <p *ngIf="listApprove.toggleList||j<3">{{ company }}</p>
+                  </ng-container>
+                  <a href="javascript:void(0)" *ngIf="!listApprove.toggleList&&listApprove.companies.length>3"
+                    (click)="toggleShowListApprove(i)">เพิ่มเติม...</a>
+                  <a href="javascript:void(0)" *ngIf="listApprove.toggleList&&listApprove.companies.length>3"
+                    (click)="toggleShowListApprove(i)">ย่อ...</a>
+                </td>
+                <td class="text-top text-center">
+                  <app-button-custom color="primary" icon="eye icon icon" text="อนุมัติแล้ว"
+                    (click)="redirectTo(listApprove.id)">
+                  </app-button-custom>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="one wide column"></div>
+    </div>
+    <br>
+  </segment>
+</with-breadcrumb>

@@ -1,0 +1,44 @@
+<segment [loading]="loading">
+
+  <app-table [headerTable]="headerTable" [bodyTable]="bodyTable" [recordTotal]="recordTotal" [enableGraph]="true"
+    (pageChangeOutput)="pageChangeOutput($event)" (showGraph)="graphOnClick($event)">
+  </app-table>
+
+  <ui-modal [id]="'graph'" [type]="'custom'" [size]="'small'">
+    <div class="ui header">
+      แนวโน้มการชำระภาษีย้อนหลัง {{formGroup.get('previousYear').value}}
+      ปี {{formGroup.get('facFullname').value}}
+    </div>
+    <div class="scrolling content">
+
+      <canvas id="barChart"></canvas>
+      <div id="parent" style="overflow-x: auto; margin-top: 15px; margin-bottom: 16px" *ngIf="diffTaxList.length != 0">
+        <table class="ui celled table small scrollXTableCustom" id="fixTable">
+          <thead class="text-center">
+            <tr>
+              <th></th>
+              <th *ngFor="let item of years;let i = index">{{item}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>เพิ่ม / ลด (%)</td>
+              <td *ngFor="let item of diffTaxList" class="text-right">{{item}}</td>
+            </tr>
+            <tr>
+              <td>จำนวนภาษี (บาท)</td>
+              <td *ngFor="let item of datasChartForTable" class="text-right">{{item}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="actions ">
+      <div class="ui center aligned grid">
+        <div class="sixteen wide column">
+          <app-button-cancel class="deny"></app-button-cancel>
+        </div>
+      </div>
+    </div>
+  </ui-modal>
+</segment>

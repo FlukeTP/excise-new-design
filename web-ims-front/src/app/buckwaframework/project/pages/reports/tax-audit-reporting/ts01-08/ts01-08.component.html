@@ -1,0 +1,128 @@
+<form (submit)="onSubmit($event)" ngNativeValidate>
+    <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+        <span>สมุดสั่งการออกตรวจสอบภาษีสรรพสามิต</span>
+    </div>
+
+    <div class="ui attached segment">
+        <div class="ui grid">
+            <div class="ui form" style="overflow-x: scroll; padding-left: 0;">
+                <table class="ui celled table striped selectable" style="text-align: center;width: 100vw;border-radius: 0;">
+                    <thead>
+                        <tr>
+                            <th>เลขที่</th>
+                            <th>วัน เดือน ปี</th>
+                            <th>ชื่อผู้ตรวจ</th>
+                            <th>ตำแหน่ง</th>
+                            <th>เวลาออกตรวจ</th>
+                            <th>ตรวจที่ใด</th>
+                            <th>เรื่องอะไร</th>
+                            <th>ผู้สั่งลงนาม</th>
+                            <th>ผู้ตรวจลงนามรับทราบ</th>
+                            <th>ได้ยื่นรายการแสดงผลการตรวจโดยรายงานที่ ลงวันที่ เดือน ปี</th>
+                            <th>หมายเหตุ</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let bean of beans; let i = index">
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" name="numId{{i}}" id="numId{{i}}" (keyup)="onKeyUpBean($event, 'numId', i)"
+                                        [(ngModel)]="beans[i].numId">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" name="chkDate{{i}}" id="chkDate{{i}}" (keyup)="onKeyUpBean($event, 'chkDate', i)"
+                                        [(ngModel)]="beans[i].chkDate">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" name="checkName{{i}}" id="checkName{{i}}" (keyup)="onKeyUpBean($event, 'checkName', i)"
+                                        [(ngModel)]="beans[i].checkName">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" name="position{{i}}" id="position{{i}}" (keyup)="onKeyUpBean($event, 'position', i)"
+                                        [(ngModel)]="beans[i].position">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" name="chkOutDate{{i}}" id="chkOutDate{{i}}" (keyup)="onKeyUpBean($event, 'chkOutDate', i)"
+                                        [(ngModel)]="beans[i].chkOutDate">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" name="chkWhere{{i}}" id="chkWhere{{i}}" (keyup)="onKeyUpBean($event, 'chkWhere', i)"
+                                        [(ngModel)]="beans[i].chkWhere">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" name="chkWhat{{i}}" id="chkWhat{{i}}" (keyup)="onKeyUpBean($event, 'chkWhat', i)"
+                                        [(ngModel)]="beans[i].chkWhat">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" name="whoToSign{{i}}" id="whoToSign{{i}}" (keyup)="onKeyUpBean($event, 'whoToSign', i)"
+                                        [(ngModel)]="beans[i].whoToSign">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" name="checkerOk{{i}}" id="checkerOk{{i}}" (keyup)="onKeyUpBean($event, 'checkerOk', i)"
+                                        [(ngModel)]="beans[i].checkerOk">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" name="dateToSend{{i}}" id="dateToSend{{i}}" (keyup)="onKeyUpBean($event, 'dateToSend', i)"
+                                        [(ngModel)]="beans[i].dateToSend">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" name="note{{i}}" id="note{{i}}" (keyup)="onKeyUpBean($event, 'note', i)"
+                                        [(ngModel)]="beans[i].note">
+                                </div>
+                            </td>
+                            <td>
+                                <button *ngIf="i>=1" class="ui right floated mini red button" style="padding: 0.5em;"
+                                    type="button" (click)="removeField(i)">
+                                    <i class="minus icon" style="margin-right: 0"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui bottom centered attached segment">
+        <div class="ui center aligned grid">
+            <div class="four wide column">
+                <button class="ui left floated mini green button" type="button" (click)="onAddField()">
+                    <i class="plus icon"></i>
+                    เพิ่ม
+                </button>
+            </div>
+            <div class="eight wide column">
+                <button class="ui mini green button" type="submit">
+                    <i class="save icon"></i>
+                    พิมพ์เอกสาร
+                </button>
+                <button class="ui mini red button" type="button" (click)="onDiscard()">
+                    <i class="times icon"></i>
+                    ยกเลิก
+                </button>
+            </div>
+            <div class="four wide column"></div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,830 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+
+<form class="ui form" (ngSubmit)="onSubmit()" [formGroup]="medicalWelfareForm">
+
+  <segment header="บันทึกคำขอเบิกเงินสวัสดิการเกี่ยวกับการรักษาพยาบาล (แบบ 7131)" [loading]="false">
+
+    <div class="ui attached bottom ">
+      <div class="ui centered grid">
+        <div class="sixteen wide column">
+          <div class="ui">
+            <!-- user login -->
+            <div class="inline fields">
+              <div class="two wide field">
+                <label class="full-width text-right">ข้าพเจ้า</label>
+              </div>
+              <div class="three wide field" [ngClass]="{'error': error('fullName')}">
+                <div class="ui input">
+                  <input type="text" readonly id="fullName" class="custom-readonly" name="fullName" maxlength="100"
+                    formControlName="fullName">
+                </div>
+              </div>
+              <div class="one wide field">
+                <label class="full-width text-right">ตำแหน่ง</label>
+              </div>
+              <div class="three wide field" [ngClass]="{'error': error('position')}">
+                <div class="ui input">
+                  <input type="text" readonly id="position" class="custom-readonly" name="position" maxlength="100"
+                    formControlName="position">
+                </div>
+              </div>
+              <div class="one wide field">
+                <label class="full-width text-right">สังกัด</label>
+              </div>
+              <div class="four wide field" [ngClass]="{'error': error('affiliation')}">
+                <div class="ui input">
+                  <input type="text" readonly id="affiliation" class="custom-readonly" name="affiliation"
+                    maxlength="100" formControlName="affiliation">
+                </div>
+              </div>
+            </div>
+
+            <!-- telephone -->
+            <div class="inline fields">
+              <div class="ten wide field">
+                <label class="full-width text-right">เบอร์โทรศัพท์</label>
+              </div>
+              <div class="four wide field" [ngClass]="{'error': error('phoneNumber')}">
+                <input type="text" id="phoneNumber" name="phoneNumber" maxlength="20" formControlName="phoneNumber">
+                <!-- [value]="medicalWelfareForm.get('phoneNumber').value | phoneFormat" -->
+              </div>
+            </div>
+            <!-- <div class="ui divider"></div> -->
+            <div class="inline three wide field">
+              <label class="full-width text-center">ขอเบิกเงินค่ารักษาพยาบาลของ</label>
+            </div>
+
+            <!-- self -->
+            <div class="inline fields">
+              <div class="one wide field">&nbsp;</div>
+              <div class="one wide field" [ngClass]="{'error': error('self')}">
+                <div class="ui checkbox">
+                  <input type="checkbox" (change)="handleCheckBox()" (click)="disableCkeck()" id="self" name="self"
+                    formControlName="self">
+                  <label class="full-width text-left">ตนเอง</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- couple -->
+            <div class="inline fields">
+              <div class="one wide field">&nbsp;</div>
+              <div class="one wide field" [ngClass]="{'error': error('couple')}">
+                <div class="ui checkbox">
+                  <input type="checkbox" (change)="handleCheckBox()" id="couple" name="couple" formControlName="couple"
+                    (click)="disableCkeck()">
+                  <label class="full-width text-left">คู่สมรส</label>
+                </div>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('couple', 'titleCouple'), 'error': error('titleCouple')}">
+                <select name="titleCouple" id="titleCouple" [ngClass]="{'error': error('titleCouple')}"
+                  formControlName="titleCouple" class="ui dropdown ai">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let item of titleList" value="{{item.titleName}}">{{item.titleName}}
+                  </option>
+                </select>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('couple', 'firstNameCouple'), 'error': error('firstNameCouple')}">
+                <div class="ui input">
+                  <input type="text" id="firstNameCouple" maxlength="40" name="firstNameCouple"
+                    formControlName="firstNameCouple" placeholder="ชื่อ">
+                </div>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('couple', 'lastNameCouple'), 'error': error('lastNameCouple')}">
+                <div class="ui input">
+                  <input type="text" id="lastNameCouple" maxlength="40" name="lastNameCouple"
+                    formControlName="lastNameCouple" placeholder="นามสกุล">
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="full-width text-right">เลขประจำตัวประชาชน</label>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('couple', 'citizenIdCouple'), 'error': error('citizenIdCouple')}">
+                <div class="ui input">
+                  <input type="text" id="citizenIdCouple" class="citizenId" maxlength="13" numberOnly
+                    name="citizenIdCouple" formControlName="citizenIdCouple" placeholder="เลขประชาชน">
+                </div>
+              </div>
+            </div>
+
+            <!-- father -->
+            <div class="inline fields">
+              <div class="one wide field">&nbsp;</div>
+              <div class="one wide field" [ngClass]="{'error': error('father')}">
+                <div class="ui checkbox">
+                  <input type="checkbox" (change)="handleCheckBox()" id="father" name="father" formControlName="father"
+                    (click)="disableCkeck()">
+                  <label class="full-width text-left">บิดา</label>
+                </div>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('father', 'titleFather'), 'error': error('titleFather')}">
+                <select name="titleFather" id="titleFather" formControlName="titleFather" class="ui dropdown ai">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let item of titleList" value="{{item.titleName}}">{{item.titleName}}
+                  </option>
+                </select>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('father', 'firstNameFather'), 'error': error('firstNameFather')}">
+                <div class="ui input">
+                  <input type="text" id="firstNameFather" maxlength="40" name="firstNameFather"
+                    formControlName="firstNameFather" placeholder="ชื่อ">
+                </div>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('father', 'lastNameFather'), 'error': error('lastNameFather')}">
+                <div class="ui input">
+                  <input type="text" id="lastNameFather" maxlength="40" name="lastNameFather"
+                    formControlName="lastNameFather" placeholder="นามสกุล">
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="full-width text-right">เลขประจำตัวประชาชน</label>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('father', 'citizenIdFather'), 'error': error('citizenIdFather')}">
+                <div class="ui input">
+                  <input type="text" id="citizenIdFather" maxlength="13" class="citizenId" numberOnly
+                    name="citizenIdFather" formControlName="citizenIdFather" placeholder="เลขประชาชน">
+                </div>
+              </div>
+            </div>
+
+            <!-- mother -->
+            <div class="inline fields">
+              <div class="one wide field">&nbsp;</div>
+              <div class="one wide field" [ngClass]="{'error': error('mother')}">
+                <div class="ui checkbox">
+                  <input type="checkbox" (change)="handleCheckBox()" id="mother" name="mother" formControlName="mother"
+                    (click)="disableCkeck()">
+                  <label class="full-width text-left">มารดา</label>
+                </div>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('mother', 'titleMother'), 'error': error('titleMother')}">
+                <select name="titleFather" id="titleMother" formControlName="titleMother" class="ui dropdown ai">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let item of titleList" value="{{item.titleName}}">{{item.titleName}}
+                  </option>
+                </select>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('mother', 'firstNameMother'), 'error': error('firstNameMother')}">
+                <div class="ui input">
+                  <input type="text" id="firstNameMother" maxlength="40" name="firstNameMother"
+                    formControlName="firstNameMother" placeholder="ชื่อ">
+                </div>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('mother', 'lastNameMother'), 'error': error('lastNameMother')}">
+                <div class="ui input">
+                  <input type="text" id="lastNameMother" maxlength="40" name="lastNameMother"
+                    formControlName="lastNameMother" placeholder="นามสกุล">
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="full-width text-right">เลขประจำตัวประชาชน</label>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('mother', 'citizenIdMother'), 'error': error('citizenIdMother')}">
+                <div class="ui input">
+                  <input type="text" id="citizenIdMother" maxlength="13" class="citizenId" numberOnly
+                    name="citizenIdMother" formControlName="citizenIdMother" placeholder="เลขประชาชน">
+                </div>
+              </div>
+            </div>
+
+            <!-- children -->
+            <!-- child1 -->
+            <div class="inline fields">
+              <div class="one wide field">&nbsp;</div>
+              <div class="one wide field" [ngClass]="{'error': error('child1')}">
+                <div class="ui checkbox">
+                  <input type="checkbox" (change)="handleCheckBox()" id="child1" name="child1" formControlName="child1"
+                    (click)="disableCkeck()">
+                  <label class="full-width text-left">บุตร</label>
+                </div>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('child1', 'titleChild1'), 'error': error('titleChild1')}">
+                <select name="titleChild1" id="titleChild1" formControlName="titleChild1" class="ui dropdown ai">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let item of titleList" value="{{item.titleName}}">{{item.titleName}}
+                  </option>
+                </select>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('child1', 'firstNameChild1'), 'error': error('firstNameChild1')}">
+                <div class="ui input">
+                  <input type="text" id="firstNameChild1" maxlength="40" name="firstNameChild1"
+                    formControlName="firstNameChild1" placeholder="ชื่อ">
+                </div>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('child1', 'lastNameChild1'), 'error': error('lastNameChild1')}">
+                <div class="ui input">
+                  <input type="text" id="lastNameChild1" maxlength="40" name="lastNameChild1"
+                    formControlName="lastNameChild1" placeholder="นามสกุล">
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="full-width text-right">เลขประจำตัวประชาชน</label>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('child1', 'citizenIdChild1'), 'error': error('citizenIdChild1')}">
+                <div class="ui input">
+                  <input type="text" id="citizenIdChild1" maxlength="13" class="citizenId" numberOnly
+                    name="citizenIdChild1" formControlName="citizenIdChild1" placeholder="เลขประชาชน">
+                </div>
+              </div>
+            </div>
+            <!-- new line -->
+            <div class="inline fields">
+              <div class="one wide field">&nbsp;</div>
+              <div class="one wide field">
+                <label class="full-width text-right">เกิดเมื่อ</label>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('child1', 'birthDateChild1'), 'error': error('birthDateChild1')}">
+                <div class="ui calendar full-width" id="birthDate1">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" formControlName="birthDateChild1" id="birthDateChild1" name="birthDateChild1"
+                      autocomplete="off" [readonly]="true" placeholder="วว/ดด/ปปปป">
+                  </div>
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="full-width text-right">เป็นบุตรลำดับที่</label>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('child1', 'numberOfChild1'), 'error': error('numberOfChild1')}">
+                <div class="ui input">
+                  <input type="text" numberOnly maxlength="2" formControlName="numberOfChild1" name="numberOfChild1"
+                    id="numberOfChild1">
+                </div>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('child1', 'statusChild1'), 'error': error('statusChild1')}">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="statusChild1" formControlName="statusChild1" value="0">
+                  <label>ยังไม่บรรลุนิติภาวะ</label>
+                </div>
+              </div>
+              <div class="five wide field"
+                [ngClass]="{'disabled': canDisabled('child1', 'statusChild1'), 'error': error('statusChild1')}">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="statusChild1" formControlName="statusChild1" value="1">
+                  <label>เป็นบุตรไร้ความสามารถ หรือเสมือนไร้ความสามารถ</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- child2 -->
+            <div class="inline fields">
+              <div class="one wide field">&nbsp;</div>
+              <div class="one wide field" [ngClass]="{'error': error('child2')}">
+                <div class="ui checkbox">
+                  <input type="checkbox" (change)="handleCheckBox()" id="child2" name="child2" formControlName="child2"
+                    (click)="disableCkeck()">
+                  <label class="full-width text-left">บุตร</label>
+                </div>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('child2', 'titleChild2'), 'error': error('titleChild2')}">
+                <select name="titleChild2" id="titleChild2" formControlName="titleChild2" class="ui dropdown ai">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let item of titleList" value="{{item.titleName}}">{{item.titleName}}
+                  </option>
+                </select>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('child2', 'firstNameChild2'), 'error': error('firstNameChild2')}">
+                <div class="ui input">
+                  <input type="text" id="firstNameChild2" maxlength="40" name="firstNameChild2"
+                    formControlName="firstNameChild2" placeholder="ชื่อ">
+                </div>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('child2', 'lastNameChild2'), 'error': error('lastNameChild2')}">
+                <div class="ui input">
+                  <input type="text" id="lastNameChild2" maxlength="40" name="lastNameChild2"
+                    formControlName="lastNameChild2" placeholder="นามสกุล">
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="full-width text-right">เลขประจำตัวประชาชน</label>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('child2', 'citizenIdChild2'), 'error': error('citizenIdChild2')}">
+                <div class="ui input">
+                  <input type="text" id="citizenIdChild2" maxlength="13" class="citizenId" numberOnly
+                    name="citizenIdChild2" formControlName="citizenIdChild2" placeholder="เลขประชาชน">
+                </div>
+              </div>
+            </div>
+            <!-- new line -->
+            <div class="inline fields">
+              <div class="one wide field">&nbsp;</div>
+              <div class="one wide field">
+                <label class="full-width text-right">เกิดเมื่อ</label>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('child2', 'birthDateChild2'), 'error': error('birthDateChild2')}">
+                <div class="ui calendar full-width" id="birthDate2">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" formControlName="birthDateChild2" id="birthDateChild2" name="birthDateChild2"
+                      autocomplete="off" [readonly]="true" placeholder="วว/ดด/ปปปป">
+                  </div>
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="full-width text-right">เป็นบุตรลำดับที่</label>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('child2', 'numberOfChild2'), 'error': error('numberOfChild2')}">
+                <div class="ui input">
+                  <input type="text" numberOnly maxlength="2" formControlName="numberOfChild2" name="numberOfChild2"
+                    id="numberOfChild2">
+                </div>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('child2', 'statusChild2'), 'error': error('statusChild2')}">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="statusChild2" formControlName="statusChild2" value="0">
+                  <label>ยังไม่บรรลุนิติภาวะ</label>
+                </div>
+              </div>
+              <div class="five wide field"
+                [ngClass]="{'disabled': canDisabled('child2', 'statusChild2'), 'error': error('statusChild2')}">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="statusChild2" formControlName="statusChild2" value="1">
+                  <label>เป็นบุตรไร้ความสามารถ หรือเสมือนไร้ความสามารถ</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- child3 -->
+            <div class="inline fields">
+              <div class="one wide field">&nbsp;</div>
+              <div class="one wide field" [ngClass]="{'error': error('child3')}">
+                <div class="ui checkbox">
+                  <input type="checkbox" (change)="handleCheckBox()" id="child3" name="child3" formControlName="child3"
+                    (click)="disableCkeck()">
+                  <label class="full-width text-left">บุตร</label>
+                </div>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('child3', 'titleChild3'), 'error': error('titleChild3')}">
+                <select name="titleChild3" id="titleChild3" formControlName="titleChild3" class="ui dropdown ai">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let item of titleList" value="{{item.titleName}}">{{item.titleName}}
+                  </option>
+                </select>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('child3', 'firstNameChild3'), 'error': error('firstNameChild3')}">
+                <div class="ui input">
+                  <input type="text" id="firstNameChild3" maxlength="40" name="firstNameChild3"
+                    formControlName="firstNameChild3" placeholder="ชื่อ">
+                </div>
+              </div>
+              <div class="three wide field"
+                [ngClass]="{'disabled': canDisabled('child3', 'lastNameChild3'), 'error': error('lastNameChild3')}">
+                <div class="ui input">
+                  <input type="text" id="lastNameChild3" maxlength="40" name="lastNameChild3"
+                    formControlName="lastNameChild3" placeholder="นามสกุล">
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="full-width text-right">เลขประจำตัวประชาชน</label>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('child3', 'citizenIdChild3'), 'error': error('citizenIdChild3')}">
+                <div class="ui input">
+                  <input type="text" id="citizenIdChild3" maxlength="13" class="citizenId" numberOnly
+                    name="citizenIdChild3" formControlName="citizenIdChild3" placeholder="เลขประชาชน">
+                </div>
+              </div>
+            </div>
+            <!-- new line -->
+            <div class="inline fields">
+              <div class="one wide field">&nbsp;</div>
+              <div class="one wide field">
+                <label class="full-width text-right">เกิดเมื่อ</label>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('child3', 'birthDateChild3'), 'error': error('birthDateChild3')}">
+                <div class="ui calendar full-width" id="birthDate3">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" formControlName="birthDateChild3" id="birthDateChild3" name="birthDateChild3"
+                      autocomplete="off" [readonly]="true" placeholder="วว/ดด/ปปปป">
+                  </div>
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="full-width text-right">เป็นบุตรลำดับที่</label>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('child3', 'numberOfChild3'), 'error': error('numberOfChild3')}">
+                <div class="ui input">
+                  <input type="text" numberOnly maxlength="2" formControlName="numberOfChild3" name="numberOfChild3"
+                    id="numberOfChild3">
+                </div>
+              </div>
+              <div class="two wide field"
+                [ngClass]="{'disabled': canDisabled('child3', 'statusChild3'), 'error': error('statusChild3')}">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="statusChild3" formControlName="statusChild3" value="0">
+                  <label>ยังไม่บรรลุนิติภาวะ</label>
+                </div>
+              </div>
+              <div class="five wide field"
+                [ngClass]="{'disabled': canDisabled('child3', 'statusChild3'), 'error': error('statusChild3')}">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="statusChild3" formControlName="statusChild3" value="1">
+                  <label>เป็นบุตรไร้ความสามารถ หรือเสมือนไร้ความสามารถ</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- reason -->
+            <div class="inline fields">
+              <div class="two wide field">
+                <label class="full-width text-right">ป่วยเป็นโรค</label>
+              </div>
+              <div class="thirteen wide field" [ngClass]="{'error': error('disease')}">
+                <div class="ui input">
+                  <input type="text" id="disease" name="disease" maxlength="100" formControlName="disease">
+                </div>
+              </div>
+            </div>
+            <div class="inline fields">
+              <div class="five wide field">
+                <label class="full-width text-right">
+                  และได้เข้ารับการตรวจรักษาพยาบาลจาก (ชื่อสถานพยาบาล)
+                </label>
+              </div>
+              <div class="five wide field" [ngClass]="{'error': error('hospitalName')}">
+                <div class="ui input">
+                  <select name="hospitalName" id="hospitalName" formControlName="hospitalName" class="ui dropdown ai">
+                    <option value="">กรุณาเลือก</option>
+                    <option *ngFor="let item of hospitalList" value="{{item.hospName}}">
+                      {{item.hospName}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="full-width text-right">ซึ่งเป็นสถานพยาบาลของ</label>
+              </div>
+              <div class="two wide field" [ngClass]="{'error': error('hospitalOwner')}">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="hospitalOwner" name="hospitalOwner" formControlName="hospitalOwner"
+                    value="GOVERNMENT">
+                  <label>ทางราชการ</label>
+                </div>
+              </div>
+              <div class="one wide field" [ngClass]="{'error': error('hospitalOwner')}">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="hospitalOwner" name="hospitalOwner" formControlName="hospitalOwner"
+                    value="INDIVIDUAL">
+                  <label>เอกชน</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- hospital -->
+            <div class="inline fields">
+              <div class="two wide field">
+                <label class="full-width text-right">ตั้งแต่วันที่</label>
+              </div>
+              <div class="two wide field" [ngClass]="{'error': error('treatedDateFrom')}">
+                <div class="ui calendar full-width" id="dateFrom">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" id="treatedDateFrom" name="treatedDateFrom" formControlName="treatedDateFrom"
+                      autocomplete="off" [readonly]="true" placeholder="วว/ดด/ปปปป">
+                  </div>
+                </div>
+              </div>
+              <div class="one wide field">
+                <label class="full-width text-center">ถึงวันที่</label>
+              </div>
+              <div class="two wide field" [ngClass]="{'error': error('treatedDateTo')}">
+                <div class="ui calendar full-width" id="dateTo">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" id="treatedDateTo" name="treatedDateTo" formControlName="treatedDateTo"
+                      autocomplete="off" [readonly]="true" placeholder="วว/ดด/ปปปป">
+                  </div>
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="full-width text-right">เป็นเงินรวมทั้งสิ้น</label>
+              </div>
+              <div class="two wide field" [ngClass]="{'error': error('totalMoney')}">
+                <input type="text" class="text-right" id="totalMoney" maxlength="10" numberOnly name="totalMoney"
+                  formControlName="totalMoney" appNumberInputFormat onclick="select()"
+                  (keyup)="numToText($event.target.value)">
+              </div>
+              <div class="one wide field">
+                <label>บาท</label>
+              </div>
+              <div class="four wide field">
+                <label style="color: blue" *ngIf="medicalWelfareForm.value.totalMoney">({{textShow}})</label>
+                <!-- <label style="color: blue"
+                  *ngIf="medicalWelfareForm.value.totalMoney">({{numToTextTest(medicalWelfareForm.value.totalMoney)}})</label> -->
+              </div>
+            </div>
+
+            <!-- receipt -->
+            <div class="inline fields">
+              <div class="three wide field">
+                <label class="full-width text-right">ตามใบเสร็จรับเงินที่แนบ จำนวน</label>
+              </div>
+              <div class="one wide field"
+                [ngClass]="{'error': medicalWelfareForm.get('receiptQuantity').value == 0 && submittedFlag }">
+                <input type="text" id="receiptQuantity" class="custom-readonly" name="receiptQuantity" maxlength="2"
+                  formControlName="receiptQuantity" readonly>
+              </div>
+              <div class="one wide field">
+                <label class="full-width text-left">ฉบับ</label>
+              </div>
+              <div class="one wide field">
+                <!-- <div class="ui icon green mini button" type="button" (click)="addReceipt()">
+                  <i class="plus icon"></i>  </div>
+                -->
+
+                <app-button-custom color="green" icon="plus icon" (click)="addReceipt()"></app-button-custom>
+              </div>
+            </div>
+
+            <ng-container formArrayName="receipts" *ngFor="let key of receipts.controls; let i=index">
+              <div class="inline fields" [formGroupName]="i">
+                <div class="one wide field">&nbsp;</div>
+                <div class="two wide field">
+                  <label class="full-width text-right">{{i+1}}. เลขที่ใบเสร็จ</label>
+                </div>
+                <div class="three wide field" [ngClass]="{'error': errorReceipt(i, 'receiptNo')}">
+                  <div class="ui input">
+                    <input type="text" name="receiptNo{{i}}" id="receiptNo{{i}}" placeholder="เลขที่ใบเสร็จ"
+                      formControlName="receiptNo">
+                  </div>
+                </div>
+                <div class="one wide field">
+                  <label class="full-width text-right">จำนวน</label></div>
+                <div class="three wide field" [ngClass]="{'error': errorReceipt(i, 'receiptAmount')}">
+                  <div class="ui input">
+                    <input type="text" class="text-right" numberOnly maxlength="10" id="receiptAmount{{i}}"
+                      placeholder="จำนวน" name="receiptAmount{{i}}" formControlName="receiptAmount" appNumberInputFormat
+                      onclick="select()">
+                  </div>
+                </div>
+                <div class="one wide field">
+                  <label class="full-width text-right">วันที่</label>
+                </div>
+                <div class="two wide field" [ngClass]="{'error': errorReceipt(i, 'receiptDate')}">
+                  <div class="ui calendar full-width" id="receiptD{{i}}">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="text" formControlName="receiptDate" id="receiptDate{{i}}" name="receiptDate{{i}}"
+                        autocomplete="off" [readonly]="true" placeholder="วว/ดด/ปปปป">
+                    </div>
+                  </div>
+                </div>
+                <div class="one wide field">
+                  <!-- <button class="ui icon red mini button" type="button" (click)="removeReceipt(i)">
+                    <i class="minus icon"></i>
+                  </button> -->
+                  <app-button-custom color="red" icon="minus icon" (click)="removeReceipt(i)"></app-button-custom>
+                </div>
+              </div>
+            </ng-container>
+
+            <!-- permit -->
+            <div class="inline fields">
+              <div class="eight wide field">
+                <label class="full-width text-right">
+                  ข้าพเจ้ามีสิทธิได้รับเงินค่ารักษาพยาบาล ตามพระราชกฤษฎีกาเงินสวัสดิการเกี่ยวกับการรักษาพยาบาล
+                </label>
+              </div>
+              <div class="two wide field" [ngClass]="{'error': error('claimStatus')}">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="claimStatus" name="claimStatus" formControlName="claimStatus" value="0">
+                  <label>ตามสิทธิ</label>
+                </div>
+              </div>
+              <div class="five wide field" [ngClass]="{'error': error('claimStatus')}">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="claimStatus" name="claimStatus" formControlName="claimStatus" value="1">
+                  <label>เฉพาะส่วนที่ขาดอยู่จากสิทธิที่ได้รับจากหน่วยงานอื่น</label>
+                </div>
+              </div>
+              <div class="four wide field" [ngClass]="{'error': error('claimStatus')}">
+                <div class="ui radio checkbox">
+                  <input type="radio" id="claimStatus" name="claimStatus" formControlName="claimStatus" value="2">
+                  <label>เฉพาะส่วนที่ขาดอยู่จากสัญญาประกันภัย</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="inline fields">
+              <div class="seven wide field">
+                <label class="full-width text-right">เป็นเงิน</label>
+              </div>
+              <div class="three wide field" [ngClass]="{'error': error('claimMoney')}">
+                <input type="text" id="claimMoney" class="text-right" maxlength="10" numberOnly name="claimMoney"
+                  formControlName="claimMoney" appNumberInputFormat onclick="select()"
+                  (keyup)="numToText2($event.target.value)">
+              </div>
+              <div class="one wide field">
+                <label class="full-width">บาท</label>
+              </div>
+              <div class="five wide field">
+                <label style="color: blue" *ngIf="medicalWelfareForm.value.claimMoney">({{textShow2}})</label>
+              </div>
+            </div>
+
+            <div class="inline fields">
+              <div class="four wide field"></div>
+              <div class="two wide field">
+                <label>(1) &nbsp; ข้าพเจ้า</label>
+              </div>
+              <div class="ten wide field" [ngClass]="{'error': error('ownerClaim')}">
+                <div class="ui checkbox">
+                  <input type="checkbox" id="ownerClaim1" name="ownerClaim1" formControlName="ownerClaim1">
+                  <label>ไม่มีสิทธิได้รับค่ารักษาพยาบาลจากหน่วยงานอื่น</label>
+                </div>
+              </div>
+            </div>
+            <div class="inline fields">
+              <div class="six wide field"></div>
+              <div class="ten wide field" [ngClass]="{'error': error('ownerClaim')}">
+                <div class="ui checkbox">
+                  <input type="checkbox" id="ownerClaim2" name="ownerClaim2" formControlName="ownerClaim2">
+                  <label>มีสิทธิได้รับค่ารักษาพยาบาลจากหน่วยงานอื่นแต่เลือกใช้สิทธิจากทางราชการ</label>
+                </div>
+              </div>
+            </div>
+            <div class="inline fields">
+              <div class="six wide field"></div>
+              <div class="ten wide field">
+                <div class="ui checkbox" [ngClass]="{'error': error('ownerClaim')}">
+                  <input type="checkbox" id="ownerClaim3" name="ownerClaim3" formControlName="ownerClaim3">
+                  <label>มีสิทธิได้รับค่ารักษาพยาบาลตามสัญญาประกันภัย</label>
+                </div>
+              </div>
+            </div>
+            <div class="inline fields">
+              <div class="six wide field"></div>
+              <div class="ten wide field" [ngClass]="{'error': error('ownerClaim')}">
+                <div class="ui checkbox">
+                  <input type="checkbox" id="ownerClaim4" name="ownerClaim4" formControlName="ownerClaim4">
+                  <label>เป็นผู้ใช้สิทธิเบิกค่ารักษาพยาบาลสำหรับบุตรแต่เพียงฝ่ายเดียว</label>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="inline fields">
+              <div class="four wide field"></div>
+              <div class="ten wide field">
+                <label>(2) </label>
+                <label style="color: blue">{{familyData}}</label>
+                <label *ngIf="familyData">&nbsp;</label>
+                <!-- <ng-container *ngIf="medicalWelfareForm.value.couple"><label style="color: blue">คู่สมรส&nbsp;</label>
+                </ng-container>
+                <ng-container *ngIf="medicalWelfareForm.value.father"><label style="color: blue">บิดา&nbsp;</label>
+                </ng-container>
+                <ng-container *ngIf="medicalWelfareForm.value.mother"><label style="color: blue">มารดา&nbsp;</label>
+                </ng-container>
+                <ng-container
+                  *ngIf="medicalWelfareForm.value.child1 || medicalWelfareForm.value.child2 || medicalWelfareForm.value.child3">
+                  <label style="color: blue">บุตร&nbsp;</label></ng-container> -->
+                <label>ข้าพเจ้า</label>
+              </div>
+            </div>
+            <div class="inline fields">
+              <div class="six wide field"></div>
+              <div class="six wide field" [ngClass]="{'error': error('otherClaim')}">
+                <div class="ui checkbox other">
+                  <input type="checkbox" id="otherClaim1" name="otherClaim1" formControlName="otherClaim1">
+                  <label>ไม่มีสิทธิได้รับค่ารักษาพยาบาลจากหน่วยงานอื่น</label>
+                </div>
+              </div>
+            </div>
+            <div class="inline fields">
+              <div class="six wide field"></div>
+              <div class="ten wide field" [ngClass]="{'error': error('otherClaim')}">
+                <div class="ui checkbox other">
+                  <input type="checkbox" id="otherClaim2" name="otherClaim2" formControlName="otherClaim2">
+                  <label>มีสิทธิได้รับค่ารักษาพยาบาลจากหน่วยงานอื่น
+                    แต่ค่ารักษาพยาบาลที่ได้รับต่ำกว่าสิทธิตามพระราชกฤษฎีกาฯ</label>
+                </div>
+              </div>
+            </div>
+            <div class="inline fields">
+              <div class="six wide field"></div>
+              <div class="ten wide field" [ngClass]="{'error': error('otherClaim')}">
+                <div class="ui checkbox other">
+                  <input type="checkbox" id="otherClaim3" name="otherClaim3" formControlName="otherClaim3">
+                  <label>มีสิทธิได้รับค่ารักษาพยาบาลตามสัญญาประกันภัย</label>
+                </div>
+              </div>
+            </div>
+            <div class="inline fields">
+              <div class="six wide field"></div>
+              <div class="ten wide field" [ngClass]="{'error': error('otherClaim')}">
+                <div class="ui checkbox other">
+                  <input type="checkbox" id="otherClaim4" name="otherClaim4" formControlName="otherClaim4">
+                  <label>มีสิทธิได้รับค่ารักษาพยาบาลจากหน่วยงานอื่นในฐานะเป็นผู้อาศัยสิทธิของผู้อื่น</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </segment>
+
+  <segment header="เอกสารหลักฐานประกอบคำขอเบิก" [loading]="false">
+    <div class="ui attached">
+      <div class="ui form">
+        <div class="inline fields">
+          <div class="five wide field"></div>
+          <div class="ten wide field">
+            <label style="color:red">*รับรองไฟล์นามสกุล &nbsp;&nbsp;เอกสาร xls, xlsx, doc, docx, ppt, pptx
+              &nbsp;&nbsp;รูป
+              gif, jpeg, jpg, png, bmp
+              &nbsp;&nbsp;ขนาดไม่เกิน 25 MB</label>
+          </div>
+        </div>
+        <div class="inline fields ">
+          <div class="two wide field"></div>
+          <div class="three wide field">
+            <label class="full-width text-right">หลักฐานประกอบคำขอเบิก</label>
+          </div>
+          <div class="six wide field upload-panel">
+            <input type="file" id="files" name="files" accept=".pdf, image/*, text/plain, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+          application/vnd.ms-excel,.doc,.docx" (change)="onFilesAdded()" />
+          </div>
+          <div class="three wide field">
+            <!-- <button class="ui mini yellow button" type="button" (click)="onUpload($event)" [ngClass]="{ 'disabled': flag }">
+              <i class="upload icon"></i>อัพโหลด</button> -->
+            <app-button-upload [disabled]="flag" (click)="onUpload($event)"></app-button-upload>
+          </div>
+        </div>
+        <table class="ui small celled table nowrap striped selectable" style="width: 100%;">
+          <thead>
+            <tr>
+              <th style="text-align: center !important;">ลำดับที่</th>
+              <th style="text-align: center !important;">วันที่</th>
+              <th style="text-align: center !important;">ชื่อเอกสาร</th>
+              <th style="text-align: center !important;">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="arrayUpload.length < 1">
+              <td colspan="5" class="text-center">ไม่มีข้อมูล</td>
+            </tr>
+            <tr *ngFor="let file of arrayUpload; let i = index">
+              <td class="container" style="text-align: center !important;">{{i+1}}</td>
+              <td class="container" style="text-align: center !important;">
+                {{file.date}}
+              </td>
+              <td class="container" style="text-align: center !important;">{{file.name}}</td>
+              <td class="container" style="text-align: center !important;">
+                <!-- <button type="button" class="ui mini negative button" (click)="onDeleteRow(i)">
+                  <i class="trash alternate outline icon"></i>ลบ</button> -->
+                <app-button-delete (click)="onDeleteRow(i)"></app-button-delete>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ui center aligned grid">
+          <div class="sixteen wide column">
+            <!-- <button class="ui primary mini button" type="submit" [ngClass]="{ 'disabled': arrayUpload.length < 1 }">
+              <i class="save icon"></i>บันทึก</button> -->
+            <app-button-export *ngIf="id"></app-button-export>
+            <!-- [disabled]="arrayUpload.length < 1" -->
+            <app-button-save submit="true" *ngIf="!id"></app-button-save>
+            <!-- <button class="ui mini button" type="button" routerLink='/int06/11'>
+              <i class="close icon"></i>ยกเลิก</button> -->
+            <app-button-back (click)="goLocation()"></app-button-back>
+          </div>
+        </div>
+      </div>
+    </div>
+  </segment>
+
+
+</form>

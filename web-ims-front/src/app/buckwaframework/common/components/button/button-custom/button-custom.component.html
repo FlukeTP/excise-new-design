@@ -1,0 +1,5 @@
+<button class="ui mini {{color}} button" type="{{btnType}}"  [disabled]="disabled" [ngClass]="{'icon': classIcon}">
+  <i *ngIf="icon" class="{{icon}} icon"></i>
+  {{text}}
+  <ng-content></ng-content>
+</button>

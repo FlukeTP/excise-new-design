@@ -1,0 +1,147 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="สรุปผลการตรวจสอบภายใน" [loading]="false">
+    <div class="ui" form *ngIf="dataHead">
+      <div inline>
+        <div field [col]="4"></div>
+        <div field [col]="4"></div>
+        <div field [col]="4">
+          <label class="text-right full-width">ปีงบประมาณ</label>
+        </div>
+        <div field [col]="4">
+          <div class="ui input left icon">
+            <i class="calendar alternate outline icon"></i>
+            <input class="custom-readonly" type="text" placeholder="วว/ดดดด/ปปปป" value="{{dataHead.budgetYear}}"
+              readonly>
+          </div>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="4"></div>
+        <div field [col]="4"></div>
+        <div field [col]="4">
+          <label class="text-right full-width">รูปแบบการตรวจสอบ</label>
+        </div>
+        <div field [col]="4">
+          <input class="custom-readonly" type="text" value="{{dataHead.checkType}}" readonly>
+        </div>
+      </div>
+      <br>
+      <div inline>
+        <div field [col]="16">
+          <label class="text-center full-width">
+            กลุ่มตรวจสอบภายใน กรมสรรพสามิต
+          </label>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="16">
+          <label class="text-center full-width">
+            ผลการตรวจสอบภายในของ{{headerLineTwo}}
+          </label>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="4">
+        </div>
+        <div class="text-right" field [col]="2">
+          <label class="text-right full-width">ระหว่างวันที่ : </label>
+        </div>
+        <div field [col]="2">
+          {{dataHead.dateFromString}}
+        </div>
+        <div class="text-right" field [col]="2">
+          <label class="text-right full-width">ถึง : </label>
+        </div>
+        <div field [col]="2">
+          {{dataHead.dateToString}}
+        </div>
+        <div field [col]="4">
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="4">
+        </div>
+        <div class="text-right" field [col]="2">
+          <label class="text-right full-width">ผู้อนุมัติ : </label>
+        </div>
+        <div field [col]="2">
+          {{dataHead.approvers}}
+        </div>
+        <div class="text-right" field [col]="2">
+          <label class="text-right full-width">สถานะการอนุมัติ : </label>
+        </div>
+        <div field [col]="2">
+          {{dataHead.checkStatus}}
+        </div>
+        <div field [col]="4">
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="4">
+        </div>
+        <div class="text-right" field [col]="2">
+          <label class="text-right full-width">อนุมัติวันที่ : </label>
+        </div>
+        <div field [col]="2">
+          {{dataHead.approveDateString}}
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="4">
+        </div>
+        <div class="text-right" field [col]="2">
+          <label class="text-right full-width">หมายเหตุผู้อนุมัติ : </label>
+        </div>
+        <div field [col]="6">
+          <textarea class="custom-readonly" rows="4" style="width: 506px;" readonly>{{dataHead.notation}}</textarea>
+        </div>
+      </div>
+      <table class="ui small celled nowrap table striped selectable" style="width:100%">
+        <thead>
+          <tr>
+            <th class="text-center">ลำดับที่</th>
+            <th class="text-center">ประเด็นที่ตรวจ</th>
+            <th class="text-center">ข้อตรวจพบ/ข้อสังเกต
+              (ข้อเท็จจริง/Condition)</th>
+            <th class="text-center">สิ่งที่ควรจะเป็น
+              (หลักเกณฑ์/Criteria)</th>
+            <th class="text-center">ความเสี่ยงและผลกระทบ
+              (Risk & Effect)</th>
+            <th class="text-center">สาเหตุ
+              (Cause)</th>
+            <th class="text-center">ข้อเสนอแนะของผู้ตรวจสอบภายใน
+              /ความเห็นหน่วยรับตรวจ</th>
+            <th class="text-center">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="detailList">
+          <tr *ngIf="detailList.length < 1">
+            <td [attr.colspan]="8" style="text-align: center !important">
+              ไม่มีข้อมูล
+            </td>
+          </tr>
+            <tr *ngFor="let list of detailList;let i = index">
+              <td>{{i + 1 }}</td>
+              <td>{{list.issues}}</td>
+              <td>{{list.detectedObserved}}</td>
+              <td>{{list.whatShouldBe}}</td>
+              <td>{{list.riskEffect}}</td>
+              <td>{{list.cause}}</td>
+              <td>{{list.recommend}}</td>
+              <td style="text-align: center;">
+                <app-button-edit (click)="routeTo('/int11/01/01', list.id)"></app-button-edit>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+
+      <div class="ui center aligned grid">
+        <div class="sixteen wide column">
+          <app-button-export></app-button-export>
+          <app-button-custom color="primary" text="ส่งอธิบดีกรมสรรพสามิต" (click)="sentLeader()"></app-button-custom>
+          <app-button-back routerLink="/int11"></app-button-back>
+        </div>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

@@ -1,0 +1,557 @@
+<segment header="สรุปผลการตรวจสอบภาษีสรรพสามิต (ตส. ๐๑-๑๔)" [loading]="loading" [right]="true">
+  <div headRight [formGroup]="formGroup">
+    {{formGroup.get('formTsNumber').value}}
+  </div>
+
+  <form form [formGroup]="formGroup">
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">๑. ผู้เสียภาษี :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="factoryName" id="factoryName" maxlength="200">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">เลขทะเบียนสรรพสามิต :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="newRegId" id="newRegId" maxlength="17">
+      </div>
+      <div field [col]="1">
+        <app-button-custom [icon]="'search'" (click)="searchNewRegId()"></app-button-custom>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ที่อยู่เลขที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facAddrNo" id="facAddrNo" maxlength="35">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ตรอก/ซอย :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facSoiName" id="facSoiName" maxlength="50">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ถนน :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facThnName" id="facThnName" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ตำบล/แขวง :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facTambolSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facTambolName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">อำเภอ/เขต :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facAmphurSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facAmphurName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">จังหวัด :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facProvinceSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facProvinceName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">รหัสไปรษณีย์ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facZipCode" id="facZipCode" maxlength="5">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">โทรศัพท์ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facTelNo" id="facTelNo" maxlength="20">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">โทรสาร :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facFaxNumber" id="facFaxNumber" maxlength="20">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ประเภทกิจการ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="factoryTypeText" id="factoryTypeText" maxlength="100">
+      </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">๒. ผู้ตรวจสอบ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officerFullName" id="officerFullName" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">หน่วยงาน :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officerDept" id="officerDept" maxlength="100">
+      </div>
+    </div>
+
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">ได้รับอนุมัติให้ตรวจสอบเมื่อวันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarAuditDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="auditDate" id="auditDate" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="5">
+        <label class="text-right full-width">แบบแจ้งการประเมินภาษีฯ/หนังสือแจ้งผลการตรวจสอบ ที่ กค :</label>
+      </div>
+      <div field [col]="3">
+        <input type="text" formControlName="bookNumber1" id="bookNumber1" maxlength="20">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ลงวันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarBookDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="bookDate" id="bookDate" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">รอบระยะเวลาที่ตรวจสอบตั้งแต่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarAuditDateStart">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="auditDateStart" id="auditDateStart" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="text-center full-width">ถึง</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarAuditDateEnd">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="auditDateEnd" id="auditDateEnd" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">รวมเวลาที่ใช้ตรวจสอบ :</label>
+      </div>
+      <div field [col]="1">
+        <input type="number" class="text-right" formControlName="auditSumMonth" id="auditSumMonth" readonly="">
+      </div>
+      <div field [col]="1">
+        <label class="text-left full-width">เดือน</label>
+      </div>
+      <div field [col]="1">
+        <input type="number" class="text-right" formControlName="auditSumDay" id="auditSumDay" readonly="">
+      </div>
+      <div field [col]="1">
+        <label class="text-left full-width">วัน</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ตรวจสอบโดยวิธีออก :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="auditBookType" id="auditBookType" value="1"
+            (change)="disableEnableInput('1')">
+          <label>หนังสือเรียก</label>
+        </div>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="auditBookType" id="auditBookType" value="2"
+            (change)="disableEnableInput('2')">
+          <label>หนังสือเชิญ</label>
+        </div>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="auditBookType" id="auditBookType" value="3"
+            (change)="disableEnableInput('3')">
+          <label>หนังสืออื่นๆ</label>
+        </div>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="auditBookTypeOther" id="auditBookTypeOther" maxlength="100">
+      </div>
+    </div>
+
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="auditBookNumber" id="auditBookNumber" maxlength="20">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">วันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarAuditBookDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="auditBookDate" id="auditBookDate" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">๓. เอกสารที่เกี่ยวข้องในการตรวจสอบ :</label>
+      </div>
+      <div field [col]="3">
+      </div>
+      <div field [col]="1">
+        <input class="text-right" type="text" formControlName="docNum" id="docNum" numberOnly maxlength="3">
+      </div>
+      <div field [col]="1">
+        <label class="text-left full-width">ฉบับ&nbsp; &nbsp;คือ </label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="4">
+        <label class="text-left full-width">ก. หนังสือเตือนให้ปฏิบัติตามหนังสือเรียก :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="1">
+        <input class="text-right" type="text" formControlName="doc1Num" id="doc1Num" numberOnly maxlength="2">
+      </div>
+      <div field [col]="1">
+        <label class="text-left full-width">ฉบับ</label>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ลงวันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDoc1Date">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="doc1Date" id="doc1Date" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="4">
+        <label class="text-left full-width">ข. หนังสือนำตัวการตรวจการปฏิบัติของผู้เสียภาษี :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="1">
+        <input class="text-right" type="text" formControlName="doc2Num" id="doc2Num" numberOnly maxlength="2">
+      </div>
+      <div field [col]="1">
+        <label class="text-left full-width">ฉบับ</label>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ลงวันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDoc2Date">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="doc2Date" id="doc2Date" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="4">
+        <label class="text-left full-width">ค. ไต่สวนทั้งหมดรวม :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="1">
+        <input class="text-right" type="text" formControlName="doc3Num" id="doc3Num" numberOnly maxlength="2">
+      </div>
+      <div field [col]="1">
+        <label class="text-left full-width">ครั้ง</label>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ครั้งสุดท้ายสิ้นสุดเมื่อวันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDoc3Date">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="doc3Date" id="doc3Date" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="4">
+        <label class="text-left full-width">ง. ใบรับมอบส่งมอบบัญชีและเอกสารและสินค้า :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="1">
+        <input class="text-right" type="text" formControlName="doc4Num" id="doc4Num" numberOnly maxlength="2">
+      </div>
+      <div field [col]="1">
+        <label class="text-left full-width">ฉบับ</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="4">
+        <label class="text-left full-width">จ. หนังสือขอขยายการตรวจสอบภาษีสรรพสามิต :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="1">
+        <input class="text-right" type="text" formControlName="doc5Num" id="doc5Num" numberOnly maxlength="2">
+      </div>
+      <div field [col]="1">
+        <label class="text-left full-width">ฉบับ</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="4">
+        <label class="text-left full-width">ฉ. รายละเอียดที่ 1 (สรุปผลการตรวจสอบภาษีสรรพสามิต) :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="1">
+        <input class="text-right" type="text" formControlName="doc6Num" id="doc6Num" numberOnly maxlength="2">
+      </div>
+      <div field [col]="1">
+        <label class="text-left full-width">ฉบับ</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="4">
+        <label class="text-right" class="text-left full-width">ช. รายละเอียดที่ 2 (แสดงผลการตรวจสอบภาษี) :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="1">
+        <input class="text-right" type="text" formControlName="doc7Num" id="doc7Num" numberOnly maxlength="2">
+      </div>
+      <div field [col]="1">
+        <label class="text-left full-width">ฉบับ</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="4">
+        <label class="text-left full-width">ซ. บันทึกข้อตกลงยินยอมชำระภาษีสรรพสามิต :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="1">
+        <input class="text-right" type="text" formControlName="doc8Num" id="doc8Num" numberOnly maxlength="2">
+      </div>
+      <div field [col]="1">
+        <label class="text-left full-width">ฉบับ</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="4">
+        <label class="text-left full-width">ฌ. คำร้องขอลดหรืองดเบี้ยปรับเงินเพิ่มภาษีสรรพสามิต :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="1">
+        <input class="text-right" type="text" formControlName="doc9Num" id="doc9Num" numberOnly maxlength="2">
+      </div>
+      <div field [col]="2"><label class="text-left full-width">ฉบับ</label></div>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">๔. เหตุผลการประเมิน :</label>
+      </div>
+      <div field [col]="14">
+        <textarea formControlName="assReason" id="assReason" rows="2" maxlength="200"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="4">
+        <label class="text-right full-width">๕. จำนวนเงินภาษีที่ต้องประเมินหรือสั่งเรียกเก็บเพิ่มเติม</label>
+      </div>
+    </div>
+    <!-- table -->
+    <div inline>
+      <div field [col]="16">
+        <table class="ui celled table small" id="table">
+          <thead class="text-center">
+            <tr>
+              <th>วันเดือนปี</th>
+              <th>ประเภทสินค้า</th>
+              <th>จำนวนเงิน</th>
+              <th>เบี้ยปรับ</th>
+              <th>เงินเพิ่ม</th>
+              <th>ภาษีเพื่อราชการ<br>ส่วนท้องถิ่น</th>
+              <th>รวม</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody formArrayName="taFormTS0114DtlVoList">
+            <ng-container *ngIf="formGroup.controls">
+              <tr [formGroupName]="i"
+                *ngFor="let item of formGroup.controls.taFormTS0114DtlVoList.controls; let i = index;let first = first;let last = last">
+                <td style="width: 130px !important;">
+                  <div class="ui calendar" style="width: 100%" id="calendarTaxDate{{i}}">
+                    <div class="ui input left icon" (change)="callCalendar(i)">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="calendar" formControlName="taxDate" placeholder="วว ดดดด ปปปป" [attr.required]="true"
+                        autocomplete="off">
+                    </div>
+                  </div>
+                </td>
+                <td><input type="text" formControlName="dutyTypeText" id="dutyTypeText" maxlength="100"></td>
+                <td><input type="text" formControlName="taxAmt" id="taxAmt" class="text-right" numberOnly maxlength="14"
+                    (focus)="onFocusMoney(i, 'taxAmt')" (blur)="onBlurMoney(i, 'taxAmt')"></td>
+                <td><input type="text" formControlName="fineAmt" id="fineAmt" numberOnly maxlength="14"
+                    (focus)="onFocusMoney(i, 'fineAmt')" (blur)="onBlurMoney(i, 'fineAmt')"></td>
+                <td><input type="text" formControlName="extraAmt" id="extraAmt" numberOnly maxlength="14"
+                    (focus)="onFocusMoney(i, 'extraAmt')" (blur)="onBlurMoney(i, 'extraAmt')"></td>
+                <td><input class="custom-readonly" type="text" formControlName="moiAmt" id="moiAmt" numberOnly
+                    maxlength="14" readonly></td>
+                <td><input class="custom-readonly" type="text" formControlName="sumAmt" id="sumAmt" numberOnly
+                    maxlength="14" readonly></td>
+                <td>
+                  <i *ngIf="last" class="minus icon" style="color:red;cursor: pointer" (click)="removeItem(i)"></i>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="16">
+        <a href="javascript:void(0)" (click)="addItem()"><i class="plus icon" style="color:green;"></i>เพิ่ม</a>
+      </div>
+    </div>
+    <br>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ผู้ตรวจสอบ :</label>
+      </div>
+      <div field [col]="6">
+        <div class="ui action input">
+          <input type="text" formControlName="signOfficerFullName" id="signOfficerFullName" maxlength="100">
+          <button class="ui button" (click)="searchModalOpen(1)">ค้นหา</button>
+        </div>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ตำแหน่ง :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="signOfficerPosition" id="signOfficerPosition" maxlength="100">
+      </div>
+    </div>
+    <br>
+    <br>
+    <app-button-footer-report (save)="save($event)" (clear)="clear($event)" (export)="export($event)">
+    </app-button-footer-report>
+  </form>
+</segment>
+
+<ui-modal [id]="'searchModal'" type="custom" size="large">
+  <div class="ui header">
+    ค้นหารายชื่อ
+  </div>
+  <br>
+  <!-- <form form [formGroup]="formSearchModal">
+                </form> -->
+
+  <div grid>
+    <div [column]="16">
+      <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableModal">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">ลำดับ</th>
+            <th class="text-center">ชื่อ-นามสกุล</th>
+            <th class="text-center">ตำแหน่ง</th>
+          </tr>
+        </thead>
+      </table>
+      <br>
+    </div>
+  </div>
+
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

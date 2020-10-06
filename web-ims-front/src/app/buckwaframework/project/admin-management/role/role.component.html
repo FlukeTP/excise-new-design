@@ -1,0 +1,122 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="เงื่อนไขการค้นหา" [loading]="false">
+    <form [formGroup]="searchForm" (submit)="handleSearch($event)" class="ui form">
+      <div class="ui grid">
+        <div class="four column row">
+          <div class="four wide column">
+            <div class="inline fields">
+              <label>Code</label>
+              <input type="text" formControlName="roleCode"  placeholder="Role Code">
+            </div>
+          </div>
+          <!-- role -->
+          <div class="four wide column">
+            <div class="inline fields">
+              <label>Descriptions</label>
+              <input type="text" formControlName="roleDesc" placeholder="Role Descriptions">
+            </div>
+          </div>
+          <!-- button -->
+          <div class="three wide column">
+            <div class="inline fields">
+              <app-button-search submit="submit" ></app-button-search>
+              <!-- <app-button-add routerLink="/management/role-add"></app-button-add> -->
+              <app-button-add (click)="add()"></app-button-add>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </segment>
+  <segment header="ผลการค้นหา" [loading]="false">
+    <div class="sixteen wide column">
+      <table id="dataTable" class="  ui small celled nowrap table striped selectable" style="width:100%">
+        <thead>
+          <tr style="text-align: center;">
+            <th class="one wide" >ลำดับ</th>
+            <th class="six wide text-center">Code</th>
+            <th class="six wide text-center">Descriptions</th>
+            <th class="two wide">Action</th>
+            <th class="one wide">Assign Operation</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+   
+    <br>
+    <div class="ui one column centered grid">
+      <div class="column aligned center">
+        <app-button-back routerLink="/management/user-management"></app-button-back>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>
+
+
+<!-- modal -->
+<ui-modal [id]="'role-create'" [type]="'custom'">
+    <div class="ui header">
+      เพิ่มข้อมูล Role
+    </div>
+    <div class="content">
+      <div class="ui form" [formGroup]="modalForm">
+        <div class="ui form grid ">
+          <div class="ui fourteen wide centered column">
+            <div class="inline fields">
+              <div class="two wide field">
+                <label class="text-right full-width" >Code</label>
+              </div>
+              <div class="six  wide field" [ngClass]="{'error': invalidModalFormControl('roleCode')}">
+                <input type="text" name="roleCode" formControlName="roleCode"  placeholder="Role Code">
+              </div>
+              <div class="two wide field" >
+                <label class="text-right full-width" >Descriptions</label>
+              </div>
+              <div class="six  wide field" [ngClass]="{'error': invalidModalFormControl('roleDesc')}">
+                <input type="text" name="roleDesc" formControlName="roleDesc" placeholder="Role Descriptions">
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="actions" style="justify-content: center;display: flex;">
+      <app-button-confirm (click)="save()">
+      </app-button-confirm>
+      <app-button-cancel class="negative"></app-button-cancel>
+    </div>
+  </ui-modal>
+
+
+<ui-modal [id]="'role-edit'" [type]="'custom'">
+  <div class="ui header">
+    แก้ไขข้อมูล Role
+  </div>
+  <div class="content">
+    <div class="ui form" [formGroup]="modalForm">
+      <div class="ui form grid ">
+        <div class="ui fourteen wide centered column">
+          <div class="inline fields">
+            <div class="two wide field">
+              <label class="text-right full-width" >Code</label>
+            </div>
+            <div class="six  wide field" [ngClass]="{'error': invalidModalFormControl('roleCode')}">
+              <input type="text" name="roleCode" formControlName="roleCode"  placeholder="Role Code">
+            </div>
+            <div class="two wide field" >
+              <label class="text-right full-width" >Descriptions</label>
+            </div>
+            <div class="six  wide field" [ngClass]="{'error': invalidModalFormControl('roleDesc')}">
+              <input type="text" name="roleDesc" formControlName="roleDesc" placeholder="Role Descriptions">
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+  <div class="actions" style="justify-content: center;display: flex;">
+    <app-button-confirm (click)="update()">
+    </app-button-confirm>
+    <app-button-cancel class="negative"></app-button-cancel>
+  </div>
+</ui-modal>

@@ -1,0 +1,361 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <segment header="แบบสอบถาม{{qtnHdrName}} ปีงบประมาณ {{_budgetYear}}" [loading]="loadingInit">
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="three wide field">
+              <button class="ui button custom-menu" type="button" (click)="munuHide()"><i
+                  class="bars icon"></i>ด้านแบบสอบถาม</button>
+            </div>
+
+            <div class="seven wide field" style="padding: 0 0 0 14px">
+              <app-button-custom *ngIf="details.length == 0 || status !== '3' " text="ส่งแบบสำรวจข้อมูล" color="green"
+                style="margin-right: 0px" disabled="true">
+              </app-button-custom>
+
+              <app-button-custom *ngIf="details.length != 0 && status === '3' " text="ส่งแบบสำรวจข้อมูล"
+                (click)="viewDetail()" color="green" style="margin-right: 0px">
+              </app-button-custom>
+
+              <app-button-custom *ngIf="details.length == 0 || status == '3' " text="ยกเลิกส่งแบบสำรวจข้อมูล"
+                color="red" style="margin-right: 0px" disabled="true">
+              </app-button-custom>
+
+              <app-button-custom *ngIf="status == '4'" text="ยกเลิกส่งแบบสำรวจข้อมูล" (click)="canceledQtn()"
+                color="red" style="margin-right: 0px">
+              </app-button-custom>
+
+              <!-- start step 2 -->
+              <!-- <app-button-custom [hidden]="details.length == 0 || status !== '2' " text="ผ่าน"
+                (click)="updateStatus($event, 'PASS')" color="green" icon="check" style="margin-right: 0px">
+              </app-button-custom>
+
+              <app-button-custom [hidden]="details.length == 0 || status !== '2' " text="ไม่ผ่าน"
+                (click)="updateStatus($event, 'NOT')" icon="close" color="red" style="margin-right: 0px">
+              </app-button-custom> -->
+              <!-- end step 2 -->
+
+              <!-- start step 1 -->
+              <!--              <app-button-custom [hidden]=" details.length == 0 || status !== '1' " text="ส่งตรวจสอบแบบสอบถาม"
+                (click)="updateStatus($event)" color="green">
+              </app-button-custom>
+
+              <app-button-custom [hidden]="status !=='1' " text="แก้ไขแบบสอบถาม" icon="edit" (click)="moveTo()"
+                color="yellow">
+              </app-button-custom> -->
+              <!-- end step 1 -->
+              <!--
+              <app-button-custom [hidden]="details.length == 0 || status ==='FAIL_SEND_QTN' "
+                text="กำหนดเงื่อนไขความเสี่ยง" (click)="viewDetail1()" color="blue">
+              </app-button-custom>
+
+              <app-button-custom [hidden]="details.length == 0 || status !== 'SUCCESS_HDR' && status !== 'FINISH' "
+                text="ยกเลิกแบบสอบถาม" color="red" icon="close" (click)="cancelQtn($event)">
+              </app-button-custom> -->
+
+              <app-button-back (click)="back()"></app-button-back>
+            </div>
+
+            <div class="one wide field">
+            </div>
+
+            <div class="five wide field">
+              <label class="custom-label-w-10">แก้ไขล่าสุดวันที่ : {{_updatedDate  | dateString:true }}</label>
+              <label class="custom-label-w-10 text-left full-width">แก้ไขโดย : {{_updatedBy}}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui grid">
+          <div class="three wide column" [ngClass]="{'menu-hide': menuhide}">
+            <div class="ui vertical pointing menu" style="width: auto">
+              <div class="item">
+                <div class="header text-center">ด้านแบบสอบถาม</div>
+              </div>
+              <a class="item" routerLinkActive="active" (click)="showDtl('ALL')">ทั้งหมด</a>
+              <a class="item" routerLinkActive="active" *ngFor="let s of defaultSides let i = index;"
+                (click)="showDtl(i)">{{s.sideName}}</a>
+            </div>
+          </div>
+
+          <div [ngClass]="{'thirteen ': !menuhide, 'sixteen': menuhide, 'wide column' : true}">
+            <div class="ui form" *ngIf="details.length > 0">
+              <div class="ui segments" *ngFor="let qtn of details; let i = index">
+                <segment header="{{ checkIndex? sides: defaultSides[i].sideName }}" [right]="true">
+                  <div headRight>
+                    <!-- <app-button-custom text="แก้ไขรายละเอียด" color="yellow" icon="edit" class="text-right full-width"
+                      [hidden]="qtn.length == 0 || status !== '1' " (click)="detail(defaultSides[i].id)">
+                    </app-button-custom> -->
+                  </div>
+
+                  <table class="ui celled table">
+                    <thead class="text-center">
+                      <tr>
+                        <th colspan="3" style="width: 6%">ที่</th>
+                        <th>รายการ</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="qtn.length == 0">
+                      <tr>
+                        <td class="text-center" colspan="4">ไม่พบแบบสอบถาม</td>
+                      </tr>
+                    </tbody>
+                    <tbody *ngIf="qtn.length > 0">
+                      <ng-container *ngFor="let hdr of qtn; let j = index">
+                        <tr style="background-color: #cccc">
+                          <td class="text-center" style="width: 40px !important;">{{hdr.seq}}</td>
+                          <td colspan="3">{{hdr.sideDtl}}</td>
+                        </tr>
+                        <ng-container *ngFor="let dtl of hdr.children; let k = index">
+                          <tr>
+                            <td></td>
+                            <td class="text-center">{{dtl.seq}}.{{dtl.seqDtl}}</td>
+                            <td colspan="2">{{dtl.sideDtl}}</td>
+                          </tr>
+                          <ng-container *ngFor="let dtls of dtl.children; let l = index">
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td class="text-center">{{dtl.seq}}.{{dtls.seq}}.{{dtls.seqDtl}}</td>
+                              <td>{{dtls.sideDtl}}</td>
+                            </tr>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </tbody>
+                  </table>
+
+                </segment>
+              </div>
+            </div>
+          </div>
+        </div>
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>
+
+<ui-modal [id]="'detail'" [type]="'custom'">
+  <div class="ui header">
+    ส่งแบบสอบถาม
+  </div>
+  <div class="content">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="four wide field">
+          <label>วันที่สามารถเริ่มทำแบบสอบถาม </label>
+        </div>
+        <div class="four wide field">
+          <div class="ui calendar" id="date1">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" id="startDateSend" placeholder="วว/ดด/ปปปป" autocomplete="off">
+            </div>
+          </div>
+        </div>
+        <div class="four wide field">
+          <label>ส่งแบบแบบสอบถามก่อนวันที่ </label>
+        </div>
+        <div class="four wide field">
+          <div class="ui calendar" id="date2">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" id="endDateSend" placeholder="วว/ดด/ปปปป" autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions ">
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-save [disabled]="true" *ngIf="pending"></app-button-save>
+        <app-button-save (click)="handleSendQtn($event)" *ngIf="!pending"></app-button-save>
+        <app-button-cancel (click)="closeModal()"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>
+
+<ui-modal [id]="'detail1'" [type]="'custom'" [size]="'large'">
+  <div class="ui header">
+    กำหนดเกณฑ์ความเสี่ยง
+  </div>
+  <div class="content">
+    <div class="ui form">
+      <div class="inline field">
+        <table id="dataTable" class="ui small celled table">
+          <thead>
+            <tr class="text-center">
+              <th>ที่</th>
+              <th>เงื่อนไข</th>
+              <th>ไม่มี/ไม่ใช่ (%)</th>
+              <th>...</th>
+              <th>ไม่มี/ไม่ใช่ (%)</th>
+              <th>อัตราความเสี่ยง</th>
+              <th style="width: 121.4286px;">แปลค่าความเสี่ยง</th>
+              <th style="width: 121.4286px;">สี</th>
+            </tr>
+          </thead>
+          <tbody class="ui form" [ngClass]="{ 'error': configsForm.invalid }" [formGroup]="configsForm">
+            <!-- Row 1 -->
+            <tr>
+              <td class="aligned center">1</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" formControlName="lowCondition" disabled>
+                  <option value="<>">ระหว่าง</option>
+                  <option value=">">มากกว่า</option>
+                  <option value="<">น้อยกว่า</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControl('lowStart') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('lowStart', 'lowEnd', 'mediumStart')"
+                      formControlName="lowStart" required>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                {{ configsForm.get('lowCondition') ? configsForm.get('lowCondition').value : '...' }}</td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControl('lowEnd') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly formControlName="lowEnd" disabled>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="text" numberOnly formControlName="lowRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="low" disabled>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="lowColor" required>
+                  <option value="red">แดง</option>
+                  <option value="yellow">เหลือง</option>
+                  <option value="green">เขียว</option>
+                </select>
+              </td>
+            </tr>
+            <!-- Row 2 -->
+            <tr>
+              <td class="aligned center">2</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" formControlName="mediumCondition" disabled>
+                  <option value="<>">ระหว่าง</option>
+                  <option value=">">มากกว่า</option>
+                  <option value="<">น้อยกว่า</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControl('mediumStart') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('mediumStart', 'lowStart', 'mediumEnd')"
+                      formControlName="mediumStart" required>
+                  </div>
+                </div>
+                <!-- <div class="ui mini error message" *ngIf="invalidControl('mediumStart')">
+                  <p>กรุณากรอกให้มากกว่า {{ configsForm.get('lowStart').value }}</p>
+                </div> -->
+              </td>
+              <td class="aligned center">
+                {{ configsForm.get('mediumCondition') ? configsForm.get('mediumCondition').value : '...' }}</td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControl('mediumEnd') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('mediumEnd', 'mediumStart', 'highStart')"
+                      formControlName="mediumEnd" required>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="text" numberOnly formControlName="mediumRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="medium" disabled>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="mediumColor" required>
+                  <option value="red">แดง</option>
+                  <option value="yellow">เหลือง</option>
+                  <option value="green">เขียว</option>
+                </select>
+              </td>
+            </tr>
+            <!-- Row 3 -->
+            <tr>
+              <td class="aligned center">3</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" formControlName="highCondition" disabled>
+                  <option value="<>">ระหว่าง</option>
+                  <option value=">">มากกว่า</option>
+                  <option value="<">น้อยกว่า</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControl('highStart') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('highStart', 'mediumEnd')"
+                      formControlName="highStart" required>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                {{ configsForm.get('highCondition') ? configsForm.get('highCondition').value : '...' }}</td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControl('highEnd') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly formControlName="highEnd" disabled>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="text" numberOnly formControlName="highRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="high" disabled>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="highColor" required>
+                  <option value="red">แดง</option>
+                  <option value="yellow">เหลือง</option>
+                  <option value="green">เขียว</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-save (click)="saveConfigs()"></app-button-save>
+        <app-button-cancel class="positive"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>

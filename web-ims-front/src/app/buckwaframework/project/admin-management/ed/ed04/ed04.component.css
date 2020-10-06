@@ -1,0 +1,20 @@
+.item-color1 {
+    background-color: red;
+}
+
+.item-color2 {
+    background-color: yellow;
+}
+
+.item-color3 {
+    background-color: blue;
+}
+
+#colore{
+    background-color: rgb(226, 226, 226);
+    border-radius: 15px;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;    
+    
+}

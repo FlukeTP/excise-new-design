@@ -1,0 +1,8 @@
+.underline{
+    border-bottom: 1px solid black;
+    width: 100%;
+    display: block;
+}
+.text-right-button{
+    justify-content : flex-end;
+}

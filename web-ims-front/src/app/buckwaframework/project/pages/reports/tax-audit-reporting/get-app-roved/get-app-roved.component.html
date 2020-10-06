@@ -1,0 +1,180 @@
+<form (submit)="onSubmit($event)" ngNativeValidate>
+  <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>ขออนุมัติเดินทางไปปฏิบัติราชการ</span>
+  </div>
+
+  <div class="ui attached segment">
+    <div class="ui grid center aligned">
+      <div class="ui center aligned centered fourteen wide column">
+        <div class="ui form center aligned">
+          <div class="inline fields">
+            <div class="three wide field"></div>
+            <div class="two wide field">
+              <label>ส่วนราชการ</label>
+            </div>
+            <div class="four wide field">
+              <input type="text" name="governmentService" id="governmentService" [(ngModel)]="obj.governmentService">
+            </div>
+            <div class="two wide field">
+              <label> วันที่</label>
+            </div>
+            <div class="four wide field ui calendar" id="date1">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" [(ngModel)]="obj.date" name="date" id="date" autocomplete="off">
+              </div>
+            </div>
+          </div>
+          
+          <div class="inline fields">
+            <div class="three wide field"></div>
+            <div class="two wide field">
+              <label> เรื่อง</label>
+            </div>
+            <div class="four wide field">
+              ขออนุมัติเดินทางไปปฏิบัติราชการ
+            </div>
+            <div class="two wide field">
+              <label> เรียน</label>
+            </div>
+            <div class="four wide field ">
+              <input type="text" id="study" name="study" [(ngModel)]="obj.study"> 
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="three wide field"></div>
+            <div class="three wide field">
+              <label> ผู้เดินทางไปปฏิบัติราชการ จำนวน</label>
+            </div>
+
+            <div class="two wide field">
+              <input type="text" id="travelToWork" name="travelToWork" [(ngModel)]="obj.travelToWork">
+            </div>
+            <div class="oue wide field">
+              <label>ราย</label>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="four wide field"></div>
+            <div class="one wide field"><label>1</label></div>
+            <div class="five wide field">
+             <input type="text" id="travelToWork1" name="travelToWork1" [(ngModel)]="obj.travelToWork1">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field"></div>
+            <div class="one wide field"><label>2</label></div>
+            <div class="five wide field">
+               <input type="text" id="travelToWork2" name="travelToWork2" [(ngModel)]="obj.travelToWork2">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field"></div>
+            <div class="one wide field"><label>3</label></div>
+            <div class="five wide field">
+              <input type="text" id="travelToWork3" name="travelToWork3" [(ngModel)]="obj.travelToWork3">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field"></div>
+            <div class="one wide field"><label>4</label></div>
+            <div class="five wide field">
+               <input type="text" id="travelToWork4" name="travelToWork4" [(ngModel)]="obj.travelToWork4">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field"></div>
+            <div class="one wide field"><label>5</label></div>
+            <div class="five wide field">
+               <input type="text" id="travelToWork5" name="travelToWork5" [(ngModel)]="obj.travelToWork5">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="three wide field"></div>
+            <div class="five wide field">
+              <label>เดินทางไปปฏิบัติราชการตามแผน/โครงการ ระหว่างวันที่</label>
+            </div>
+            <div class="three wide field ui calendar" id="date2">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" [(ngModel)]="obj.accordingToPlan1" id="accordingToPlan1" name="accordingToPlan1">
+              </div>
+            </div>
+            <div class="oue wide field">
+              <label>ถึง</label>
+            </div>
+            <div class="three wide field ui calendar" id="date3">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" [(ngModel)]="obj.accordingToPlan2" id="accordingToPlan2" name="accordingToPlan2">
+              </div>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="three wide field"></div>
+            <div class="four wide field">
+              <label>เพื่อแนะนำบัญชีของบริษัท</label>
+            </div>
+          </div>
+          <div class="inline fields">
+              <div class="four wide field"></div>
+              <div class="one wide field"><label>1</label></div>
+              <div class="five wide field">
+               <input type="text"  [(ngModel)]="obj.companyAccount1" id="companyAccount1" name="companyAccount1">
+              </div>
+            </div>
+            <div class="inline fields">
+              <div class="four wide field"></div>
+              <div class="one wide field"><label>2</label></div>
+              <div class="five wide field">
+                 <input type="text" [(ngModel)]="obj.companyAccount2" id="companyAccount2" name="companyAccount2">
+              </div>
+            </div>
+            <div class="inline fields">
+              <div class="four wide field"></div>
+              <div class="one wide field"><label>3</label></div>
+              <div class="five wide field">
+               <input type="text"  [(ngModel)]="obj.companyAccount3" id="companyAccount3" name="companyAccount3">
+              </div>
+            </div>
+            <div class="inline fields">
+              <div class="four wide field"></div>
+              <div class="one wide field"><label>4</label></div>
+              <div class="five wide field">
+                <input type="text"  [(ngModel)]="obj.companyAccount4" id="companyAccount4" name="companyAccount4">
+              </div>
+            </div>
+         
+            <div class="inline fields">
+                <div class="three wide field"></div>
+                <div class="three wide field">
+                  <label>โดยใช้งบประมาณทั้งสิ้น</label>
+                </div>
+                <div class="two wide field">
+                  <input type="text" [(ngModel)]="obj.budget" id="budget" name="budget">
+                </div>
+                <div class="two wide field"><label>บาท</label></div>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="ui bottom centered attached segment">
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <button class="ui mini green button" type="submit">
+          <i class="save icon"></i>
+          พิมพ์เอกสาร
+        </button>
+        <button class="ui mini red button" type="button" (click)="onDiscard()">
+          <i class="close icon"></i>
+          ยกเลิก
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

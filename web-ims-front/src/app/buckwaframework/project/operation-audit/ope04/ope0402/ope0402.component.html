@@ -1,0 +1,114 @@
+<!-- <with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="รายการออกตรวจ" [loading]="false">
+    <div class="ui form grid">
+      <div class="one wide column"></div>
+      <div class="fourteen wide column">
+        <div class="ui secondary  segment">
+          <div class="ui grid">
+            <div class="sixteen wide column">
+              <h4 style="color: #000;"><i class="calendar alternate outline icon large ui"
+                  style="color: blue"></i>รายการออกตรวจประจำวันที่ 15 ตุลาคม 2560</h4>
+            </div>
+          </div>
+          <div class="ui form grid">
+            <div class="sixteen wide column">
+              <div class="ui cards">
+                <div class="card">
+                  <div class="content">
+                    <div class="header">
+                      <i class="home icon  floated  ui" style="color: #6090e6"></i>
+                      หจก.หนองแฝกการสุรา
+                    </div>
+                    <div class="meta">
+
+                    </div>
+                    <div class="description">
+                      <b>81 หมู่.5 ต.หนองแฝก อ.สารภี จ.เชียงใหม่</b>
+                    </div>
+                  </div>
+                  <div class="extra content">
+                    <div class="ui two buttons">
+                      <app-button-custom color="primary" icon="eye icon" text="ออกตรวจ" (click)="checkout()">
+                      </app-button-custom>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="content">
+                    <div class="header">
+                      <i class="home icon  floated  ui" style="color: #6090e6"></i>
+                      หจก.สาโทลำไยทอง
+                    </div>
+                    <div class="meta">
+
+                    </div>
+                    <div class="description">
+                      <b>111/2 หมู่.3 ต.หนองทอง อ.ทางดง จ.เชียงใหม่</b>
+                    </div>
+                  </div>
+                  <div class="extra content">
+                    <div class="ui two buttons">
+                      <app-button-custom color="primary" icon="eye icon" text="ออกตรวจ" (click)="checkout()">
+                      </app-button-custom>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="one wide column"></div>
+    </div>
+  </segment>
+
+</with-breadcrumb> -->
+
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+    <segment header="รายการออกตรวจ" [loading]="false">
+      <div [center]="true" grid>
+        <div [column]="14">
+          <div class="ui secondary segment" *ngFor="let list of lists; let i = index">
+            <div grid>
+              <div [column]="16">
+                <h4 style="color: #000;"><i class="calendar alternate outline icon large ui" style="color: blue"
+                    [ngStyle]="{'color': i==0 ? '#6090e6' : 'black'}"></i>รายการออกตรวจประจำวันที่
+                  {{ (list&&list.date | dateStringType: "DD MMMM YYYY") || "กำลังประมวลผล.." }}</h4>
+                <div *ngIf="list && list.details && list.details.length == 0" style="padding-left: 2em">
+                  ไม่พบรายการออกตรวจ
+                </div>
+              </div>
+              <div [column]="16" *ngIf="list && list.details && list.details.length > 0">
+                <div class="ui cards">
+                  <div class="card" *ngFor="let detail of list.details">
+                    <div class="content">
+                      <div class="header">
+                        <i class="home icon floated ui" style="color: #6090e6"></i>
+                        {{ detail.companyName }}
+                      </div>
+                      <div class="meta">
+                      </div>
+                      <div class="description">
+                        <b>{{ detail.address }}</b>
+                      </div>
+                    </div>
+                    <div class="extra content">
+                      <div class="ui two buttons">
+                        <app-button-custom color="primary" icon="eye icon" text="ออกตรวจ"
+                          (click)="checkout(detail.oaLicensePlanId)">
+                        </app-button-custom>
+                      </div>
+                    </div>
+                  </div>
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </segment>
+  
+  </with-breadcrumb>

@@ -1,0 +1,258 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="บันทึกค่าสาธารณูปโภค" [loading]="false">
+    <div class="ui form">
+      <form [formGroup]="formHeader">
+        <!-- row 0 -->
+        <div inline>
+          <div field [col]="2">
+            <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+          </div>
+          <div field [col]="4">
+            <input type="text" class="custom-readonly" formControlName="sector" readonly>
+          </div>
+          <div field [col]="2">
+            <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+          </div>
+          <div field [col]="3">
+            <input type="text" class="custom-readonly" formControlName="area" readonly>
+          </div>
+          <div field [col]="2">
+            <label class="text-right full-width">สำนักงานสรรพสามิตสาขา</label>
+          </div>
+          <div field [col]="3">
+            <input type="text" class="custom-readonly" formControlName="branch" readonly>
+          </div>
+        </div>
+      </form>
+
+      <form [formGroup]="formPublicUtility">
+        <div class="sixteen wide column">
+          <!-- row 1 -->
+          <div inline>
+            <div class="required" field [col]="2">
+              <label class="text-right full-width">ประเภทค่าสาธารณูปโภค</label>
+            </div>
+            <div field [col]="3" [ngClass]="{'error': validateField('ubillType')}">
+              <select class="ui dropdown" formControlName="ubillType" id="ubillType">
+                <option value="">กรุณาเลือก</option>
+                <option *ngFor="let data of dropdownPublicUtility" value="{{data.paramCode}}">{{data.value1}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="ui grid">
+      <div class="six wide column">
+        <segment>
+          <div class="ui form">
+            <form [formGroup]="formPublicUtility">
+              <div inline>
+                <div class="required" field [col]="6">
+                  <label class="text-right full-width">เดือนที่เบิกจ่าย</label>
+                </div>
+                <div field [col]="9" [ngClass]="{'error': validateField('monthWdPay')}">
+                  <div class="ui calendar" id="monthWdPayCld">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="text" formControlName="monthWdPay" autocomplete="off" placeholder="ดด/ปปปป">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="6">
+                  <label class="text-right full-width">ใบแจ้งหนี้ประจำเดือน</label>
+                </div>
+                <div field [col]="9">
+                  <div class="ui calendar" id="invoiceMonthCld">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="text" formControlName="invoiceMonth" autocomplete="off" placeholder="ดด/ปปปป">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="6">
+                  <label class="text-right full-width">เลขที่ใบแจ้งหนี้</label>
+                </div>
+                <div field [col]="9">
+                  <input formControlName="invoiceNo" type="text" numberOnly>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="6">
+                  <label class="text-right full-width">เบอร์โทรศัพท์</label>
+                </div>
+                <div field [col]="9" [ngClass]="{'error': validateField('telInvNumber')}">
+                  <input formControlName="telInvNumber" numberOnly>
+                </div>
+                <!-- <div field [col]="9">
+                  <input formControlName="telInvNumber" numberOnly (blur)="formatPhoneNumber($event, 'telInvNumber')"
+                    maxlength="11">
+                </div> -->
+              </div>
+              <div inline>
+                <div field [col]="6">
+                  <label class="text-right full-width">วันที่ตามใบแจ้งหนี้</label>
+                </div>
+                <div field [col]="9">
+                  <div class="ui calendar" id="invoiceDateCld">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="text" formControlName="invoiceDate" autocomplete="off" placeholder="วว/ดด/ปปปป">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="6">
+                  <label class="text-right full-width">วันที่รับใบแจ้งหนี้</label>
+                </div>
+                <div field [col]="9">
+                  <div class="ui calendar" id="receiveInvDateCld">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="text" formControlName="receiveInvDate" autocomplete="off" placeholder="วว/ดด/ปปปป">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="6">
+                  <label class="text-right full-width">จำนวนเงินตามใบแจ้งหนี้</label>
+                </div>
+                <div field [col]="7">
+                  <input formControlName="invoiceAmt" type="text" numberOnly>
+                </div>
+                <div field [col]="2">
+                  <label class="full-width">บาท</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </segment>
+      </div>
+      <div class="ten wide column">
+        <segment>
+          <div class="ui form">
+            <form [formGroup]="formPublicUtility">
+              <div inline style=" margin-bottom: 29px;">
+                <div field [col]="3">
+                  <label class="text-right full-width" style="color: rgb(47, 71, 206);">สถานะการชำระเงิน</label>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="4">
+                  <label class="text-right full-width">วันที่ทำ ขบ.</label>
+                </div>
+                <div field [col]="4">
+                  <div class="ui calendar" id="reqWdDateCld">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="text" formControlName="reqWdDate" autocomplete="off" placeholder="วว/ดด/ปปปป">
+                    </div>
+                  </div>
+                </div>
+                <div field [col]="3">
+                  <label class="text-right full-width">เลขที่ ขบ.</label>
+                </div>
+                <div field [col]="4">
+                  <input formControlName="reqWdNo" type="text">
+                </div>
+              </div>
+              <div inline>
+                <div class="required" field [col]="4">
+                  <label class="text-right full-width">จำนวนเงินตาม ขบ./ขจ.</label>
+                </div>
+                <div field [col]="3" [ngClass]="{'error': validateField('reqWdAmt')}">
+                  <input formControlName="reqWdAmt" type="text" numberOnly>
+                </div>
+                <div field [col]="1">
+                  <label class="text-right">บาท</label>
+                </div>
+                <div field [col]="3">
+                  <label class="text-right full-width">ภาษีหัก ณ ที่จ่าย</label>
+                </div>
+                <div field [col]="4">
+                  <input formControlName="reqTaxAmt" numberOnly>
+                </div>
+                <div field [col]="1">
+                  <label class="text-right">บาท</label>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="4">
+                  <label class="text-right full-width">เลขที่ ขจ.</label>
+                </div>
+                <div field [col]="4">
+                  <input formControlName="reqPayNo" type="text">
+                </div>
+                <div field [col]="3">
+                  <label class="text-right full-width">จำนวนเงินสุทธิ</label>
+                </div>
+                <div field [col]="4">
+                  <input formControlName="reqNetAmt" type="text" numberOnly>
+                </div>
+                <div field [col]="1">
+                  <label class="text-right">บาท</label>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="4">
+                  <label class="text-right full-width">วันที่ตามใบเสร็จรับเงิน</label>
+                </div>
+                <div field [col]="4">
+                  <div class="ui calendar" id="reqReceiptDateCld">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="text" formControlName="reqReceiptDate" autocomplete="off" placeholder="วว/ดด/ปปปป">
+                    </div>
+                  </div>
+                </div>
+                <div field [col]="3">
+                  <label class="text-right full-width">จำนวน</label>
+                </div>
+                <div field [col]="4">
+                  <input class="custom-readonly" formControlName="dayAmount" type="text" numberOnly>
+                </div>
+                <div field [col]="1">
+                  <label class="text-right">วัน</label>
+                </div>
+              </div>
+              <div inline>
+                <div class="required" field [col]="4">
+                  <label class="text-right full-width">สาเหตุที่ค้างชำระ/จ่ายล่าช้า</label>
+                </div>
+                <div field [col]="11" [ngClass]="{'error': validateField('latePayCause')}">
+                  <select class="ui dropdown" formControlName="latePayCause" id="latePayCause">
+                    <option value="">กรุณาเลือก</option>
+                    <option *ngFor="let data of dropdownReason" value="{{data.paramCode}}">{{data.value1}}</option>
+                  </select>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="4">
+                  <label class="text-right full-width">หมายเหตุ</label>
+                </div>
+                <div field [col]="11">
+                  <input formControlName="ubillRemark" type="text">
+                </div>
+              </div>
+            </form>
+          </div>
+        </segment>
+      </div>
+    </div>
+    <div class="ui center aligned grid">
+      <div class="column">
+        <app-button-save *ngIf="!formPublicUtility.get('utilityBillSeq').value" (click)="save($event)">
+        </app-button-save>
+        <app-button-edit *ngIf="formPublicUtility.get('utilityBillSeq').value" (click)="save($event)">
+        </app-button-edit>
+        <app-button-back (click)="routeTo('/int09/13/01')"></app-button-back>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

@@ -1,0 +1,191 @@
+<!-- <form ngNativeValidate>
+  <segment header="บันทึกผลการวิเคราะการชำระภาษีสรรพสามิต" [loading]="false">
+    <div class="ui grid center aligned">
+      <div class="ui center aligned centered fourteen wide column">
+        <div class="ui form center aligned">
+
+          <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="four wide field">
+              <label>ทะเบียนสรรพสามิตเลขที่ :</label>
+            </div>
+            <div class="nine wide field">
+              <input type="text" name="exciseId" [(ngModel)]="obj.exciseId" required>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="one wide field">
+              <label>
+                ราย :
+              </label>
+            </div>
+            <div class="five wide field">
+              <input type="text" name="item" [(ngModel)]="obj.item" required>
+            </div>
+            <div class="three wide field">
+              <label>
+                ประเภทกิจการ :
+              </label>
+            </div>
+            <div class="four  wide field">
+              <input type="text" name="workType" [(ngModel)]="obj.workType" required>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="one wide field">
+              <label>ที่อยู่ :</label>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="thirteen wide field">
+              <textarea name="address" [(ngModel)]="obj.address" rows="2" style="resize: none" maxLength="200" required></textarea>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="five wide field">
+              <label>
+                ขอบระยะเวลาที่ทำการวิเคราะห์ตั้งแต่ :
+              </label>
+            </div>
+            <div class="three wide field ui calendar" id="date1">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" id="from" name="from" [(ngModel)]="obj.from" required>
+              </div>
+            </div>
+            <div class="one wide field">
+              <label>
+                ถึง :
+              </label>
+            </div>
+            <div class="four wide field ui calendar" id="date2">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" name="to" id="to" [(ngModel)]="obj.to" required>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="fourteen wide field">
+              <label class="custom-label-w-22">ข้อมูลที่ใช้ในการวิเคราะห์</label>
+            </div>
+          </div>
+
+          <div class="inline fields" *ngFor="let num of numbers; let i = index" [attr.data-index]="i">
+            <div class="two wide field"></div>
+            <div class="twelve wide field">
+              <label class="custom-label-w-18">
+                {{i+1}}.
+              </label>
+              <input type="text" name="analys{{i+1}}" [(ngModel)]="obj['analys' + (i+1)]" required> &nbsp;&nbsp;
+
+            </div>
+            <div class="one wide field">
+              <a *ngIf="i>2" (click)="onDelField(i)" style="color: red;">
+                <i class="times icon"></i> ลบ
+              </a>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="fourteen wide field">
+              <i class="plus icon"></i>
+              <a style="cursor: pointer" class="{{ numbers.length == 5 && 'disabled'}} " (click)="onAddField()">
+                เพิ่ม
+              </a>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="one wide field">
+              <label>เรียน:</label>
+            </div>
+            <div class="five wide field">
+              <input type="text" name="sendTo" [(ngModel)]="obj.sendTo" required>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="nine wide field">
+              <label>
+                ตามที่ได้ทำการวิเคราะห์ข้อมูลรายดังกล่าวข้างต้นแล้วปรากฏว่า
+              </label>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="thirteen wide field">
+              <textarea rows="2" style="resize: none;" maxLength="200" name="reasonTxt" [(ngModel)]="obj.reasonTxt"
+                required></textarea>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="five wide field">
+              <label>จึงเห็นสมควร</label>
+              <div class="ui checkbox">
+                <input type="radio" name="agreeBox" [(ngModel)]="obj.agreeBox" value="accept">
+                <label>ขออนุมัติหนังสือเรียก</label>
+              </div>
+            </div>
+            <div class="one wide field">
+              <div class="ui checkbox">
+                <input type="radio" name="agreeBox" [(ngModel)]="obj.agreeBox" value="other">
+                <label>อื่นๆ&nbsp;:&nbsp;&nbsp;</label>
+              </div>
+            </div>
+            <div class="seven wide field">
+              &nbsp;&nbsp;
+              <div class="ui {{ obj.agreeBox !== 'other' && 'disabled' }} input">
+                <input type="text" [(ngModel)]="obj.otherTxt" name="otherTxt" id="otherTxt">
+              </div>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="two wide field">
+              <label>
+                ผู้วิเคราะห์:
+              </label>
+            </div>
+            <div class="four wide field">
+              <input type="text" name="analysName" [(ngModel)]="obj.analysName" required>
+            </div>
+            <div class="three wide field">
+              <label>
+                ผู้ควบคุมการวิเคราะห์:
+              </label>
+            </div>
+            <div class="four wide field">
+              <input type="text" name="analysControl" [(ngModel)]="obj.analysControl" required>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-export (click)="onSubmit($event)"></app-button-export>
+        <app-button-cancel (click)="onDiscard()"></app-button-cancel>
+      </div>
+    </div>
+  </segment>
+</form> -->

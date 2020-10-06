@@ -1,0 +1,143 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <message-float text="COPIED" type="success" [show]="copied"></message-float>
+  <segment header="Button">
+    <div grid>
+      <div [column]="8">
+        <div grid>
+          <div [column]="16">
+            <app-button-back (click)="copyToClipboard('btn-back')"></app-button-back>
+            <app-button-add (click)="copyToClipboard('btn-add')"></app-button-add>
+            <app-button-cancel (click)="copyToClipboard('btn-cancel')"></app-button-cancel>
+            <app-button-check (click)="copyToClipboard('btn-check')"></app-button-check>
+            <app-button-clear (click)="copyToClipboard('btn-clear')"></app-button-clear>
+          </div>
+        </div>
+        <div grid>
+          <div [column]="16">
+            <app-button-confirm (click)="copyToClipboard('btn-confirm')"></app-button-confirm>
+            <app-button-delete (click)="copyToClipboard('btn-delete')"></app-button-delete>
+            <app-button-detail (click)="copyToClipboard('btn-detail')"></app-button-detail>
+            <app-button-edit (click)="copyToClipboard('btn-edit')"></app-button-edit>
+            <app-button-export (click)="copyToClipboard('btn-export')"></app-button-export>
+          </div>
+        </div>
+        <div grid>
+          <div [column]="16">
+            <app-button-home (click)="copyToClipboard('btn-home')"></app-button-home>
+            <app-button-save (click)="copyToClipboard('btn-save')"></app-button-save>
+            <app-button-search (click)="copyToClipboard('btn-search')"></app-button-search>
+            <app-button-upload (click)="copyToClipboard('btn-upload')"></app-button-upload>
+            <app-button-download></app-button-download>
+          </div>
+        </div>
+        <div grid>
+          <div [column]="16">
+            <br><br>
+            <p class="">Button custom !!!!!!!!!!</p>
+            <app-button-custom (click)="copyToClipboard('btn-custom')" color="primary" icon="check icon"
+              text="Button Custom !!"></app-button-custom>
+
+          </div>
+        </div>
+      </div>
+      <div [column]="8">
+        <pre>{{btn}}</pre>
+      </div>
+    </div>
+  </segment>
+  <segment header="DataTable">
+    <div grid>
+      <div [column]="8">
+        <h3>Json</h3>
+        <pre>{{dataTableTxt}}</pre>
+      </div>
+      <div [column]="8">
+        <h3>Ajax</h3>
+        <pre>{{dataTableTxtAjax}}</pre>
+      </div>
+    </div>
+  </segment>
+  <segment header="Sagments">
+    <div grid>
+      <div [column]="8" grid>
+        <div [column]="16">
+          <segment header="Header Sagment">
+            content here
+          </segment>
+        </div>
+        <div [column]="16">
+          <segment header="Header Sagment loading" [loading]="true">
+            <br><br>
+            content here
+            <br><br>
+          </segment>
+        </div>
+      </div>
+      <div [column]="8">
+        <app-button-custom (click)="copyToClipboard('segment')" text="Copy"></app-button-custom>
+        <pre>{{sagment}}</pre>
+      </div>
+    </div>
+  </segment>
+  <segment header="UI FORM">
+    <div grid>
+      <div [column]="8" grid>
+        <div [column]="16">
+          <div form>
+            <div inline>
+              <div field [col]="6">
+                <div class="ui input custom-readonly">
+                  <input type="text" readonly value="Username">
+                </div>
+              </div>
+              <div field [col]="10">
+                <div class="ui input">
+                  <input type="text">
+                </div>
+              </div>
+            </div>
+            <div inline>
+              <div field [col]="6">
+                <div class="ui input custom-readonly">
+                  <input type="text" readonly value="Password">
+                </div>
+              </div>
+              <div field [col]="10">
+                <div class="ui input">
+                  <input type="password">
+                </div>
+              </div>
+            </div>
+            <div inline [center]="true">
+              <app-button-custom text="Login"></app-button-custom>
+              <app-button-custom text="Register"></app-button-custom>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div [column]="8">
+        <app-button-custom (click)="copyToClipboard('form')" text="Copy"></app-button-custom>
+        <pre>{{form}}</pre>
+      </div>
+    </div>
+  </segment>
+  <segment header="UI GRID">
+    <div grid>
+      <div grid [col]="8">
+        <div [column]="16" class="column-show">
+          {{ column[16] }}
+        </div>
+        <div [column]="8" class="column-show-a">
+          {{ column[8] }}
+        </div>
+        <div [column]="8" class="column-show-b">
+          {{ column[8] }}
+        </div>
+      </div>
+      <div [column]="8">
+        <app-button-custom (click)="copyToClipboard('form')" text="Copy"></app-button-custom>
+        <!-- <pre>{{form}}</pre> -->
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

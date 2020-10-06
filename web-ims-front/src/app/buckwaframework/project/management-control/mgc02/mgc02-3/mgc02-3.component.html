@@ -1,0 +1,112 @@
+<div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>รายงานผลการออกตรวจเรื่อง ระบบการตรวจภาษี ประจำปีงบประมาณ {{ year }}</span>
+</div>
+
+<div class="ui attached  segment">
+    <div class="ui grid center aligned">
+        <!-- <div class="ui three wide column">&nbsp;</div> -->
+        <div class="ui center aligned five wide  column">
+            <div class="ui form">
+                <div class="inline fields">
+                    <div class="six wide field">
+                        <label class="custom-label-w-20" style="text-align: right">พิกัดสินค้า: </label>
+                    </div>
+                    <div class="ten wide field">
+                        <select style="width: 100%" id="products" name="products" class="ui search dropdown" (change)="onSelectProducts($event)">
+                            <option *ngFor="let product of products; let i = index" value="{{i}}">
+                                {{product}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="six wide field">
+                        <label class="custom-label-w-20" style="text-align: right">ภาค/พื้นที่: </label>
+                    </div>
+                    <div class="ten wide field">
+                        <select style="width: 100%" id="zones" name="zones" class="ui search dropdown" (change)="onSelectZones($event)">
+                            <option *ngFor="let zone of zones; let i = index" value="{{i}}">
+                                {{zone}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui center aligned eleven wide  column">
+            <div class="ui form">
+                <div class="inline fields">
+                    <div class="ui form">
+                        <div style="background: #1e83db;color: white;padding-top: 10px;">
+                            <span>รายงานผลการออกตรวจ</span>
+                            <table class="ui celled table striped selectable" style="text-align: center; border-radius: 0px;">
+                                <thead>
+                                    <tr>
+                                        <th>ลำดับที่</th>
+                                        <th>ชื่อรายงาน</th>
+                                        <th>ภาค</th>
+                                        <th>พื้นที่</th>
+                                        <th>พิกัด</th>
+                                        <th>ปีงบประมาณ</th>
+                                        <th>File</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>ผลการออกตรวจวัตถุดิบคงเหลือ สถานประกอบการ XXXXXXXXXXXXX</td>
+                                        <td>ภาค 4</td>
+                                        <td></td>
+                                        <td>น้ำมัน</td>
+                                        <td>2559</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>ผลการออกตรวจวัตถุดิบคงเหลือ สถานประกอบการ XXXXXXXXXXXXX</td>
+                                        <td>ภาค 3</td>
+                                        <td></td>
+                                        <td>น้ำมัน</td>
+                                        <td>2559</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>ผลการออกตรวจวัตถุดิบคงเหลือ สถานประกอบการ XXXXXXXXXXXXX</td>
+                                        <td>ภาค 4</td>
+                                        <td></td>
+                                        <td>น้ำดื่ม</td>
+                                        <td>2559</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>ผลการออกตรวจวัตถุดิบคงเหลือ สถานประกอบการ XXXXXXXXXXXXX</td>
+                                        <td>ภาค 4</td>
+                                        <td></td>
+                                        <td>รถยนต์</td>
+                                        <td>2559</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>ผลการออกตรวจวัตถุดิบคงเหลือ สถานประกอบการ XXXXXXXXXXXXX</td>
+                                        <td>ภาค 10</td>
+                                        <td>กทม.1</td>
+                                        <td>น้ำดื่ม</td>
+                                        <td>2559</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="ui two wide column">&nbsp;</div> -->
+    </div>
+</div>

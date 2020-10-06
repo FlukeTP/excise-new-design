@@ -1,0 +1,82 @@
+<segment header="{{header}}">
+  <div class="ui form"  [formGroup]="formGroup">
+    <!-- <div class="inline fields">
+      <div class="three wide field">
+        <label class="text-right full-width">ทะเบียนสรรพสามิต :</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" placeholder="ทะเบียนสรรพสามิต" formControlName="exciseId">
+      </div>
+
+      <div class="three wide field">
+        <label class="text-right full-width">เลขประจำตัวผู้เสียภาษี :</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" placeholder="เลขประจำตัวผู้เสียภาษี" formControlName="userTaxNuber">
+      </div>
+    </div> -->
+
+    <!-- <div class="inline fields">
+      <div class="three wide field">
+        <label class="text-right full-width">ผู้ประกอบการ :</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" placeholder="ผู้ประกอบการ" formControlName="operator">
+      </div>
+
+      <div class="three wide field">
+        <label class="text-right full-width">เลขที่วิเคราะห์ :</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" placeholder="เลขที่วิเคราะห์" formControlName="analysisNumber">
+      </div>
+    </div> -->
+
+    <!-- <div class="inline fields">
+      <div class="three wide field">
+        <label class="text-right full-width">ประเภท :</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" placeholder="ประเภท" formControlName="type">
+      </div>
+
+      <div class="three wide field">
+        <label class="text-right full-width">พิกัด :</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" placeholder="พิกัด" formControlName="coordinates">
+      </div>
+    </div> -->
+    <div class="inline fields">
+      <div class="three wide field">
+        <label class="text-right full-width">รอบระยะเวลาการตรวจสอบ :</label>
+      </div>
+      <div class="four wide field" [ngClass]="{'error': invalidSearchFormControl('startDate')}">
+        <div class="ui calendar full-width"  id="date1">
+          <div class="ui input left icon">
+            <i class="calendar alternate outline icon"></i>
+            <input type="text" placeholder="ดด/ปปปป" formControlName="startDate" autocomplete="off" id="inputDate1">
+          </div>
+        </div>
+      </div>
+
+      <div class="three wide field">
+        <label class="text-right full-width">ถึง :</label>
+      </div>
+      <div class="four wide field" [ngClass]="{'error': invalidSearchFormControl('endDate')}">
+        <div class="ui calendar full-width"  id="date2">
+          <div class="ui input left icon">
+            <i class="calendar alternate outline icon"></i>
+            <input type="text" placeholder="ดด/ปปปป" formControlName="endDate" autocomplete="off" id="inputDate2">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="inline field btn text-center">
+        <app-button-clear (click)="onClear()"></app-button-clear>
+        <app-button-custom text="แสดงกระดาษทำการ" (click)="onSearch()"></app-button-custom>
+        <app-button-custom color="orange"  text="อัปโหลด Template" (click)="onUploadTemplate()"></app-button-custom>
+        <app-button-back (click)="onBackPages()"></app-button-back>
+    </div>
+  </div>
+</segment>

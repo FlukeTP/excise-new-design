@@ -1,0 +1,73 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+
+<segment header="รับกระดาษทำการคัดเลือกราย (ภาค/พื้นที่)" [loading]="false">
+  <div id="divDataTable" [ngClass]="{'thirteen': !toggle, 'sixteen': toggle,'wide': true, 'column': true, 'transition-left-2': toggle}">
+    <div>
+      <!-- <div style="overflow-x: scroll;overflow-y: hidden;padding-bottom: 14px;"> -->
+      <table id="userManagementDt" class="ui small celled table aligned hover nowrap scrollX" style="width: 100%">
+        <thead class="text-center">
+          <tr>
+            <th rowspan="2"><input type="checkbox"></th>
+            <th rowspan="2">ลำดับ</th>
+            <th rowspan="2">ทะเบียนสรรพสามิต เดิม/ใหม่</th>
+            <th rowspan="2">ชื่อผู้ประกอบการ</th>
+            <th rowspan="2">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+            <th rowspan="2">ภาค</th>
+            <th rowspan="2">พื้นที่</th>
+            <th colspan="2">การชำระภาษีในสภาวะปกติ (บาท)</th>
+            <th rowspan="2">เปลี่ยนแปลง (ร้อยละ)</th>
+            <th rowspan="2">เปอร์เซ็นส่วนเบี่ยงเบน</th>
+            <th rowspan="2">ชำระภาษี(เดือน)</th>
+            <th rowspan="2">ผู้ออกตรวจ</th>
+          </tr>
+          <tr>
+            <th>
+              5 เดือนแรก</th>
+            <th>
+              5 เดือนหลัง </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of datas;let i = index">
+            <td><input type="checkbox" name="checkbox{{i}}" (change)="selectCheckbox($event, item, i)"></td>
+            <td class="text-center">{{i+1}}</td>
+            <td>{{item.data1}}</td>
+            <td>{{item.data2}}</td>
+            <td>{{item.data3}}</td>
+            <td>{{item.data4}}</td>
+            <td>{{item.data5}}</td>
+            <td class="text-center">{{item.data6}}</td>
+            <td class="text-center">{{item.data7}}</td>
+            <td class="text-right">{{item.data8}}</td>
+            <td class="text-right">{{item.data9}}</td>
+            <td class="text-right">{{item.data10}}</td>
+            <td class="text-right">
+              <div class="ui selection dropdown">
+                <input type="hidden" name="gender">
+                <i class="dropdown icon"></i>
+                <div class="default text">ผู้ออกตรวจ</div>
+                <div class="menu">
+                  <div class="item" data-value="1">ภาค</div>
+                  <div class="item" data-value="0">พื้นที่</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <!-- <div>ชื่อผู้ประกอบการที่ถูกเลือก: </div>
+          <div class="ui bulleted list" *ngFor="let item of dataSelect">
+            <div class="item">{{item.data.data2}}</div>
+          </div> -->
+      <br>
+      <div class="ui one column centered grid">
+        <div class="column aligned center">
+          <app-button-custom color="green" routerLink="/tax-audit-new/ta0106">ส่งข้อมูล</app-button-custom>
+          <!-- <app-button-custom routerLink="/tax-audit-new/ta0401""> <i class="reply icon"></i>คัดเลือกรายใหม่</app-button-custom>    -->
+          <app-button-back routerLink="/tax-audit-new/ta0106"></app-button-back>
+        </div>
+      </div>
+    </div>
+  </div>
+</segment>

@@ -1,0 +1,27 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+    <segment header="อนุมัติแผนการตรวจสอบภาษี" [loading]="false"  [right]="true">
+        <div headRight>
+            <app-button-custom (click)="Approval()">อนุมัติ</app-button-custom>
+        </div>
+      <div class="ui grid">
+        <div class="sixteen wide column">
+          <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tablePlan">
+            <thead class="text-center">
+              <tr>
+                <th style=" text-align: center !important">ลำดับ</th>
+                <th style=" text-align: center !important">ทะเบียนสรรพสามิต เดิม/ใหม่</th>
+                <th style=" text-align: center !important">ชื่อผู้ประกอบการ</th>
+                <th style=" text-align: center !important">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+                <th style=" text-align: center !important">ที่อยู่โรงอุตสาหกรรม/สถานบริการ</th>
+                <th style=" text-align: center !important">ภาค</th>
+                <th style=" text-align: center !important">พื้นที่</th>
+                <th style=" text-align: center !important">พิกัด</th>
+              </tr>
+            </thead>
+          </table>
+          <br>
+        </div>
+      </div>
+    </segment>
+  </with-breadcrumb>

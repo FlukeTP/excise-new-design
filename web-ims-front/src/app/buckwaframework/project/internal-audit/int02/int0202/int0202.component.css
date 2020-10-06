@@ -1,0 +1,40 @@
+.ui.calendar, .ui.input, input[type=calendar] {
+    width: 100% !important;
+}
+
+label {
+    width: 100% !important;
+    text-align: right;
+}
+
+.head {
+    background: whitesmoke;
+}
+.border {
+    border-left: 1px solid rgba(34,36,38,.1) !important;
+}
+.save-btn {
+    margin-top: 1em;
+}
+
+.icon.exclamation {
+    font-size: 4em;
+    font-stretch: inherit;
+    margin-top: 0.2em;
+}
+
+.nodata {
+    margin: 5% auto !important;
+}
+
+.nodata .header .content .sub.header::after {
+    content: "*";
+} 
+
+.full-height {
+    min-height: calc(100vh - 164px);
+}
+
+.menu-hide{
+    display: none !important;
+}

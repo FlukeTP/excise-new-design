@@ -1,0 +1,44 @@
+.yellow {
+     color: #ffe21f;
+     background-color: white;
+}
+.red {
+     color: #ff695e;
+     background-color: white;
+}
+.green {
+     color: #2ecc40;
+     background-color: white;
+}
+
+.segment2 {
+     font-weight: bold;
+}
+
+.classLink > p :hover {
+     text-decoration: underline;
+}
+
+.ui.table tr td {
+     border: none;
+     background: none;
+}
+
+.ui.table thead th {
+     background: none;
+     border-bottom: none;
+}
+
+.ui.table tbody :hover {
+     background-color: #e2ebf0;
+     background-image: linear-gradient(141deg, #cfd9df 0%, #e2ebf0 51%, #e2ebf0 75%);
+}
+
+.ui.table thead {
+     background-image: linear-gradient(to right, #ffffff, #f8f8fb, #eff1f7, #e5ebf3, #dae5ee, #dae5ee, #dae5ee, #dae5ee, #e5ebf3, #eff1f7, #f8f8fb, #ffffff);
+}
+
+.ui.grid>.column {
+     padding-top: 0rem; 
+     padding-bottom: 0rem;
+}

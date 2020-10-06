@@ -1,0 +1,136 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="ยืนยันการคัดเลือกสำหรับภาค (TA0108)" [loading]="loading">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="five wide field">
+          <label class="text-right full-width">ปีงบประมาณ</label>
+        </div>
+        <form class="two wide field" [formGroup]="formYear">
+          <!-- <div class="ui calendar" style="width: 100%" id="calendar">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" formControlName="budgetYear" placeholder="ปปปป" id="calendarYear" name="calendar"
+                [attr.required]="true" autocomplete="off">
+            </div>
+          </div> -->
+          <select class="ui fluid dropdown full-width" (change)="budgerYearChange($event)" id="budgetYear"
+          formControlName="budgetYear">
+          <option *ngFor="let item of budgetYearList" value="{{item}}">{{item}}</option>
+        </select>
+        </form>
+        <div class="two wide field">
+          <!-- <app-button-search (click)="search()"></app-button-search> -->
+        </div>
+        <!-- <div class="two wide field"><label class="text-right full-width">สำนักงานสรรพสามิตภาค</label></div>
+        <div class="three wide field">
+          <select class="ui fluid search dropdown full-width" id="selectSector" (change)="onChange()"
+            [(ngModel)]="selected" [ngClass]="{'disabled': '00' != officeCode.slice(0,2)}">
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of selectSector" [ngValue]="item.officeCode">{{item.deptShortName}}</option>
+          </select>
+        </div> -->
+      </div>
+      <div class="inline fields">
+        <div class="seven wide field"></div>
+        <div class="three wide field center">
+          <div class="text-center">
+            <app-button-custom [disabled]="!canApprove" (click)="onApprove()" >ยืนยันการคัดเลือก</app-button-custom>
+            <app-button-custom (click)="onClickDetailAll()">รายการคัดเลือกทั้งหมด</app-button-custom>
+          </div>
+        </div>
+        <div class="six wide field"></div>
+      </div>
+      <!-- <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="three wide field">
+          <label class="text-right full-width">สถานะแผนตรวจสอบภาษี :</label>
+        </div>
+        <div class="three wide field">
+          <label class="">{{planStatus.planStatusDesc}}</label>
+        </div>
+      </div> -->
+      <div class="text-right fields">
+        <div class="one wide field"></div>
+        <div class="fourteen wide field"></div>
+      </div>
+
+    </div>
+
+
+    <div class="ui one column centered grid">
+      <div class="fourteen wide column">
+        <table class="ui small celled table aligned hover striped selectable nowrap">
+          <thead class="text-center">
+            <tr>
+              <th colspan="2" rowspan="2">สำนักงาน</th>
+              <th rowspan="2" *ngIf="!checkRole('ROLE_TA_HEAD') || checkRole('ROLE_ADMIN')">วันที่ส่ง</th>
+              <th rowspan="2" *ngIf="!checkRole('ROLE_TA_HEAD') || checkRole('ROLE_ADMIN')">วันที่ตอบกลับ</th>
+              <th colspan="3">จำนวนรายที่เลือก</th>
+              <th rowspan="2">นอกแผน</th>
+              <th rowspan="2">
+                <!-- <app-button-custom routerLink="/tax-audit-new/ta01/07/01">ดูทั้งหมด</app-button-custom> -->
+              </th>
+            </tr>
+            <tr>
+              <th class="text-center">ตามแผน</th>
+              <th class="text-center">สำรอง</th>
+              <th class="text-center" >รวม</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr *ngFor="let item of planWsSendData;let i = index">
+              <td [ngClass]="{'text-left': item.officeName != null}">
+                <div *ngIf="i==0">
+                  {{item.officeName }}
+                </div>
+                <div *ngIf="i > 0" class="text-center">
+                  -
+                </div>
+              </td>
+              <td [ngClass]="{'text-left': item.officeName != null}">
+                <div *ngIf="i>0" >
+                  {{item.officeName }}
+                </div>
+                <div *ngIf="i == 0" class="text-center">
+                  -
+                </div>
+              </td>
+              <td [ngClass]="{'text-center': item.sendDate != null}"
+                *ngIf="!checkRole('ROLE_TA_HEAD') || checkRole('ROLE_ADMIN')">
+                {{item.sendDate  }}
+              </td>
+              <td [ngClass]="{'text-center': item.submitDate != null}"
+                *ngIf="!checkRole('ROLE_TA_HEAD')  || checkRole('ROLE_ADMIN')">
+                {{item.submitDate  }}
+              </td>
+              <td [ngClass]="{'text-right': item.countPlan != null}">
+                <a href="javascript:void(0)"
+                  (click)="clickSendIn(item)">{{item.countPlan }}</a>
+              </td>
+              <td [ngClass]="{'text-right': item.countRes != null}">
+                <a href="javascript:void(0)"
+                (click)="clickSendRs(item)">  {{item.countRes }} </a>
+              </td>
+              <td [ngClass]="{'text-right': item.countRes != null}">
+                <a href="javascript:void(0)"
+                (click)="clickSendSum(item)"> {{item.countRes + item.countPlan}} </a>
+
+              </td>
+              <td [ngClass]="{'text-right': item.countOut != null}">
+                <a href="javascript:void(0)"
+                (click)="clickSendOut(item)"> {{item.countOut }} </a>
+
+              </td>
+              <td>
+                <app-button-detail
+                  (click)="onClickDetail(item.officeCode)"></app-button-detail>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

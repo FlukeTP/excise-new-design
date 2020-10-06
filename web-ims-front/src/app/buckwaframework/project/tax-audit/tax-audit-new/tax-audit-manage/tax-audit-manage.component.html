@@ -1,0 +1,102 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<form class="ui grid">
+  <div class="sixteen wide column">
+    <segment header="บันทึกข้อความ หนังสือราชการ" [loading]="false">
+      <div class="ui grid">
+        <div class="ui centered eleven wide column">
+          <div class="ui form">
+            <div class="inline fields">
+              <div class="eight wide field">
+                <label class="custom-label-w-20" style="text-align: right">ประเภทเอกสาร</label>
+                <select style="width: 100%" id="doc" name="doc" class="ui search dropdown ai" (change)="onSelectDoc($event)"
+                  required>
+                  <option value="" style="color: grey">เลือกเอกสาร</option>
+                  <option *ngFor="let typeDoc of typeDocs; let i = index" value="{{i}}">
+                    {{typeDoc}}
+                  </option>
+                </select>
+              </div>
+              <div class="eight wide field">
+                <label class="custom-label-w-18" style="text-align: right">เรื่อง</label>
+                <select style="width: 100%" id="topic" name="topic" class="ui search dropdown ai" (change)="onSelectTop($event)"
+                  required>
+                  <option value="" style="color: grey">เลือกเรื่อง</option>
+                  <option *ngFor="let top of topic; let i = index" value="{{i}}">
+                    {{top}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui center aligned grid">
+        <div class="eight wide column">
+          <app-button-custom text="สร้างเอกสาร" (click)="onSubmit($event)"></app-button-custom>
+          <app-button-cancel (click)="onDiscard(false)"></app-button-cancel>
+        </div>
+      </div>
+    </segment>
+  </div>
+
+  <app-ts0101 *ngIf="sent && selectedTop == 'ตส. 01-01'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts0101>
+
+  <!-- <app-ts01-02 *ngIf="sent && selectedTop == 'ตส. 01-02'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-02>
+
+  <app-ts01-03 *ngIf="sent && selectedTop == 'ตส. 01-03'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-03>
+
+  <app-ts01-04 *ngIf="sent && selectedTop == 'ตส. 01-04'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-04>
+
+  <app-ts01-05 *ngIf="sent && selectedTop == 'ตส. 01-05'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-05>
+
+  <app-ts01-07 *ngIf="sent && selectedTop == 'ตส. 01-07'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-07>
+
+  <app-ts01-08 *ngIf="sent && selectedTop == 'ตส. 01-08'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-08>
+
+  <app-ts01-10 *ngIf="sent && selectedTop == 'ตส. 01-10'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-10>
+
+  <app-ts01-10-1 *ngIf="sent && selectedTop == 'ตส. 01-10/1'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-10-1>
+
+  <app-ts01-11 *ngIf="sent && selectedTop == 'ตส. 01-11'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-11>
+
+  <app-ts01-13 *ngIf="sent && selectedTop == 'ตส. 01-13'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-13>
+
+  <app-ts01-14 *ngIf="sent && selectedTop == 'ตส. 01-14'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-14>
+
+  <app-ts01-14-1 *ngIf="sent && selectedTop == 'ตส. 01-14/1'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-14-1>
+
+  <app-ts01-14-2 *ngIf="sent && selectedTop == 'ตส. 01-14/2'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-14-2>
+
+  <app-ts01-17 *ngIf="sent && selectedTop == 'ตส. 01-17/1'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-17>
+
+  <app-ts01-15 *ngIf="sent && selectedTop == 'ตส. 01-15'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-15>
+
+  <app-ts01-16 *ngIf="sent && selectedTop == 'ตส. 01-16'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-16>
+
+  <app-ts01-19 *ngIf="sent && selectedTop == 'ตส. 01-19'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-ts01-19> -->
+
+  <app-rm01 *ngIf="sent && selectedTop == 'ขออนุมัติเดินทางไปปฏิบัติราชการ'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-rm01>
+
+  <app-rm02 *ngIf="sent && selectedTop == 'รายงานผลการตรวจติดตามแนะกำกับดูแล'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-rm02>
+</form>

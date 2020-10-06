@@ -1,0 +1,49 @@
+<segment header="รายงาน คำให้การ ต่อ (ตส.๐๑-๑๐/๑)">
+  <!-- [loading]="loading" -->
+  <form form [formGroup]="taFormTS01101Group">
+    <div formArrayName="taFormTS01101List"
+      *ngFor="let item of taFormTS01101Group['controls'].taFormTS01101List['controls']; let i = index;let first = first;">
+      <div [formGroupName]="i">
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="2">
+            <label class="full-width text-right">คำให้การต่อ ของ: </label>
+          </div>
+          <div field [col]="4">
+            <input type="text">
+          </div>
+          <div field [col]="2">
+            <label class="full-width text-right">แผ่นที่: </label>
+          </div>
+          <div field [col]="4">
+            <input class="text-right" type="number">
+          </div>
+          <div field [col]="2">
+            <app-button-delete *ngIf="!first" (click)="removeTaFormTS01101List(i)"></app-button-delete>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="2">
+            <label class="full-width text-right">คำให้การ: </label>
+          </div>
+          <div field [col]="10">
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2"></div>
+      <div field [col]="1"></div>
+      <div field [col]="2">
+        <app-button-add (click)="addTaFormTS01101List()"></app-button-add>
+      </div>
+    </div>
+    <div class="text-center full-width">
+      <app-button-save></app-button-save>
+      <app-button-export></app-button-export>
+      <app-button-clear></app-button-clear>
+    </div>
+  </form>
+</segment>

@@ -1,0 +1,394 @@
+<with-breadcrumb pageCode="TAN-0101" [breadcrumb]="breadcrumb">
+  <h2 class="ui header">รายละเอียดการดำเนินการ รายผู้ประกอบการ / โรงอุตสาหกรรม</h2>
+  <segment title="รายละเอียดการดำเนินการ รายผู้ประกอบการ / โรงอุตสาหกรรม" [loading]="loading">
+    <form class="ui form" [formGroup]="dtlForm">
+      <!-- row 1 -->
+      <div class="inline fields ui grid">
+        <div class="four wide field">
+          <label class="text-right full-width">วันที่เริ่มตรวจ</label>
+        </div>
+        <div class="three wide field">
+          <div class="ui calendar full-width" id="dateF">
+            <div class="ui input left icon">
+              <i class="clock icon"></i>
+              <input type="text" id="startDate" name="startDate" formControlName="startDate" autocomplete="off"
+                placeholder="วว/ดด/ปปปป" class="custom-readonly" readonly="">
+            </div>
+          </div>
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">วันที่สิ้นสุดการตรวจ</label>
+        </div>
+        <div class="three wide field">
+          <div class="ui calendar full-width" id="dateT">
+            <div class="ui input left icon">
+              <i class="clock icon"></i>
+              <input type="text" id="endDate" name="endDate" formControlName="endDate" autocomplete="off" placeholder="วว/ปปปป"
+                class="custom-readonly" readonly="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- row 2 -->
+      <div class="inline fields ui grid">
+        <div class="four wide field">
+          <label class="text-right full-width">รูปแบบการตรวจสอบ</label>
+        </div>
+        <div class="three wide field">
+          <input type="text" id="checkSystem" name="checkSystem" formControlName="checkSystem" autocomplete="off" class="custom-readonly"
+            disabled>
+        </div>
+      </div>
+
+      <!-- row 3 -->
+      <div class="inline fields ui grid">
+        <div class="four wide field">
+          <label class="text-right full-width">เลขทะเบียนสรรพสามิต</label>
+        </div>
+        <div class="three wide field">
+          <input type="text" id="exciseNo" name="exciseNo" formControlName="exciseNo" autocomplete="off" class="custom-readonly"
+            disabled>
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">ชื่อผู้ประกอบการ/โรงอุตสาหกรรม</label>
+        </div>
+        <div class="three wide field">
+          <input type="text" id="companyName" name="companyName" formControlName="companyName" autocomplete="off" class="custom-readonly"
+            disabled>
+        </div>
+      </div>
+
+      <!-- row 4 -->
+      <div class="inline fields ui grid">
+        <div class="four wide field">
+          <label class="text-right full-width">ที่อยู่สถานบริการ/โรงอุตสาหกรรม</label>
+        </div>
+        <div class="nine wide field">
+          <input type="text" id="addressCompany" name="addressCompany" formControlName="addressCompany" autocomplete="off"
+            class="custom-readonly" disabled>
+        </div>
+      </div>
+
+      <!-- row 5 -->
+      <div class="inline fields ui grid">
+        <div class="four wide field">
+          <label class="text-right full-width">สรรพสามิตภาค</label>
+        </div>
+        <div class="three wide field">
+          <input type="text" id="department" name="department" formControlName="department" autocomplete="off" class="custom-readonly"
+            disabled>
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">สรรพสามิตพื้นที่</label>
+        </div>
+        <div class="three wide field">
+          <input type="text" id="area" name="area" formControlName="area" autocomplete="off" class="custom-readonly"
+            disabled>
+        </div>
+      </div>
+
+      <!-- row 6 -->
+      <div class="inline fields ui grid">
+        <div class="four wide field">
+          <label class="text-right full-width">สินค้า</label>
+        </div>
+        <div class="three wide field">
+          <input type="text" id="product" name="product" formControlName="product" autocomplete="off" class="custom-readonly"
+            disabled>
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">ด้านความเสี่ยง</label>
+        </div>
+        <div class="three wide field">
+          <input type="text" id="risk" name="risk" formControlName="risk" autocomplete="off" class="custom-readonly"
+            disabled>
+        </div>
+      </div>
+    </form>
+  </segment>
+  <segment title="ขั้นตอนการดำเนินการ" class="segment2" [loading]="loading">
+    <table class="ui table" style="width: 100%;padding-left: 20em;padding-right: 15em;border: none;">
+      <thead>
+        <tr style="padding:10px;">
+          <th class="eight wide center aligned">
+            <h3>หัวข้อการดำเนินการ</h3>
+          </th>
+          <th class="four wide center aligned">
+            <h3>สถานะการทำงาน</h3>
+          </th>
+          <th class="four wide center aligned">
+            <h3>ลิงค์</h3>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <h3>1 ขั้นตอนก่อนการออกตรวจสอบ</h3>
+          </td>
+          <td>
+            <h3></h3>
+          </td>
+          <td>
+            <h3></h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="fourteen wide column">
+                <p> 1.1 การรวบรวมข้อมูลเบื้องต้น</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #2ecc40"><i class="check circle icon"></i>เสร็จสิ้น</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)"><i class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="fourteen wide column">
+                <p> 1.2 การวิเคราะห์ข้อมูลเบื้องต้น</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #ff9933"><i class="spinner icon"></i>กำลังดำเนินการ</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)" (click)="onClick('analyst-basic-data-trader', {})"><i class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="fourteen wide column">
+                <p> 1.3 การขออนุมัติออกตรวจสอบภาษี</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #ff9933"><i class="spinner icon"></i>กำลังดำเนินการ</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)" (click)="onClick('tax-audit-manage', {})"><i class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="fourteen wide column">
+                <p> 1.4 การจัดทำหนังสือนำตัวออกตรวจ (ตส.01-07)</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #ff0000"><i class="exclamation circle icon"></i>ยังไม่ดำเนินการ</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)" (click)="onClick('tax-audit-manage', {typeDocs: 'แบบ ตส.', topics : 'ตส. 01-07'})"><i
+                  class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="fourteen wide column">
+                <p> 1.5 การจัดทำสมุดสั่งการออกตรวจสอบภาษี (ตส.01-08)</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #ff0000"><i class="exclamation circle icon"></i>ยังไม่ดำเนินการ</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)" (click)="onClick('tax-audit-manage', {typeDocs: 'แบบ ตส.', topics : 'ตส. 01-08'})"><i
+                  class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <h3>2 ขั้นตอนการตรวจสอบภาษี</h3>
+          </td>
+          <td>
+            <h3></h3>
+          </td>
+          <td>
+            <h3></h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="fourteen wide column">
+                <p> 2.1 การจัดทำกระดาษทำการตรวจสอบภาษี</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #ff9933"><i class="spinner icon"></i>กำลังดำเนินการ</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)" (click)="onClick('select-form/บริการ/สินค้าน้ำมันและผลิตภัณฑ์น้ำมัน', {})"><i
+                  class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="fourteen wide column">
+                <p> 2.2 การรับมอบเอกสารเพื่อตรวจสอบ (ตส.01-11)</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #ff9933"><i class="spinner icon"></i>กำลังดำเนินการ</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)" (click)="onClick('tax-audit-manage', {typeDocs: 'แบบ ตส.', topics : 'ตส01-11'})"><i
+                  class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="fourteen wide column">
+                <p> 2.3 บันทึกคำให้การ (ตส.01-10)</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned"></td>
+          <td class="center aligned"></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="four wide column"></div>
+              <div class="twelve wide column">
+                <p> 2.3.1 ตส. 01-10</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #ff9933"><i class="spinner icon"></i>กำลังดำเนินการ</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)" (click)="onClick('tax-audit-manage', {typeDocs: 'แบบ ตส.', topics : 'ตส01-10'})"><i
+                  class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="four wide column"></div>
+              <div class="twelve wide column">
+                <p> 2.3.2 ตส. 01-10/1</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #ff9933"><i class="spinner icon"></i>กำลังดำเนินการ</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)" (click)="onClick('tax-audit-manage', {typeDocs: 'แบบ ตส.', topics : 'ตส01-10/1'})"><i
+                  class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="fourteen wide column">
+                <p> 2.4 บันทึกผลการตรวจสอบภาษี (ตส.01-14)</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #ff9933"><i class="spinner icon"></i>กำลังดำเนินการ</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)" (click)="onClick('tax-audit-manage', {typeDocs: 'แบบ ตส.', topics : 'ตส01-14'})"><i
+                  class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <h3>3 ขั้นตอนการรายงานผลการตรวจสอบ</h3>
+          </td>
+          <td>
+            <h3></h3>
+          </td>
+          <td>
+            <h3></h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="fourteen wide column">
+                <p> 3.1 รายงานผลการตรวจสอบภาษี</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #ff9933"><i class="spinner icon"></i>กำลังดำเนินการ</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)" (click)="onClick('tax-audit-manage', {typeDocs: 'แบบ ตส.', topics : 'ตส01-14/1'})"><i
+                  class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="fourteen wide column">
+                <p> 3.2ส่งหนังสือแจ้งผลการตรวจสอบภาษี (กรณีไม่มาชำระ(ตส.01-17))</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #ff9933"><i class="spinner icon"></i>กำลังดำเนินการ</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)" (click)="onClick('tax-audit-manage', {typeDocs: 'แบบ ตส.', topics : 'ตส01-17'})"><i
+                  class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="fourteen wide column">
+                <p> 3.3 ส่งหนังสือประเมิณภาษี (กรณีไม่มาชำระ (ตส.01-18))</p>
+              </div>
+            </div>
+          </td>
+          <td class="center aligned">
+            <p style="color: #ff9933"><i class="spinner icon"></i>กำลังดำเนินการ</p>
+          </td>
+          <td class="center aligned">
+            <p><a href="javascript:void(0)" (click)="onClick('tax-audit-manage', {typeDocs: 'แบบ ตส.', topics : 'ตส01-18'})"><i
+                  class="external alternate icon"></i>รายละเอียด</a></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </segment>
+</with-breadcrumb>

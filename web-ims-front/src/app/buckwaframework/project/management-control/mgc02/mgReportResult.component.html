@@ -1,0 +1,80 @@
+<form class="ui grid" style="margin: 2%" (submit)="onSubmit($event)" ngNativeValidate>
+    <div class="sixteen wide column segments">
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>รายงานผลการออกตรวจ</span>
+        </div>
+
+        <div class="ui attached segment">
+            <div class="ui grid">
+                <div class="ui two wide column">&nbsp;</div>
+                <div class="ui twelve wide column">
+                    <div class="ui form">
+
+                        <div class="inline fields">
+                            <div class="three wide field">
+                                <label class="custom-label-w-20" style="text-align: right">ค้นหารายงาน</label>
+                            </div>
+                            <div class="thirteen wide field">
+                                &nbsp;
+                            </div>
+                        </div>
+
+                        <div class="inline fields">
+                            <div class="two wide field">
+                                <label class="custom-label-w-20" style="text-align: right">เรื่อง: </label>
+                            </div>
+                            <div class="six wide field">
+                                <select style="width: 100%" id="doc" name="doc" class="ui search dropdown ai" (change)="onSelectDoc($event)" required>
+                                    <option value="" style="color: grey">เลือกเรื่อง</option>
+                                    <option *ngFor="let typeDoc of typeDocs; let i = index" value="{{i}}">
+                                        {{typeDoc}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="one wide field">
+                                &nbsp;
+                            </div>
+                            <div class="three wide field">
+                                <label class="custom-label-w-20" style="text-align: right">ปีงบประมาณ: </label>
+                            </div>
+                            <div class="four wide field">
+                                <div class="ui calendar" id="year" style="width: 100%">
+                                    <div class="ui input left icon">
+                                       <i class="calendar alternate outline icon"></i>
+                                        <input type="text" placeholder="ปี" autocomplete="off" [attr.readonly]="null" id="year" name="year" [attr.required]="true">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui two wide column">&nbsp;</div>
+            </div>
+        </div>
+
+        <div class="ui bottom centered attached segment">
+            <div class="ui center aligned grid">
+                <div class="eight wide column">
+                    <button class="ui mini green button" type="submit">
+                        <i class="save icon"></i>
+                        ค้นหารายงาน
+                    </button>
+                    <button class="ui mini red button" type="button" (click)="onDiscard(false)">
+                        <i class="times icon"></i>
+                        ยกเลิก
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <app-mgc02-1 *ngIf="sent && selectedDoc == 'ระบบการตรวจภาษี'" [year]="year" (discard)="onDiscard($event)" class="sixteen wide column segments">
+    </app-mgc02-1>
+    <app-mgc02-2 *ngIf="sent && selectedDoc == 'ระบบการตรวจวัตถุดิบคงเหลือ'" [year]="year" (discard)="onDiscard($event)" class="sixteen wide column segments">
+    </app-mgc02-2>
+    <app-mgc02-3 *ngIf="sent && selectedDoc == 'ระบบตรวจสอบภายในและการตรวจส่งออก'" [year]="year" (discard)="onDiscard($event)"
+        class="sixteen wide column segments">
+    </app-mgc02-3>
+
+</form>

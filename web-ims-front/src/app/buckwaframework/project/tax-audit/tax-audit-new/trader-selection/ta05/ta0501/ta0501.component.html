@@ -1,0 +1,139 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <!-- condition -->
+  <segment header="รายการข้อมูลผู้ประกอบการที่เสียภาษีสรรพสามิต (TA0501)" [loading]="loading">
+    <div form [formGroup]="formSearch">
+
+      <div inline>
+        <div field [col]="2">
+          <label class="full-width text-right">ส่วน/ภาค</label>
+        </div>
+        <div field [col]="4" [ngClass]="{'disabled': isArea || isSector}">
+          <select class="ui dropdown full-width " id="sector" (change)="onChangeSector($event)"
+            formControlName="sector">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+          </select>
+        </div>
+        <div field [col]="3">
+          <label class="full-width text-right"> ฝ่าย/พื้นที่</label>
+        </div>
+        <div field [col]="4" [ngClass]="{'disabled': isArea}">
+          <select class="ui dropdown full-width  " id="area" formControlName="area">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div inline>
+        <div field [col]="2">
+          <label class="text-right full-width">ช่วงวันที่จดทะเบียน</label>
+        </div>
+        <div field [col]="4">
+          <div class="ui calendar" id="dateFromCalendar" style="width:100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" autocomplete="off" id="dateFrom" name="dateFrom" formControlName="regDateStart" placeholder="วว/ดด/ปปปป">
+            </div>
+          </div>
+          ถึง&nbsp;&nbsp;&nbsp;
+          <div class="ui calendar" id="dateToCalendar" style="width:100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" autocomplete="off" id="dateTo" name="dateTo" formControlName="regDateEnd" placeholder="วว/ดด/ปปปป">
+            </div>
+          </div>
+
+          <!-- <input id="before" placeholder="วว/ดด/ปปปป" type="text" value="">
+          ถึง&nbsp;&nbsp;&nbsp;
+          <input id="last" placeholder="วว/ดด/ปปปป"  type="text" value=""> -->
+        </div>
+        <div field [col]="3">
+          <label class="text-right full-width">สถานะผู้ประกอบการ</label>
+        </div>
+        <div field [col]="4">
+          <select class="ui fluid dropdown full-width" formControlName="regStatus" id="regStatus" multiple="">
+            <!-- <option value="all">เลือกทั้งหมด</option> -->
+            <option *ngFor="let item of regStatusList" value="{{item.value1}}">{{item.value2}}</option>
+          </select>
+        </div>
+        <div field [col]="3">
+          <label class="text-left full-width"> <input type="radio" name="incomeType" formControlName="incomeType" checked value="TAX"> &nbsp;<label
+              class="text-left full-width">
+              ภาษีที่ยังไม่หักลดหย่อน</label></label>
+        </div>
+      </div>
+
+
+      <div inline>
+        <div field [col]="2">
+          <label class="text-right full-width">ช่วงการชำระภาษีปีนี้</label>
+        </div>
+        <div field [col]="4">
+          <!-- <input id="before" placeholder="ดด/ปปปป" type="text" value="">
+          ถึง&nbsp;&nbsp;&nbsp;
+          <input id="last" placeholder="ดด/ปปปป" type="text" value=""> -->
+
+          <div class="ui calendar" id="monthYearFromCalendar" style="width:100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" autocomplete="off" id="dateFrom" name="dateFrom" placeholder="ดด/ปปปป"
+                formControlName="texFormDate">
+            </div>
+          </div>
+          ถึง&nbsp;&nbsp;&nbsp;
+          <div class="ui calendar" id="monthYearToCalendar" style="width:100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" autocomplete="off" id="dateTo" name="dateTo" placeholder="ดด/ปปปป"
+                formControlName="texToDate">
+            </div>
+          </div>
+        </div>
+        <div field [col]="3">
+          <label class="text-right full-width">เปรียบเทียบกับ ช่วงการชำระภาษีปีก่อน</label>
+        </div>
+        <div field [col]="4">
+          <input class="custom-readonly" readonly="" id="before" placeholder="ดด/ปปปป" type="text" value=""
+            formControlName="texFormDateCompare">
+          ถึง&nbsp;&nbsp;&nbsp;
+          <input class="custom-readonly" readonly="" id="last" placeholder="ดด/ปปปป" type="text" value=""
+            formControlName="texToDateCompare">
+        </div>
+        <div field [col]="3">
+          <label class="text-left full-width"> <input type="radio" name="incomeType" value="NET"  formControlName="incomeType" > &nbsp;<label
+              class="text-left full-width">
+              ภาษีที่หักลดหย่อนแล้ว</label></label>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <app-button-search (click)="onSerach()"></app-button-search>
+        <app-button-export></app-button-export>
+        <app-button-clear (click)="onClear()"></app-button-clear>
+      </div>
+
+    </div>
+
+  </segment>
+  <!-- result -->
+  <segment header="" [loading]="loading" [hidden]="!flagSearch">
+
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <app-table-custom [datas]="datas" [recordTotal]="recordTotal" [objMonth]="objMonth"
+          [budgetYear]="budgetYearNumber" (pageChangeOutput)="pageChangeOutput($event)">
+
+          <div contentRight>
+            <app-button-custom [icon]="'list alternate icon'" [color]="tableDetail.color" (click)="detailClick()"
+              title="แสดงรายละเอียดเพิ่มเติม" style="border-radius: 0px"></app-button-custom>
+          </div>
+        </app-table-custom>
+        <br>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

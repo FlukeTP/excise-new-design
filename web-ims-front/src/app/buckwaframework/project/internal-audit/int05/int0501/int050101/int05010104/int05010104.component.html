@@ -1,0 +1,685 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<br>
+<div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+  <span>รายละเอียดใบเบิกค่าใช้จ่ายในการเดินทางไปราชการ</span>
+</div>
+<form [formGroup]="travelCostForm" (submit)="save()">
+  <div class="ui attached  segment">
+    <br>
+    <br>
+    <br>
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="two wide field">
+          <label class="text-right full-width">สัญญาเงินยืมเลขที่</label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.orderLoan.errors }">
+          <input type="text" formControlName="orderLoan">
+        </div>
+        <div class="one wide field">
+          <label class="text-right full-width">วันที่</label>
+        </div>
+
+        <div class="three wide field" [ngClass]="{ 'error': submitted && f.dateRefStr.errors }">
+          <div class="ui calendar" id="dateRefCld" style="width:100%;">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" placeholder="วว/ดด/ปปปป" formControlName="dateRefStr" autocomplete="off" readonly="">
+            </div>
+          </div>
+        </div>
+        <div class="three wide field"></div>
+        <div class="two wide field" style="text-align: center !important;">
+          <label>ส่วนที่ ๑</label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field">
+          <label class="text-right full-width">ชื่อผู้ยืม</label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.borrowerName.errors }">
+          <input type="text" formControlName="borrowerName">
+        </div>
+        <div class="one wide field">
+          <label class="text-right full-width">จำนวนเงิน</label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.amount.errors }">
+          <input type="text" formControlName="amount" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">บาท</div>
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label>แบบ ๘๗๐๘</label>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <div class="inline fields">
+        <div class="sixteen wide field">
+          <h1 class="text-center full-width">ใบเบิกค่าใช้จ่ายในการเดินทางไปราชการ</h1>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <div class="inline fields">
+        <div class="ten wide field"></div>
+        <div class="five wide field">ที่ทำการ กลุ่มตรวจสอบภายใน กรมสรรพสามิต</div>
+      </div>
+      <div class="inline fields">
+        <div class="ten wide field"></div>
+        <div class="one wide field">วันที่</div>
+        <div class="three wide field" [ngClass]="{ 'error': submitted && f.dateCurrentStr.errors }">
+          <div class="ui calendar" id="dateCurrentCld" style="width:100%;">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" placeholder="วว/ดด/ปปปป" formControlName="dateCurrentStr" autocomplete="off" readonly="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width">
+            เรื่อง
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.subject.errors }">
+          <input type="text" formControlName="subject">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width">
+            เรียน
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.invite.errors }">
+          <input type="text" formControlName="invite">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width">ตามคำสั่ง/บันทึก ที่</label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.saveTo.errors }">
+          <input type="text" formControlName="saveTo">
+        </div>
+        <div class="one wide field">
+          <label class="text-right full-width">ลงวันที</label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.dateSaveToStr.errors }">
+          <div class="ui calendar" id="dateSaveToCld" style="width:100%;">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" placeholder="วว/ดด/ปปปป" formControlName="dateSaveToStr" autocomplete="off" readonly="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width">ได้อนุมัติให้ ข้าพเจ้า</label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.approve.errors }">
+          <input type="text" formControlName="approve">
+        </div>
+        <div class="one wide field">
+          <label class="text-right full-width">ตำแหน่ง</label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.position.errors }">
+          <input type="text" formControlName="position">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width">พร้อมด้วย</label>
+        </div>
+        <div class="nine wide field" [ngClass]="{ 'error': submitted && f.stack.errors }">
+          <textarea rows="10" formControlName="stack"></textarea>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width">รายละเอียดการเดินทาง</label>
+        </div>
+        <div class="nine wide field" [ngClass]="{ 'error': submitted && f.descTravel.errors }">
+          <textarea rows="5" formControlName="descTravel"></textarea>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width">ราชการครั้งนี้</label>
+        </div>
+        <div class="one wide field" [ngClass]="{ 'error': submitted && f.service.errors }">
+          <input type="text" formControlName="service" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label class="text-center full-width">วัน</label>
+        </div>
+        <div class="one wide field" [ngClass]="{ 'error': submitted && f.day.errors }">
+          <input type="text" formControlName="day" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">ชั่วโมง</div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width">ออกเดินทางจาก</label>
+        </div>
+        <div class="two wide field" [ngClass]="{ 'error': submitted && f.travelRadio.errors }">
+          <div class="ui radio checkbox departureFrom1">
+            <input type="radio" formControlName="travelRadio" id="departureFrom1" value="บ้านพัก">
+            <label>
+              <b>บ้านพัก</b>
+            </label>
+          </div>
+        </div>
+        <div class="two wide field" [ngClass]="{ 'error': submitted && f.travelRadio.errors }">
+          <div class="ui radio checkbox departureFrom2">
+            <input type="radio" formControlName="travelRadio" id="departureFrom2" value="สำนักงาน">
+            <label>
+              <b>สำนักงาน</b>
+            </label>
+          </div>
+        </div>
+        <div class="two wide field" [ngClass]="{ 'error': submitted && f.travelRadio.errors }">
+          <div class="ui radio checkbox departureFrom3">
+            <input type="radio" formControlName="travelRadio" id="departureFrom3" value="ประเทศไทย">
+            <label>
+              <b>ประเทศไทย</b>
+            </label>
+          </div>
+        </div>
+        <div class="two wide field ui right aligned">
+          <label class="text-right full-width">ตั่งแต่วันที่ เวลา</label>
+        </div>
+        <div class="three wide field" [ngClass]="{ 'error': submitted && f.datetravelRadioStr.errors }">
+          <div class="ui calendar" id="datetravelRadioCld" style="width:100%;">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" placeholder="วว/ดด/ปปปป" formControlName="datetravelRadioStr" autocomplete="off"
+                readonly="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="two wide field ui">
+          <label class="text-right full-width">กลับถึง</label>
+        </div>
+        <div class="two wide field " [ngClass]="{ 'error': submitted && f.backToRadio.errors }">
+          <div class="ui radio checkbox departureTo1">
+            <input type="radio" formControlName="backToRadio" id="departureTo1" value="บ้านพัก">
+            <label>
+              <b>บ้านพัก</b>
+            </label>
+          </div>
+        </div>
+        <div class="two wide field " [ngClass]="{ 'error': submitted && f.backToRadio.errors }">
+          <div class="ui radio checkbox departureTo2">
+            <input type="radio" formControlName="backToRadio" id="departureTo2" value="สำนักงาน">
+            <label>
+              <b>สำนักงาน</b>
+            </label>
+          </div>
+        </div>
+        <div class="two wide field " [ngClass]="{ 'error': submitted && f.backToRadio.errors }">
+          <div class="ui radio checkbox departureTo3">
+            <input type="radio" formControlName="backToRadio" id="departureTo3" value="ประเทศไทย">
+            <label>
+              <b>ประเทศไทย</b>
+            </label>
+          </div>
+        </div>
+        <div class="two wide field ui right aligned">
+          <label class="text-right full-width">กลับถึงวันที่ เวลา</label>
+        </div>
+        <div class="three wide field" [ngClass]="{ 'error': submitted && f.dateBackToRadioStr.errors }">
+          <div class="ui calendar" id="dateBackToRadioCld" style="width:100%;">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" placeholder="วว/ดด/ปปปป" formControlName="dateBackToRadioStr" autocomplete="off"
+                readonly="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="five  wide field">
+          <label class="text-right full-width">ข้าพเจ้าขอเบิกค่าใช้จ่ายในการเดินทางไปราชการสำหรับ</label>
+        </div>
+        <div class="two wide field" [ngClass]="{ 'error': submitted && f.withdrawRadio.errors }">
+          <div class="ui radio checkbox">
+            <input type="radio" formControlName="withdrawRadio" value="ข้าพเจ้า">
+            <label>ข้าพเจ้า</label>
+          </div>
+
+        </div>
+        <div class="two wide field" [ngClass]="{ 'error': submitted && f.withdrawRadio.errors }">
+          <div class="ui radio checkbox">
+            <input type="radio" formControlName="withdrawRadio" value="คณะเดินทาง">
+            <label>คณะเดินทาง</label>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="three wide field">
+          <label>
+            ค่าเบี้ยเลี้ยงเดินทาง
+          </label>
+        </div>
+        <div class="three wide field"></div>
+        <div class="one wide field">
+          <label>
+            จำนวน
+          </label>
+        </div>
+        <div class="one wide field" [ngClass]="{ 'error': submitted && f.allowanceAmount.errors }">
+          <input type="text" formControlName="allowanceAmount" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            วัน
+          </label>
+        </div>
+        <div class="one wide field">
+          <label>
+            รวม
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.allowance.errors }">
+          <input type="text" formControlName="allowance" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label>
+            ค่าเช่าที่พักประเภท
+          </label>
+        </div>
+        <div class="four wide field"></div>
+        <div class="one wide field">
+          <label>
+            จำนวน
+          </label>
+        </div>
+        <div class="one wide field" [ngClass]="{ 'error': submitted && f.accommodationCostAmount.errors }">
+          <input type="text" formControlName="accommodationCostAmount" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            วัน
+          </label>
+        </div>
+        <div class="one wide field">
+          <label>
+            รวม
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.accommodationCost.errors }">
+          <input type="text" formControlName="accommodationCost" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label>
+            ค่าพาหนะ
+          </label>
+        </div>
+        <div class="seven wide field"></div>
+        <div class="one wide field">
+          <label>
+            รวม
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.travelCost.errors }">
+          <input type="text" formControlName="travelCost" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label>
+            ค่าใช้จ่ายอื่น
+          </label>
+        </div>
+        <div class="seven wide field"></div>
+        <div class="one wide field">
+          <label>
+            รวม
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.otherCost.errors }">
+          <input type="text" formControlName="otherCost" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="one wide field"></div>
+
+        <div class="nine wide field"></div>
+
+        <div class="one wide field">
+          <label>
+            รวมเงินทั้งสิ้น
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.totalCost.errors }">
+          <input class="custom-readonly" type="text" formControlName="totalCost" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label>
+            จำนวนเงิน(ตัวอักษร)
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.totalCostStr.errors }">
+          <input class="custom-readonly" type="text" formControlName="totalCostStr">
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="seven wide field">
+          <label class="text-right full-width">
+            ข้าพเจ้าขอรับรองว่ารายการที่กล่าวมาข้างต้นเป็นความจริง &nbsp; และหลักฐานการจ่ายที่ส่งมาด้วย &nbsp; &nbsp;
+            &nbsp; จำนวน
+          </label>
+        </div>
+        <div class="one wide field" [ngClass]="{ 'error': submitted && f.docAmount.errors }">
+          <input type="text" formControlName="docAmount" (keypress)="typeNumber($event)">
+        </div>
+        <div class="seven wide field">
+          <label>
+            ชุด &nbsp; &nbsp; &nbsp; ข้าพเจ้าขอรับรองว่ารายการที่กล่าวมาข้างต้นเป็นความจริง
+            และหลักฐานการจ่ายที่ส่งมาด้วย
+          </label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="three wide field"></div>
+        <div class="four wide field">
+          <label>ลงชื่อ...........................................................................ผู้ขอรับเงิน</label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label>
+            ชื่อผู้ขอรับเงิน
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.payee.errors }">
+          <input type="text" formControlName="payee">
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label>
+            ตำแหน่ง
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.payeePosition.errors }">
+          <input type="text" formControlName="payeePosition">
+        </div>
+      </div>
+
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+
+    <br>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="ui attached segment">
+    <br>
+    <br>
+    <br>
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="sixteen wide field">
+          <label class="text-center full-width">
+            -๒-
+          </label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="eight wide field">
+          <label>ได้ตรวจสอบหลักฐานการเบิกจ่ายเงินที่แนบถูกต้องแล้วเห็นควรอนมุัติให้เบิกจ่ายได้</label>
+        </div>
+        <div class="eight wide field">
+          <label>อนุมัติให้จ่ายได้</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="five wide field">
+          <label class="text-center full-width">ลงชื่อ...........................................................................</label>
+        </div>
+        <div class="three wide field"></div>
+        <div class="five wide field">
+          <label class="text-center full-width">ลงชื่อ...........................................................................</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="five wide field">
+          <label class="text-center full-width">(............................................................................................)</label>
+        </div>
+        <div class="three wide field"></div>
+        <div class="five wide field">
+          <label class="text-center full-width">(............................................................................................)</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="five wide field">
+          <label class="text-center full-width">ตำแหน่ง...........................................................................</label>
+        </div>
+        <div class="three wide field"></div>
+        <div class="five wide field">
+          <label class="text-center full-width">ตำแหน่ง...........................................................................</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="five wide field">
+          <label class="text-center full-width">วันที่...........................................................................</label>
+        </div>
+        <div class="three wide field"></div>
+        <div class="five wide field">
+          <label class="text-center full-width">วันที่...........................................................................</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="three wide field">
+          <label class="text-right full-width">
+            ได้รับเงินค่าใช้จ่ายในการเดินทางไปราชการ
+          </label>
+        </div>
+        <div class="two wide field" [ngClass]="{ 'error': submitted && f.getTravelCost.errors }">
+          <input type="text" formControlName="getTravelCost" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label class="text-right full-width">ตัวอักษร</label>
+        </div>
+        <div class="six wide field" [ngClass]="{ 'error': submitted && f.getTravelCostStr.errors }">
+          <input type="text" formControlName="getTravelCostStr">
+        </div>
+        <div class="two wide field">ไว้เป็นการถูกต้องแล้ว</div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="five wide field">
+          <label class="text-center full-width">ลงชื่อ...........................................................................ผู้รับเงิน</label>
+        </div>
+        <div class="three wide field"></div>
+        <div class="five wide field">
+          <label>ลงชื่อ...........................................................................ผู้จ่ายเงิน</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field">
+          <label>
+            ชื่อผู้ขอรับเงิน
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.payee2.errors }">
+          <input type="text" formControlName="payee2">
+        </div>
+        <div class="three wide field"></div>
+        <div class="five wide field">
+          <label>(............................................................................................)</label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field">
+          <label>
+            ตำแหน่ง
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.payeePosition2.errors }">
+          <input type="text" formControlName="payeePosition2">
+        </div>
+        <div class="three wide field"></div>
+        <div class="five wide field">
+          <label>ตำแหน่ง...........................................................................</label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field">
+          <label>
+            วันที่
+          </label>
+        </div>
+        <div class="three wide field" [ngClass]="{ 'error': submitted && f.datePayerStr.errors }">
+          <div class="ui calendar" id="datePayerCld" style="width:100%;">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" placeholder="วว/ดด/ปปปป" formControlName="datePayerStr" autocomplete="off" readonly="">
+            </div>
+          </div>
+        </div>
+        <div class="four wide field"></div>
+        <div class="five wide field">
+          <label>วันที่...........................................................................</label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field">
+          <label>รายละเอียดการเดินทาง</label>
+        </div>
+        <div class="nine wide field" [ngClass]="{ 'error': submitted && f.descTravel2.errors }">
+          <textarea rows="5" formControlName="descTravel2"></textarea>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="sixteen wide field">
+          <label class="text-center full-width">
+            ขอรับรองว่าหลักฐานการจ่าย &nbsp; รวมทั้งจำนวนที่ขอเบิกถูกต้องตามกฎหมายทุกประการ
+          </label>
+        </div>
+
+      </div>
+      <div class="inline fields">
+        <div class="sixteen wide field">
+          <label class="text-center full-width">ลงชื่อ............................................................................ผู้บังคับบัญชา</label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="sixteen wide field">
+          <label class="text-center full-width">(..................................................................................................)</label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field">คำชี้แจง</div>
+        <div class="twelve wide field">
+          ๑. กรณีเดินทางเป็นหมู่คณะและจัดทำใบเบิกค่าใช้จ่ายรวมฉบับเดียวกัน หากระยะเวลาในการเริ่มต้นและ
+          สิ้นสุดการเดินทาง ของแต่ละบุคคลแตกต่างกัน ให้แสดงรายละเอียดของวันเวลาที่แตกต่างกันของบุคคลนั้นในช่องหมายเหตุ
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="twelve wide field">
+          ๒. กรณียื่นขอเบิกค่าใช้จ่ายรายบุคคล ให้ผู้ขอรับเงินเป็นผู้ลงลายมือชื่อผู้รับเงินและวันเดือนปีที่รับ เงิน
+          กรณีที่มีการยืม เงิน ให้ระบุวันที่ที่ได้รับเงินยืม เลขที่สัญญายืมและวันที่อนุมัติเงินยืมด้วย
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="twelve wide field">
+          ๓. กรณีที่ยื่นขอเบิกค่าใช้จ่ายรวมเป็นหมู่คณะ ผู้ขอรับเงินมิต้องลงลายมือชื่อในช่องผู้รับเงิน ทั้งนี้
+          ให้ผู้มีสิทธิแต่ละคน ลงลายมือชื่อผู้รับเงินในหลักฐานการจ่ายเงิน (ส่วนที่ ๒)
+        </div>
+      </div>
+      <br> <br>
+      <div class="ui center aligned grid">
+        <div class="eight wide grid">
+          <button class="ui mini primary button" type="submit"><i class="save icon"></i>บันทึก</button>
+          <button class="ui mini button" type="button" (click)="clickBack()"><i class="close icon"></i>ยกเลิก</button>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</form>

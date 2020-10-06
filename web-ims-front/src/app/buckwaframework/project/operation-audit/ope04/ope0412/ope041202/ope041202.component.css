@@ -1,0 +1,15 @@
+.padding-left-half {
+    padding-left: 2em;
+ }
+
+ .ui.form .disabled.field, .ui.form .disabled.fields .field, .ui.form .field :disabled {
+    opacity: 1 !important;
+ }
+
+ .ui.checkbox input[disabled]~.box:after, .ui.checkbox input[disabled]~label, .ui.disabled.checkbox .box:after, .view-mode .ui.disabled.checkbox label{
+    opacity: 1 !important;
+ }
+
+ .hidden {
+    display: none;
+ }

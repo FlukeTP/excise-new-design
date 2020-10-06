@@ -1,0 +1,107 @@
+<!-- {{test| sideConvert:'บาท'}} -->
+<with-breadcrumb [breadcrumb]="breadcrumb"></with-breadcrumb>
+<segment header="กำหนดเงื่อนไขความเสี่ยงรวม" [loading]="false">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <form [formGroup]="searchForm">
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="one wide field">
+              <label class="text-right full-width">ปีงบประมาณ</label>
+            </div>
+            <div class="two wide centered field" [ngClass]="{ 'error': validateField('budgetYear') }">
+              <div class="ui calendar" id="budgetYear1" style="width:100%">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" autocomplete="off" id="budgetYear" name="budgetYear" placeholder="ปปปป">
+                </div>
+              </div>
+            </div>
+            <div class="two wide field">
+              <label class="text-right full-width">งานตรวจสอบ</label>
+            </div>
+            <div class="five wide field">
+              <select class="ui dropdown ia search selection" style="width: 100%;" id="inspectionWork" (change)="changeSearch(false)">
+                <option *ngFor="let data of inspectionWorkList" value="{{data.paramInfoId}}">{{data.value1}}</option>
+              </select>
+            </div>
+            <div class="three wide field">
+              <!-- <app-button-search (click)="search()"></app-button-search> -->
+            </div>
+            <div class="three wide field text-right">
+              <app-button-custom color="gray" text="รายละเอียดด้าน" (click)="viewdetail2()"></app-button-custom>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div>
+    <br>
+    <!-- table -->
+    <table id="dataTableDynamic" class="ui small celled table striped selectable nowrap" style="width: 100%;">
+      <thead>
+        <tr>
+          <th style="text-align: center !important" rowspan="2">ลำดับที่</th>
+          <th style="text-align: center !important" rowspan="2">ปัจจัยเสี่ยง</th>
+          <th style="text-align: center !important" rowspan="2">ปีงบประมาณ</th>
+          <th style="text-align: center !important" rowspan="2">ด้าน</th>
+          <th style="text-align: center !important" [attr.colspan]="factorsLevel">เกณฑ์ความเสี่ยง</th>
+          <th style="text-align: center !important" rowspan="2">วันที่สร้าง</th>
+          <th style="text-align: center !important" rowspan="2">ผู้สร้าง</th>
+          <th style="text-align: center !important" rowspan="2">สถานะกำหนดเกณฑ์คัดกรอง</th>
+          <th style="text-align: center !important" rowspan="2">วันที่กำหนดเกณฑ์</th>
+        </tr>
+        <tr>
+          <th style="text-align: center !important;" *ngFor="let data of trHtml1">{{data}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="listdynamic.length < 1" >
+          <td  [attr.colspan]="factorsLevel + 9" style="text-align: center !important">
+            ไม่มีข้อมูล
+          </td>
+        </tr>
+        <tr *ngFor="let data of listdynamic;let i =index">
+          <td style="text-align: center !important">{{i+1}}</td>
+          <td style="text-align: left   !important">{{data.iaRiskFactors.riskFactors}}</td>
+          <td style="text-align: center !important">{{data.iaRiskFactors.budgetYear}}</td>
+          <td style="text-align: center !important">{{data.iaRiskFactors.side}}</td>
+          <td style="text-align: center !important" *ngFor="let data2 of data.datalistdynamic;let j = index">{{data2  }}
+          </td>
+          <td style="text-align: center !important">{{data.createdDateDesc}}</td>
+          <td style="text-align: center !important">{{data.iaRiskFactors.createdBy}}</td>
+          <td style="text-align: center !important">{{data.statusScreenDesc}}</td>
+          <td style="text-align: center !important">{{data.iaRiskFactors.dateCriteria}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+  </div>
+  <div class="ui center aligned grid">
+    <div class="sixteen wide column">
+      <div class="inline field">
+        <app-button-custom color="primary" text="กำหนดเกณฑ์ความเสี่ยงทั้งหมด" (click)="setBudgetYear1()"></app-button-custom>
+      </div>
+    </div>
+  </div>
+</segment>
+<!-- modal2  detail -->
+<ui-modal [id]="'detail2'" [type]="'custom'" [size]="'small'">
+  <div class="ui header">
+    รายละเอียดด้าน
+  </div>
+  <div class="content">
+    <P> <strong>1. ด้านกลยุทธ์(Startegy - S)</strong></P>
+    <P> <strong>2. ด้านการดำเนินงาน(Operation - O)</strong></P>
+    <P> <strong>3. ด้านผลการปฎิบัติงานหรือผลการดำเนินการ(Performance - P)</strong></P>
+    <P> <strong>4. ด้านการเงิน(Financial - F)</strong></P>
+    <P> <strong>5. ด้านการปฏิบัติตามกฎหมายและระเบียบ(Compliance - C)</strong></P>
+    <P> <strong>6. ด้านเทคโนโลยีสารสนเทศ(Information Technology)</strong></P>
+    <P> <strong>7. ด้านการควบคุมภายใน(Internal Control - I)</strong></P>
+  </div>
+  <div class="actions">
+    <!-- <app-button-cancel class="positive"></app-button-cancel> -->
+    <app-button-custom color="" icon="remove icon" text="ปิด" class="positive"></app-button-custom>
+  </div>
+</ui-modal>

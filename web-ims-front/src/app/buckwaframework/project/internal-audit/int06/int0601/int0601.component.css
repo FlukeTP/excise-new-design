@@ -1,0 +1,69 @@
+.ui.button {
+    width: 35%;
+    border-radius: 0px;
+}
+
+/* .btn-custom {
+    background-color: #c0c1c2;
+}
+
+.color-custom {
+    background-color: #004eff !important;
+    color: white !important;
+} */
+
+
+/* table.fixedHeader-floating {
+    position: fixed !important;
+    border-bottom-width: 0 !important;
+  }
+  
+  table.fixedHeader-locked {
+    position: absolute !important;
+  }
+  
+  @media print {
+    table.fixedHeader-floating {
+      display: none;
+    }
+  } */
+
+
+/* .fixed_header tbody{
+    display:block;
+    overflow:auto;
+    height:200px;
+    width:100%;
+  }  */
+  /* .fixed_header thead tr{
+    display:block;
+  } */
+
+
+  /* .sticky {
+    background: #fff;
+    box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);
+    position: fixed;
+    top: 0;
+    height: 120px;
+    width: 100%;
+} */
+
+th.sticky{
+	position: -webkit-sticky;
+	position: sticky;
+    top: 0;
+    z-index: 1;
+} /*
+thead th { position: sticky; top: 0;overflow: auto } */
+.table-cont{
+  /**make table can scroll**/
+  max-height: 400px;
+  overflow: auto;
+  /** add some style**/
+  /*padding: 2px;*/
+  background: #ddd;
+  /* margin: 20px 10px; */
+  /* box-shadow: 0 0 1px 3px #ddd; */
+  z-index: 4 !important;
+}

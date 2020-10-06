@@ -1,0 +1,46 @@
+<segment header="รายละเอียดผู้ประกอบการ" [loading]="loading">
+  <ng-container *ngIf="license">
+    <div style="padding-bottom: 1em;" [center]="true" grid>
+      <div [column]="4" [ngClass]="{'marginBottom': i==0}" *ngFor="let detail of license.details; let i=index">
+        <div class="ui secondary segment">
+          <div grid>
+            <div [column]="16" form>
+              <div inline>
+                <div field>
+                  <h4 class="full-width text-center" style="color: #000;">
+                    จำนวนสารละลายประเภทไฮโดรคาร์บอนที่ขออนุญาต{{ license.licenseType == 'B' ? 'ซื้อ' : 'ใช้' }}
+                    ({{ license.licenseType == 'B' ? 'ซื้อ' : 'ใช้' }}ต่อเดือน)</h4>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="8">
+                  <label class="full-width text-right">ชนิด: </label>
+                </div>
+                <div field [col]="8">
+                  <label class="full-width text-left">{{ detail.type }}</label>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="8">
+                  <label class="full-width text-right">จำนวน: </label>
+                </div>
+                <div field [col]="8">
+                  <label class="full-width text-left">{{ detail.amount | decimalFormat:"###,###" }} &nbsp;ลิตร</label>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="8">
+                  <label class="full-width text-right">อนุญาตวันที่: </label>
+                </div>
+                <div field [col]="8">
+                  <label class="full-width text-left">{{ license.licenseDate | dateString }}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</segment>

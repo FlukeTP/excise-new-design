@@ -1,0 +1,196 @@
+<segment header="คำสั่งให้ตรวจค้น (ตส. ๐๑-๐๙)" [loading]="loading" [right]="true">
+  <div headRight>
+    {{formGroup.get('formTsNumber').value}}
+  </div>
+
+  <form form [formGroup]="formGroup">
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="bookNumber1" id="bookNumber1" maxlength="20">
+        <label style="margin-right: 1em;"> / </label>
+        <input type="text" formControlName="bookNumber2" id="bookNumber2" maxlength="20">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">สถานที่ออกคำสั่ง :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="comdPlace" id="comdPlace" maxlength="100">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">วันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDocDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="docDate" id="docDate" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">เลขทะเบียนสรรพสามิต :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="newRegId" id="newRegId">
+      </div>
+      <div field [col]="1">
+        <app-button-custom [icon]="'search'" (click)="searchNewRegId()"></app-button-custom>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ชื่อโรงอุตสาหกรรม/<br>สถานบริการ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="evidenceReason" id="evidenceReason">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2"></div>
+      <div field [col]="14">
+        <label class="text-left full-width">หลีกเลี่ยงการเสียภาษี ตามพระราชบัญญัติภาษี
+          สรรพสามิต พ.ศ. ๒๕๖๐ และบัญชีพิกัดอัตราภาษีสรรพสามิต</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ประเภทสินค้า/บริการ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="docText1" id="docText1">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ปี พ.ศ. :</label>
+      </div>
+      <div field [col]="2">
+        <input type="text" formControlName="docText2" id="docText2">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <label class="text-left full-width">อาศัยอำนาจตามมาตรา 12 แห่งพระราชบัญญัติภาษีสรรพสามิต พ.ศ. ๒๕๖๐ :</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <input type="text" formControlName="docText3" id="docText3">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2"></div>
+      <div field [col]="14">
+        <label class="text-left full-width">เห็นเป็นการจำเป็น
+          ที่จะให้เจ้าพนักงานสรรพสามิตทำการตรวจค้น ยึดหรืออายัด บัญชีเอกสารหรือหลักฐานต่าง ๆ ซึ่งเกี่ยวกับหรือ
+          สันนิษฐานว่าเกี่ยวกับภาษีสรรพสามิตที่ต้องเสียดังกล่าวข้างต้น ฉะนั้น จึงออกคำสั่งตรวจค้นฉบับนี้ให้</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ชื่อ :</label>
+      </div>
+      <div field [col]="6">
+        <div class="ui action input">
+          <input type="text" formControlName="headOfficerFullName" id="headOfficerFullName">
+          <button class="ui button" (click)="searchModalOpen(1)">ค้นหา</button>
+        </div>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ตำแหน่ง :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="headOfficerPosition" id="headOfficerPosition">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">พร้อมด้วย :</label>
+      </div>
+      <div field [col]="14">
+        <textarea formControlName="officerText" id="officerText" rows="2"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ทำการตรวจค้นในสถานที่/<br>ยานพาหนะดังต่อไปนี้ คือ :</label>
+      </div>
+      <div field [col]="14">
+        <textarea formControlName="searchPlace" id="searchPlace" rows="2"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ในวันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarSearchDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="searchDate" id="searchDate" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="12">
+        <label class="text-left full-width">เพื่อทำการยึดหรืออายัดบัญชี เอกสารหรือหลักฐานต่าง ๆ
+          เกี่ยวกับภาษีสรรพสามิตที่จะต้องเสีย</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ชื่อผู้ออกคำสั่งให้ตรวจค้น :</label>
+      </div>
+      <div field [col]="6">
+        <div class="ui action input">
+          <input type="text" formControlName="signOfficerFullName" id="signOfficerFullName">
+          <button class="ui button" (click)="searchModalOpen(2)">ค้นหา</button>
+        </div>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ตำแหน่ง :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="signOfficerPosition" id="signOfficerPosition">
+      </div>
+    </div>
+    <br>
+    <br>
+    <app-button-footer-report (save)="save($event)" (clear)="clear($event)" (export)="export($event)">
+    </app-button-footer-report>
+  </form>
+</segment>
+
+<ui-modal [id]="'searchModal'" type="custom" size="large">
+  <div class="ui header">
+    ค้นหารายชื่อ
+  </div>
+  <br>
+  <!-- <form form [formGroup]="formSearchModal">
+          </form> -->
+
+  <div grid>
+    <div [column]="16">
+      <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableModal">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">ลำดับ</th>
+            <th class="text-center">ชื่อ-นามสกุล</th>
+            <th class="text-center">ตำแหน่ง</th>
+          </tr>
+        </thead>
+      </table>
+      <br>
+    </div>
+  </div>
+
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

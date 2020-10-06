@@ -1,0 +1,105 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+    <segment header="ข้อมูล รับ - โอนเงิน" [loading]="false">
+        <form (submit)="onFilter()">
+            <div class="ui form">
+                <div class="inline fields">
+                    <div class="eight wide field ">
+                        <label class="custom-label-w-25 text-right">รายการโอนเงิน</label>
+                        <select class="ui search dropdown ai search" name="combo1" id="combo1" [(ngModel)]="combo1">
+                            <option value="">กรุณาเลือก</option>
+                            <option *ngFor="let data of comboBox1 | async" value="{{data.value1}}">{{data.value1}}</option>
+                        </select>
+                    </div>
+                    <div class="two wide field">
+                        <label class="custom-label-w-25 text-right">ประเภทงบประมาณ</label>
+                    </div>
+                    <div class="five wide field ">
+                        <select class="ui search dropdown ai search" name="combo2" id="combo2" [(ngModel)]="combo2">
+                            <option value="">กรุณาเลือก</option>
+                            <option *ngFor="let data of comboBox2 | async" value="{{data.value1}}">{{data.value1}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="eight wide field text-right">
+                        <label class="custom-label-w-25">กิจกรรม</label>
+                        <select class="ui search dropdown ai search" name="combo3" id="combo3" [(ngModel)]="combo3">
+                            <option value="">กรุณาเลือก</option>
+                            <option *ngFor="let data of comboBox3 | async" value="{{data.value1}}">{{data.value1}}</option>
+                        </select>
+                    </div>
+                    <div class="two wide field text-right">
+                        <label class="custom-label-w-25">วันที่</label>
+                    </div>
+                    <div class="two wide field">
+                        <div class="ui calendar" id="calendar1" style="width:100%">
+                            <div class="ui input left icon">
+                                <i class="calendar alter nate outline icon"></i>
+                                <input placeholder="วว/ดด/ปปปป" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="one wide field">
+                        <label class="custom-label-w-20 text-center">ถึง</label>
+                    </div>
+                    <div class="two wide field">
+                        <div class="ui calendar" id="calendar2" style="width:100%">
+                            <div class="ui input left icon">
+                                <i class="calendar alter nate outline icon"></i>
+                                <input placeholder="วว/ดด/ปปปป" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui center aligned grid">
+                <div class="four wide column">
+                    <button class="ui mini primary button" type="submit">
+                        <i class="search icon"></i> ค้นหา
+                    </button>
+                    <button class="ui   mini button" type="reset" (click)="hidedata()">
+                        <i class="refresh icon"></i> ล้างข้อมูล
+                    </button>
+                    <button class="ui green mini button" [routerLink]="[ '/int12/05/01/01'] ">
+                        <i class="add icon"></i> เพิ่มข้อมูล
+                    </button>
+                </div>
+            </div>
+        </form>
+        <br>
+        <table class="ui small celled table striped selectable" style="width: 200%" id="datatable">
+            <thead>
+                <tr style="text-align: center;">
+                    <th rowspan="2">ลำดับที่</th>
+                    <th colspan="3">เอกสารอ้างอิง</th>
+                    <th rowspan="2">รายการโอนเงิน</th>
+                    <th rowspan="2">ประเภทเงิน</th>
+                    <th rowspan="2">รหัสเงิน</th>
+                    <th rowspan="2">กิจกรรม</th>
+                    <th rowspan="2">งบ</th>
+                    <th rowspan="2">หมวด</th>
+                    <th rowspan="2">หมวดย่อย</th>
+                    <th rowspan="2">รายการ</th>
+                    <th rowspan="2">จำนวนเงิน</th>
+                    <th rowspan="2">หมายเหตุ</th>
+                    <th rowspan="2">จัดการ</th>
+                </tr>
+                <tr style="text-align: center;">
+                    <th>ที่ กค</th>
+                    <th>เลขที่</th>
+                    <th>ว.ด.ป</th>
+                </tr>
+            </thead>
+        </table>
+        <br>
+        <div class="ui center aligned grid">
+            <div class="sixteen wide column">
+                <app-button-export (click)="export()"></app-button-export>
+            </div>
+        </div>
+    </segment>
+    <!-- form-data-excel -->
+    <form id="form-data-excel" method="POST">
+        <input type="hidden" name="dataJson" id="dataJson">
+    </form>
+</with-breadcrumb>

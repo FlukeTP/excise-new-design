@@ -1,0 +1,205 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="สูตรคำนวณการผลิตสุรากลั่นชุมชน" [loading]="false">
+    <div class="ui grid ">
+      <div class="eight wide column">
+        <div class="ui grid">
+          <div class="sixteen  wide column">
+            <segment>
+              <!-- <h3>วัตถุดิบ</h3> -->
+              <h3 class="text-center">วัตถุดิบ</h3>
+              <hr>
+              <br>
+              <div class="ui form">
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-left full-width">วัตถุดิบ :</label>
+                  </div>
+                  <div class="four wide field">
+                    <select class="ui dropdown ai full-width">
+                      <option *ngFor="let item of dropdown; let i=index" value="{{item.id}}">{{item.description}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-left full-width">จำนวน :</label>
+                  </div>
+                  <div class="four wide field">
+                    <input type="text" class="text-right full-width" (keypress)="typeNumber($event)" value="100">
+                  </div>
+                  <div class="two wide field">
+                    <label class="text-left full-width">กิโลกรัม</label>
+                  </div>
+                </div>
+              </div>
+            </segment>
+          </div>
+        </div>
+        <div class="ui grid">
+          <div class="sixteen  wide column">
+            <segment>
+              <!-- <h3>หมัก</h3> -->
+              <h3 class="text-center">หมัก</h3>
+              <hr>
+              <br>
+              <div class="ui form">
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-left full-width">ปริมาณส่า :</label>
+                  </div>
+                  <div class="four wide field">
+                    <input type="text" class="text-right full-width" (keypress)="typeNumber($event)" value="100">
+                  </div>
+                  <div class="two wide field">
+                    <label class="text-left full-width">ลิตร</label>
+                  </div>
+                </div>
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-left full-width">ระยะเวลาหมักถึงกลั่น :</label>
+                  </div>
+                  <div class="four wide field">
+                    <input type="text" class="text-right full-width" (keypress)="typeNumber($event)" value="7">
+                  </div>
+                  <div class="two wide field">
+                    <label class="text-left full-width">วัน</label>
+                  </div>
+                </div>
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-left full-width">ระยะเวลา 1 รอบ การผลิต :</label>
+                  </div>
+                  <div class="four wide field">
+                    <input type="text" class="text-right full-width" (keypress)="typeNumber($event)" value="10">
+                  </div>
+                  <div class="two wide field">
+                    <label class="text-left full-width">วัน</label>
+                  </div>
+                </div>
+              </div>
+            </segment>
+          </div>
+        </div>
+      </div>
+      <div class="eight wide column">
+        <div class="ui grid">
+          <div class="sixteen  wide column">
+            <segment>
+              <h3 class="text-center">ผลิตภัณฑ์</h3>
+              <hr>
+              <div class="ui form">
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-center full-width">แรงดีกรี</label>
+                  </div>
+                  <div class="five wide field">
+                    <label class="text-center full-width">ขนาดภาชนะบรรจุ</label>
+                  </div>
+                  <div class="five wide field">
+                    <label class="text-center full-width">จำนวน (ขวด)</label>
+                  </div>
+                </div>
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-center full-width">28</label>
+                  </div>
+                  <div class="five wide field">
+                    <label class="text-center full-width">0.330</label>
+                  </div>
+                  <div class="five wide field">
+                    <input type="text" class="text-right" (keypress)="typeNumber($event)" value="">
+                  </div>
+                </div>
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-center full-width">30</label>
+                  </div>
+                  <div class="five wide field">
+                    <label class="text-center full-width">0.330</label>
+                  </div>
+                  <div class="five wide field">
+                    <input type="text" class="text-right" (keypress)="typeNumber($event)" value="">
+                  </div>
+                </div>
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-center full-width">35</label>
+                  </div>
+                  <div class="five wide field">
+                    <label class="text-center full-width">0.330</label>
+                  </div>
+                  <div class="five wide field">
+                    <input type="text" class="text-right" (keypress)="typeNumber($event)" value="">
+                  </div>
+                </div>
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-center full-width">40</label>
+                  </div>
+                  <div class="five wide field">
+                    <label class="text-center full-width">0.330</label>
+                  </div>
+                  <div class="five wide field">
+                    <input type="text" class="text-right" (keypress)="typeNumber($event)" value="">
+                  </div>
+                </div>
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-center full-width">28</label>
+                  </div>
+                  <div class="five wide field">
+                    <label class="text-center full-width">0.625</label>
+                  </div>
+                  <div class="five wide field">
+                    <input type="text" class="text-right" (keypress)="typeNumber($event)" value="">
+                  </div>
+                </div>
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-center full-width">30</label>
+                  </div>
+                  <div class="five wide field">
+                    <label class="text-center full-width">0.625</label>
+                  </div>
+                  <div class="five wide field">
+                    <input type="text" class="text-right" (keypress)="typeNumber($event)" value="">
+                  </div>
+                </div>
+                <div class="inline fields">
+                  <div class="five wide field">
+                    <label class="text-center full-width">35</label>
+                  </div>
+                  <div class="five wide field">
+                    <label class="text-center full-width">0.625</label>
+                  </div>
+                  <div class="five wide field">
+                    <input type="text" class="text-right" (keypress)="typeNumber($event)" value="">
+                  </div>
+                </div>
+                <div class="inline fields">
+                    <div class="five wide field">
+                      <label class="text-center full-width">40</label>
+                    </div>
+                    <div class="five wide field">
+                      <label class="text-center full-width">0.625</label>
+                    </div>
+                    <div class="five wide field">
+                      <input type="text" class="text-right" (keypress)="typeNumber($event)" value="">
+                    </div>
+                  </div>
+              </div>
+            </segment>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="inline field btn text-center">
+      <app-button-save ></app-button-save>
+      <!-- <app-button-back (click)="goPage2()"></app-button-back> -->
+    </div>
+  </segment>
+
+</with-breadcrumb>

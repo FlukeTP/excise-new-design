@@ -1,0 +1,125 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      
+      <segment header="ความเชื่อมโยงระหว่างสินค้าและผู้ส่งออก">
+        <form class="ui form" [formGroup]="searchForm" (submit)="handleSearch($event)">
+          <div class="inline fields">
+            <div class="three wide field required">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div class="four wide field" [ngClass]="{ 'error': validateField('combo1') }">
+              <select class="ui search dropdown ai search full-width" formControlName="combo1" id="combo1"
+                (change)="dropdown($event, 'comboBox2')">
+                <option value="">กรุณาเลือก</option>
+                <option value="0">ทั้งหมด</option>
+                <option *ngFor="let data of comboBox1 | async" value="{{data.lovId}}">{{data.subTypeDescription}}
+                </option>
+              </select>
+            </div>
+            <div class="three wide field required">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div class="four wide field" [ngClass]="{ 'error': validateField('combo2'), 'disabled': formDisabled }">
+              <select class="ui search dropdown ai search full-width" formControlName="combo2" id="combo2"
+                (change)="dropdown($event, 'comboBox3')">
+                <option value="">กรุณาเลือก</option>
+                <option *ngFor="let data of comboBox2 | async" value="{{data.lovId}}">{{data.subTypeDescription}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="three wide field required">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่สาขา</label>
+            </div>
+            <div class="four wide field" [ngClass]="{ 'error': validateField('combo3'), 'disabled': formDisabled2 }">
+              <select class="ui search dropdown ai search full-width" formControlName="combo3" id="combo3">
+                <option value="">กรุณาเลือก</option>
+                <option *ngFor="let data of comboBox3 | async" value="{{data.lovId}}">{{data.subTypeDescription}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="three wide field required">
+              <label class="text-right full-width">รหัสผู้ส่งออก</label>
+            </div>
+            <div class="four wide field">
+              <input type="text">
+            </div>
+            <div class="three wide field required">
+              <label class="text-right full-width">ชื่อผู้ส่งออก</label>
+            </div>
+            <div class="four wide field">
+              <select class="ui search dropdown ai search full-width" formControlName="exportName">
+                <option value="">กรุณาเลือก</option>
+                <option value="01">บริษัท เอสโซ่ (ประเทศไทย) จำกัด (มหาชน) </option>
+              </select>
+            </div>
+          </div>
+          <div class="ui center aligned grid">
+            <div class="sixteen wide column btn-space">
+              <button class="ui mini primary button" type="submit">
+                <i class="search icon"></i>ค้นหา
+              </button>
+              <button class="ui mini button" type="reset" (click)="onReset()">
+                <i class="refresh icon"></i>ยกเลิก
+              </button>
+            </div>
+          </div>
+        </form>
+      </segment>
+
+      <segment header="ผลการค้นหา">
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="three wide field required">
+              <label class="text-right full-width">รหัสผู้ส่งออก</label>
+            </div>
+            <div class="four wide field">
+              <input type="text">
+            </div>
+            <div class="three wide field required">
+              <label class="text-right full-width">ชื่อผู้ส่งออก</label>
+            </div>
+            <div class="four wide field">
+              <select class="ui search dropdown ai search full-width">
+                <option value="">กรุณาเลือก</option>
+                <option value="01">บริษัท เอสโซ่ (ประเทศไทย) จำกัด (มหาชน) </option>
+              </select>
+            </div>
+          </div>
+          <div class="ui center aligned grid">
+            <div class="sixteen wide column">
+              <button class="ui mini green button" type="button" [routerLink]="['./01']">
+                <i class="eye icon"></i>ความเชื่อมโยง
+              </button>
+            </div>
+          </div>
+          <table id="dataTable" class="ui small celled table nowrap striped selectable" style="width: 100%">
+            <thead>
+              <tr>
+                <th class="text-center">ลำดับที่</th>
+                <th class="text-center">ภาค</th>
+                <th class="text-center">พื้นที่</th>
+                <th class="text-center">สาขา</th>
+                <th class="text-center">สินค้า</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let t of table; let i=index">
+                <td class="text-center">{{t.id}}</td>
+                <td class="text-center">{{t.sector}}</td>
+                <td class="text-center">{{t.area}}</td>
+                <td class="text-center">{{t.branch}}</td>
+                <td class="text-center">{{t.product}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </segment>
+
+    </div>
+  </div>
+</with-breadcrumb>

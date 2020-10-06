@@ -1,0 +1,38 @@
+<app-form-search header="จ่ายสินค้าสำเร็จรูปต่างประเทศ" (uploadTemplate)="uploadTemplate($event)" [formSearch]="formGroup"
+  (search)="search($event)" (clear)="clear($event)"></app-form-search>
+<segment header="เลือกไฟล์ Template จ่ายสินค้าสำเร็จรูปต่างประเทศ" *ngIf="hideUpload">
+  <form class="ui form ng-untouched ng-pristine ng-valid" id="upload-form" ngnativevalidate="">
+    <div class="inline fields  ui grid">
+      <div class="three wide field">
+        <label class="text-right full-width">เลือกไฟล์ Template</label>
+      </div>
+      <div class="four wide field">
+        <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="inputfile" id="fileExel"
+          name="fileExel" required="" type="file">
+      </div>
+      <div class="four wide field">
+        <app-button-upload></app-button-upload>
+      </div>
+    </div>
+  </form>
+</segment>
+<segment header="" [loading]="false" *ngIf="hideResult">
+  <div class="inline field btn text-right">
+    <app-button-export  (click)="exportFile()"></app-button-export>
+  </div>
+  <table id="dataTable" class="ui small celled nowrap table striped selectable" style="width:100%">
+    <thead class="text-center">
+      <tr>
+        <th class="text-center ">ลำดับ</th>
+        <th class="text-center ">รายการ</th>
+        <th class="text-center bg-blue">ใบขนสินค้า</th>
+        <th class="text-center bg-blue">INV</th>
+        <th class="text-center ">บัญชีประจำวัน (ภส.๐๗-๐๒)</th>
+        <th class="text-center ">งบเดือน (ภส.๐๗-๐๔)</th>
+        <th class="text-center bg-blue">จากการตรวจสอบ</th>
+        <th class="text-center ">จำนวนขอยกเว้นหรือคืนภาษี(ภส.๐๕-๐๑)</th>
+        <th style="text-align: center !important">ผลต่าง</th>
+      </tr>
+    </thead>
+  </table>
+</segment>

@@ -1,0 +1,346 @@
+<form (submit)="onSubmit($event)">
+  <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>หนังสือแจ้งการประเมินภาษีสรรพสามิต</span>
+  </div>
+
+  <div class="ui attached segment">
+    <div class="ui grid">
+      <div class="ui two wide column">&nbsp;</div>
+      <div class="ui twelve wide column">
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="ten wide field">
+
+            </div>
+            <div class="one wide field">
+              <p>ที่ : </p>
+            </div>
+            <div class="two wide field">
+              <input type="text" name="atNumber1" [(ngModel)]="obj.atNumber1"    >
+            </div>
+            <div class="one wide field" style="padding-left: 14px;">
+              <p>/</p>
+            </div>
+            <div class="two wide field">
+              <input type="text" name="atNumber2" [(ngModel)]="obj.atNumber2"  >
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="eight wide field">
+              &nbsp;
+            </div>
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width: 20% !important;">วันที่</label>
+              <div class="ui calendar" style="width:100%" id="date">
+                <div class="ui input left icon">
+                  <i class="calendar alternate outline icon"></i>
+                  <input type="text" style="width:100%" placeholder="วัน/เดือน/ปี">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <label class="custom-label-w-20">ชื่อผู้มีหน้าที่เสียภาษี</label>
+              <input type="text" style="width: 50%" name="nameOfTax"  [(ngModel)]="obj.nameOfTax" required>
+              &nbsp;&nbsp;
+              <div style="width: 28%" class="ui checkbox">
+                <input type="radio" name="agreeBox1"required value="factory"  [(ngModel)]="obj.agreeBox1">
+                <label>โรงอุตสาหกรรม&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              </div>
+              <div style="width: 25%" class="ui checkbox">
+                <input type="radio" name="agreeBox1"  required value="service"  [(ngModel)]="obj.agreeBox1">
+                <label>สถานบริการ&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              </div>
+              <div style="width: 32%" class="ui checkbox">
+                <input type="radio" name="agreeBox1"  required value="company"  [(ngModel)]="obj.agreeBox1">
+                <label>สถานประกอบการ&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width: 5% !important;">ชื่อ : </label>
+              <input type="text" style="width: 100%" name="name"required  [(ngModel)]="obj.name">
+            </div>
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width: 41% !important;">ทะเบียนสรรพสามิตเลขที่ : </label>
+              <input type="text" style="width: 100%" name="exciseRegistration" required [(ngModel)]="obj.exciseRegistration">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <label class="custom-label-w-18" style="width: 10% !important;">ตั้งอยู่เลขที่ : </label>
+              <textarea name="islocated" id="" cols="30" rows="3" [(ngModel)]="obj.islocated"></textarea>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <label class="custom-label-w-18" style="width: 43% !important;">ที่อยู่สำนักงานตามหนังสือรับรองกระทรวงพาณิชย์เลขที่
+                : </label>
+              <textarea name="addresc" id="" cols="30" rows="3"  [(ngModel)]="obj.addresc"></textarea>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="fourteen wide field">
+              <label class="custom-label-w-18" style="width:35% !important;">อาศัยอำนาจตามความในมาตรา : </label>
+              <input type="text"  name="byProvisions"  [(ngModel)]="obj.byProvisions"  >
+            </div>
+
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="custom-label-w-18" style="width: 20% !important;">หมวด : </label>
+              <input type="text"   name="group"  [(ngModel)]="obj.group">
+            </div>
+            <div class="ten wide field">
+              <label class="custom-label-w-18" style="width: 100% !important;">แห่งพระราชบัญญัติภาษีสรรพสามิต พ.ศ ๒๕๖๐
+                จึงขอแจ้งการประเมินภาษีสรรพสามิตเพิ่มเติม </label>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width: 70% !important;">สำหรับรอบระเวลาที่ตรวจสอบตั้งแต่ :
+              </label>
+              <div class="ui calendar" style="width:100%" id="date1">
+                <div class="ui input left icon">
+                  <i class="calendar alternate outline icon"></i>
+                  <input type="text" style="width:100%" placeholder="วัน/เดือน/ปี" [(ngModel)]="obj.periodFrom" id="periodFrom" name="periodFrom">
+                </div>
+              </div>
+ 
+            </div>
+            <div class="six wide field">
+              <label class="custom-label-w-18" style="width: 30% !important;">เป็นจำนวนเงิน </label>
+              <input type="text"  name="amount"  [(ngModel)]="obj.amount">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="custom-label-w-18" style="width: 40% !important;"> ให้ท่าชำระภาษี ณ : </label>
+              <input type="text"  name="taxBreak"  [(ngModel)]="obj.taxBreak">
+            </div>
+            <div class="ten wide field">
+              <label class="custom-label-w-18" style="width: 100% !important;">ภายใน ๓๐ วัน
+                นับแต่วันที่รับแจ้งการประเมิณภาษีสรรพสามิต ดังรายระเอียดต่อไปนี้ </label>
+            </div>
+          </div>
+
+
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <label class="custom-label-w-18" style="width: 30% !important;">รายละเอียด ดังนี้ : </label>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <table class="ui celled padded table">
+                <thead>
+                  <tr style="text-align: center">
+                    <th>พิกัดประเภทที่สินค้า/บริการ</th>
+                    <th>จำนวนสินค้าหน่วย</th>
+                    <th>รวมมูลค่าทั้งสิ้น</th>
+                    <th>อัตราภาษี</th>
+                    <th>ภาษีที่ต้องชำระ</th>
+                    <th>เบี้ยปรับตาม ม.๑๔๑</th>
+                    <th>เงินเพิ่มตาม ม.๑๔๑</th>
+                    <th>รวม(๑)</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let bean of beans; let i = index">                                   
+                    <td><div class="ui transparent input">
+                      <input type="text" name="coordinates{{i}}" [(ngModel)]="beans[i].coordinates">
+                    </div>
+                    </td>
+                    <td>
+                      <div class="ui transparent input">
+                      <input type="text" name="number{{i}}" [(ngModel)]="beans[i].number">
+                     </div>
+                    </td>
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="expectedValue{{i}}" [(ngModel)]="beans[i].expectedValue">
+                      </div>
+                    </td>
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="brand{{i}}" [(ngModel)]="beans[i].brand">
+                      </div>
+                    </td>
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="tax{{i}}" [(ngModel)]="beans[i].tax">
+                      </div>
+                    </td>
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="fine{{i}}" [(ngModel)]="beans[i].fine">
+                      </div>
+                    </td>
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="extraMoney{{i}}" [(ngModel)]="beans[i].extraMoney">
+                      </div>
+                    </td>
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="included{{i}}" [(ngModel)]="beans[i].included">
+                      </div>
+                    </td>
+                   
+                    <td style="cursor: pointer">
+                      <a (click)="onDelField(i)" style="text-decoration: none;color: red" *ngIf="(i+1) > 3">ลบ</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>    
+
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <table class="ui celled padded table">
+                <thead>
+                  <tr style="text-align: center">          
+                    <th>สสส.</th>
+                    <th>สสท.</th>
+                    <th>กกท.</th>
+                    <th>อื่นๆ</th>
+                    <th>รวม(๒)</th>
+                    <th>ภาษีเพื่อราชการส่วนท้องถิ่นตาม ม.๑๕๐</th>
+                    <th>รวมภาษีที่ต้องชำระทั้งสิ้น</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let bean of beans; let i = index">  
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="sss{{i}}" [(ngModel)]="beans[i].sss">
+                      </div>
+                    </td>
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="sst{{i}}" [(ngModel)]="beans[i].sst">
+                      </div>
+                    </td>
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="sat{{i}}" [(ngModel)]="beans[i].sat">
+                      </div>
+                    </td>
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="other{{i}}" [(ngModel)]="beans[i].other">
+                      </div>
+                    </td>
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="included2{{i}}" [(ngModel)]="beans[i].included2">
+                      </div>
+                    </td>  
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="government{{i}}" [(ngModel)]="beans[i].government">
+                      </div>
+                    </td>
+                    <td>
+                        <div class="ui transparent input">
+                      <input type="text" name="includetax{{i}}" [(ngModel)]="beans[i].includetax">
+                      </div>
+                    </td>
+             
+                    <td style="cursor: pointer">
+                      <a (click)="onDelField(i)" style="text-decoration: none;color: red" *ngIf="(i+1) > 3">ลบ</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <a (click)="onAddField()" style="cursor: pointer"><i class="plus icon"></i> เพิ่ม</a>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width:100% !important;"><b>หมายเหตุ</b>&nbsp; ๑. สสส. คือ
+                เงินบำรุงกองทุนสนับสนุนดารส้รางเสริมสุขภาพ ร้อยละ ๒ </label>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="one wide field"></div>
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width:100% !important;">๒ สสท. คือ
+                เงินบำรุงค์การกระจายเสียงและแพร่ภาพสาธณะแห่งประเทศไทย ร้อยละ ๑.๕ </label>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="one wide field"></div>
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width:100% !important;">๓ กกท. คือ
+                เงินบำรุงกองทุนการกีฬาแห่งประเทศไทย ร้อยละ ๒</label>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="one wide field"></div>
+            <div class="eight wide field">
+              <label class="custom-label-w-18" style="width:100% !important;">อื่นๆ (ถ้ามี)</label>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <label class="custom-label-w-18" style="width:100% !important;">เหตุผลที่ประเมิน(๑
+                ข้อเท็จจริงอันเป็นสาระสำคัญ ๒.ข้อกฎหมายที่อ้างอิง ๓ ข้อพิจารณาและข้อสนับสนุนในการใช้ดุลพินิจ) </label>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <textarea name="" id="" cols="30" rows="2" name="reasons"  [(ngModel)]="obj.reasons" ></textarea>
+            </div>
+          </div>
+          <div class="inline fields">
+              <div class="two wide field"> หมายเหตุ</div>
+              <div class="fourteen wide field">
+                <label > 1. ถ้าผู้มีหน้าที่เสียภาษีเห็นว่า การประเมินของพนักงานเจ้าหน้าที่ไม่ชอบด้วยกฎหมาย จำนวนเงินภาษีที่ประเมินไว้ไม่ถูกต้อง หรือเหตุอื่นใดอันเป็นเหตุให้ไม่ต้องรับผิดในการเสียภาษีตามการประเมินของพนักงานเจ้าหน้าที่ ให้มีสิทธิ์อุทธรณ์ต่อคณะกรรมการพิจารณาอุทธรณ์ตามมาตรา 94  ใน สามสิบวันนับตั้งแต่วันที่ได้รับแจ้งการประเมิน โดยยื่นอุทรตามหลักเกณฑ์และวิธีการที่อธิบดีประกาศกำหนด ตามความในมาตรา 93 แห่งพระราชบัญญัติภาษีสรรพสามิต พ.ศ. 2560 </label>
+              </div>
+            </div>
+            <div class="inline fields">
+                <div class="two wide field"></div>
+                <div class="fourteen wide field">
+                  <label > 2. เงินเพิ่มได้คำนวณไว้ถึงวันที่........เดือน...................พ.ศ. ........... ถ้าชำระภายหลังจากวันดังกล่าว ผู้มีหน้าที่เสียภาษีต้องเสียเงินเพิ่มเพิ่มอีกร้อยละ 1.5 ต่อเดือนหรือเศษของเดือน ถ้าไม่ชำระภาษีสรรพสามิตภายในกำหนดสามสิบวันนับตั้งแต่วันที่ได้รับแจ้งการประเมิน พนักงานเจ้าหน้าที่จะดำเนินการมาตรา 143 พระราชบัญญัติภาษีสรรพสามิต พ. ศ. 2560 ต่อไป </label>
+                </div>
+              </div>
+        </div>
+      </div>
+      <div class="ui two wide column">&nbsp;</div>
+    </div>
+  </div>
+
+  <div class="ui bottom centered attached segment">
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <button class="ui mini green button" type="submit">
+          <i class="save icon"></i>
+          พิมพ์เอกสาร
+        </button>
+        <button class="ui mini red button" type="button" (click)="onDiscard()">
+          <i class="times icon"></i>
+          ยกเลิก
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

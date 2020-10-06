@@ -1,0 +1,62 @@
+<segment header="การวิเคราะห์รายได้ เปรียบเทียบเดือนเดียวกันกับปีก่อนหน้า" [loading]="false">
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="eight wide field">
+        <div class="ui radio checkbox" *ngFor="let incomeType of yearIncTypeList">
+          <input type="radio" name="frequency" [value]="incomeType.paramCode" [(ngModel)]="yearIncType"
+            (change)="onChangeIncTypeAndNum('yearIncType')" [disabled]="incomeDisabled">
+          <label>{{incomeType.value1}}</label>
+        </div>
+      </div>
+      <div class="six wide field">
+        <div class="four wide field">
+          <label class="full-width text-right">จำนวน</label>
+        </div>
+        <div class="four wide field">
+          <select class="ui fluid search dropdown full-width yearNum" id="yearNum" name="yearNum"
+            (change)="onChangeIncTypeAndNum('yearNum')" [(ngModel)]="yearNum" [disabled]="incomeDisabled">
+            <option [value]="year" *ngFor="let year of yearNumList">{{year}}</option>
+          </select>
+        </div>
+        <div class="four wide field">
+          <label>ปี</label>
+        </div>
+      </div>
+      <!-- <div class="two wide field">
+        <app-button-search (click)="search()"></app-button-search>
+      </div> -->
+    </div>
+  </div>
+  <table id="dataTable" class="ui small celled table striped selectable  nowrap" style="width:100%">
+    <thead>
+      <tr class="text-center">
+        <th class="text-center">ลำดับ</th>
+        <th class="text-center">เดือน</th>
+        <th class="text-center">รายได้ปีปัจจุบัน (บาท)</th>
+        <th class="text-center">รายได้ปีย้อนหลัง 1 ปี (บาท)</th>
+        <th class="text-center">ผลต่างย้อนหลัง 1 ปี (บาท)</th>
+        <th class="text-center">ผลต่างย้อนหลัง 1 ปี (ร้อยละ)</th>
+        <th class="text-center">รายได้ปีย้อนหลัง 2 ปี (บาท)</th>
+        <th class="text-center">ผลต่างย้อนหลัง 2 ปี (บาท)</th>
+        <th class="text-center">ผลต่างย้อนหลัง 2 ปี (ร้อยละ)</th>
+        <th class="text-center">รายได้ปีย้อนหลัง 3 ปี (บาท)</th>
+        <th class="text-center">ผลต่างย้อนหลัง 3 ปี (บาท)</th>
+        <th class="text-center">ผลต่างย้อนหลัง 3 ปี (ร้อยละ)</th>
+      </tr>
+    </thead>
+
+  </table>
+  <br>
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="five wide field">
+        <label class="text-left full-width">บันทึกการวิเคราะห์ข้อมูลเบื้องต้น</label>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="sixteen wide field">
+        <textarea [(ngModel)]="note" (change)="onChangeNote()"></textarea>
+      </div>
+    </div>
+  </div>
+</segment>

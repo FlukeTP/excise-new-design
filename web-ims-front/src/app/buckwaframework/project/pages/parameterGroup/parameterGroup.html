@@ -1,0 +1,115 @@
+<div class="ui grid">
+    <div class="sixteen wide column">
+        <h2 class="ui header">Parameter Group</h2>
+        <div class="ui breadcrumb">
+            <a class="section">Administrator</a>
+            <i class="right angle icon divider"></i>
+            <div class="active section">Parameter Group</div>
+        </div>
+
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>Search Criteria</span>
+        </div>
+        <div class="ui  attached segment ">
+            <div class="ui form ">
+                <div class="fields ">
+                        <div class="four  wide field"></div>
+                    <div class="three wide field">
+                        <label>Parameter Group Code</label>
+                        <input type="text" placeholder="Message Code">
+                    </div>
+                    <div class="five wide field">
+                        <label>Parameter Group Desc</label>
+                        <input type="text" placeholder="Message Eng">
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="sixteen wide field">
+                        <div class="ui grid">
+                            <div class="center aligned row">
+                                <div class="column">
+                                    <div class="ui mini primary button" [routerLink]="['/message']">
+                                        <i class="search icon"></i> Search
+                                    </div>
+                                    <div class="ui mini button" [routerLink]="['/message']">
+                                        <i class="refresh icon"></i> Reset
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui clearing top attached header segment">
+            <div class="ui grid">
+                <div class="two column row">
+                    <div class="column">
+                        Search Result
+                    </div>
+                    <div class="right aligned column">
+                        <div class="ui mini primary button" [routerLink]="['/parameterInfo']">
+                            <i class="add icon"></i> Add Parameter Group
+                        </div>
+                        <div class="ui mini  button" >
+                            <i class="trash icon"></i> Delete
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui attached segment">
+            <table id="messageDt" class="ui small celled table striped selectable">
+                <thead class="ui center aligned segment">
+                    <tr>
+                        <th  width="20%" >Parameter Group Code</th>
+                        <th>Parameter Group Desc</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="ui dimmer modals page transition visible active" style="display: block !important;">
+    <div class="ui modal transition visible active" style="margin-top: -92.7px; display: block !important;">
+        <div class="header">
+            Add Message
+        </div>
+        <div class="content">
+            <p>Are you sure you want to delete your account</p>
+        </div>
+        <div class="actions">
+            <div class="ui button">
+                Cancel
+            </div>
+            <div class="ui positive right labeled icon button">
+                Save
+                <i class="save icon"></i>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="ui dimmer modals page transition visible active" style="display: block !important;">
+    <div class="ui mini modal transition visible active" style="margin-top: -92.7px; display: block !important;">
+        <div class="header">
+            Delete Message
+        </div>
+        <div class="content">
+            <p>Are you sure you want to delete your account</p>
+        </div>
+        <div class="actions">
+            <div class="ui negative button">
+                No
+            </div>
+            <div class="ui positive right labeled icon button">
+                Yes
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+</div> -->

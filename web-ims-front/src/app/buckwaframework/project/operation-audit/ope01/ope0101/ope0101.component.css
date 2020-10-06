@@ -1,0 +1,12 @@
+.column-select {
+    background: #00800094;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.column-select:hover {
+    background: #008000b0;
+    color: white;
+    cursor: pointer;
+}

@@ -1,0 +1,115 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <segment header="ค้นหาข้อมูลการจัดซื้อจัดจ้าง" [loading]="false">
+      <form>
+        <div class="ui form ">
+          <!-- row 1 -->
+          <div class="inline fields  ui grid">
+            <div class="three wide field ">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div class="four wide field ">
+              <select class="ui search dropdown ai search full-width off" name="combo1" id="combo1" (change)="dropdown($event, 'comboBox2')">
+                <option value="">กรุณาเลือก</option>
+                <option *ngFor="let data of comboBox1 | async" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+              </select>
+            </div>
+            <div class="three wide field ">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div class="four wide field ">
+              <select class="ui search dropdown ai search full-width off" name="combo2" id="combo2" (change)="dropdown($event, 'comboBox3')">
+                <option value="">กรุณาเลือก</option>
+                <option *ngFor="let data of comboBox2 | async" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+              </select>
+            </div>
+          </div>
+          <!-- row 2 -->
+          <div class="inline fields ui grid">
+            <div class="three wide field ">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่สาขา</label>
+            </div>
+            <div class="four wide field ">
+              <select class="ui search dropdown ai search full-width off" name="combo3" id="combo3">
+                <option value="">กรุณาเลือก</option>
+                <option *ngFor="let data of comboBox3 | async" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+              </select>
+            </div>
+            <div class="three wide field ">
+              <label class="text-right full-width">ปีงบประมาณ</label>
+            </div>
+            <div class="four centered wide field">
+              <div class="ui calendar" id="budgetYear">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" readonly="" name="budgetYearData" id="budgetYearData" placeholder="ปปปป" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="inline fields ui grid">
+            <div class="three wide field ">
+              <label class="text-right full-width">วิธีการจัดซื้อจัดจ้าง</label>
+            </div>
+            <div class="four wide field">
+              <select class="ui search dropdown ai search full-width" name="supplyChoice" id="supplyChoice" [(ngModel)]="supplyChoice">
+                <option value="">กรุณาเลือก</option>
+                <option *ngFor="let item of supplyChoiceList | async" value="{{item.lovId}}">{{item.value1}}</option>
+              </select>
+            </div>
+            <div class="three wide field ">
+              <label class="text-right full-width">ประเภทงบรายจ่าย</label>
+            </div>
+            <div class="four wide field ">
+              <select class="ui search dropdown ai search full-width" name="budgetType" id="budgetType">
+                <option value="">กรุณาเลือก</option>
+                <option *ngFor="let item of budgetTypeList | async" value="{{item.lovId}}">{{item.value1}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="ui center aligned grid">
+            <div class="sixteen wide column">
+              <app-button-search (click)="onSearch()"></app-button-search>
+              <app-button-clear (click)="clearFile()"></app-button-clear>
+              <app-button-add (click)="addData()"></app-button-add>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <br>
+
+      <table class="ui small celled table striped selectable" id="dataTable" style="width: 100%;">
+        <thead>
+          <tr style="text-align: center">
+            <th rowspan="2"><input class="ui checkbox" type="checkbox" (change)="clickCheckAll($event)"></th>
+            <th rowspan="2">ปีงบประมาณ</th>
+            <th rowspan="2">เลขที่หนังสืออนุมัติเบิกจ่าย</th>
+            <th rowspan="2">เลขที่โครงการในระบบ e-GP</th>
+            <th rowspan="2">ชื่อโครงการ</th>
+            <th rowspan="2">จำนวนเงิน ซื้อ/จ้าง/เช่า</th>
+            <th rowspan="2">สถานะการดำเนินงาน</th>
+            <th rowspan="2">วันที่ทำรายการล่าสุด</th>
+            <th rowspan="1" colspan="2">จัดการ</th>
+          </tr>
+          <tr style="display:none">
+            <td>ลบ</td>
+            <td>เพิ่ม</td>
+          </tr>
+        </thead>
+      </table>
+      <br>
+      <label style="font-size: 13px;"><b>หมายเหตุ:</b> ทำเครื่องหมายถูก <i class="check square outline icon"></i>
+        ที่หน้ารายการ และกดปุ่ม "ลบ" หมายถึงต้องการลบรายการที่เลือก</label>
+      <br>
+      <div class="ui center aligned grid">
+        <div class="sixteen wide column">
+          <app-button-delete (click)="onDelete()"></app-button-delete>
+        </div>
+      </div>
+    </segment>
+  </div>
+</div>

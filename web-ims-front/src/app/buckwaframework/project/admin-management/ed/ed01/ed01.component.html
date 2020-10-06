@@ -1,0 +1,43 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="ยืนยันเลขบัตรประชาชน" [loading]="false">
+    <div form [formGroup]="ConfirmIdCard">
+      <div class="inline fields  ui grid">
+        <div class="three wide field ">
+          <label class="text-right full-width">ชื่อ-นามสกุล</label>
+        </div>
+        <div class="four wide field ">
+          <input class="custom ng-untouched ng-pristine ng-valid" id="name" name="name" type="text" formControlName = "name" readonly>
+        </div>
+        <div class="three wide field ">
+          <label class="text-right full-width">ตำแหน่ง</label>
+        </div>
+        <div class="four wide field ">
+          <input class="custom ng-untouched ng-pristine ng-valid" id="exciseOffice" name="exciseOffice" type="text" formControlName="position" readonly>
+        </div>
+      </div>
+      <div class="inline fields  ui grid">
+        <div class="three wide field ">
+          <label class="text-right full-width">หน่วยงาน</label>
+        </div>
+        <div class="four wide field ">
+          <input class="custom ng-untouched ng-pristine ng-valid" id="exciseOffice" name="exciseOffice" type="text" formControlName="department" readonly>
+        </div>
+        <div class="three wide field ">
+          <label class="text-right full-width">เลขบัตรประชาชน</label>
+        </div>
+        <div class="four wide field ">
+          <input class="custom ng-untouched ng-pristine ng-valid" id="exciseOffice" name="exciseOffice"  formControlName="idCardNumber" numberOnly maxlength=13>
+        </div>
+      </div>
+    </div>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-save (click)="saveConfirmIdCard()" *ngIf="IdCard == null" ></app-button-save>
+        <app-button-save [disabled]="IdCard != null" *ngIf="IdCard != null" ></app-button-save>
+        <app-button-clear  (click)="clear()"></app-button-clear>
+        <app-button-custom color="gray" text="เพิ่มรายชื่อผู้ใช้"  (click)="routeTo('/management/ed/ed01/01')" ></app-button-custom>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>
+

@@ -1,0 +1,339 @@
+<!-- {{test| sideConvert:'บาท'}} -->
+<with-breadcrumb [breadcrumb]="breadcrumb"></with-breadcrumb>
+<segment header="กำหนดปัจจัยเสี่ยงประจำปีงบประมาณ" [loading]="false" [right]="true">
+  <div headRight>
+    <app-button-custom color="gray" [text]="'รายละเอียดด้าน'" (click)="viewdetail2()">
+    </app-button-custom>
+  </div>
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <form [formGroup]="searchForm">
+        <div class="ui form">
+          <input type="hidden" id="riskFactorsLevelBefore" name="riskFactorsLevelBefore">
+          <div class="inline fields">
+            <div class="one wide field">
+              <label class="text-right full-width">ปีงบประมาณ</label>
+            </div>
+            <div class="two wide centered field" [ngClass]="{ 'error': validateField('budgetYear') }">
+              <div class="ui calendar" id="budgetYear1" style="width:100%">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" autocomplete="off" id="budgetYear" name="budgetYear" placeholder="ปปปป">
+                </div>
+              </div>
+            </div>
+            <!-- <div class="two wide field">
+              <label class="text-right full-width">งานตรวจสอบ</label>
+            </div> -->
+            <!-- <div class="four wide field">
+              <select class="ui dropdown ia search selection" style="width: 100%;" id="inspectionWork"
+                (change)="changeSearch(false)">
+                <option *ngFor="let data of inspectionWorkList" value="{{data.paramInfoId}}">{{data.value1}}</option>
+              </select>
+            </div> -->
+            <div class="two wide field">
+              <label class="text-right full-width">ระดับเกณฑ์ความเสี่ยง</label>
+            </div>
+            <div class="one wide field">
+              <select class="ui dropdown rfl" id="riskFactorsLevel" name="riskFactorsLevel"
+                (change)="saveRiskFactorsLevel()">
+                <option *ngFor="let data of riskFactorsLevelList" value="{{data.value1}}">{{data.value1}}</option>
+              </select>
+            </div>
+            <div class="six wide field"></div>
+            <div class="four wide field text-right">
+              <app-button-custom color="green" icon="add icon" text="เพิ่มปัจจัยเสี่ยง" (click)="addRiskFactors()">
+              </app-button-custom>
+              <app-button-custom color="primary" text="กำหนดเกณฑ์ความเสี่ยงทั้งหมด" (click)="setBudgetYear1()">
+              </app-button-custom>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+  <div>
+    <br>
+    <!-- table -->
+    <div contentLeft>
+      <div class="ui mini buttons">
+        <button *ngFor="let data of inspectionWorkList; let i = index" class="ui button btn{{data.paramInfoId}}"
+          style="border-radius: 0px" [ngClass]="{'positive active': inspectionWorkTab == data.paramInfoId }"
+          (click)="inspectionWorkClick(data.paramInfoId)"><i
+            class="large {{data.iconName}} icon"></i>{{data.value1}}</button>
+      </div>
+    </div>
+    <div class="tabcontent scrollX">
+      <table id="dataTableDynamic" class="ui small celled table striped selectable table{{inspectionWorkTab}}"
+        style="width: 100%;padding-top: 0">
+        <thead>
+          <tr>
+            <th style="text-align: center !important" rowspan="2">ลำดับที่</th>
+            <th style="text-align: center !important" rowspan="2">ปัจจัยเสี่ยง</th>
+            <th style="text-align: center !important" rowspan="2">ด้าน</th>
+            <th style="text-align: center !important" [attr.colspan]="factorsLevel">เกณฑ์ความเสี่ยง</th>
+            <th style="text-align: center !important" rowspan="2">สถานะกำหนดเกณฑ์คัดกรอง</th>
+            <th style="text-align: center !important" rowspan="2">จัดการ</th>
+          </tr>
+          <tr>
+            <th style="text-align: center !important;" *ngFor="let data of trHtml1">{{data}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="listdynamic.length < 1">
+            <td [attr.colspan]="factorsLevel + 9" style="text-align: center !important">
+              ไม่มีข้อมูล
+            </td>
+          </tr>
+          <tr *ngFor="let data of listdynamic;let i =index">
+            <td style="text-align: center !important">{{i+1}}</td>
+            <td style="text-align: left   !important">{{data.iaRiskFactors.riskFactors}}</td>
+            <td style="text-align: left !important">{{data.iaRiskFactors.side}}</td>
+            <td style="text-align: left !important" *ngFor="let data2 of data.datalistdynamic;let j = index">{{data2  }}
+            </td>
+            <td style="text-align: left !important">{{data.statusScreenDesc}}</td>
+            <td style="text-align: center !important">
+              <app-button-custom color="yellow" text="แก้ไขข้อมูล" icon="edit icon" (click)="showModal(data)">
+              </app-button-custom>
+              <!-- <app-button-custom color="primary" text="ระดับความเสี่ยง" (click)="showModal(data)"></app-button-custom>
+              <app-button-custom color="yellow" icon="edit icon" text="แก้ไขข้อมูล" (click)="editDataRiskFactors(data)"
+                routerLinkActive="router-link-active"></app-button-custom> -->
+              <app-button-delete (click)="delete(data)" [disabled]="data.iaRiskFactors.statusScreen==3">
+              </app-button-delete>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+  </div>
+  <div class="ui center aligned grid">
+    <div class="sixteen wide column">
+      <div class="inline field">
+        <!-- <app-button-custom color="primary" text="กำหนดเกณฑ์ความเสี่ยงทั้งหมด" (click)="setBudgetYear1()">
+        </app-button-custom> -->
+      </div>
+    </div>
+  </div>
+</segment>
+<!-- modal2  detail -->
+<ui-modal [id]="'detail2'" [type]="'custom'" [size]="'small'">
+  <div class="ui header">
+    รายละเอียดด้าน
+  </div>
+  <div class="content">
+    <P> <strong>1. ด้านกลยุทธ์(Startegy - S)</strong></P>
+    <P> <strong>2. ด้านการดำเนินงาน(Operation - O)</strong></P>
+    <P> <strong>3. ด้านผลการปฎิบัติงานหรือผลการดำเนินการ(Performance - P)</strong></P>
+    <P> <strong>4. ด้านการเงิน(Financial - F)</strong></P>
+    <P> <strong>5. ด้านการปฏิบัติตามกฎหมายและระเบียบ(Compliance - C)</strong></P>
+    <P> <strong>6. ด้านเทคโนโลยีสารสนเทศ(Information Technology)</strong></P>
+    <P> <strong>7. ด้านการควบคุมภายใน(Internal Control - I)</strong></P>
+  </div>
+  <div class="actions">
+    <!-- <app-button-cancel class="positive"></app-button-cancel> -->
+    <app-button-custom color="" icon="remove icon" text="ปิด" class="positive"></app-button-custom>
+  </div>
+</ui-modal>
+
+<!-- modal -->
+<ui-modal [id]="'detail'" [type]="'custom'" [size]="'fullscreen'">
+  <div class="ui header">
+    กำหนดเกณฑ์ความเสี่ยง {{dataselect?.iaRiskFactors.riskFactors}}
+  </div>
+  <div class="scrolling content">
+    <form ngNativeValidate (submit)="saveCondition($event)">
+      <div class="ui " form [formGroup]="dataForm">
+        <!-- <div inline>
+          <div field [col]="1"></div>
+          <label class="text-left full-width">ข้อมูลที่ใช้ประเมินความเสี่ยง :
+            {{dataselect?.iaRiskFactorsConfig.infoUsedRiskDesc}}</label>
+        </div>
+
+        <div inline>
+          <div field [col]="1"></div>
+          <label class="text-left full-width">ตัวชี้วัดความเสี่ยง :
+            {{dataselect?.iaRiskFactorsConfig.riskIndicators}}</label>
+        </div> -->
+
+        <div inline>
+          <div field [col]="2">
+            <label class="text-right full-width">ชื่อข้อมูล : </label>
+          </div>
+          <div field [col]="8">
+            <input type="text" formControlName="infoUsedRiskDesc">
+          </div>
+          <div field [col]="2">
+            <label class="text-right full-width">ประเภทข้อมูล : </label>
+          </div>
+          <div field [col]="4">
+            <select class="ui dropdown ia search selection" id="dataEvaluate" formControlName="dataEvaluate"
+              (change)="changeQtnEdit($event.target.value)">
+              <!-- [ngClass]="{'error': invalidDataControl('dataEvaluate')}" -->
+              <!-- formControlName="dataEvaluate" -->
+              <!-- (change)="changeQtnEdit($event.target.value)" -->
+              <option *ngFor="let data of webServiceData" value="{{data.paramCode}}">{{data.value1}}</option>
+            </select>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="2">
+            <label class="text-right full-width">ตัวชี้วัดความเสี่ยง : </label>
+          </div>
+          <div field [col]="8">
+            <input type="text" formControlName="riskIndicators">
+          </div>
+          <div field [col]="2">
+            <label class="text-right full-width">หน่วยค่าความเสี่ยง : </label>
+          </div>
+          <div field [col]="2">
+            <select class="ui dropdown ia search selection" id="riskUnit" formControlName="riskUnit">
+              <option *ngFor="let data of riskUnitList" value="{{data.value}}">{{data.data}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div *ngIf="qtnEdit" inline>
+          <div field [col]="2">
+            <label class="full-width text-left">
+              แบบสอบถามปีงบประมาณ
+            </label>
+          </div>
+          <div field [col]="2">
+            <!-- [disabled]="years.length == 0" -->
+            <select name="qtnYear" [(ngModel)]="qtnYear" [disabled]="years.length == 0"
+              [ngModelOptions]="{standalone: true}" (change)="selectYear()" class="ui fluid dropdown ai" id="qtnYear">
+              <option value="">ปปปป</option>
+              <option *ngFor="let year of years; let i = index" [value]="year.year">{{year.year}}</option>
+            </select>
+          </div>
+          <div field [col]="3">
+            <select name="qtnName" [(ngModel)]="qtnName" [ngModelOptions]="{standalone: true}" id="qtnName"
+              [disabled]="years.length == 0" class="ui fluid dropdown ai">
+              <option value="">แบบสอบถาม</option>
+              <option *ngFor="let name of names; let i = index" [value]="name.id">{{name.name}}</option>
+            </select>
+          </div>
+          <div field [col]="4">
+            <label style="color: red" *ngIf="years.length == 0">ไม่พบข้อมูลแบบสอบถามเดิม</label>
+          </div>
+        </div>
+        <div [ngClass]="{'hidden': qtnEdit}" inline>
+          <!-- <div field [col]="1"></div> -->
+          <div field [col]="2"><label class="full-width text-right">กำหนดช่วงเวลา : </label></div>
+          <div field [col]="3">
+            <div class="ui calendar" id="dateCalendarFrom" style="width:100%" [ngClass]="{'disabled': dataEvaluate }">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" autocomplete="off" id="startDate" name="budgetYearstart" placeholder="วัน/เดือน/ปี"
+                  readonly [disabled]="dataEvaluate">
+              </div>
+            </div>
+          </div>
+          <div field [col]="1"><label class="text-center full-width">ถึง</label></div>
+          <div field [col]="3">
+            <div class="ui calendar" id="dateCalendarTo" style="width:100%" [ngClass]="{'disabled': dataEvaluate }">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" autocomplete="off" id="endDate" name="budgetYearend" placeholder="วัน/เดือน/ปี"
+                  readonly [disabled]="dataEvaluate">
+              </div>
+            </div>
+          </div>
+          <div field [col]="7" class="text-right full-width">
+            <div *ngIf="dataEvaluate">
+              <app-button-custom color="yellow" icon="upload icon" text="อัพโหลดข้อมูลใหม่" (click)="newUpload()"
+                routerLinkActive="router-link-active"></app-button-custom>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="inline fields">
+        <table id="dataTable" class="ui small celled table selectable">
+          <thead>
+            <tr>
+              <th style="text-align: center !important">ที่</th>
+              <th style="text-align: center !important">เงื่อนไข</th>
+              <th style="text-align: center !important">
+                {{ qtnEdit ? 'ไม่มี/ไม่ใช่ (%)' : 'ค่าเริ่มต้น ('+dataselect?.iaRiskFactorsConfig.riskUnit+')' }}
+              </th>
+              <th style="text-align: center !important">เงื่อนไข</th>
+              <th style="text-align: center !important">
+                {{ qtnEdit ? 'ไม่มี/ไม่ใช่ (%)' : 'ค่าสิ้นสุด ('+dataselect?.iaRiskFactorsConfig.riskUnit+')' }}</th>
+              <th style="text-align: center !important">อัตราความเสี่ยง</th>
+              <th style="text-align: center !important ;width: 121.4286px;">แปลค่าความเสี่ยง</th>
+              <th style="text-align: center !important ;width: 121.4286px;">สี</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of datas; let i=index">
+              <td class="aligned center">{{i+1}}</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="condition{{i}}" name="condition{{i}}" [attr.required]="true"
+                  [(ngModel)]="datas[i].condition" (change)="changeCondution(i)">
+                  <option *ngFor="let listrange of conditionNon" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="valueone{{i}}" [(ngModel)]="datas[i].valueone" id="valueone{{i}}" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai conditionTo{{i}}" id="conditionTo{{i}}" name="conditionTo{{i}}"
+                  [attr.required]="true" [(ngModel)]="datas[i].conditionTo" (change)="changeCondutionTo(i)">
+                  <option *ngFor="let listrange of conditionRange" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="valuetwo{{i}}" [(ngModel)]="datas[i].valuetwo" id="valuetwo{{i}}"
+                    required="{{ datas[i].condition == '7' }}">
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="valueRl{{i}}" min="0" max="5" [(ngModel)]="datas[i].valueRl"
+                    id="valueRl{{i}}" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="convertValue{{i}}" [(ngModel)]="datas[i].convertValue"
+                  id="convertValue{{i}}" required disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="color{{i}}" [(ngModel)]="datas[i].color" id="color{{i}}"
+                  required>
+                  <option value="แดง">แดง</option>
+                  <option value="ส้ม">ส้ม</option>
+                  <option value="เหลือง">เหลือง</option>
+                  <option value="เขียว">เขียว</option>
+                  <option value="เขียวเข้ม">เขียวเข้ม</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+  <div class="actions ">
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-save (click)="saveCondition($event)"></app-button-save>
+        <app-button-cancel (click)="cancel()" class="positive"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>

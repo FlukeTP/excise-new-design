@@ -1,0 +1,216 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="สรุปผลการตรวจสอบสอบภาษี" [loading]="false">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">ทะเบียนสรรพสามิต</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly value="2555-02487-0">
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">เลขประจำตัวผู้เสียภาษี</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly value="2555-02487-0">
+        </div>
+      </div>
+
+      <!-- <div class="inline fields">
+        <div class="seven wide field"></div>
+        <div class="three wide field">
+          <label class="text-right full-width">เลขที่วิเคราะห์</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly value="ชัยนาท">
+        </div>
+      </div> -->
+
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">ผู้ประกอบการ</label>
+        </div>
+        <div class="six wide field">
+          <input type="text" class="custom-readonly full-width" readonly value="บริษัท สุโขทัย เอ็นเนอร์ยี่ จำกัด">
+        </div>
+      </div>
+    </div>
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">กำหนดวันออกตรวจ</label>
+        </div>
+        <div class="four wide field">
+          <div class="ui calendar" style="width: 100%" id="calendar1">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป"  [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+          <label class="text-center"> - </label>&nbsp;&nbsp;
+          <div class="ui calendar" style="width: 100%" id="calendar2">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป"  [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </segment>
+
+  <segment header="ผลการตรวจสอบภาษี" [loading]="false">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="three wide field"></div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="approve" id="app1" checked="checked" (click)="onRadio(1)">
+            <label for="app1">ไม่พบประเด็นความผิด</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="approve" id="app2" (click)="onRadio(0)">
+            <label for="app2">พบประเด็นความผิด</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui form" *ngIf="radioCheck">
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">เรื่องที่ตรวจสอบ</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="full-width">
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">ภาษีจากการประเมิน</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">ประเด็นความผิด</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly>
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">เบี้ยปรับ</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">ผู้ตรวจสอบ</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly>
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">เงินเพิ่ม</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">หมายเหตุ</label>
+        </div>
+        <div class="four wide field">
+          <textarea rows="3" placeholder="หมายเหตุ"></textarea>
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">รวม</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui form" *ngIf="!radioCheck">
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">เรื่องที่ตรวจสอบ</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="full-width">
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">ภาษีจากการประเมิน</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="full-width">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">ประเด็นความผิด</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="full-width">
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">เบี้ยปรับ</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="full-width">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">ผู้ตรวจสอบ</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly>
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">เงินเพิ่ม</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="full-width">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">หมายเหตุ</label>
+        </div>
+        <div class="four wide field">
+          <textarea rows="3" placeholder="หมายเหตุ"></textarea>
+        </div>
+        <div class="three wide field">
+          <label class="text-right full-width">รวม</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" class="custom-readonly full-width" readonly>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-custom color="primary" text="บันทึกผลการตรวจ"></app-button-custom>
+        <app-button-back routerLink="/tax-audit-new/select07"></app-button-back>
+        <!-- <app-button-cancel routerLink="/tax-audit-new/select07"></app-button-cancel> -->
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

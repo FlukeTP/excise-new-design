@@ -1,0 +1,37 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="กำหนดวันที่ออกตรวจ" [loading]="false">
+    <div class="ui form">
+    </div>
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="three wide field"></div>
+        <div class="three wide field">
+          <label class="text-right full-width">กำหนดวันออกตรวจ</label>
+        </div>
+        <div class="five wide field">
+          <div class="ui calendar full-width" id="date1">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="inputDate1">
+            </div>
+          </div>
+          <label class="text-center"> - </label>&nbsp;&nbsp;
+          <div class="ui calendar full-width" id="date2">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="inputDate1">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-save routerLink="/tax-audit-new/select07"></app-button-save>
+        <app-button-back routerLink="/tax-audit-new/select07"></app-button-back>
+      </div>
+    </div>
+  </segment>
+
+
+</with-breadcrumb>

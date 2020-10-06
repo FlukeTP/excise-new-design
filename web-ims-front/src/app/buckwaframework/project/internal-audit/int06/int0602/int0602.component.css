@@ -1,0 +1,23 @@
+.ui.button {
+    width: 70%;
+    border-radius: 0px;
+}
+
+th.sticky{
+	position: -webkit-sticky;
+	position: sticky;
+    top: 0;
+    z-index: 1;
+} 
+
+.table-cont{
+    /**make table can scroll**/
+    max-height: 400px;
+    overflow: auto;
+    /** add some style**/
+    /*padding: 2px;*/
+    background: #ddd;
+    /* margin: 20px 10px; */
+    /* box-shadow: 0 0 1px 3px #ddd; */
+    z-index: 4 !important;
+  }

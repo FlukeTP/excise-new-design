@@ -1,0 +1,115 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <h2 class="ui header">Home ผู้บริหาร</h2>
+  </div>
+</div>
+<div class="ui grid">
+  <div class="centered row">
+    <div class="six wide column">
+      <div class="ui attached top segment">
+        <h3>ปีงบประมาณ</h3>
+      </div>
+      <div class="ui attached bottom segment">
+        <select id="selectYear" class="ui dropdown" [(ngModel)]="yearSelect" style="width: 80%;">
+          <option value="2560">2560</option>
+          <option value="2561">2561</option>
+          <option value="2562">2562</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ui centered grid">
+  <div class="sizteen wide column">
+    <div class="ui attached top segment">
+      <h3>รายงานการตรวจสอบภาษีประจำปีงบประมาณ สรรพสามิตภาคที่ 1</h3>
+    </div>
+    <div class="ui attached bottom segment">
+      <table id="tableData" class="ui small celled table nowrap striped selectable" style="width: 100%">
+        <thead>
+          <tr>
+            <th style="text-align: center !important;">ลำดับที่</th>
+            <th style="text-align: center !important;">เลขทะเบียนสรรพสามิต</th>
+            <th style="text-align: center !important;">ชื่อสำนักงานสรรพสามิต</th>
+            <th style="text-align: center !important;">สถานะดำเนินการ</th>
+            <th style="text-align: center !important;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr role="row" class="odd">
+            <td class=" center">1</td>
+            <td>0105551023701-3-001</td>
+            <td>บริษัท เอนเนอจี อินโนเวชั่น เทคโนโลยี จำกัด</td>
+            <td>
+              <div class="ui red progress">
+                <div class="bar"></div>
+              </div>
+            </td>
+            <td class=" center"><button class="circular ui basic button" type="button">More Detail</button></td>
+          </tr>
+          <tr role="row" class="even">
+            <td class=" center">2</td>
+            <td>0745555005893-1-001</td>
+            <td>บริษัท ศุจินธร (2012) จำกัด</td>
+            <td>
+              <div class="ui red progress">
+                <div class="bar"></div>
+              </div>
+            </td>
+            <td class=" center"><button class="circular ui basic button" type="button">More Detail</button></td>
+          </tr>
+          <tr role="row" class="odd">
+            <td class=" center">3</td>
+            <td>0103537011147-1-002</td>
+            <td>ห้างหุ้นส่วนจำกัด ซี.เอ็ม.อินเตอร์ แพ็ค</td>
+            <td>
+              <div class="ui red progress">
+                <div class="bar"></div>
+              </div>
+            </td>
+            <td class=" center"><button class="circular ui basic button" type="button">More Detail</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="ui centered grid">
+  <div class="sixteen wide column">
+    <div class="ui attached top segment">
+      <h3>รายงานการตรวจสอบภาษีประจำปีงบประมาณ สรรพสามิตพื้นที่</h3>
+    </div>
+    <div class="ui attached bottom segment">
+      <div class="ui centered grid">
+        <div class="four wide column" *ngFor="let tables of dataTables; let i = index">
+          <div class="ui attached top segment">
+            <h5>{{tables.title}}</h5>
+          </div>
+          <div class="ui attached bottom segment">
+            <table class="ui small celled table nowrap striped selectable" style="width: 100%">
+              <thead>
+                <tr style="background-color: rgb(25, 118, 210);">
+                  <th>ชื่อสำนักงานสรรพสามิต <i class="sort icon"></i></th>
+                  <th>สถานะดำเนินการ <i class="sort icon"></i></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let table of tables.data; let j = index">
+                  <td>{{table.name}}</td>
+                  <td>
+                    <div [class]="progressClass(table.progress)" [attr.data-value]="table.progress" [attr.data-total]="100">
+                      <div class="bar">
+                        <div class="progress"></div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

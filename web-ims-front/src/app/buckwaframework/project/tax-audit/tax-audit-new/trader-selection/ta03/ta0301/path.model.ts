@@ -1,0 +1,30 @@
+export class PathTs {
+    ts0101: string = 'ta-form-ts0101';
+    ts0102: string = 'ta-form-ts0102';
+    ts0103: string = 'ta-form-ts0103';
+    ts0104: string = 'ta-form-ts0104';
+    ts0105: string = 'ta-form-ts0105';
+    ts0106: string = 'ta-form-ts0106';
+    ts0107: string = 'ta-form-ts0107';
+    ts0108: string = 'ta-form-ts0108';
+    ts0109: string = 'ta-form-ts0109';
+    ts0110: string = 'ta-form-ts0110';
+    ts0111: string = 'ta-form-ts0111';
+    ts0112: string = 'ta-form-ts0112';
+    ts0113: string = 'ta-form-ts0113';
+    ts0114: string = 'ta-form-ts0114';
+    ts01141: string = 'ta-form-ts01141';
+    ts01142: string = 'ta-form-ts01142';
+    ts0115: string = 'ta-form-ts0115';
+    ts0116: string = 'ta-form-ts0116';
+    ts0117: string = 'ta-form-ts0117';
+    ts01171: string = 'ta-form-ts01171';
+    ts0118: string = 'ta-form-ts0118';
+    ts0119: string = 'ta-form-ts0119';
+    ts0120: string = 'ta-form-ts0120';
+    ts0121: string = 'ta-form-ts0121';
+    ts0302: string = 'ta-form-ts0302';
+    ts0303: string = 'ta-form-ts0303';
+    ts0423: string = 'ta-form-ts0423';
+    ts0424: string = 'ta-form-ts0424';
+}

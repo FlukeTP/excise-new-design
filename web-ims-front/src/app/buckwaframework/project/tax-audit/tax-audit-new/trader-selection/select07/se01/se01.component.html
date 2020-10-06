@@ -1,0 +1,185 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="วิเคราะห์ข้อมูลเบื้องต้น" [loading]="loading">
+
+    <div class="ui form" [formGroup]="formGroup">
+     
+    <div class="ui grid" style="    margin-bottom: -41px;">
+        <div class="one wide column"></div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">เลขทะเบียนสรรพสามิต เดิม/ใหม่</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="newRegId" readonly>
+            </div>
+  
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">ชื่อโรงอุตสาหกรรม/สถานบริการ</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="facFullname" readonly>
+            </div>
+          </div>
+        </div>
+  
+  
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">ชื่อผู้ประกอบการ</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="cusFullname" readonly > 
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">พิกัดสินค้า/บริการ</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="dutyDesc" readonly>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="four wide column"></div> -->
+      </div>
+  
+      <div class="ui grid">
+        <div class="one wide column"></div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="secDesc" readonly >
+            </div>
+  
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="areaDesc" readonly>
+            </div>
+          </div>
+        </div>
+  
+        <!-- <div class="one wide column"></div> -->
+  
+  
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">ที่อยู่โรงอุตสาหกรรม/<br>สถานบริการ</label>
+            </div>
+            <div class="ten wide field">
+              <textarea class="custom-readonly full-width" cols="30" rows="3" formControlName="facAddress"  readonly></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br><br>
+
+
+
+      <div class="ui form" [formGroup]="formGroup">
+          <div class="inline fields">
+              <div class="five wide field">
+                <label class="text-right full-width" >รอบระยะเวลาการตรวจสอบ</label>
+              </div>
+              <div class="three  wide field" [ngClass]="{'error': invalidSearchFormControl('startDate')}">
+                  <div class="ui calendar full-width" id="date1">
+                      <div class="ui input left icon">
+                        <i class="calendar alter nate outline icon"></i>
+                        <input type="text" placeholder="ดด/ปปปป" formControlName="startDate" autocomplete="off" id="inputDate1">
+                      </div>
+                    </div>
+              </div>
+              <div class="one wide field">
+                <label class="text-center full-width">ถึง</label>
+              </div>
+              <div class="three  wide field" [ngClass]="{'error': invalidSearchFormControl('endDate')}">
+                  <div class="ui calendar full-width" id="date2">
+                      <div class="ui input left icon">
+                        <i class="calendar alter nate outline icon"></i>
+                        <input type="text" placeholder="ดด/ปปปป" formControlName="endDate" autocomplete="off" id="inputDate2">
+                      </div>
+                    </div>
+              </div>
+              <div class="three wide field">
+                  <app-button-check (click)="onSearch()"></app-button-check>
+                  <app-button-back (click)="onBackPages()"></app-button-back>
+              </div>
+            </div>
+      </div>    
+
+    </div>
+    <br>
+    <!-- contents -->
+    <!--  -->
+    <div *ngIf="hideResult">
+      <div class="grid ui">
+        <div class="row">
+          <div class="three wide column">
+            <div class="ui vertical menu">
+              <a class=" item active" style="background-color:rgb(139, 139, 139)">
+                เรื่องที่วิเคราะห์
+              </a>
+              <a class="blue item " href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se01/s01')" routerLinkActive="active">
+                การวิเคราะห์ปริมาณสินค้าที่เสียภาษี
+              </a>
+              <a class="blue item" href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se01/s02')" routerLinkActive="active">
+                การวิเคราะห์ราคาขายปลีกแนะนำตามแบบแจ้งฯ
+              </a>
+              <a class="blue item" href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se01/s03')" routerLinkActive="active">
+                การวิเคราะห์มูลค่าที่เสียภาษี
+              </a>
+              <a class="blue item" href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se01/s04')" routerLinkActive="active">
+                การวิเคราะห์อัตราภาษี
+              </a>
+              <a class="blue item" href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se01/s05')" routerLinkActive="active">
+                การวิเคราะห์การยื่นชำระภาษีสรรพสามิต
+              </a>
+              <a class="blue item" href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se01/s06')" routerLinkActive="active">
+                การวิเคราะห์การยื่นชำระภาษีภายในเวลาที่กำหนด
+              </a>
+              <a class="blue item" href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se01/s07')" routerLinkActive="active">
+                การวิเคราะห์รายได้ เปรียบเทียบเดือนก่อนหน้า
+              </a>
+              <a class="blue item" href="javascript:void(0)" (click)="goTo('/tax-audit-new/select07/se01/s08')" routerLinkActive="active">
+                การวิเคราะห์รายได้ เปรียบเทียบเดือนเดียวกันกับปีก่อนหน้า
+              </a>
+            </div>
+          </div>
+          <div class="thirteen wide column">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="ui form">
+          <div class="inline fields">
+              <div class="five wide field">
+                  <label class="text-left full-width">บันทึกการวิเคราะห์ข้อมูลเบื้องต้น</label>
+              </div>
+              <div class="eleven wide field">
+                  <div class="text-right full-width">
+                      <app-button-save></app-button-save>
+                  </div>
+              </div>
+          </div>
+          <div class="inline fields">
+              <div class="sixteen wide field">
+                  <textarea></textarea>
+              </div>
+          </div>
+      </div>    
+    </div>
+
+  </segment>
+</with-breadcrumb>

@@ -1,0 +1,58 @@
+<app-breadcrumb style="width: 100%;" [route]="breadcrumb"></app-breadcrumb>
+
+<segment header="การประเมินความเสี่ยง" [loading]="false">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <form [formGroup]="searchForm">
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="two wide field">
+              <label class="text-right full-width">ปีงบประมาณ</label>
+            </div>
+            <div class="two wide field" [ngClass]="{ 'error': validateField('budgetYear') }">
+              <div class="ui calendar" id="budgetYearCalendar" style="width:100%">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" autocomplete="off" id="budgetYear" name="budgetYear" placeholder="ปปปป">
+                </div>
+              </div>
+            </div>
+            <!-- <div class="two wide field">
+              <label class="text-right full-width">งานตรวจสอบ</label>
+            </div>
+            <div class="five wide field">
+              <select class="ui dropdown ia search selection" style="width: 100%;" id="inspectionWork"
+                (change)="changeSearch(false)">
+                <option *ngFor="let data of inspectionWorkList" value="{{data.paramInfoId}}">{{data.value1}}</option>
+              </select>
+            </div> -->
+            <div class="three wide field">
+              <!-- <app-button-search (click)="search()"></app-button-search> -->
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="ui form">
+    <div contentLeft>
+      <div class="ui mini buttons">
+        <button *ngFor="let data of inspectionWorkList; let i = index" class="ui button btn{{data.paramInfoId}}" style="border-radius: 0px"
+          [ngClass]="{'positive active': inspectionWorkTab == data.paramInfoId}" (click)="inspectionWorkClick(data.paramInfoId)"><i
+            class="large {{data.iconName}} icon"></i>{{data.value1}}</button>
+      </div>
+    </div>
+    <div class="tabcontent">
+      <table id="dataTable" class="ui small celled table striped selectable" style="width: 100%;">
+        <thead>
+          <tr class="text-center">
+            <th style="width: 100px;">ลำดับที่</th>
+            <th>ปัจจัยเสี่ยง</th>
+            <th style="width: 300px;">จัดการ</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</segment>

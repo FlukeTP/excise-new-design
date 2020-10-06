@@ -1,0 +1,31 @@
+.text-right-button{
+    justify-content : flex-end;
+}
+
+.table3 thead tr th {
+    background-color: #afe6e8;
+}
+
+.table4 thead tr th {
+    background-color: #ffb9ed;
+}
+
+.table5 thead tr th {
+    background-color: #f5f3a9;
+}
+
+.ui.active.button {
+    color: black;
+}
+
+.ui.active.button.btn3 {
+    background-color: #a0d1d3;
+}
+
+.ui.active.button.btn4 {
+    background-color: #e6a8d6;
+}
+
+.ui.active.button.btn5 {
+    background-color: #dedc97;
+}

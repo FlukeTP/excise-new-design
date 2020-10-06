@@ -1,0 +1,41 @@
+<div id="background"></div>
+<div id="login">
+    <div class="ui sixteen wide middle aligned center aligned grid" id="login-content">
+        <div class="fourteen wide column" style="margin-top: 4em">
+            <img src="assets/images/Logo3.jpg" class="image">
+            <h2 id="login-title">ระบบบริหารจัดการ การตรวจปฏิบัติการแบบบูรณาการ</h2>
+        </div>
+        <div class="three wide computer seven wide tablet fourteen wide mobile column">
+            <form (submit)="onLogin()" class="ui form" ngNativeValidate>
+                <div id="login-bg">
+
+                    <div class="inline field">
+                        <div class="ui left icon input">
+                            <i class="user icon" style="font-size: 14px !important;"></i>
+                            <input type="text" id="username" name="username" [(ngModel)]="username"
+                                placeholder="ชื่อผู้ใช้" required>
+                        </div>
+                    </div>
+
+                    <div class="inline field">
+                        <div class="ui left icon input">
+                            <i class="lock icon" style="font-size: 14px !important;"></i>
+                            <input type="password" id="password" name="password" [(ngModel)]="password"
+                                placeholder="รหัสผ่าน" (keyup)="onKey($event)" required>
+                        </div>
+                    </div>
+
+                    <div class="inline field">
+                        <button [disabled]="loading" class="ui fluid {{loading && 'loading'}} primary submit button"
+                            type="submit">เข้าสู่ระบบ</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="login-footer" >@สงวนลิขสิทธิ์ 2560 กรมสรรพสามิต | เลขที่ 1488 ถนน นครไชยศรี เขตดุสิต กรุงเทพมหานคร 10300
+    <diV *ngIf="varsion" style="font-size: 17px">เวอร์ชัน {{varsion.value1}}</diV>
+</div>
+   

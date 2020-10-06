@@ -1,0 +1,153 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <segment header="{{b.b08.label}} (TA010101)" [loading]="loading">
+        <form class="ui form" [formGroup]="condForm">
+          <div class="inline fields">
+            <div class="four wide field"></div>
+            <div class="three wide field">
+              <label class="text-right full-width">ปีงบประมาณ</label>
+            </div>
+            <div class="two wide field">
+              <div class="ui calendar" style="width: 100%" id="calendarYear">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="calendar" placeholder="ปปปป" id="calendarYear" name="calendar"
+                    formControlName="budgetYear">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ข้อ 1  -->
+          <div class="inline fields">
+            <div class="four wide field"></div>
+            <div class="three wide field">
+              <label>1. เงื่อนไขในการคัดเลือก</label>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="five wide field"></div>
+            <div class="five wide field">
+              <label style="padding-right: 8px;">เงื่อนไขที่ 1 ผู้ประกอบการที่ไม่มีการตรวจสอบภาษี ในระยะเวลา</label>
+            </div>
+            <div class="one wide field ui" [ngClass]="{'error': isValidator('noTaxAuditYearNum')}">
+              <input class="full-width text-right" type="number" formControlName="noTaxAuditYearNum">
+            </div>
+            <div class="one wide field">
+              <label>ปี</label>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="five wide field"></div>
+            <div class="five wide field">
+              <label>เงื่อนไขที่ 2 เปรียบเทียบการชำระภาษีปีนี้กับปีก่อน จำนวน</label>
+            </div>
+            <div class="one wide field" [ngClass]="{'error': isValidator('compMonthNum')}">
+              <input class="text-right" type="number" formControlName="compMonthNum">
+            </div>
+            <label style="padding-right: 8px;">เดือน</label>
+          </div>
+          <div class="inline fields">
+            <div class="five wide field"></div>
+            <div class="two wide field">
+              <label class="full-width text-right">อัตราผลต่างของการชำระภาษี</label>
+            </div>
+            <div class="two wide field" [ngClass]="{'error': isValidator('rangeTypeStart') || rangeTypeUndef}">
+              <select class="ui fluid search dropdown full-width selectRangeType" formControlName="rangeTypeStart">
+                <option value="undefined">กรุณาเลือก</option>
+                <option [value]="item.value" *ngFor="let item of numMonthLevel">{{item.text}}</option>
+              </select>
+            </div>
+            <div class="one wide field">
+              <label class="full-width text-right">ร้อยละ</label>
+            </div>
+            <div class="one wide field" [ngClass]="{'error': isValidator('rangeStart')}">
+              <input class="text-right" type="number" formControlName="rangeStart">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="five wide field"></div>
+            <div class="ten wide field">
+              <label class="full-width">เงื่อนไขที่ 3 ผู้ประกอบการชำระภาษีไม่ครบในช่วงทำการวิเคราะห์</label>
+            </div>
+          </div>
+          <!-- ข้อ 2  -->
+          <div class="inline fields">
+            <div class="four wide field"></div>
+            <div class="two wide field">
+              <label>2. จดทะเบียนใหม่ช่วงวันที่</label>
+            </div>
+            <div class="two wide field">
+              <div class="ui calendar" style="width: 100%" id="regDateStart">
+                <div class="ui input left icon" [ngClass]="{'error': isValidator('regDateStart')}">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendarStart" name="calendar"
+                    [attr.required]="true" autocomplete="off" formControlName="regDateStart">
+                </div>
+              </div>
+            </div>
+            <label>ถึง</label>
+            <div class="two wide field">
+              <div class="ui calendar" style="width: 100%" id="regDateEnd">
+                <div class="ui input left icon" [ngClass]="{'error': isValidator('regDateEnd')}">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendarEnd" name="calendar"
+                    [attr.required]="true" autocomplete="off" formControlName="regDateEnd">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <app-button-save (click)="save()"></app-button-save>
+            <app-button-clear (click)="clear()"></app-button-clear>
+          </div>
+          <br>
+          <hr>
+          <br>
+          <div class="inline fields">
+            <div class="four wide field"></div>
+            <div class="two wide field">
+              <label class="full-width text-right">ช่วงการชำระภาษีปีนี้</label>
+            </div>
+            <div class="two wide field">
+              <div class="ui calendar" style="width: 100%" id="calendarAnalysisStart">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="calendar" placeholder="ดด/ปปปป" id="calendarAnalysisStart" name="calendar"
+                    [attr.required]="true" autocomplete="off" formControlName="calendarAnalysisStart">
+                </div>
+              </div>
+            </div>
+            <label>ถึง</label>
+            <div class="two wide field">
+              <div class="ui calendar" style="width: 100%" id="calendarAnalysisEnd">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="calendar" placeholder="ดด/ปปปป" id="calendarAnalysisEnd" name="calendar"
+                    [attr.required]="true" autocomplete="off" formControlName="calendarAnalysisEnd">
+                </div>
+              </div>
+            </div>
+            <app-button-custom (click)="goTo()" text="เชื่อมโยงข้อมูล" *ngIf="hasCondForm">
+            </app-button-custom>
+          </div>
+          <div class="inline fields">
+            <div class="three wide field"></div>
+            <div class="three wide field">
+              <label class="full-width text-right">เปรียบเทียบกับ
+                ช่วงการชำระภาษีปีก่อน</label>
+            </div>
+            <div class="two wide field">
+              <input type="text" class="custom-readonly" readonly formControlName="compareYearStart">
+            </div>
+            <label>ถึง</label>
+            <div class="two wide field">
+              <input type="text" class="custom-readonly" readonly formControlName="compareYearEnd">
+            </div>
+          </div>
+          <br>
+        </form>
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>

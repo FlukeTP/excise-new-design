@@ -1,0 +1,23 @@
+.column-show {
+     text-align: center;
+     line-height: 72px;
+     height: 100px;
+     background: grey;
+     color: white;
+}
+
+.column-show-a {
+     text-align: center;
+     line-height: 72px;
+     height: 100px;
+     background: gold;
+     color: white;
+}
+
+.column-show-b {
+     text-align: center;
+     line-height: 72px;
+     height: 100px;
+     background: silver;
+     color: white;
+}

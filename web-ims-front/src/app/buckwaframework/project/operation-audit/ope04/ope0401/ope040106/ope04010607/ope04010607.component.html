@@ -1,0 +1,131 @@
+<segment header="ข้อมูลการบรรจุ" [right]="true" [loading]="loading">
+  <div headRight>
+    <p>ภส.๐๗-๐๒/๑</p>
+  </div>
+  <div class="ui form" [formGroup]="forms">
+    <!-- line 1 -->
+    <!-- line 2 -->
+    <div class="inline field">
+      <table class="ui small celled compact table striped selectable">
+        <thead>
+          <tr class="text-center">
+            <th rowspan="3">#</th>
+            <th rowspan="3">วัน เดือน ปี</th>
+            <th colspan="6">การบรรจุภาชนะ</th>
+            <th rowspan="3">หมายเหตุ</th>
+            <th rowspan="3"></th>
+          </tr>
+          <tr class="text-center">
+            <!-- การบรรจุภาชนะ -->
+            <th rowspan="2">ชื่อสุรา</th>
+            <th rowspan="2">ขนาดบรรจุ (ลิตร)</th>
+            <th rowspan="2">๒๘ ดีกรี (ขวด)</th>
+            <th rowspan="2">๓๐ ดีกรี (ขวด)</th>
+            <th rowspan="2">๓๕ ดีกรี (ขวด)</th>
+            <th rowspan="2">๔๐ ดีกรี (ขวด)</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="datas">
+          <ng-container *ngIf="forms.controls.datas">
+            <tr [formGroupName]="i" *ngFor="let data of forms.controls.datas.controls; let i = index">
+              <td style="text-align: center">
+                {{i+1}}
+              </td>
+              <td>
+                <div class="ui calendar full-width" id="calendar{{i}}">
+                  <div class="ui input left icon">
+                    <i class="calendar alternate outline icon"></i>
+                    <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="calendarDate{{i}}">
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" name="name" formControlName="name">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" class="text-right" name="achSize" formControlName="achSize" numberOnly [format]="nfDirective('achSize', i)">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" class="text-right" name="degree28" formControlName="degree28" numberOnly [format]="nfDirective('degree28', i)">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" class="text-right" name="degree30" formControlName="degree30" numberOnly [format]="nfDirective('degree30', i)">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" class="text-right" name="degree35" formControlName="degree35" numberOnly [format]="nfDirective('degree35', i)">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" class="text-right" name="degree40" formControlName="degree40" numberOnly [format]="nfDirective('degree40', i)">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" name="remark" formControlName="remark">
+                </div>
+              </td>
+              <td style="text-align: center">
+                <app-button-delete (click)="onDelField(i, data.get('oaAlcoholPackingId').value)"></app-button-delete>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;text-align: center">
+              <app-button-add (click)="onAddField()"></app-button-add>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <!-- line 3 -->
+    <div class="inline field">
+      <div class="ui accordion">
+        <div class="title">
+          <i class="dropdown icon"></i>
+          คำอธิบายบัญชีประจำวัน
+        </div>
+        <div class="content">
+          <table class="ui small celled compact table striped selectable">
+            <thead>
+              <tr>
+                <th>ชื่อช่องรายการ</th>
+                <th>คำอธิบาย</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let description of descriptions;let i = index">
+                <td class="text-left">({{ i+1 }}) {{ description.name }}</td>
+                <td class="text-left">{{ description.content }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- line 4 -->
+    <div class="inline text-center field">
+      <app-button-save (click)="submit()"></app-button-save>
+    </div>
+  </div>
+</segment>

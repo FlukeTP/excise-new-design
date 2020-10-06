@@ -1,0 +1,121 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<segment header="ตรวจสอบการเลือกรายผู้ประกอบการ (ภาค)" [loading]="false">
+  <!-- table -->
+  <div class="ui grid">
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+      <table class="ui small celled table aligned hover striped selectable nowrap">
+        <thead class="text-center">
+          <tr>
+            <th>ลำดับ</th>
+            <th>พื้นที่</th>
+            <th>วันที่ส่ง</th>
+            <th>วันที่ตอบกลับ</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center">1</td>
+            <td class="text-center">ชัยนาท</td>
+            <td class="text-center">21/01/2562</td>
+            <td class="text-center">-</td>
+            <td class="text-center">
+              <app-button-detail routerLink="/tax-audit-new/select14/se01"></app-button-detail>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">2</td>
+            <td class="text-center">อยุธยา 2</td>
+            <td class="text-center">21/01/2562</td>
+            <td class="text-center">-</td>
+            <td class="text-center">
+              <app-button-detail></app-button-detail>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">3</td>
+            <td class="text-center">ลพบุรี</td>
+            <td class="text-center">21/01/2562</td>
+            <td class="text-center">-</td>
+            <td class="text-center">
+              <app-button-detail></app-button-detail>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">4</td>
+            <td class="text-center">นนทบุรี</td>
+            <td class="text-center">21/01/2562</td>
+            <td class="text-center">-</td>
+            <td class="text-center">
+              <app-button-detail></app-button-detail>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">5</td>
+            <td class="text-center">สระบุรี</td>
+            <td class="text-center">21/01/2562</td>
+            <td class="text-center">-</td>
+            <td class="text-center">
+              <app-button-detail></app-button-detail>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">6</td>
+            <td class="text-center">ปทุมธานี 1</td>
+            <td class="text-center">21/01/2562</td>
+            <td class="text-center">-</td>
+            <td class="text-center">
+              <app-button-detail></app-button-detail>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">7</td>
+            <td class="text-center">สิงห์บุรี</td>
+            <td class="text-center">21/01/2562</td>
+            <td class="text-center">-</td>
+            <td class="text-center">
+              <app-button-detail></app-button-detail>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">8</td>
+            <td class="text-center">ปทุมธานี 2</td>
+            <td class="text-center">21/01/2562</td>
+            <td class="text-center">-</td>
+            <td class="text-center">
+              <app-button-detail></app-button-detail>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">9</td>
+            <td class="text-center">อ่างทอง</td>
+            <td class="text-center">21/01/2562</td>
+            <td class="text-center">-</td>
+            <td class="text-center">
+              <app-button-detail></app-button-detail>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center">10</td>
+            <td class="text-center">อยุธยา 1</td>
+            <td class="text-center">21/01/2562</td>
+            <td class="text-center">-</td>
+            <td class="text-center">
+              <app-button-detail></app-button-detail>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="three wide column"></div>
+  </div>
+  <br>
+  <div class="ui one column centered grid">
+    <div class="column aligned center">
+      <app-button-custom routerLink="/tax-audit-new/select05" color="green">ขออนุมัติแผนการตรวจสอบภาษี</app-button-custom>
+      <app-button-back routerLink="/tax-audit-new/ta0106"></app-button-back>
+    </div>
+  </div>
+</segment>

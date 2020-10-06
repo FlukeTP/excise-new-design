@@ -1,0 +1,28 @@
+th {
+    text-align: center !important;
+}
+td p.obj {
+    text-decoration-line: underline;
+}
+td p {
+    text-decoration: none;
+}
+td {
+    vertical-align: text-top;
+}
+.scrolled {
+    overflow-x: scroll;
+}
+table {
+    width: 200% !important;
+}
+.head {
+    background: rgb(249,250,251);
+}
+.sub {
+    padding-left: 2.5em !important;
+}
+.last-button {
+    text-align: center !important;
+    padding-top: 1em;
+}

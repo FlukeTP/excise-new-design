@@ -1,0 +1,109 @@
+<segment header="ข้อมูลการหมัก" [right]="true" [loading]="loading">
+  <div headRight>
+    <p>ภส.๐๗-๐๒/๑</p>
+  </div>
+  <div class="ui form" [formGroup]="forms">
+    <!-- line 1 -->
+    <div class="inline field">
+      <table class="ui small celled compact table striped selectable">
+        <thead>
+          <tr class="text-center">
+            <th rowspan="3">#</th>
+            <th rowspan="3">วัน เดือน ปี</th>
+            <th colspan="3">การหมักส่า</th>
+            <th rowspan="3">หมายเหตุ</th>
+            <th rowspan="3" style="width: 100px"></th>
+          </tr>
+          <tr class="text-center">
+            <!-- การหมักส่า -->
+            <th rowspan="2">จำนวนภาชนะ (โอ่ง/ถัง)</th>
+            <th rowspan="2">ปริมาณต่อภาชนะ (ลิตร)</th>
+            <th rowspan="2">ปริมาณสุทธิ (ลิตร)</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="datas">
+          <ng-container *ngIf="forms.controls.datas">
+            <tr [formGroupName]="i" *ngFor="let data of forms.controls.datas.controls; let i = index">
+              <td style="text-align: center">
+                {{i+1}}
+              </td>
+              <td>
+                <div class="ui calendar full-width" id="calendar{{i}}">
+                  <div class="ui input left icon">
+                    <i class="calendar alternate outline icon"></i>
+                    <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="calendarDate{{i}}">
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" class="text-right" name="tankNumber" formControlName="tankNumber" numberOnly [format]="nfDirective('tankNumber', i)">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" class="text-right" name="quantityTank" formControlName="quantityTank" numberOnly [format]="nfDirective('quantityTank', i)">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" class="text-right" name="netQuantity" formControlName="netQuantity" numberOnly [format]="nfDirective('netQuantity', i)">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" name="remark" formControlName="remark">
+                </div>
+              </td>
+              <td style="text-align: center">
+                <app-button-delete (click)="onDelField(i, data.get('oaAlcoholDistilId').value)"></app-button-delete>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;"></td>
+            <td style="border-top : 1px solid #CACBCD;text-align: center">
+              <app-button-add (click)="onAddField()"></app-button-add>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <!-- line 3 -->
+    <div class="inline field">
+      <div class="ui accordion">
+        <div class="title">
+          <i class="dropdown icon"></i>
+          คำอธิบายบัญชีประจำวัน
+        </div>
+        <div class="content">
+          <table class="ui small celled compact table striped selectable">
+            <thead>
+              <tr>
+                <th>ชื่อช่องรายการ</th>
+                <th>คำอธิบาย</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let description of descriptions;let i = index">
+                <td class="text-left">({{ i+1 }}) {{ description.name }}</td>
+                <td class="text-left">{{ description.content }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- line 4 -->
+    <div class="inline text-center field">
+      <app-button-save (click)="submit()"></app-button-save>
+    </div>
+  </div>
+</segment>

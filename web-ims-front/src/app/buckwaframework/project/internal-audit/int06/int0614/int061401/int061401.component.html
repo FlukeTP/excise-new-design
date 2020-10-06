@@ -1,0 +1,121 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="กระดาษทำการตรวจสอบเงินประกันภาษี" [loading]="loading">
+    <div class="ui form">
+      <form [formGroup]="formGroup">
+        <div inline>
+          <div field [col]="2">
+            <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+          </div>
+          <div field [col]="4">
+            <input type="text" class="custom-readonly" id="sector" formControlName="sector" readonly>
+          </div>
+          <div field [col]="2">
+            <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+          </div>
+          <div field [col]="3">
+            <input type="text" class="custom-readonly" id="area" formControlName="area" readonly>
+          </div>
+          <div field [col]="2">
+            <label class="text-right full-width">สำนักงานสรรพสามิตสาขา</label>
+          </div>
+          <div field [col]="3">
+            <input type="text" class="custom-readonly" id="branch" formControlName="branch" readonly>
+          </div>
+        </div>
+
+        <div inline>
+          <div field [col]="2">
+            <label class="text-right full-width">ช่วงวันที่จดทะเบียน</label>
+          </div>
+          <div field [col]="4">
+            <input type="text" class="custom-readonly" id="regDateStart" formControlName="regDateStart" readonly>
+            ถึง&nbsp;&nbsp;
+            <input type="text" class="custom-readonly" id="regDateEnd" formControlName="regDateEnd" readonly>
+          </div>
+          <div field [col]="2">
+            <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+          </div>
+          <div field [col]="3">
+            <select class="ui dropdown full-width" (change)="dropdownChange($event)" formControlName="auditTxinsurNo"
+              id="auditIncNo">
+              <option value="">เลขที่กระดาษทำการ</option>
+              <!-- <option value="ALL">ทั้งหมด</option> -->
+              <option *ngFor="let item of auditTxinsurNoList" value="{{item.auditTxinsurNo}}">{{item.auditTxinsurNo}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <br>
+        <div class="ui center aligned grid">
+          <div class="eight wide column">
+            <app-button-custom color="green" icon="plus icon" text="เพิ่มข้อมูล"
+              (click)="routeTo('/int06/14/02', formGroup.get('auditTxinsurNo').value)"
+              *ngIf="formGroup.get('auditTxinsurNo').value"></app-button-custom>
+            <app-button-custom color="green" icon="plus icon" text="เพิ่มข้อมูล"
+              *ngIf="!formGroup.get('auditTxinsurNo').value" disabled="true"></app-button-custom>
+            <app-button-custom color="green" icon="plus icon" text="สร้างกระดาษทำการใหม่"
+              [routerLink]="['/int06/14/02']">
+            </app-button-custom>
+          </div>
+        </div>
+
+        <!-- table -->
+        <table id="dataTable" class="ui small celled nowrap table striped selectable" style="width: 100%;">
+          <thead>
+            <tr class="text-center">
+              <th>ลำดับ</th>
+              <th>ทะเบียนสรรพสามิต</th>
+              <th>ทะเบียนสรรพสามิต (เก่า)</th>
+              <th>ชื่อผู้ประกอบการ</th>
+              <th>ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+              <th>ประเภทสินค้า</th>
+              <th>วันที่จดทะเบียน</th>
+              <th>ที่อยู่ผู้ประกอบการ</th>
+              <th>ที่อยู่สถานประกอบการ</th>
+              <th>เงินประกันค่าภาษี</th>
+            </tr>
+          </thead>
+        </table>
+
+        <div inline>
+          <div field [col]="4">
+            <label class="text-right full-width">ผลการตรวจทะเบียนควบคุม :</label>
+          </div>
+          <div field [col]="2">
+            <div class="ui radio checkbox">
+              <input type="radio" formControlName="txinsurAuditFlag" id="txinsurAuditFlag" value="Y" disabled readonly>
+              <label>ถูกต้อง/ครบถ้วน</label>
+            </div>
+          </div>
+          <div field [col]="2">
+            <div class="ui radio checkbox">
+              <input type="radio" formControlName="txinsurAuditFlag" id="txinsurAuditFlag" value="N" disabled readonly>
+              <label>พบประเด็น</label>
+            </div>
+          </div>
+        </div>
+
+        <div inline>
+          <div field [col]="3">
+            <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต<br>(ข้อเท็จจริง/Condition) :</label>
+          </div>
+          <div field [col]="9">
+            <textarea class="custom-readonly" rows="4" style="resize: none" formControlName="txinsurConditionText"
+              id="txinsurConditionText" maxlength="200"></textarea>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="3">
+            <label class="text-right full-width">สิ่งที่ควรจะเป็น<br>(หลักเกณฑ์/Criteria) :</label>
+          </div>
+          <div field [col]="9">
+            <textarea class="custom-readonly" rows="4" style="resize: none" formControlName="txinsurCriteriaText"
+              id="txinsurCriteriaText" maxlength="200"></textarea>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </segment>
+</with-breadcrumb>

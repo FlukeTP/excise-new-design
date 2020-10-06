@@ -1,0 +1,161 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+     <div class="ui grid">
+          <div class="sixteen wide column">
+               <segment header="สรุปผลแบบสอบถามระบบการควบคุมภายใน" [loading]="false">
+                    <div form [formGroup]="formGrop">
+                         <div inline>
+                              <div field [col]="4">
+                                   <h4>แบบสอบถาม {{ hdr?.qtnHeaderName }}</h4>
+                              </div>
+                              <div field [col]="3">
+                                   <select class="ui dropdown ai" id="secter" name="secterName"
+                                        (change)="filterDropdown()" [formControl]="dropdownInput">
+                                        <option value="all">ทั้งหมด</option>
+                                        <option *ngFor="let item of dropdownInspection" [value]="item.officeCode">
+                                             {{item.deptName}}
+                                        </option>
+                                   </select>
+                              </div>
+                         </div>
+                         <div inline>
+                              <div field [col]="16">
+                                   <strong>
+                                        <label>จำนวนทั้งหมด : </label>{{ summary.listQuantity }} ราย
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label>ตอบแบบสอบถามแล้ว : </label>{{ summary.finishQuantity }} ราย
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label>ยังไม่ตอบแบบสอบถาม : </label>{{ summary.draftQuantity }} ราย
+                                   </strong>
+                              </div>
+                         </div>
+                         <div class="inline fields">
+                              <div class="field scrollAll" id="scroll" style="max-height: calc(100vh - 240px);">
+                                   <table id="table" class="ui small collapsing celled table aligned">
+                                        <thead>
+                                             <tr class="text-center">
+                                                  <th rowspan="3" style="text-align: center !important ; width: 180px;">
+                                                       ลำดับที่
+                                                  </th>
+                                                  <th rowspan="3" style="text-align: center !important ; width: 500px;">
+                                                       สำนัก / สำนักงานสรรพสามิตภาค</th>
+                                                  <th rowspan="3" style="text-align: center !important ; width: 500px;">
+                                                       ฝ่าย / ส่วน / สำนักงานสรรพสามิตพื้นที่</th>
+                                                  <th rowspan="3" style="text-align: center !important ; width: 180px;">
+                                                       ไม่มี/ไม่ใช่ (%)
+                                                  </th>
+                                                  <th rowspan="3" style="text-align: center !important ; width: 180px;">
+                                                       แปลงค่าความเสี่ยง</th>
+                                                  <th [attr.colspan]="headers.length > 0 ? headers.length*3 : 1">ด้าน ( จำนวน {{headers.length}} ด้าน )
+                                                  </th>
+                                                  <th rowspan="3" style="text-align: center !important ; width: 180px;">
+                                                       ส่งเมื่อ
+                                                  </th>
+                                                  <th rowspan="3" style="text-align: center !important ; width: 180px;">
+                                                       จัดการ
+                                                  </th>
+                                                  <!-- <th rowspan="3" style="text-align: center !important ; width: 180px;">
+                                                       สถานะการดำเนินการ</th> -->
+                                             </tr>
+                                             <tr class="text-center">
+                                                  <th colspan="3" *ngFor="let header of headers; let i = index">
+                                                       {{ header.name }}
+                                                  </th>
+                                             </tr>
+                                             <tr>
+                                                  <ng-container *ngFor="let header of headers; let i = index">
+                                                       <th style="text-align: center !important ; width: 180px;">มี/ใช่
+                                                       </th>
+                                                       <th style="text-align: center !important ; width: 180px;">
+                                                            ไม่มี/ไม่ใช่</th>
+                                                       <th style="text-align: center !important ; width: 180px;">
+                                                            ระดับความเสี่ยง
+                                                       </th>
+                                                  </ng-container>
+                                             </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                             <tr *ngIf="details.length == 0">
+                                                  <td [attr.colspan]="(headers.length > 0 ? headers.length*3 : 1)+8">
+                                                       ไม่พบข้อมูล
+                                                  </td>
+                                             </tr>
+                                             <ng-container *ngFor="let detail of details; let i = index">
+                                                  <tr *ngIf="detail.status == '3'">
+                                                       <td>{{ i+1 }}</td>
+                                                       <td class="text-left">{{ detail.exciseDepartmentVo.sector }}
+                                                       </td>
+                                                       <td class="text-left">{{ detail.exciseDepartmentVo.area }}</td>
+                                                       <!-- | isEmpty:"detail.exciseDepartmentVo.area, []"  -->
+                                                       <td class="text-right" >{{ detail.avgRisk }}</td>
+                                                       <td
+                                                            [ngStyle]="{'background-color': detail.intCalculateCriteriaVo.codeColor}">
+                                                            {{ detail.intCalculateCriteriaVo.translatingRisk }}
+                                                            <!-- {{ detail.riskText }} -->
+                                                       </td>
+                                                       <ng-container
+                                                            *ngFor="let sideDtl of detail.sideDtls; let j =index">
+                                                            <td class="text-right" >{{ sideDtl.acceptValue }}</td>
+                                                            <td class="text-right" >{{ sideDtl.declineValue }}</td>
+                                                            <td
+                                                                 [ngStyle]="{'background-color': sideDtl.intCalculateCriteriaVo.codeColor}">
+                                                                 {{ sideDtl.intCalculateCriteriaVo.translatingRisk }}
+                                                                 <!-- {{ sideDtl.riskName }} -->
+                                                            </td>
+                                                       </ng-container>
+                                                       <td>
+                                                            <span
+                                                                 *ngIf="detail.status == '3'">{{ detail.sentDate ? (detail.sentDate | dateString) : '-' }}</span>
+                                                            <span *ngIf="detail.status != '3'">-</span>
+                                                       </td>
+                                                       <td>
+                                                            <app-button-detail
+                                                                 (click)="responseDtl(detail.status,detail.idMadeHdr,detail.sentDate,detail.sentBy)">
+                                                            </app-button-detail>
+                                                       </td>
+                                                       <!-- <td>{{ detail.statusText }}</td> -->
+                                                  </tr>
+                                                  <tr *ngIf="detail.status != '3'">
+                                                       <td>{{ i+1 }}</td>
+                                                       <td class="text-left">{{ detail.sectorName }}
+                                                            {{ detail.areaName }}</td>
+                                                       <td>{{ detail.riskQuantity }}</td>
+                                                       <td>-</td>
+                                                       <td>-</td>
+                                                       <ng-container
+                                                            *ngFor="let sideDtl of detail.sideDtls; let j =index">
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                       </ng-container>
+                                                       <td>-</td>
+                                                       <td></td>
+                                                       <!-- <td>{{ detail.statusText }}</td> -->
+                                                  </tr>
+                                             </ng-container>
+                                        </tbody>
+                                   </table>
+                              </div>
+                         </div>
+                         <div class="inline fields">
+                              <div class="two wide field"></div>
+                              <div class="two wide field">
+                                   <label class="text-right full-width">สรุป</label>
+                              </div>
+                              <div class="ten wide field">
+                                   <textarea rows="5" formControlName="conclude"></textarea>
+                              </div>
+                         </div>
+
+                         <div class="inline center-all fields">
+                              <div class="field">
+                                   <app-button-custom text="บันทึกสรุป" icon="save" style="margin: 0px;"
+                                        (click)="saveConclude()"></app-button-custom>
+                                   <app-button-export (click)="export()"></app-button-export>
+                                   <app-button-back (click)="back()"></app-button-back>
+                              </div>
+                         </div>
+                    </div>
+               </segment>
+          </div>
+     </div>
+</with-breadcrumb>

@@ -1,0 +1,104 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+
+<div class="ui grid">
+  <div class="row">
+    <div class="sixteen wide column">
+      <div class="ui blue inverted segment center aligned">
+        <h4>แสดงข้อมูลการตรวจ
+          <span class="red">{{topic}}</span>
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="five wide column">
+      <div class="ui segment">
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="five wide field">
+              <label>เรื่อง:</label>
+            </div>
+            <div class="eleven wide field">
+              <select [(ngModel)]="topic" name="topic" style="width: 100%" class="ui fluid search dropdown ai">
+                <option value="">เลือกเรื่อง</option>
+                <option value="ระบบการตรวจภาษี">ระบบการตรวจภาษี</option>
+                <option value="ระบบการตรวจวัตถุดิบคงเหลือ">ระบบการตรวจวัตถุดิบคงเหลือ</option>
+                <option value="ระบบตรวจสอบภายในและการตรวจส่งออก">ระบบตรวจสอบภายในและการตรวจส่งออก</option>
+              </select>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="five wide field">
+              <label>ปีงบประมาณ:</label>
+            </div>
+            <div class="eleven wide field">
+              <div class="ui calendar" id="year" style="width: 100%">
+                <div class="ui input left icon">
+                 <i class="calendar alternate outline icon"></i>
+                  <input type="text" placeholder="ปี" autocomplete="off" [attr.readonly]="null" id="year" name="year" [attr.required]="true">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui list">
+          <div class="item">
+            <div class="ui checkbox">
+              <input type="checkbox" tabindex="2" class="hidden" checked>
+              <label>จำนวนรายตามแผนการตรวจสอบภาษี</label>
+            </div>
+          </div>
+          <div class="item">
+            <div class="ui checkbox">
+              <input type="checkbox" tabindex="2" class="hidden" checked>
+              <label>จำนวนรายตามแผนการตรวจสอบภาษี</label>
+            </div>
+          </div>
+          <div class="item">
+            <div class="ui checkbox">
+              <input type="checkbox" tabindex="3" class="hidden" checked>
+              <label>จำนวนรายที่กำลังตรวจสอบภาษี</label>
+            </div>
+          </div>
+          <div class="item">
+            <div class="ui checkbox">
+              <input type="checkbox" tabindex="4" class="hidden" checked>
+              <label>จำนวนรายที่ตรวจสอบเสร็จสิ้น</label>
+            </div>
+          </div>
+          <div class="item">
+            <div class="ui checkbox">
+              <input type="checkbox" tabindex="5" class="hidden" checked>
+              <label>จำนวนรายทั้งหมด</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="eleven wide column">
+      <div class="ui segment">
+        <div class="wide" id="context">
+          <div class="ui pointing secondary menu">
+            <a class="item active" data-tab="first">Line graph</a>
+            <a class="item" data-tab="second">Bar graph </a>
+            <a class="item" data-tab="third">Pie chart</a>
+          </div>
+          <div class="ui tab segment center aligned active" data-tab="first">
+            <app-mgc01-1></app-mgc01-1>
+          </div>
+          <div class="ui tab segment center aligned" data-tab="second">
+            <app-mgc01-2></app-mgc01-2>
+          </div>
+          <div class="ui tab segment center aligned" data-tab="third">
+            <app-mgc01-3></app-mgc01-3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="sixteen wide column">
+      <!-- new line -->
+    </div>
+  </div>
+</div>

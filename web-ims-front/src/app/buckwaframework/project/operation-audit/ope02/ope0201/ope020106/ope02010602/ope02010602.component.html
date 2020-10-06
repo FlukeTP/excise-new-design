@@ -1,0 +1,342 @@
+<div class="ui grid">
+    <div class="sixteen wide column">
+        <segment header="ข้อมูลภาพรวม" [loading]="loading">
+            <form [formGroup]="forms">
+                <div class="ui form">
+                    <div class="inline fields">
+                        <div class="two wide field">
+                        </div>
+
+                        <div class="two wide field" >
+                            <label class="text-right full-width">จำนวนพนักงานทั้งหมด/คน :</label>
+                        </div>
+                        <div class="three wide field" [ngClass]="{'error': validateField('employeePermanent')}">
+                            <input type="text" numberOnly formControlName="employeePermanent">
+                        </div>
+
+                        <div class="one wide field">
+                        </div>
+
+                        <div class="two wide field">
+                            <label class="text-right full-width"> พนักงานประจำ/คน :</label>
+                        </div>
+                        <div class="four wide field" [ngClass]="{'error': validateField('employeeTemporary')}">
+                            <input type="text" numberOnly formControlName="employeeTemporary">
+                        </div>
+                    </div>
+                    <!-- <div class="inline fields">
+                        <div class="one wide field">
+                        </div>
+
+                        <div class="three wide field">
+                            <label class="text-right full-width">เวลาเริ่มปฏิบัติและสิ้นสุดงาน ตั้งแต่เวลา/น. :</label>
+                        </div>
+                        <div class="three wide field" [ngClass]="{'error': validateField('workingStartDate')}">
+                            <div class="ui calendar" id="startOper" style="width:100%">
+                                <div class="ui input left icon">
+                                    <i class="calendar alter nate outline icon"></i>
+                                    <input type="calendar" placeholder="00:00" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="one wide field">
+                        </div>
+
+                        <div class="two wide field">
+                            <label class="text-right full-width"> ถึง/น. :</label>
+                        </div>
+                        <div class="four wide field"  [ngClass]="{'error': validateField('workingEndDate')}">
+                            <div class="ui calendar" id="endOper" style="width:100%">
+                                <div class="ui input left icon">
+                                    <i class="calendar alter nate outline icon"></i>
+                                    <input type="calendar" placeholder="00:00" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="inline fields">
+                        <div class="two wide field">
+                        </div>
+
+                        <div class="two wide field text-check">
+                            <label class="text-right full-width "> ลักษณะสถานประกอบการ :</label>
+                        </div>
+                        <div class="six wide field">
+                            <!-- <div class="grouped fields">  -->
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" formControlName="officePlaceOwner" value ="Y" checked="checked" id="officePlaceOwner">
+                                        <label for="officePlaceOwner">เจ้าของเอง</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" formControlName="officePlaceOwner" value ="N" id="officePlaceOwner">
+                                        <label for="officePlaceOwner">เช่า เดือนละ</label>
+                                    </div>
+                                </div>
+                                <div  class="field" *ngIf="this.forms.value.officePlaceOwner == 'N'">
+                                    <div class="ui checkbox " [ngClass]="{'error': validateField('officeRentAmount')}" >
+                                        <input type="text" numberOnly formControlName="officeRentAmount">
+                                    </div>
+                                </div>
+                            <!-- </div> -->
+                        </div>
+
+                        <div class="one wide field">
+                        </div>
+
+                        <!-- <div class="two wide field">
+                             <label class="text-right full-width"> เดือนละ :</label> 
+                        </div> -->
+                        <div class="four wide field" >
+                            <!-- <input type="text" numberOnly formControlName="officeRentAmount"> -->
+                        </div>
+                    </div>
+
+                    <div class="inline fields">
+                        <div class="two wide field">
+                        </div>
+
+                        <div class="two wide field text-check">
+                            <label class="text-right full-width"> วิธีสั่งซื้อน้ำมันหล่อลื่นฯ :</label>
+                        </div>
+                        <div class="three wide field text-check">
+                            <div class="grouped fields">
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" formControlName="orderType" value="M" checked="checked" id="orderType">
+                                        <label for="orderType">โรงงานผู้ผลิต</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" formControlName="orderType" value="I" id="orderType">
+                                        <label for="orderType">นำเข้า</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" formControlName="orderType" value="A" id="orderType">
+                                        <label for="orderType">ผ่านตัวแทน</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="one wide field">
+                        </div>
+
+                        <div class="two wide field text-check">
+                            <label class="text-right full-width">วิธีการชำระเงิน :</label>
+                        </div>
+                        <div class="four wide field">
+                            <div class="grouped fields">
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" formControlName="orderPayMethod" value="C" checked="checked" id="orderPayMethod" (click)="changePaymentOther(0)">
+                                        <label for="orderPayMethod">เงินสด</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" formControlName="orderPayMethod" value="L" id="orderPayMethod" (click)="changePaymentOther(0)">
+                                        <label for="orderPayMethod">เงินเชื่อ</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" formControlName="orderPayMethod" value="B" id="orderPayMethod" (click)="changePaymentOther(0)">
+                                        <label for="orderPayMethod">โอนเงินเข้าบัญชีธนาคารของผู้ขาย</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" formControlName="orderPayMethod" value="O" id="orderPayMethod" (click)="changePaymentOther(1)">
+                                        <label for="orderPayMethod">อื่น ๆ ระบุ</label>
+                                    </div>
+                                </div>
+
+                                <div class="field" *ngIf="this.forms.value.orderPayMethod == 'O'">
+                                    <div class="ui checkbox">
+                                        <input type="text" formControlName="payMethodOther">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="inline fields">
+                        <div class="two wide field">
+                        </div>
+
+                        <div class="two wide field">
+                            <label class="text-right full-width">ชื่อ</label>
+                        </div>
+                        <div class="three wide field">
+                            <input type="text" placeholder="ชื่อ">
+                        </div>
+
+                        <div class="one wide field">
+                        </div>
+
+                        <div class="two wide field">
+                            <label class="text-right full-width">เลขประจำตัวผู้เสียภาษีอากร</label>
+                        </div>
+                        <div class="four wide field">
+                            <input type="text" placeholder="เลขประจำตัวผู้เสียภาษีอากร">
+                        </div>
+                    </div> 
+
+                    <div class="inline fields">
+                        <div class="two wide field">
+                        </div>
+
+                        <div class="two wide field">
+                            <label class="text-right full-width">สถานที่เก็บน้ำมันหล่อลื่น</label>
+                        </div>
+                    </div>
+
+                     <ng-container formArrayName="details" *ngFor="let key of details.controls; let i=index">
+                        <div class="inline fields" [formGroupName]="i">
+                            <div class="two wide field">
+                            </div>
+
+                            <div class="two wide field">
+                                <label class="text-right full-width">{{i+1}}</label>
+                            </div>
+
+                            <div class="four wide field">
+                                <input type="text" formControlName="placeKeepHC">
+                            </div>
+                            <div class="four wide field">
+                                <app-button-delete (click)="deleteDetail()"></app-button-delete>
+                            </div>
+                        </div>
+                    </ng-container>
+                    
+                    <div class="inline fields">
+                        <div class="eight wide field">
+                        </div>
+
+                        <div class="four wide field">
+                            <app-button-add (click)="addDetail()"></app-button-add>
+                        </div>
+                    </div> 
+                    -->
+                    <div class="inline fields">
+                            <div class="two wide field">
+                            </div>
+    
+                            <div class="two wide field">
+                                <label class="text-right full-width">สถานที่เก็บน้ำมันหล่อลื่น</label>
+                            </div>
+                            <div class="three wide field">
+                                <label class="text-right" >{{data && (data.warehouseAddress | isEmpty)}}</label>
+                            </div>
+                    </div>
+
+                    <div class="inline fields">
+                        <div class="two wide field">
+                        </div>
+
+                        <div class="two wide field">
+                            <label class="text-right full-width">วันเวลาทำงาน</label>
+                        </div>
+
+                        <div class="one wide field">
+                            <label class="text-right full-width">ตั้งแต่</label>
+                        </div>
+
+                        <div class="two wide field" [ngClass]="{'error': validateField('workingStartDate')}">
+                            <div class="ui calendar" id="startCld" style="width:100%">
+                                <div class="ui input left icon">
+                                    <i class="calendar alter nate outline icon"></i>
+                                    <input type="calendar" placeholder="วว/ดด/ปปปป" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="one wide field" >
+                            <label class="text-center full-width">ถึง</label>
+                        </div>
+
+                        <div class="two wide field" [ngClass]="{'error': validateField('workingEndDate')}">
+                            <div class="ui calendar" id="endCld" style="width:100%">
+                                <div class="ui input left icon">
+                                    <i class="calendar alter nate outline icon"></i>
+                                    <input type="calendar" placeholder="วว/ดด/ปปปป" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="one wide field">
+                            <label class="text-right full-width">จำนวน</label>
+                        </div>
+
+                        <div class="one wide field" [ngClass]="{'error': validateField('workdayPermonth')}">
+                            <input type="text" numberOnly formControlName="workdayPermonth">
+                        </div>
+
+                        <div class="one wide field" >
+                            <label class="text-left full-width" >วัน/เดือน</label>
+                        </div>
+                    </div>
+
+                    <div class="inline fields">
+                        <div class="two wide field">
+                        </div>
+
+                        <div class="two wide field">
+                            <label class="text-right full-width">จำนวนถัง</label>
+                        </div>
+                        
+                        <div class="one wide field">
+                                
+                        </div>
+
+                        <div class="one wide field" [ngClass]="{'error': validateField('numberOfTank')}">
+                            <input type="text"  numberOnly formControlName="numberOfTank">
+                        </div>
+
+                        <div class="one wide field">
+                            <label class="text-left full-width">ถัง</label>
+                        </div>
+
+                        <div class="one wide field">
+                            <label class="text-right full-width">ประกอบด้วย</label>
+                        </div>
+
+                        <div class="four wide field"  [ngClass]="{'error': validateField('tankCapacity')}">
+                            <input type="text"  numberOnly formControlName="tankCapacity">
+                        </div>
+                    </div>
+
+                    <div class="inline fields">
+                        <div class="two wide field">
+                        </div>
+
+                        <div class="two wide field">
+                            <label class="text-right full-width">จำนวนเครื่องมือเครื่องใช้ที่สำคัญ (อาทิ ถังผสม ถังกวน
+                                ถังปั่น)
+                                ขนาดความจุ</label>
+                        </div>
+                        <div class="eight wide field"  [ngClass]="{'error': validateField('numberUtility')}">
+                            <textarea formControlName="numberUtility"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="ui center aligned grid">
+                    <div class="sixteen wide column">
+                        <app-button-save (click)="save()">
+                        </app-button-save>
+                    </div>
+                </div>
+            </form>
+        </segment>
+    </div>
+</div>

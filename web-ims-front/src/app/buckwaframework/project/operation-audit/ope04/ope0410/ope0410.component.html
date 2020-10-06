@@ -1,0 +1,152 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="รายงานเปรียบเทียบภาษีประมาณการและการเสียภาษีจริง" [loading]="false">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="text-right full-width"> สำนักงานสรรพสามิตภาค</label>
+        </div>
+        <div class="three wide field ">
+          <div class="ui selection dropdown full-width">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class=" text">สำนักงานสรรพสามิตภาคที่ 5</div>
+            <div class="menu">
+            </div>
+          </div>
+        </div>
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width"> สำนักงานสรรพสามิตพื้นที่</label>
+        </div>
+        <div class="three wide field">
+          <div class="ui selection dropdown full-width">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class=" text">สำนักงานสรรพสามิตพื้นที่เชียงใหม่</div>
+            <div class="menu">
+              <div class="item" data-value="1">ชัยนาท</div>
+              <div class="item" data-value="1">ตราด</div>
+              <div class="item" data-value="0">นครนายก</div>
+              <div class="item" data-value="0">ระยอง 2</div>
+              <div class="item" data-value="0">ฉะเชิงเทรา</div>
+              <div class="item" data-value="0">สิงห์บุรี</div>
+              <div class="item" data-value="0">ชลบุรี 1</div>
+              <div class="item" data-value="0">ระยอง 1</div>
+              <div class="item" data-value="0">ปทุมธานี 1</div>
+            </div>
+          </div>
+        </div>
+        <div class="one wide field">
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="text-right full-width">ระหว่างวันที่</label>
+        </div>
+        <div class="three wide field ">
+          <div class="ui calendar" style="width:100%" id="startDate">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" placeholder="วว/ดดดด/ปปปป" value="01/01/2561">
+            </div>
+          </div>
+        </div>
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width">ถึง</label>
+        </div>
+        <div class="three wide field">
+          <div class="ui calendar" style="width:100%" id="stopDate">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" placeholder="วว/ดดดด/ปปปป" value="01/01/2561">
+            </div>
+          </div>
+        </div>
+        <div class="one wide field">
+        </div>
+      </div>
+    </div>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-search></app-button-search>
+        <app-button-clear></app-button-clear>
+      </div>
+    </div>
+    <br>
+    
+      <table id="dataTable" class="ui small celled table striped selectable nowrap" style="width: 100%">
+        <thead>
+          <tr style="text-align: center;">
+            <th rowspan="2" class="two wide">ชื่อผู้รับอนุญาต<i class="sort icon"></i></th>
+            <th colspan="2" class="four wide">วัตถุดิบ<i class="sort icon"></i></th>
+            <th colspan="4" class="three wide">จำนวนสุรา (ขวด)<i class="sort icon"></i></th>
+            <th rowspan="2" class="one wide">คิดเป็นภาษีสรรพสามิตประมาณการ (บาท)<i class="sort icon"></i></th>
+            <th rowspan="2" class="one wide">ยอดการซื้อแสตมป์<i class="sort icon"></i></th>
+            <th rowspan="2" class="two wide">ผลเปรียบเทียบ<i class="sort icon"></i></th>
+          </tr>
+          <tr style="text-align: center;">
+            <th class="two wide">ชื่อวัตถุดิบ<i class="sort icon"></i></th>
+            <th class="one wide">จำนวน<i class="sort icon"></i></th>
+            <th class="one wide">28 ดีกรี<i class="sort icon"></i></th>
+            <th class="one wide">30 ดีกรี<i class="sort icon"></i></th>
+            <th class="one wide">35 ดีกรี<i class="sort icon"></i></th>
+            <th class="one wide">40 ดีกรี<i class="sort icon"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>หจก.ประเทืองบริบูรณ์สุราไทย</td>
+            <td style="text-align: center;">ข้าวเหนียว</td>
+            <td style="text-align: center;">1,000 กก.</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">960</td>
+            <td style="text-align: right;">37,680</td>
+            <td style="text-align: right;">30000</td>
+            <td style="background-color: red">-7,680</td>
+          </tr>
+          <tr>
+            <td>หจก.สาโทลำไยทอง</td>
+            <td style="text-align: center;">ข้าวเหนียว</td>
+            <td style="text-align: center;">600 กก.</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">300</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">11000</td>
+            <td style="text-align: right;">11000</td>
+            <td style="text-align: right;">0</td>
+          </tr>
+          <tr>
+            <td>หจก.หนองแฝกการสุรา</td>
+            <td style="text-align: center;">โมลาส</td>
+            <td style="text-align: center;">1,000 กก.</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">300</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">18,840</td>
+            <td style="text-align: right;">8000</td>
+            <td style="background-color: red">-10840</td>
+          </tr>
+          <tr>
+            <td>หจก.ดวงจันทร์การสุรา</td>
+            <td style="text-align: center;">ข้าวเหนียว</td>
+            <td style="text-align: center;">1,000 กก.</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">900</td>
+            <td style="text-align: right;">36,680</td>
+            <td style="text-align: right;">30000</td>
+            <td style="background-color: red">-6,680</td>
+          </tr>
+        </tbody>
+      </table>
+    
+  </segment>
+
+</with-breadcrumb>

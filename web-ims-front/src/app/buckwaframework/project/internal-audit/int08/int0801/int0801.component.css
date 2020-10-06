@@ -1,0 +1,29 @@
+/* .ui.button {
+    box-shadow: none !important;
+    width: 100%;
+} */
+
+.blue-font{
+    color: blue !important;
+}
+
+.bg-th-I {
+    background-color: #00ffad !important;
+    border-top: 1px solid rgba(34,36,38,.1) !important;
+}
+
+.bg-td-I {
+    background-color: #94ffdd !important;
+    border-top: 1px solid rgba(34,36,38,.1) !important;
+}
+
+th {
+	position: -webkit-sticky;
+	position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.bg-danger{
+    background-color: #ff5b4659;
+}

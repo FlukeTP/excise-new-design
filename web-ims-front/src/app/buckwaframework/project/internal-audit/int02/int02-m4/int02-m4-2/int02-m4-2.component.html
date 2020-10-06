@@ -1,0 +1,91 @@
+<div class="ui grid" style="margin: 2%">
+    <div class="sixteen wide column segments">
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>สรุปผลแบบสอบถามระบบการควบคุมภายใน</span>
+        </div>
+
+        <div class="ui attached segment">
+            <div class="ui grid">
+                <div class="ui centered fiveteen wide column">
+                    <div class="ui form">
+                        <div class="inline fields">
+                            <div class="two wide field">
+                                &nbsp;
+                            </div>
+                            <div class="six wide field">
+                                <label class="custom-label-w-20">จำนวนหน่วยงานที่ตอบกลับแบบสอบถาม :</label>
+                            </div>
+                            <div class="four wide field">
+                                <label class="custom-label-w-20" style="text-align: left;">{{ calcTotal() }}</label>
+                            </div>
+                            <div class="four wide field">
+                                <button class="ui mini orange button" type="button" (click)="show()">
+                                    <i class="save icon"></i>
+                                    รายชื่อ
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="ui styled fluid accordion">
+                            <div *ngFor="let pro of result; let i = index">
+                                <div class="title">
+                                    <div class="inline fields">
+                                        <div class="seven wide field">
+                                            หน่วยงาน : {{ pro.title }}
+                                        </div>
+                                        <div class="three wide field">
+                                            ผ่านเกณฑ์ : {{ pro.pass }}
+                                        </div>
+                                        <div class="three wide field">
+                                            ไม่ผ่านเกณฑ์ : {{ pro.fail }}
+                                        </div>
+                                        <div class="three wide field">
+                                            ระดับความเสี่ยง : {{ pro.risk }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <table id="datatable-{{pro.id}}" class="ui small celled table aligned hover striped selectable">
+                                        <thead>
+                                            <tr style="text-align: center !important">
+                                                <th>ด้าน</th>
+                                                <th>มี/ใช่</th>
+                                                <th>ไม่มี/ไม่ใช่</th>
+                                                <th>ระดับความเสี่ยง</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let detail of pro.detail; let a = index">
+                                                <td class="center">{{ detail.title }}</td>
+                                                <td class="center">{{ detail.approve }}</td>
+                                                <td class="center">{{ detail.reject }}</td>
+                                                <td class="center">{{ detail.risk }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui bottom centered attached segment">
+            <div class="ui center aligned grid">
+                <div class="eight wide column">
+                    <!-- <button class="ui mini green button" type="submit">
+                        <i class="save icon"></i>
+                        สร้างเอกสาร
+                    </button>
+                    <button class="ui mini red button" (click)="onDiscard(false)" type="reset">
+                        <i class="times icon"></i>
+                        ยกเลิก
+                    </button> -->
+                    <button type="button" (click)="back()" class="ui mini grey button">กลับ</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

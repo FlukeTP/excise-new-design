@@ -1,0 +1,155 @@
+<div class="ui center aligned grid">
+  <div class="twelve wide column">
+
+    <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+      <span>รายงานผลการตรวจปฏิบัติการ
+
+      </span>
+    </div>
+
+    <form class="ui form center aligned" (submit)="onSubmit($event)" ngNativeValidate>
+      <div class="ui attached segment">
+        <div class="ui center aligned grid">
+          <div class="twelve wide column">
+            <div class="field">
+              <label style="text-align: left;font-size: 15px;margin-bottom: 15px;">ค้นหารายงานผลการตรวจ
+                <br>
+              </label>
+              <div class="inline fields">
+                <div class="three wide field">
+                  <label>ปีงบประมาณ : </label>
+                </div>
+                <div class="five wide field">
+                  <div class="ui calendar" id="year" style="width: 100%">
+                    <div class="ui input left icon">
+                     <i class="calendar alternate outline icon"></i>
+                      <input type="text" placeholder="ปี" autocomplete="off" [attr.readonly]="null" id="year" name="year" [attr.required]="true">
+                    </div>
+                  </div>
+                </div>
+                <div class="three wide field">
+                  <label>พิกัดสินค้า : </label>
+                </div>
+                <div class="five wide field">
+                  <select id="target" name="target" style="width: 100%" class="ui fluid search dropdown ai" [attr.required]="true">
+                    <option value="">เลือกพิกัด</option>
+                    <option value="ทั้งหมด">ทั้งหมด</option>
+                    <option value="สินค้าน้ำมันและผลิตภัณฑ์น้ำมัน">สินค้าน้ำมันและผลิตภัณฑ์น้ำมัน</option>
+                    <option value="สินค้าเครื่องดื่ม">สินค้าเครื่องดื่ม</option>
+                    <option value="สินค้าเครื่องไฟฟ้า">สินค้าเครื่องไฟฟ้า</option>
+                    <option value="สินค้าแบตเตอรี่">สินค้าแบตเตอรี่</option>
+                    <option value="สินค้าแก้วและเครื่องแก้ว">สินค้าแก้วและเครื่องแก้ว</option>
+                    <option value="สินค้ารถยนต์">สินค้ารถยนต์</option>
+                    <option value="สินค้ารถจักรยานยนต์">สินค้ารถจักรยานยนต์</option>
+                    <option value="สินค้าเรือ">สินค้าเรือ</option>
+                    <option value="สินค้าผลิตภัณฑ์เครื่องหอมและเครื่องสำอาง">สินค้าผลิตภัณฑ์เครื่องหอมและเครื่องสำอาง</option>
+                    <option value="สินค้าพรมและสิ่งทอปูพื้นอื่นๆ">สินค้าพรมและสิ่งทอปูพื้นอื่นๆ</option>
+                    <option value="สินค้าหินอ่อนและหินแกรนิต">สินค้าหินอ่อนและหินแกรนิต</option>
+                    <option value="สินค้าสารทำลายชั้นบรรยากาศ">สินค้าสารทำลายชั้นบรรยากาศ</option>
+                    <option value="สินค้าไพ่">สินค้าไพ่</option>
+                    <option value="กิจการบันเทิงหรือหย่อนใจ">กิจการบันเทิงหรือหย่อนใจ</option>
+                    <option value="กิจการเสี่ยงโชค">กิจการเสี่ยงโชค</option>
+                    <option value="กิจการที่มีผลกระทต่อสิ่งแวดล้อม">กิจการที่มีผลกระทต่อสิ่งแวดล้อม</option>
+                    <option value="กิจการที่ได้รับอนุญาตหรือสัมปทานจากรัฐ">กิจการที่ได้รับอนุญาตหรือสัมปทานจากรัฐ</option>
+                  </select>
+                </div>
+              </div>
+              <div class="inline fields">
+                <div class="sixteen wide field">
+                  <div class="ui center aligned grid" style="width: 100%">
+                    <div class="sixteen wide column">
+                      <button type="submit" class="ui mini green button">ค้นหารายงาน</button>
+                      <button type="button" (click)="onCancel()" class="ui mini red button">ยกเลิก</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="twelve wide column" *ngIf="toggled">
+
+    <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+      <span>รายงานผลการตรวจภาษี ประจำปีงบประมาณ
+        <span style="color: red">{{year}}</span> พิกัดสินค้า
+        <span style="color: red">{{target}}</span>
+      </span>
+    </div>
+
+
+    <div class="ui attached segment">
+      <div class="ui center aligned grid">
+        <div class="fifteen wide column" style="overflow-x: scroll;padding: 0;margin: 2em;">
+          <table class="ui very compact table" style="width: 150%;margin: 0 !important;">
+            <thead>
+              <tr>
+                <th colspan="7" style="background: #1e83db;color: white;text-align: center">รายงานผลการตรวจ</th>
+              </tr>
+              <tr>
+                <th>ลำดับที่</th>
+                <th>ชื่อรายงาน</th>
+                <th>ภาค</th>
+                <th>พื้นที่</th>
+                <th>พิกัด</th>
+                <th>ปีงบประมาณ</th>
+                <th>File</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>รายงานผลการตรวจสอบภาษี สถานประกอบการ XXXXXXXXXXXXX</td>
+                <td>ภาค 4</td>
+                <td>-</td>
+                <td>น้ำมัน</td>
+                <td>{{year}}</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>รายงานผลการตรวจสอบภาษี สถานประกอบการ XXXXXXXXXXXXX</td>
+                <td>ภาค 3</td>
+                <td>-</td>
+                <td>น้ำมัน</td>
+                <td>{{year}}</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>รายงานผลการตรวจสอบภาษี สถานประกอบการ XXXXXXXXXXXXX</td>
+                <td>ภาค 4</td>
+                <td>-</td>
+                <td>น้ำดื่ม</td>
+                <td>{{year}}</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>รายงานผลการตรวจสอบภาษี สถานประกอบการ XXXXXXXXXXXXX</td>
+                <td>ภาค 4</td>
+                <td>-</td>
+                <td>รถยนต์</td>
+                <td>{{year}}</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>รายงานผลการตรวจสอบภาษี สถานประกอบการ XXXXXXXXXXXXX</td>
+                <td>ภาค 10</td>
+                <td>กทม 1</td>
+                <td>น้ำดื่ม</td>
+                <td>{{year}}</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>

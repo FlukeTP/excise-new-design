@@ -1,0 +1,236 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="แบบสอบถาม-การควบคุมภายใน" [loading]="loading">
+
+    <div class="ui form">
+      <form [formGroup]="formSearch">
+        <ng-container *ngIf="flagSearch">
+          <div inline>
+            <div field [col]="2" class="required">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div field [col]="4" [ngClass]="{'error': validateField('sector')}">
+              <select class="ui dropdown full-width" id="sector" (change)="dropdownChange($event, 'SECTOR')"
+                formControlName="sector">
+                <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+                <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+              </select>
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div field [col]="3">
+              <select class="ui dropdown full-width" id="area" (change)="dropdownChange($event, 'AREA')"
+                formControlName="area">
+                <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+                <option value="0">ทั้งหมด</option>
+                <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+              </select>
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">สำนักงานสรรพสามิตสาขา</label>
+            </div>
+            <div field [col]="3">
+              <select class="ui dropdown full-width" id="branch" formControlName="branch"
+                (change)="dropdownChange($event, 'BRANCH')">
+                <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+                <option value="0">ทั้งหมด</option>
+                <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptName}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+            </div>
+            <div field [col]="4">
+              <select class="ui dropdown full-width" (change)="dropdownChange($event, 'No.')"
+                formControlName="auditPmqtNo" id="auditPmqtNo">
+                <option value="">เลขที่กระดาษทำการ</option>
+                <option *ngFor="let item of auditPmQtNoList" value="{{item.auditPmqtNo}}">
+                  {{item.auditPmqtNo}}
+                </option>
+              </select>
+            </div>
+            <div field [col]="2" class="required">
+              <label class="text-right full-width">ปีงบประมาณ</label>
+            </div>
+            <div field [col]="2" [ngClass]="{'error': validateField('budgetYear')}">
+              <div class="ui calendar" id="budgetYearCld">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" formControlName="budgetYear" autocomplete="off" placeholder="ปปปป" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!flagSearch">
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div field [col]="4">
+              <input type="text" class="custom-readonly" formControlName="sector">
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div field [col]="3">
+              <input type="text" class="custom-readonly" formControlName="area">
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">สำนักงานสรรพสามิตสาขา</label>
+            </div>
+            <div field [col]="3">
+              <input type="text" class="custom-readonly" formControlName="branch">
+            </div>
+          </div>
+
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+            </div>
+            <div field [col]="4">
+              <select class="ui dropdown full-width" (change)="dropdownChange($event, 'No.')"
+                formControlName="auditPmqtNo" id="auditPmqtNo">
+                <option value="">เลขที่กระดาษทำการ</option>
+                <option *ngFor="let item of auditPmQtNoList" value="{{item.auditPmqtNo}}">
+                  {{item.auditPmqtNo}}
+                </option>
+              </select>
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">ปีงบประมาณ</label>
+            </div>
+            <div field [col]="2">
+              <input type="text" class="custom-readonly" formControlName="budgetYear">
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="ui center aligned grid">
+          <div class="column">
+            <app-button-search *ngIf="!flagSearch" disabled="true"></app-button-search>
+            <app-button-search *ngIf="flagSearch" (click)="search()"></app-button-search>
+            <app-button-save *ngIf="detailView.length == 0" disabled="true"></app-button-save>
+            <app-button-save *ngIf="detailView.length > 0" (click)="save($event)"></app-button-save>
+            <app-button-clear (click)="clearFormSearch()"></app-button-clear>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="ui divider"></div>
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <div form>
+          <button class="ui medium button btn-custom" [ngClass]="{'primary': flagHdr == i }" (click)="changeFlagBtn(i)"
+            *ngFor="let item of pmQtData; let i = index;">
+           {{i + 1}}. {{item.formCode}}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="ui divider"></div>
+
+    <table id="dataTable" class="ui small celled nowrap table striped selectable" style="width: 100%;">
+      <thead>
+        <tr class="text-center">
+          <th style="min-width: 550px;">คำถาม</th>
+          <th>มี / ใช่</th>
+          <th>ไม่มี / ไม่ใช่ (N/A)</th>
+          <th>คำอธิบาย / คำตอบ</th>
+          <th style="width: 155px;">ผลการตรวจ<br>(กลุ่มตรวจสอบภายใน)</th>
+        </tr>
+      </thead>
+
+      <!-- no data -->
+      <tbody *ngIf="detailView.length == 0">
+        <tr>
+          <td class="text-center" colspan="5">ไม่มีข้อมูล</td>
+        </tr>
+      </tbody>
+
+      <!-- have data -->
+      <tbody *ngIf="detailView.length > 0">
+        <ng-container *ngFor="let obj of detailView; let i=index;">
+          <!-- level 1, 2 -->
+          <ng-container *ngIf="obj.topicLevel != 3">
+            <tr class="topic-color">
+
+              <td colspan="4">{{ obj.topicName  | isEmpty }}</td>
+              <td></td>
+            </tr>
+          </ng-container>
+
+          <!-- level 3-->
+          <ng-container ng-container *ngIf="obj.topicLevel == 3">
+            <tr>
+              <td>{{ obj.topicName | isEmpty }}</td>
+              <td>{{ obj.topicResult ==  'Y' ? '/' : ' '  }}</td>
+              <td>{{ obj.topicResult ==  'N' ? '/' : ' ' }}</td>
+              <td>{{ obj.topicAnswer | isEmpty }}</td>
+              <td>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="chkDtl{{obj.pmQtDSeq}}" value="Y" [checked]="obj.auditResult === 'Y'"
+                      (click)="clickRadios(obj.pmQtDSeq, 'Y',flagHdr, i, obj.auditPmDId)">
+                    <label>เพียงพอ เหมาะสม</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="chkDtl{{obj.pmQtDSeq}}" value="N" [checked]="obj.auditResult === 'N'"
+                      (click)="clickRadios(obj.pmQtDSeq, 'N',flagHdr, i, obj.auditPmDId)">
+                    <label>ไม่เพียงพอ</label>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+
+      </tbody>
+    </table>
+    <br>
+    <form [formGroup]="formHeader">
+      <div class="ui form">
+        <div class="field">
+          <label>สรุป/วิธีการที่ควรปฏิบัติ</label>
+          <textarea rows="6" class="custom-readonly" formControlName="summary" readonly></textarea>
+        </div>
+
+        <div inline>
+          <div field [col]="2">
+            <div class="ui radio checkbox">
+              <input type="radio" name="qtAuditResult" formControlName="qtAuditResult" value="Y"
+                [checked]="formHeader.get('qtAuditResult').value === 'Y'">
+              <label>เพียงพอ เหมาะสม</label>
+            </div>
+          </div>
+          <div field [col]="2">
+            <div class="ui radio checkbox">
+              <input type="radio" name="qtAuditResult" formControlName="qtAuditResult" value="N"
+                [checked]="formHeader.get('qtAuditResult').value === 'N'">
+              <label>ไม่เพียงพอ</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>ข้อตรวจพบ</label>
+          <textarea rows="6" formControlName="qtAuditEvident"></textarea>
+        </div>
+
+        <div class="field">
+          <label>ข้อเสนอแนะ</label>
+          <textarea rows="6" formControlName="qtAuditSuggestion"></textarea>
+        </div>
+
+      </div>
+    </form>
+    <br>
+  </segment>
+</with-breadcrumb>

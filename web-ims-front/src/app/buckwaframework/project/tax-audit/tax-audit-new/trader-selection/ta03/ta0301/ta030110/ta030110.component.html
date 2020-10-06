@@ -1,0 +1,316 @@
+<segment header="คำให้การ (ตส. ๐๑-๑๐)" [loading]="loading" [right]="true">
+  <div headRight [formGroup]="formTS0110">
+    {{formTS0110.get('formTsNumber').value}}
+  </div>
+
+  <form form [formGroup]="formTS0110">
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ของ :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="testimonyOf" maxlength="100">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">เรื่อง :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="testimonyTopic" maxlength="100">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">วันที่ :</label>
+      </div>
+      <div field [col]="2" class="ui calendar" id="calendarDocDate">
+        <div class="ui input left icon">
+          <i class="calendar alter nate outline icon"></i>
+          <input type="calendar" formControlName="docDate" id="docDate" placeholder="วว ดดดด ปปปป"
+            [attr.required]="true" autocomplete="off">
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ได้ให้การต่อ :</label>
+      </div>
+      <div field [col]="6">
+        <div class="ui action input">
+          <input type="text" formControlName="officerFullName" maxlength="100">
+          <button class="ui button" (click)="searchModalOpen(1)">ค้นหา</button>
+        </div>
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ตำแหน่ง :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officerPosition" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ข้าพเจ้า :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="testimonyFullName" maxlength="100">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">อายุ :</label>
+      </div>
+      <div field [col]="2">
+        <input type="text" class="text-right" formControlName="testimonyAge" numberOnly maxlength="2">
+        <label>ปี</label>
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">สัญชาติ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="testimonyNationality" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">เชื้อชาติ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="testimonyRace" maxlength="100">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">ที่อยู่เลขที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="number" formControlName="testimonyAddrNo" maxlength="35">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">อาคาร/<br>หมู่บ้าน :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="testimonyBuildNameVillage" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ห้องเลขที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="testimonyRoomNo" maxlength="10">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">ชั้นที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="number" formControlName="testimonyFloorNo" maxlength="3">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">ตรอก/ซอย :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="testimonySoiName" maxlength="50">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ถนน :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="testimonyThnName" maxlength="50">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">ตำบล/<br>แขวง :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width testimonyTambolSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="testimonyTambolName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" formControlName="testimonyTambolName"> -->
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">อำเภอ/เขต :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width testimonyAmphurSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="testimonyAmphurName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" formControlName="testimonyAmphurName"> -->
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">จังหวัด :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width testimonyProvinceSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="testimonyProvinceName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" formControlName="testimonyProvinceName"> -->
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">รหัสไปรษณีย์ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="number" formControlName="testimonyZipCode" maxlength="5">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">โทรศัพท์ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="number" formControlName="testimonyTelNo" maxlength="20">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ประเภทบัตร :</label>
+      </div>
+      <div field [col]="3">
+        <div class="ui radio checkbox">
+          <input type="radio" name="testimonyCardType" id="testimonyCardType1" (click)="testimonyCardTypeClick('1')">
+          <label for="testimonyCardType1">บัตรประจำตัวประชาชน</label>
+        </div>
+      </div>
+      <div field [col]="3">
+        <div class="ui radio checkbox">
+          <input type="radio" name="testimonyCardType" id="testimonyCardType2" (click)="testimonyCardTypeClick('2')">
+          <label for="testimonyCardType2">หนังสือเดินทาง</label>
+        </div>
+      </div>
+      <div field [col]="3">
+        <div class="ui radio checkbox">
+          <input type="radio" name="testimonyCardType" id="testimonyCardType3" (click)="testimonyCardTypeClick('3')">
+          <label for="testimonyCardType3">บัตรอื่น ๆ (ระบุ)</label>
+        </div>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="testimonyCardOtherDesc" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">เลขที่ :</label>
+      </div>
+      <div field [col]="3">
+        <input type="number" formControlName="testimonyCardNo" maxlength="20">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ซึ่งออกให้ ณ ที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="testimonyCardSource" maxlength="100">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">ประเทศ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="testimonyCardCountry" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ข้าพเจ้ามีฐานะเป็น :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="testimonyPosition" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">เลขทะเบียนสรรพสามิต :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="newRegId" id="newRegId" maxlength="17">
+      </div>
+      <div field [col]="1">
+        <app-button-custom [icon]="'search'" (click)="searchNewRegId()"></app-button-custom>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ชื่อโรงอุตสาหกรรม/<br>สถานบริการ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="testimonyFactoryFullName" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ขอให้การด้วยความสัตย์จริงต่อไปนี้ :</label>
+      </div>
+      <div field [col]="14">
+        <textarea name="text" id="" cols="30" rows="10" formControlName="testimonyText" maxlength="4000"></textarea>
+      </div>
+    </div>
+    <div formArrayName="taFormTS0110VoList"
+      *ngFor="let item of formTS0110['controls'].taFormTS0110VoList['controls']; let i = index;let first = first;let last = last;">
+      <div [formGroupName]="i">
+        <div inline>
+          <div field [col]="2">
+            <label class="full-width text-right">แผ่นที่ :</label>
+          </div>
+          <div field [col]="2">
+            <label class="full-width">{{item.get('testimonyPageNo').value}}</label>
+          </div>
+          <div field [col]="10">
+          </div>
+          <div field [col]="2" *ngIf="last">
+            <app-button-custom color="red" icon="trash icon" text="ลบใบต่อ" (click)="removeTaFormTS01101List(i)">
+            </app-button-custom>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="2">
+            <label class="full-width text-right">คำให้การ :</label>
+          </div>
+          <div field [col]="14">
+            <textarea name="" id="" cols="30" rows="10" formControlName="testimonyText" maxlength="4000"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2"></div>
+      <div field [col]="2">
+        <app-button-custom color="green" icon="plus icon" text="เพิ่มใบต่อ" (click)="addTaFormTS01101List()">
+        </app-button-custom>
+      </div>
+    </div>
+    <br>
+    <br>
+    <app-button-footer-report (save)="save($event)" (clear)="clear($event)" (export)="export($event)">
+    </app-button-footer-report>
+  </form>
+</segment>
+
+<ui-modal [id]="'searchModal'" type="custom" size="large">
+  <div class="ui header">
+    ค้นหารายชื่อ
+  </div>
+  <br>
+  <!-- <form form [formGroup]="formSearchModal">
+            </form> -->
+
+  <div grid>
+    <div [column]="16">
+      <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableModal">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">ลำดับ</th>
+            <th class="text-center">ชื่อ-นามสกุล</th>
+            <th class="text-center">ตำแหน่ง</th>
+          </tr>
+        </thead>
+      </table>
+      <br>
+    </div>
+  </div>
+
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

@@ -1,0 +1,205 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายละเอียดผู้ประกอบการ">
+    <div class="ui grid">
+      <div class="six wide column">
+        <p><b>ชื่อผู้ประกอบอุตสาหกรรม:</b> บริษัท เคทีซี เคมีคอล จำกัด</p>
+        <p><b>ทะเบียนสรรพสามิตเลขที่:</b> 0105533135161-1-001</p>
+        <p><b>ที่อยู่:</b> 1/1 ซอย ทับยาว 1, แขวงทับยาว เขตลาดกระบัง, กรุงเทพฯ 10520</p>
+
+
+      </div>
+      <div class="five wide column">
+        <p><b>ใบอนุญาตผลิตสุรา(ล่าสุด) ผลิตสุรา ชนิด :</b> สุราแช่ชุมชน</p>
+        <p><b>เลขที่รับ:</b> 7653</p>
+        <p><b>อนุญาตวันที่:</b> 11 กุมภาพันธ์ 2562 อายุ 3 ปี นับแต่วันที่ได้รับอนุญาต</p>
+      </div>
+      <div class="five wide column">
+        <p><b>ใบอนุญาตขายสุราประเภทที่ ๒</b></p>
+        <p><b>เลขที่ใบอนุญาต :</b> 0030-62-812-00050</p>
+        <p><b>อนุญาตให้ขายสุราได้ตั้งแต่:</b> 11 กุมภาพันธ์ 2562 ถึงวันที่ 10 กุมภาพันธ์ 2563</p>
+      </div>
+    </div>
+
+  </segment>
+
+  <div class="ui grid">
+    <div class="four wide column">
+      <segment header="หมัก">
+        <div class="ui form" style="height: 230px !important">
+          <div class="inline fields">
+            <div class="four wide field">
+              <label>วัตถุดิบ</label>
+            </div>
+            <div class="ten wide field">
+              <select class="ui fluid dropdown full-width">
+                <option value="ข้าวเหนียว">ข้าวเหนียว</option>
+                <option value="AL"></option>
+              </select>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field">
+              <label>จำนวน</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text">
+            </div>
+            <div class="three wide field">
+              ก.ก.
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field">
+              <label>วันที่เริ่มหมัก</label>
+            </div>
+            <div class="ten wide field">
+              <div class="ui calendar" style="width: 100%" id="calendar">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="calendar" placeholder="วดป" id="calendarYear" name="calendar" [attr.required]="true"
+                    autocomplete="off">
+                </div>
+              </div>
+            </div>
+            <div class="three wide field">
+            </div>
+          </div>
+        </div>
+      </segment>
+    </div>
+    <div class="four wide column">
+      <segment header="กลั่น">
+        <div class="ui form" style="height: 230px !important">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label>จำนวนส่า</label>
+            </div>
+            <div class="eight wide field">
+              <input type="text">
+            </div>
+            <div class="two wide field">
+              ลิตร
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label>วันที่เริ่มต้น</label>
+            </div>
+            <div class="ten wide field">
+              <div class="ui calendar" style="width: 100%" id="calendar2">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="calendar" placeholder="วดป" id="calendarYear" name="calendar" [attr.required]="true"
+                    autocomplete="off">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label>วันที่สิ้นสุด</label>
+            </div>
+            <div class="ten wide field">
+              <div class="ui calendar" style="width: 100%" id="calendar3">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="calendar" placeholder="วดป" id="calendarYear" name="calendar" [attr.required]="true"
+                    autocomplete="off">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label>จำนวนสุราก่อนปรุง</label>
+            </div>
+            <div class="eight wide field">
+              <input type="text">
+            </div>
+            <div class="two wide field">
+              ลิตร
+            </div>
+          </div>
+        </div>
+      </segment>
+    </div>
+    <div class="four wide column">
+      <segment header="บรรจุ">
+        <div class="ui form" style="height: 210px !important">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label>สุราที่ขออณุญาติผลิต</label>
+            </div>
+            <div class="ten wide field">
+              <select class="ui fluid dropdown full-width">
+                <option value="สุราขาวไผ่ทอง 40 ดีกรี">สุราขาวไผ่ทอง 40 ดีกรี</option>
+                <option value="AL"></option>
+              </select>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label>แรงดีกรี</label>
+            </div>
+            <div class="eight wide field">
+              <input type="text" value="40" class="custom-readonly" [disabled]="true">
+            </div>
+            <div class="two  wide field">
+              ดีกรี
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label>ขนาดบรรจุ</label>
+            </div>
+            <div class="eight wide field">
+              <input type="text" value="0.63" class="custom-readonly" [disabled]="true">
+            </div>
+            <div class="two  wide field">
+              ลิตร
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label>จำนวนผลิต</label>
+            </div>
+            <div class="eight wide field">
+              <input type="text">
+            </div>
+            <div class="two  wide field">
+              ขวด
+            </div>
+          </div>
+        </div><br>
+      </segment>
+    </div>
+    <div class="four wide column">
+      <segment header="ภาษี">
+        <div class="ui form" style="height: 210px !important">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label>ปริมาณภาษี</label>
+            </div>
+            <div class="eight wide field">
+              <input type="text">
+            </div>
+            <div class="two  wide field">
+              บาท
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label>ภาษีแสตมป์</label>
+            </div>
+            <div class="eight wide field">
+              <input type="text">
+            </div>
+            <div class="two  wide field">
+              บาท
+            </div>
+          </div>
+        </div><br>
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>

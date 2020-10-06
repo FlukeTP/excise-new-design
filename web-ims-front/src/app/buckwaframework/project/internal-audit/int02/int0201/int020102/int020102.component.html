@@ -1,0 +1,159 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+     <segment header="ดำเนินการส่งแบบสอบถาม" [loading]="saving">
+          <div form [formGroup]="form">
+               <div [center]="true" inline>
+                    <div field [col]="3">
+                         <label>วันที่สามารถเริ่มทำแบบสอบถาม </label>
+                    </div>
+                    <div field [col]="2" [ngClass]="{ 'error': invalid('startDate') }">
+                         <div class="ui calendar" id="date1">
+                              <div class="ui input left icon">
+                                   <i class="calendar alternate outline icon"></i>
+                                   <input type="text" id="startDateSend" placeholder="วว/ดด/ปปปป" autocomplete="off">
+                              </div>
+                         </div>
+                    </div>
+                    <div field [col]="3">
+                         <label>ส่งแบบแบบสอบถามก่อนวันที่ </label>
+                    </div>
+                    <div field [col]="2" [ngClass]="{ 'error': invalid('endDate') }">
+                         <div class="ui calendar" id="date2">
+                              <div class="ui input left icon">
+                                   <i class="calendar alternate outline icon"></i>
+                                   <input type="text" id="endDateSend" placeholder="วว/ดด/ปปปป" autocomplete="off">
+                              </div>
+                         </div>
+                    </div>
+
+               </div>
+               <div class="ui divider"></div>
+               <div [center]="true" inline>
+                    <label>เลือกหน่วยงาน: </label>
+                    <div field [col]="0">
+                         <div class="ui radio checkbox">
+                              <input type="radio" name="toDepartment" (change)="onExciseChange($event)"
+                                   formControlName="toDepartment" value="all" disabled>
+                              <label>ทุกหน่วยงาน</label>
+                         </div>
+                    </div>
+                    <div field [col]="0">
+                         <div class="ui radio checkbox">
+                              <input type="radio" name="toDepartment" (change)="onExciseChange($event)"
+                                   formControlName="toDepartment" value="only-main" disabled>
+                              <label>หน่วยงานภายในกรมสรรพสามิต</label>
+                         </div>
+                    </div>
+                    <div field [col]="0">
+                         <div class="ui radio checkbox">
+                              <input type="radio" name="toDepartment" (change)="onExciseChange($event)"
+                                   formControlName="toDepartment" value="only-sector" disabled>
+                              <label>สรรพสามิตภาค</label>
+                         </div>
+                    </div>
+                    <div field [col]="0">
+                         <div class="ui radio checkbox">
+                              <input type="radio" name="toDepartment" (change)="onExciseChange($event)"
+                                   formControlName="toDepartment" value="only-area" disabled>
+                              <label>สรรพสามิตพื้นที่</label>
+                         </div>
+                    </div>
+                    <!-- <div field [col]="0">
+                         <div class="ui radio checkbox">
+                              <input type="radio" name="toDepartment" (change)="onExciseChange($event)"
+                                   formControlName="toDepartment" value="custom">
+                              <label>แก้ไขด้วยตนเอง</label>
+                         </div>
+                    </div> -->
+               </div>
+
+               <div [center]="true" inline>
+                    <div class="center-all btn" field>
+                         <app-button-custom color="green" icon="" text="ส่งแบบสอบถาม" [hidden]="status !== '3'"
+                              (click)="save()">
+                         </app-button-custom>
+                         <app-button-back (click)="cancel()"></app-button-back>
+                         <!-- <app-button-save (click)="save()"></app-button-save> -->
+                         <!-- <app-button-cancel (click)="cancel()"></app-button-cancel> -->
+                    </div>
+               </div>
+               <div class="ui divider"></div>
+               <div [center]="true" inline>
+                    <div field [col]="10">
+                         <table class="ui mini compact celled table">
+                              <thead class="text-center">
+                                   <tr>
+                                        <th style="width: 64px">
+                                             <div class="ui checkbox">
+                                                  <input type="checkbox" id="chkAll" (change)="checkAll($event)"
+                                                       [attr.checked]="chkAll">
+                                                  <label>ทั้งหมด</label>
+                                             </div>
+                                        </th>
+                                        <th style="width: 64px"></th>
+                                        <th>รายการ</th>
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <ng-container *ngFor="let excise of excises; let i = index">
+                                        <tr class="text-center">
+                                             <td *ngIf=" state === 'only-sector' && state !== 'only-area' "
+                                                  style="width: 128px"></td>
+                                             <td *ngIf=" state !== 'only-sector' &&  state !== 'only-area' "
+                                                  style="width: 128px">
+                                                  <div class="ui checkbox">
+                                                       <input type="checkbox" id="chkSectorAll{{i}}"
+                                                            (change)="checkSectorAll($event, i)"
+                                                            [attr.checked]="excise.chckAll">
+                                                       <label>ทั้งภาค</label>
+                                                  </div>
+                                             </td>
+                                             <td *ngIf=" state === 'only-area' " style="width: 128px">
+                                                  <div class="ui checkbox">
+                                                       <input type="checkbox" id="chkSectorAll{{i}}"
+                                                            (change)="checkSectorAll($event, i)"
+                                                            [attr.disabled]="disabledOn"
+                                                            [attr.checked]="excise.chckAll">
+                                                       <label>ทั้งภาค</label>
+                                                  </div>
+                                             </td>
+                                             <td style="width: 64px">
+                                                  <div *ngIf=" state === 'only-area' " class="ui fitted checkbox">
+                                                       <input type="checkbox" id="chkSector{{i}}"
+                                                            (change)="checkSector($event, i)"
+                                                            [attr.disabled]="disabledOn"
+                                                            [attr.checked]="excise.checked">
+                                                       <label></label>
+                                                  </div>
+                                                  <div *ngIf=" state !== 'only-area' " class="ui fitted checkbox">
+                                                       <input type="checkbox" id="chkSector{{i}}"
+                                                            (change)="checkSector($event, i)"
+                                                            [attr.checked]="excise.checked">
+                                                       <label></label>
+                                                  </div>
+                                             </td>
+                                             <!-- [attr.disabled]="disabledOn" -->
+                                             <td class="text-left">{{ excise.deptName }}</td>
+                                        </tr>
+                                        <ng-container *ngIf="excise.excises && excise.excises.length > 0">
+                                             <tr class="text-center" *ngFor="let exc of excise.excises; let j = index">
+                                                  <td style="width: 64px"></td>
+                                                  <td style="width: 64px">
+                                                       <div class="ui fitted checkbox">
+                                                            <input type="checkbox" id="chkArea{{i}}{{j}}"
+                                                                 (change)="checkArea($event, i, j)"
+                                                                 [attr.checked]="exc.checked">
+                                                            <label></label>
+                                                       </div>
+                                                  </td>
+                                                  <td class="text-left">{{ exc.deptName }}</td>
+                                             </tr>
+                                        </ng-container>
+                                   </ng-container>
+                              </tbody>
+                         </table>
+                    </div>
+               </div>
+
+          </div>
+     </segment>
+</with-breadcrumb>

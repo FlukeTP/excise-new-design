@@ -1,0 +1,119 @@
+<div class="ui grid">
+    <div class="sixteen wide column">
+        <h2 class="ui header">สร้างกระดาษทำการใหม่</h2>
+
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>Criteria</span>
+        </div>
+
+        <div class="ui attached segment">
+            <div class="ui form">
+                <div class="inline fields">
+                    <div class="eight wide field ">
+                        <label class="custom-label-w-25">ทะเบียนสรรพสามิต</label>
+                        <input type="text" class="custom-readonly" placeholder="ทะเบียนสรรพสามิต" readonly="" value="2560-00178-5">
+                    </div>
+                    <div class="eight wide field ">
+                        <label class="custom-label-w-20">เลขประจำตัวผู้เสียภาษี</label>
+                        <input type="text" class="custom-readonly" placeholder="เลขประจำตัวผู้เสียภาษี" readonly="" value="1-5599-00168-99-6">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="eight wide field">
+                        <label class="custom-label-w-25">ผู้ประกอบการ </label>
+                        <input type="text" class="custom-readonly" placeholder="ผู้ประกอบการ" readonly="" value="บ. ฮอนด้า มอเตอร์ ประเทศไทย">
+                    </div>
+                    <div class="eight wide field ">
+                        <label class="custom-label-w-20">เลขที่วิเคราะห์</label>
+                        <input type="text" class="custom-readonly" placeholder="เลขที่วิเคราะห์" readonly="" value="256000000001">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="eight wide field required">
+                        <label class="custom-label-w-25">รอบระยะเวลาการตรวจสอบ</label>
+                        <div class="eight wide field">
+                            <div class="ui icon input">
+                                <input type="text" class="custom-readonly" placeholder="ดด/ปปปป" value="11/2560" readonly="">
+                                <i class="add to calendar icon"></i>
+                            </div>
+                        </div>
+                        <div class="eight wide field">
+                            <label>-</label>
+                            <div class="ui icon input">
+                                <input type="text" class="custom-readonly" placeholder="ดด/ปปปป" value="12/2560" readonly="">
+                                <i class="add to calendar icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>เลือกข้อมูลหลักที่ใช้ในการเปรียบเทียบ</span>
+        </div>
+
+        <div class="ui attached segment">
+            <div class="ui form">
+                <div class="inline fields">
+                    <div class="five wide field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="radio" checked="checked">
+                            <label>ภส. 02 - 01</label>
+                        </div>
+                    </div>
+                    <div class="eight wide field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="radio">
+                            <label>ภส. 03 - 01/2</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="five wide field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="radio">
+                            <label>ภส. 02 - 02</label>
+                        </div>
+                    </div>
+                    <div class="eight wide field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="radio">
+                            <label>ภส. 05 -07</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="five wide field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="radio">
+                            <label>ภส. 03 - 07</label>
+                        </div>
+                    </div>
+                    <div class="eight wide field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="radio">
+                            <label>ภส. 03 - 10</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui center aligned grid">
+                <div class="six wide column">
+                    <button class="ui mini primary button" routerLink="/create-new-form">
+                        <i class="plus icon"></i>
+                        สร้างกระดาษทำการ
+                    </button>
+                    <button class="ui mini button" routerLink="/select-form/สินค้า/สินค้าน้ำมันและผลิตภัณฑ์น้ำมัน">
+                        <i class="remove icon"></i>
+                        ยกเลิก
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>

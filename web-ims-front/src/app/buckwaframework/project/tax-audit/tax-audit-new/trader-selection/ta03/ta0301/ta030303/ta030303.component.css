@@ -1,0 +1,9 @@
+.width-td100-ts {
+    min-width: 100px;
+}
+.table{
+    position: static !important;
+    z-index: 1 !important;
+
+
+}

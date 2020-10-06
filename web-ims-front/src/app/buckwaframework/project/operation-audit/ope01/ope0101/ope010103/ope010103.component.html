@@ -1,0 +1,109 @@
+<!-- <with-breadcrumb [breadcrumb]="breadcrumb">
+    <div class="ui grid">
+      <div class="sixteen wide column">
+  
+        <segment header="เลือกผู้ออกตรวจ" [loading]="false">
+          <div class="ui form">
+            <div class="inline fields">
+              <div class="eight wide field" style="align-self: flex-start">
+                <table class="ui mini very compact table celled">
+                  <thead class="text-center">
+                    <tr>
+                      <th class="one wide"> ลำดับ</th>
+                      <th class="six wide">ชื่อ</th>
+                      <th class="six wide">ตำแหน่ง</th>
+                      <th class="three wide">#</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+
+                    <tr>
+                      <td>1</td>
+                      <td class="text-left">นาย อาทิตย์ แก่นใจ</td>
+                      <td>นักวิชาการสรรพสามิต</td>
+                      <td>
+                        <app-button-custom text="เลือก" icon="check"></app-button-custom>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="eight wide field" style="align-self: flex-start">
+                <table class="ui mini very compact table celled">
+                  <thead class="text-center">
+                    <tr>
+                      <th class="one wide">ลำดับ</th>
+                      <th class="nine wide">ชื่อ</th>
+                      <th class="six wide">ตำแหน่ง</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+
+                    <tr>
+                      <td>1</td>
+                      <td class="text-left">ดร. ธีรวุฒิ กุลธิชัย</td>
+                      <td>นักวิชาการสรรพสามิตชำนาญการ</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td class="text-left">รศ.ดร. เอกลักษณ์ อัมพุธ</td>
+                      <td>นักวิชาการสรรพสามิต</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td class="text-left">ว่าที่ร้อยตรี ธนพนธ์ โป่งมณี</td>
+                      <td>นักวิชาการสรรพสามิต</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="inline field btn text-center">
+              <app-button-save (click)="save()"></app-button-save>
+              <app-button-back (click)="back()"></app-button-back>
+            </div>
+          </div>
+        </segment>
+  
+      </div>
+    </div>
+  </with-breadcrumb> -->
+
+  <with-breadcrumb [breadcrumb]="breadcrumb">
+    <div class="ui grid">
+      <div class="sixteen wide column">
+  
+        <segment header="เลือกผู้ออกตรวจ" [loading]="false">
+          <div class="ui form">
+            <div class="inline fields">
+              <div class="two wide field"></div>
+              <div class="twelve wide field">
+  
+                <table id="dataTable1" class="ui small celled table striped nowrap selectable" style="width: 100%;">
+                  <thead>
+                    <tr style="text-align: center">
+                      <!-- <th style="text-align: center !important;"><input class="ui checkbox" type="checkbox"
+                          name="select-all1" id="select-all1" (click)="checkAll1($event)"></th> -->
+                      <th style="text-align: center !important"></th>
+                      <th style="text-align: center !important">รายชื่อ</th>
+                      <th style="text-align: center !important">ตำแหน่ง</th>
+                      <th style="text-align: center !important"></th>
+                    </tr>
+                  </thead>
+                </table>
+  
+              </div>
+              <div class="two wide field"></div>
+            </div>
+  
+            <div class="inline field btn text-center">
+              <!-- <app-button-save (click)="save()"></app-button-save> -->
+              <app-button-back (click)="back()"></app-button-back>
+            </div>
+          </div>
+        </segment>
+  
+      </div>
+    </div>
+  </with-breadcrumb>

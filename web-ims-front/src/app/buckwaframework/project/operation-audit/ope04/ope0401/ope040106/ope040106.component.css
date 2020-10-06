@@ -1,0 +1,13 @@
+.ui.button {
+    box-shadow: none !important;
+    width: 100%;
+}
+
+.btn-custom {
+    background-color: #c0c1c2;
+}
+
+.color-custom {
+    background-color:#004eff !important;
+    color: white !important;
+}

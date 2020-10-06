@@ -1,0 +1,90 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="โรงอุตสาหกรรมที่คัดเลือกประจำเดือน{{month + ' ' + year}}" [loading]="false">
+    <div class="ui form ">
+      <div class="inline fields">
+        <div class="sixteen wide field ">
+          <a class="text-right full-width" (click)="routeTo()" style="cursor: pointer">
+            {{month + ' ' + year}}
+          </a>
+        </div>
+      </div>
+    </div>
+    <table class="ui small celled table striped selectable" id="dataTable" style="width: 100%;">
+      <thead>
+        <tr style="text-align: center">
+          <th>ลำดับ</th>
+          <th>เลขทะเบียนสรรพสามิต</th>
+          <th>โรงอุตสาหกรรม</th>
+          <th>พื้นที่ที่โรงอุตสาหกรรมตั้งอยู่</th>
+          <th>ส่วนกลาง (สำนักตรวจสอบภาษี)</th>
+          <th>ส่วนกลาง (สำนักมาตรฐาน)</th>
+          <th>สรรพสามิตภาค</th>
+          <th>สรรพสามิตพื้นที่</th>
+          <th>หมายเหตุ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row1 -->
+        <tr>
+          <td class="text-center">1</td>
+          <td class="text-center">2555-02487-0</td>
+          <td>บริษัท สุโขทัย เอ็นเนอร์ยี่ จำกัด</td>
+          <td>อยุธยา 1</td>
+          <td style="background-color: red">ตรวจสอบภาษี</td>
+          <td></td>
+          <td style="background-color: red">ตรวจสอบภาษี</td>
+          <td></td>
+          <td>มีการเลือกซ้ำ</td>
+        </tr>
+        <!-- row2 -->
+        <tr>
+          <td class="text-center">2</td>
+          <td class="text-center">2551-01028-8</td>
+          <td>บริษัท เอนเนอจี อินโนเวชั่น เทคโนโลยี จำกัด</td>
+          <td>ชลบุรี 1</td>
+          <td></td>
+          <td></td>
+          <td>ตรวจสอบภาษี</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <!-- row3 -->
+        <tr>
+          <td class="text-center">3</td>
+          <td class="text-center">2552-00029-5</td>
+          <td>บริษัท วาย.บี. แอล. ออยล์ จำกัด</td>
+          <td>ชลบุรี 1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>ตรวจสอบภาษี</td>
+          <td></td>
+        </tr>
+        <!-- row4 -->
+        <tr>
+          <td class="text-center">4</td>
+          <td class="text-center">2557-03725-9</td>
+          <td>บริษัท พีทีที โกลบอล เคมิคอล จำกัด (มหาชน)</td>
+          <td>ระยอง 1</td>
+          <td></td>
+          <td>ตรวจสอบภาษี</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <!-- row5 -->
+        <tr>
+          <td class="text-center">5</td>
+          <td class="text-center">2545-02631-1</td>
+          <td>บริษัท ไทย ฮาวท์ตัน 1993 จำกัด</td>
+          <td>ระยอง 2</td>
+          <td></td>
+          <td></td>
+          <td>ตรวจสอบภาษี</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </segment>
+</with-breadcrumb>

@@ -1,0 +1,8 @@
+.showTotal {
+    background-color: #cccc !important
+}
+
+.ui.button {
+    box-shadow: none !important;
+    width: 100%;
+}

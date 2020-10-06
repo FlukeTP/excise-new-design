@@ -1,0 +1,30 @@
+<br>
+
+<div class="ui form grid">
+  <div class="two wide column"></div>
+  <div class="fourteen wide column">
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="one wide field"> <i class="small circular inverted {{auditStepList[0].iconName}} icon"
+          style="font-size: 1em;"></i>
+      </div>
+      <div class="five wide field">
+        <label class="text-left full-width">ใบรับตราสารและหลักฐานต่างๆ (ตส. ๐๑-๑๒)</label>
+      </div>
+      <div class="four wide field">
+        <app-button-detail (click)="goToTs('FORM_TS01_12', '2010')"></app-button-detail>
+        <div class="ui label" *ngIf="auditStepList[0].formTsNumber != ''">{{auditStepList[0].formTsNumber}}</div>
+        <!-- <app-button-custom color="primary" icon="eye icon" text="ดูแบบ" (click)="goTo('/tax-audit-new/ta03/01')"></app-button-custom> -->
+      </div>
+    </div>
+
+    <!-- <br>
+      <div class="inline fields">
+        <div class="five wide field"></div>
+        <div class="three wide field">
+          <app-button-back  (click)="goTo('/tax-audit-new/ta02/02/01')"></app-button-back>
+        </div>
+      </div> -->
+    <br>
+  </div>
+</div>

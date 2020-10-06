@@ -1,0 +1,109 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="ปฏิทินการตรวจสอบประจำปีงบประมาณ 2562">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="four wide field">
+          <app-button-custom color="primary" text="คัดเลือกตรวจสอบภาษี" routerLink="/plan03"></app-button-custom>
+          <app-button-custom color="primary" icon="" text="แผนประจำปี" routerLink="/plan02"></app-button-custom>
+        </div>
+        <div class="three wide field"></div>
+        <div class="nine wide field text-center">
+          <h3>ปฏิทินการตรวจสอบประจำปีงบประมาณ 2562</h3>
+        </div>
+      </div>
+    </div>
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <table id="dataTable" class="ui small celled table striped selectable nowrap" style="width: 100%">
+          <thead class="text-center">
+            <!-- ไตรมาส 1  -->
+            <tr>
+              <th rowspan="2">ไตรมาส 1</th>
+              <th><a (click)="route(10, 2561)">ต.ค.-61</a></th>
+              <th><a (click)="route(11, 2561)">พ.ย.-61</a></th>
+              <th><a (click)="route(12, 2561)">ธ.ค.-61</a></th>
+            </tr>
+            <tr>
+              <td>1.ตรวจสอบภาษี</td>
+              <td>
+                1.ตรวจสอบภาษี<br>
+                2.ตรวจปฏิบัติการ<br>
+                3.ตรวจสอบภายใน
+              </td>
+              <td>
+                1.ตรวจสอบภาษี<br>
+                2.ตรวจปฏิบัติการ<br>
+                3.ตรวจสอบภายใน
+              </td>
+            </tr>
+            <!-- ไตรมาส 2  -->
+            <tr>
+              <th rowspan="2">ไตรมาส 2</th>
+              <th><a (click)="route(01, 2562)">ม.ค.-62</a></th>
+              <th><a (click)="route(02, 2562)">ก.พ.-62</a></th>
+              <th><a (click)="route(03, 2562)">มี.ค.-62</a></th>
+            </tr>
+            <tr>
+              <td>3.ตรวจสอบภายใน</td>
+              <td>
+                1.ตรวจสอบภาษี<br>
+                2.ตรวจปฏิบัติการ<br>
+                3.ตรวจสอบภายใน
+              </td>
+              <td>
+                1.ตรวจสอบภาษี<br>
+                3.ตรวจสอบภายใน
+              </td>
+            </tr>
+            <!-- ไตรมาส 3  -->
+            <tr>
+              <th rowspan="2">ไตรมาส 3</th>
+              <th><a (click)="route(04, 2562)">เม.ย.-62</a></th>
+              <th><a (click)="route(05, 2562)">พ.ค.-62</a></th>
+              <th><a (click)="route(06, 2562)">มิ.ย.-62</a></th>
+            </tr>
+            <tr>
+              <td>
+                1.ตรวจสอบภาษี<br>
+                2.ตรวจปฏิบัติการ<br>
+                3.ตรวจสอบภายใน
+              </td>
+              <td>
+                1.ตรวจสอบภาษี<br>
+                3.ตรวจสอบภายใน
+              </td>
+              <td>
+                1.ตรวจสอบภาษี<br>
+                2.ตรวจปฏิบัติการ<br>
+                3.ตรวจสอบภายใน
+              </td>
+            </tr>
+            <!-- ไตรมาส 4  -->
+            <tr>
+              <th rowspan="2">ไตรมาส 4</th>
+              <th><a (click)="route(07, 2562)">ก.ค.-62</a></th>
+              <th><a (click)="route(08, 2562)">ส.ค.-62</a></th>
+              <th><a (click)="route(09, 2562)">ก.ย.-62</a></th>
+            </tr>
+            <tr>
+              <td>
+                1.ตรวจสอบภาษี<br>
+                2.ตรวจปฏิบัติการ<br>
+                3.ตรวจสอบภายใน
+              </td>
+              <td>
+                1.ตรวจสอบภาษี<br>
+                2.ตรวจปฏิบัติการ<br>
+                3.ตรวจสอบภายใน
+              </td>
+              <td>
+                1.ตรวจสอบภาษี<br>
+                2.ตรวจปฏิบัติการ
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

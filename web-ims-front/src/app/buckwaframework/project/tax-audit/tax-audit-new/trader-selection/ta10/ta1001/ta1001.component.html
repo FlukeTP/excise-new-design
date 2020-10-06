@@ -1,0 +1,131 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายชื่อพนักงานในหน่วยงานตรวจสอบภาษี (TA1001)" [loading]="loading">
+
+    <div grid>
+      <div [column]="16">
+        <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableDetails">
+          <thead class="text-center">
+            <tr>
+              <th style=" text-align: center !important">ลำดับ</th>
+              <th style=" text-align: center !important">Id login</th>
+              <th style=" text-align: center !important">ชื่อ - นามสกุล</th>
+              <th style=" text-align: center !important">ตำแหน่ง</th>
+              <th style=" text-align: center !important">ส่วน</th>
+              <!-- <th style=" text-align: center !important">ที่อยู่โรงอุตสาหกรรม/สถานบริการ</th> -->
+              <th style=" text-align: center !important">ฝ่าย</th>
+              <th style=" text-align: center !important">ระดับ</th>
+              <th style=" text-align: center !important"></th>
+            </tr>
+          </thead>
+          <!-- <tbody>
+            <tr *ngFor="let item of datas; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{item.edPersonName}}</td>
+              <td>{{item.edPositionName}}</td>
+              <td>{{item.officeName}}</td>
+              <td>{{item.subDeptName}}</td>
+              <td>{{item.level}}</td>
+              <td></td>
+            </tr>
+          </tbody> -->
+        </table>
+        <br>
+      </div>
+    </div>
+
+  </segment>
+
+</with-breadcrumb>
+
+
+<!-- <ui-modal [id]="'tableModal'" type="custom" size="small">
+  <div class="ui header">
+    รายละเอียดผู้ประกอบการ
+  </div>
+  <div class="content"></div>
+
+  <div class="actions">
+    <app-button-custom class="deny" [color]="'grey'" [icon]="'remove'" text="ปิด"></app-button-custom>
+  </div>
+</ui-modal> -->
+
+
+<ui-modal [id]="'tableModal'" type="custom" size="large">
+    <div class="ui header">
+      บันทึกรายละเอียดพนักงาน
+    </div>
+    <br>
+    <!-- <div class="content scrolling"> -->
+      <form form [formGroup]="form">
+        <div inline>
+          <div field [col]="3"><label class="full-width text-right">ชื่อ - นามสกุล</label></div>
+          <div field [col]="5"><input class="custom-readonly" readonly="" type="text" formControlName="name"
+              id="name"></div>
+          <div field [col]="2"><label class="full-width text-right">ตำแหน่ง</label></div>
+          <div field [col]="5"><input class="custom-readonly" readonly="" type="text" formControlName="positioin"
+              id="positioin"></div>
+        </div>
+        <div inline>
+          <div field [col]="3"><label class="full-width text-right">ส่วน</label></div>
+          <div field [col]="5"><input class="custom-readonly" readonly="" type="text" formControlName="offname"
+              id="offname"></div>
+          <div field [col]="2"><label class="full-width text-right">ฝ่ายฯ</label></div>
+          <div field [col]="5">
+            <!-- <input class="custom"  type="text" formControlName="subDeptName" > -->
+            <select class="ui dropdown full-width" id="subDeptName" name="subDeptName" formControlName="subDeptName">
+                <!-- <option value="">ทั้งหมด</option> -->
+                <option *ngFor="let item of areas" value="{{item.subdeptCode}}">{{item.subdeptShortName}}</option>
+            </select>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="3"></div>
+          <div field [col]="5"></div>
+          <div field [col]="2"><label class="full-width text-right">ระดับ</label></div>
+          <div field [col]="5">
+            <!-- <input class="custom"  type="text" formControlName="level"> -->
+            <select class="ui dropdown full-width" id="level" name="level" formControlName="level">
+                <option  value="1">1</option>
+                <option  value="2">2</option>
+                <option  value="3">3</option>
+            </select>
+          </div>
+        </div>
+        <!--         
+        <div inline>
+          <div field [col]="3"></div>
+          <div field [col]="4"><label class="full-width">ชื่อ - นามสกุลผู้รับผิดชอบ</label></div>
+          <div field [col]="4"></div>
+          <div field [col]="4"><label class="full-width">ตำแหน่ง</label></div>
+        </div>
+
+        <div inline formArrayName="names" *ngFor="let item of formData.controls; let i = index">
+          <ng-container [formGroupName]="i">
+            <div field [col]="3">
+              <label class="full-width text-right">
+                <app-button-custom *ngIf="i==0" [icon]="'plus'" (click)="addItemAssign()"></app-button-custom>
+                <app-button-custom *ngIf="i!=0" [color]="'red'" [icon]="'window minimize'" (click)="removeItemAssign(i)">
+                </app-button-custom>
+              </label>
+            </div>
+            <div field [col]="4">
+              <select class="ui dropdown ai selection full-width " id="{{'edPersonName'+i}}"  formControlName="name"  (change)="onNameChange($event,i)">
+
+                  <option *ngFor="let data of personList let j = index" value="{{j}}" >{{data.name}}</option>
+              </select>
+            </div>
+            <div field [col]="4"></div>
+            <div field [col]="4"><input type="text" formControlName="position" id="position{{id}}" class="custom-readonly"
+                readonly=""></div>
+          </ng-container>
+        </div> -->
+  
+        <!-- form-array end-->
+      </form>
+    <!-- </div> -->
+    <br>
+    <div class="actions">
+      <app-button-save (click)="savePerson()"></app-button-save>
+      <app-button-cancel class="deny"></app-button-cancel>
+    </div>
+  </ui-modal>

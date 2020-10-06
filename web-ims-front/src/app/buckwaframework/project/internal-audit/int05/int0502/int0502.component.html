@@ -1,0 +1,249 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column center">
+      <segment header="หลักฐานการจ่ายเงินค่าใช้จ่ายในการเดินทางไปราชการ (แบบ ๘๗๐๘)" [loading]="false">
+        <form [formGroup]="formSearch">
+          <div class="ui form">
+            <div class="ui grid">
+              <div class="sixteen wide column">
+                <!-- row 1 -->
+                <div inline>
+                  <div field [col]="3">
+                    <label class="text-right full-width">ชื่อผู้ดำเนินการ</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="operatorName" readonly class="custom-readonly">
+                  </div>
+                  <div field [col]="2">
+                    <label class="text-right full-width">หน่วยงาน</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="department" readonly class="custom-readonly">
+                  </div>
+
+                </div>
+                <!-- row 2 -->
+                <div inline>
+                  <div field [col]="3">
+                    <label class="text-right full-width">เดินทางไปราชการที่สรรพสามิตภาค</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="sector" readonly class="custom-readonly"
+                      placeholder="เลือกเลขที่เอกสารประมาณการ">
+                    <!-- <select class="ui dropdown full-width custom-readonly" id="sector" (change)="dropdownChange($event, 'SECTOR')"
+                      formControlName="sector">
+                      <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+                      <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+                    </select> -->
+                  </div>
+                  <div field [col]="2">
+                    <label class="text-right full-width">พื้นที่</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="area" readonly class="custom-readonly"
+                      placeholder="เลือกเลขที่เอกสารประมาณการ">
+                    <!-- <select class="ui dropdown full-width custom-readonly" id="area" (change)="dropdownChange($event, 'AREA')"
+                      formControlName="area"  readonly>
+                      <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+                      <option value="0">ทั้งหมด</option>
+                      <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+                    </select> -->
+                  </div>
+                </div>
+                <div inline>
+                  <div field [col]="3">
+                    <label class="text-right full-width">เลขที่เอกสารประมาณการ</label>
+                  </div>
+                  <div field [col]="4">
+                    <select class="ui dropdown full-width" (change)="onChangeEstExpNo($event)" id="estExpNo"
+                      formControlName="estExpNo">
+                      <option value="">กรุณาเลือก</option>
+                      <option *ngFor="let item of estimateNo" value="{{item.estExpNo}}">{{item.estExpNo}}</option>
+                    </select>
+                  </div>
+                  <div field [col]="2">
+                    <label class="text-right full-width">เดินทางตั้งแต่วันที่</label>
+                  </div>
+                  <div field [col]="2">
+                    <div class="ui calendar" style="width:100%" id="dateCalendarFrom">
+                      <div class="ui input left icon">
+                        <i class="calendar alter nate outline icon"></i>
+                        <input type="text" placeholder="วว/ดด/ปปปป" formControlName="travelDateForm" autocomplete="off"
+                          readonly class="custom-readonly">
+                      </div>
+                    </div>
+                  </div>
+                  <div field [col]="1">
+                    <label class="text-center full-width">ถึงวันที่</label>
+                  </div>
+                  <div field [col]="2">
+                    <div class="ui calendar" style="width:100%" id="dateCalendarTo">
+                      <div class="ui input left icon">
+                        <i class="calendar alter nate outline icon"></i>
+                        <input type="text" placeholder="วว/ดด/ปปปป" id="dateTo" name="dateTo"
+                          formControlName="travelDateTo" autocomplete="off" readonly class="custom-readonly">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui center aligned grid">
+            <div class="column">
+              <app-button-save (click)="save()"></app-button-save>
+              <app-button-export (click)="export()"></app-button-export>
+              <app-button-clear (click)="clear()"></app-button-clear>
+            </div>
+          </div>
+          <br>
+        </form>
+        <div class="ui grid" id="headtable">
+          <div class="sixteen wide column">
+            <div form>
+              <div inline>
+                <div contentLeft>
+                  <div class="ui mini buttons">
+                    <button class="ui button" (click)="changeFlagBtn('1')" [ngClass]="{'active grey': flagBtn=='1'}"
+                      style="border-radius: 0px">1.ข้าราชการ-พนักงานราชการ</button>
+                    <button class="ui button" (click)="changeFlagBtn('2')" [ngClass]="{'active grey': flagBtn=='2'}"
+                      style="border-radius: 0px">2.ลูกจ้างชั่วคราว</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sixteen wide column" >
+          <form form id="ShowDataTable1" [formGroup]="formSearchHeader">
+            <div style="overflow-x: auto; margin-top: 15px; margin-bottom: 16px">
+              <table class="ui small celled nowrap table striped selectable" style="width:100%">
+                <thead id="thHeader">
+                  <tr style="text-align: center;">
+                    <th class="bg-th-left" rowspan="2"></th>
+                    <th class="bg-th-left" rowspan="2">ลำดับ</th>
+                    <th class="bg-th-left" rowspan="2">ชื่อ</th>
+                    <th class="bg-th-left" rowspan="2">ตำแหน่ง</th>
+                    <th class="bg-th-left" colspan="4">ค่าใช้จ่าย</th>
+                    <!-- ------------------------------------------- -->
+                    <th class="bg-th-left" rowspan="2">รวมเป็นเงิน</th>
+                    <!-- ------------------------------------------- -->
+                    <th class="bg-th-left" rowspan="2">ลายมือชื่อผู้รับเงิน</th>
+                    <th class="bg-th-left" rowspan="2">วันที่รับเงิน</th>
+                    <th class="bg-th-rigth" rowspan="2">หมายเหตุ</th>
+                  </tr>
+                  <tr>
+                    <th style="text-align: center !important">ค่าเบี้ยเลี้ยง</th>
+                    <th style="text-align: center !important">ค่าเช่าที่พัก</th>
+                    <th style="text-align: center !important">ค่าพาหนะ</th>
+                    <th style="text-align: center !important">ค่าใช้จ่ายอื่นๆ</th>
+                  </tr>
+                </thead>
+                <tbody formArrayName="iaEstimateD1List">
+                  <ng-container *ngIf="formSearchHeader.controls">
+                    <ng-container *ngIf="formSearchHeader.controls.iaEstimateD1List.controls!=0">
+                      <tr [formGroupName]="i"
+                        *ngFor="let item of formSearchHeader.controls.iaEstimateD1List.controls; let i = index;let first = first;let last = last"  >
+                        <td class=" text-center">
+                          <app-button-custom color="red" icon="delete icon" (click)="editList(i,'Y')" *ngIf="item.get('flagNotWithdrawing').value == 'N'">
+                          </app-button-custom>
+                          <app-button-custom color="green" icon="plus icon" (click)="editList(i,'N')" *ngIf="item.get('flagNotWithdrawing').value == 'Y'">
+                            </app-button-custom>
+                        </td>
+                        <td style="text-align: center !important" *ngIf="item.get('flagNotWithdrawing').value == 'N'" >{{i+1}}</td>
+                        <td style="background-color: rgb(255, 189, 189); text-align: center !important" *ngIf="item.get('flagNotWithdrawing').value == 'Y'">{{i+1}}</td>
+
+                        <td *ngIf="item.get('flagNotWithdrawing').value == 'N'" >{{item.get('personTeamCode').value | isEmpty}}</td>
+                        <td style="background-color: rgb(255, 189, 189) ;" *ngIf="item.get('flagNotWithdrawing').value == 'Y'">{{item.get('personTeamCode').value | isEmpty}}</td>
+
+                        <td *ngIf="item.get('flagNotWithdrawing').value == 'N'" >{{item.get('position').value | isEmpty}}</td>
+                        <td style="background-color: rgb(255, 189, 189) ;" *ngIf="item.get('flagNotWithdrawing').value == 'Y'">{{item.get('position').value | isEmpty}}</td>
+
+                        <td *ngIf="item.get('flagNotWithdrawing').value == 'N'"  style="width: 100px ;text-align: right !important"> {{ item.get('sumAllowances').value | decimalFormat:"###,###.00" }} </td>
+                        <td style="background-color: rgb(255, 189, 189);width: 100px ;text-align: right !important" *ngIf="item.get('flagNotWithdrawing').value == 'Y'"> {{ item.get('sumAllowances').value | decimalFormat:"###,###.00" }} </td>
+
+                        <td *ngIf="item.get('flagNotWithdrawing').value == 'N'"  style="width: 100px ;text-align: right !important">{{ item.get('sumAccom').value | decimalFormat:"###,###.00" }} </td>
+                        <td style="background-color: rgb(255, 189, 189);width: 100px ;text-align: right !important" *ngIf="item.get('flagNotWithdrawing').value == 'Y'">{{ item.get('sumAccom').value | decimalFormat:"###,###.00" }} </td>
+
+                        <td *ngIf="item.get('flagNotWithdrawing').value == 'N'" style="width: 100px;text-align: right !important"> {{ item.get('tranCost').value | decimalFormat:"###,###.00" }}</td>
+                        <td style="background-color: rgb(255, 189, 189);width: 100px;text-align: right !important" *ngIf="item.get('flagNotWithdrawing').value == 'Y'"> {{ item.get('tranCost').value | decimalFormat:"###,###.00" }}</td>
+
+                        <td *ngIf="item.get('flagNotWithdrawing').value == 'N'" style="width: 100px;text-align: right !important">{{ item.get('otherExpenses').value | decimalFormat:"###,###.00" }}</td>
+                        <td style="background-color: rgb(255, 189, 189);width: 100px;text-align: right !important" *ngIf="item.get('flagNotWithdrawing').value == 'Y'">{{ item.get('otherExpenses').value | decimalFormat:"###,###.00" }}</td>
+
+                        <td  *ngIf="item.get('flagNotWithdrawing').value == 'N'"  style="width: 120px;text-align: right !important">{{ item.get('sumAmt').value | decimalFormat:"###,###.00" }}</td>
+                        <td style="background-color: rgb(255, 189, 189);width: 120px;text-align: right !important" *ngIf="item.get('flagNotWithdrawing').value == 'Y'">{{ item.get('sumAmt').value | decimalFormat:"###,###.00" }}</td>
+
+                        <td *ngIf="item.get('flagNotWithdrawing').value == 'N'" style="width: 120px"></td>
+                        <td style="background-color: rgb(255, 189, 189);width: 120px" *ngIf="item.get('flagNotWithdrawing').value == 'Y'"></td>
+
+                        <td *ngIf="item.get('flagNotWithdrawing').value == 'N'" style="width: 120px"></td>
+                        <td style="background-color: rgb(255, 189, 189);width: 120px" *ngIf="item.get('flagNotWithdrawing').value == 'Y'"></td>
+
+                        <td *ngIf="item.get('flagNotWithdrawing').value == 'N'" style="width: 180px" class="text-left">{{item.get('remark').value | isEmpty}}</td>
+                        <td style="background-color: rgb(255, 189, 189);width: 180px" class="text-left" *ngIf="item.get('flagNotWithdrawing').value == 'Y'">{{item.get('remark').value | isEmpty}}</td>
+                      </tr>
+                    </ng-container>
+                    <ng-container *ngIf="formSearchHeader.controls.iaEstimateD1List.controls==0">
+                      <tr class="text-center">
+                        <td colspan="14">ไม่พบข้อมูล</td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                </tbody>
+                <tfoot >
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center !important">รวมเงิน</td>
+                    <td style="text-align: right !important">{{allSumAllowances | decimalFormat:"###,###.00"}}</td>
+                    <td style="text-align: right !important">{{allSumAccom | decimalFormat:"###,###.00" }}</td>
+                    <td style="text-align: right !important">{{allSumTranCost | decimalFormat:"###,###.00"}}</td>
+                    <td style="text-align: right !important">{{allSumOtherExpenses | decimalFormat:"###,###.00"}}</td>
+                    <td style="text-align: right !important">{{allSumAmt | decimalFormat:"###,###.00"}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </form>
+        </div>
+        <br>
+        <div class="ui form" [formGroup]="formSearch">
+          <div class="ui grid">
+            <div class="sixteen wide column">
+              <!-- row 1 -->
+              <div inline>
+                <div field [col]="4">
+                  <label class="text-right full-width">จำนวนเงินรวมทั้งสิ้น(ตัวอักษร)</label>
+                </div>
+                <div field [col]="4">
+                  <label class="text-left full-width">{{thaiBathCon | isEmpty}}</label>
+                </div>
+                <div field [col]="4">
+                  <label class="text-right full-width">ผู้รับผิดชอบ</label>
+                </div>
+                <div field [col]="4">
+                  <label class="text-left full-width">{{operatorName | isEmpty}}</label>
+                </div>
+              </div>
+              <div inline>
+                <div field [col]="8">
+                </div>
+                <div field [col]="4">
+                  <label class="text-right full-width">ตำแหน่ง</label>
+                </div>
+                <div field [col]="4">
+                  <label class="text-left full-width">{{title | isEmpty}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>

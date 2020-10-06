@@ -1,0 +1,230 @@
+<br>
+<segment header="ทะเบียนคุมเงินฝากธนาคาร" [loading]="false">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+
+      <div class="ui attached">
+        <form class="ui form">
+          <input type="hidden" id="searchFlag" name="searchFlag">
+          <!-- row 1 -->
+          <div class="inline fields  ui grid">
+            <div class="three wide field ">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div class="four wide field ">
+              <select name="sector " id="sector" class="ui dropdown ai search full-width office"
+                (change)="area($event)">
+                <option value="">กรุณาเลือก</option>
+                <option *ngFor="let item of sectorList; index as i;" value="{{item.lovId}}">{{item.subTypeDescription}}
+                </option>
+              </select>
+            </div>
+            <div class="three wide field ">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div class="four wide field ">
+              <select name="area" id="area" class="ui dropdown ai search full-width office" (change)="branch($event)">
+                <option value="">กรุณาเลือก</option>
+                <option *ngFor="let item of areaList" value="{{item.lovId}}">{{item.subTypeDescription}}</option>
+              </select>
+            </div>
+          </div>
+          <!-- row 2 -->
+          <div class="inline fields  ui grid">
+            <div class="three wide field ">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่สาขา</label>
+            </div>
+            <div class="four wide field ">
+              <select name="branch" id="branch" class="ui dropdown ai search full-width office">
+                <option value="">กรุณาเลือก</option>
+                <option *ngFor="let item of branchList; index as i;" value="{{item.lovId}}">{{item.subTypeDescription}}
+                </option>
+              </select>
+            </div>
+
+          </div>
+          <!-- row 3 -->
+          <div class="inline fields  ui grid">
+            <div class="three wide field ">
+              <label class="text-right full-width">วันที่เริ่มต้น</label>
+            </div>
+            <div class="four wide field ">
+              <div class="ui calendar full-width" id="dateF">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input name="dateFrom" type="text" id="dateFrom" autocomplete="off" [attr.readonly]="null"
+                    placeholder="วว/ดด/ปปปป" [attr.required]="true">
+                </div>
+              </div>
+            </div>
+            <div class="three wide field ">
+              <label class="text-right full-width">วันที่สิ้นสุด</label>
+            </div>
+            <div class="four wide field ">
+              <div class="ui input">
+                <div class="ui calendar full-width" id="dateT">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input name="dateTo" type="text" id="dateTo" autocomplete="off" [attr.readonly]="null"
+                      placeholder="วว/ดด/ปปปป" [attr.required]="true">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="one wide field "></div>
+          </div><br>
+          <div class="ui stackable center aligned page grid">
+            <app-button-search (click)="search()"></app-button-search>
+            <app-button-clear (click)="clear()"></app-button-clear>
+            <!-- <button class="ui mini primary button" type="button" (click)="search()"><i class="search icon"></i>ค้นหา</button>
+          <button class="ui mini gray button " type="button" (click)="clear()"><i class="refresh icon"></i>ล้างข้อมูล</button> -->
+          </div><br>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="ui attached">
+    <!-- tab menu -->
+    <div contentLeft >
+      <div class="ui mini buttons">
+        <button class="ui button " style="border-radius: 0px;width:17%;font-size: 12px"
+          [routerLink]="[ '/int09/03/03']">ทะเบียนคุมเช็ค</button>
+        <button class="ui button " style="border-radius: 0px;width:17%;font-size: 12px" [routerLink]="[ '/int09/03/04']">ทะเบียนคุม
+          KTB-Corporate</button>
+        <button class="ui button " style="border-radius: 0px;width:17%;font-size: 12px"
+          [routerLink]="[ '/int09/03/05']">ทะเบียนคุมเงินนอกงบประมาณ</button>
+        <button class="ui button " style="border-radius: 0px;width:17%;font-size: 12px"
+          [routerLink]="[ '/int09/03/06']">ทะเบียนคุมเงินงบประมาณ</button>
+        <button class="ui button positive" style="border-radius: 0px;width:17%;font-size: 12px"
+          [routerLink]="[ '/int09/03/07']">ทะเบียนคุมเงินฝากธนาคาร</button>
+        <button class="ui button " style="border-radius: 0px;width:15%;font-size: 12px"
+          [routerLink]="[ '/int09/03/08']">ทะเบียนคุมฎีกาเบิกจ่ายเงิน</button>
+        <button class="ui button " style="border-radius: 0px;width:15%;font-size: 12px"
+          [routerLink]="[ '/int09/03/09']">ทะเบียนคุมหลักฐานขอเบิก</button>
+      </div>
+    </div>
+    <!-- tab menu -->
+    <form form>
+      <table class="ui small celled table ">
+        <thead>
+          <tr style="text-align: center !important">
+            <th rowspan="2">วัน เดือน ปี</th>
+            <th rowspan="2">ที่เอกสาร</th>
+            <th rowspan="2">รายการ</th>
+            <th colspan="2">ด้านรายรับ</th>
+            <th colspan="3">ด้านรายจ่าย</th>
+            <th rowspan="2">ยอดคงเหลือ</th>
+            <th rowspan="2">หมายเหตุ</th>
+          </tr>
+          <tr style="text-align: center !important">
+            <th rowspan="2">เงินสด</th>
+            <th rowspan="2">เช็ค</th>
+            <th rowspan="2">เงินสด</th>
+            <th rowspan="2">KTB - Coperate</th>
+            <th rowspan="2">เช็คขัดข้อง</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&nbsp;</td>
+            <td></td>
+            <td> </td>
+            <td> </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td style="border-top : 1px solid #CACBCD">&nbsp;</td>
+            <td style="border-top : 1px solid #CACBCD"></td>
+            <td style="border-top : 1px solid #CACBCD"> </td>
+            <td style="border-top : 1px solid #CACBCD"> </td>
+            <td style="border-top : 1px solid #CACBCD"></td>
+            <td style="border-top : 1px solid #CACBCD"></td>
+            <td style="border-top : 1px solid #CACBCD"></td>
+            <td style="border-top : 1px solid #CACBCD"></td>
+            <td style="border-top : 1px solid #CACBCD"></td>
+            <td style="border-top : 1px solid #CACBCD"></td>
+
+          </tr>
+        </tfoot>
+      </table>
+    </form>
+
+
+
+
+
+    <div class="sixteen wide column">
+      <div class="ui centered grid">
+        <div class="ui form fourteen wide column">
+          <div class="inline fields">
+            <div class="four wide field">
+              <label class="text-right full-width">รวมตั้งแต่ต้นปี (งบประมาณ) :</label>
+            </div>
+            <div class="four  wide field">
+
+              รวมตั้งแต่ ต.ค. - เดือนนี้ ยอดรับ 0 บาท
+            </div>
+            <div class="four  wide field">
+
+              รวมตั้งแต่ ต.ค. - เดือนนี้ ยอดจ่าย 0 บาท
+            </div>
+          </div>
+          <!-- <div class="inline fields">
+              <div class="four wide field">
+                <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                  :</label>
+              </div>
+           
+            </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="sixteen wide column">
+      <div class="ui centered grid">
+        <div class="ui form fourteen wide column">
+          <div class="inline fields">
+            <div class="four wide field">
+              <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br> (ข้อเท็จจริง/Condition) :</label>
+            </div>
+            <div class="ten  wide field">
+              <textarea rows="3" style="width: 100%;"></textarea>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field">
+              <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                :</label>
+            </div>
+            <div class="ten  wide field">
+              <textarea rows="3" style="width: 100%;"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui grid">
+      <div class="row centered">
+        <app-button-save></app-button-save>
+        <app-button-export (click)="export()"></app-button-export>
+        <app-button-back routerLink="/int10/01"></app-button-back>
+
+      </div>
+    </div>
+  </div>
+</segment>
+
+
+<!-- form-data-excel -->
+<form id="form-data-excel" method="POST">
+  <input type="hidden" name="dataJson" id="dataJson">
+</form>

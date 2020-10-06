@@ -1,0 +1,82 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment [loading]="loading">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="three wide field">
+          <label>การตั้งค่า</label>
+        </div>
+        <div class="two wide field">
+          <app-button-custom text="Reload-Cache" (click)="reloadCache()"></app-button-custom>
+        </div>
+      </div>
+    </div>
+  </segment>
+  <segment header="ตรวจสอบภาษี" [loading]="loading">
+    <form class="ui form" [formGroup]="formGroup">
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="one wide field">
+          <label>1.</label>
+        </div>
+        <div class="two wide field">
+          <label class="full-width">SEND_ALL_FLAG</label>
+        </div>
+        <div class="two wide field">
+          <select class="ui fluid search dropdown full-width" formControlName="sendAllFlag">
+            <option value="Y">Y</option>
+            <option value="N">N</option>
+          </select>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="one wide field">
+          <label>2.</label>
+        </div>
+        <div class="two wide field">
+          <label class="full-width">SEE_FLAG</label>
+        </div>
+        <div class="two wide field">
+          <select class="ui fluid search dropdown full-width" formControlName="seeFlag">
+            <option value="Y">Y</option>
+            <option value="N">N</option>
+          </select>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="one wide field">
+          <label>3.</label>
+        </div>
+        <div class="two wide field">
+          <label class="full-width">SELECT_FLAG</label>
+        </div>
+        <div class="two wide field">
+          <select class="ui fluid search dropdown full-width" formControlName="selectFlag">
+            <option value="Y">Y</option>
+            <option value="N">N</option>
+          </select>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="one wide field">
+          <label>4.</label>
+        </div>
+        <div class="two wide field">
+          <label class="full-width">INCOME_TYPE</label>
+        </div>
+        <div class="two wide field">
+          <select class="ui fluid search dropdown full-width" formControlName="incomeType">
+            <option value="TAX">TAX</option>
+            <option value="NET">NET</option>
+          </select>
+        </div>
+      </div>
+      <div class="text-center">
+        <app-button-save (click)="save()"></app-button-save>
+      </div>
+    </form>
+  </segment>
+</with-breadcrumb>

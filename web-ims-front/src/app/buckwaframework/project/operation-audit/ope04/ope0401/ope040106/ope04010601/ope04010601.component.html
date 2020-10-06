@@ -1,0 +1,409 @@
+<div class="ui grid">
+   <div class="sixteen wide column">
+      <segment header="" [loading]="false">
+         <form [formGroup]="formData">
+            <div class="ui form grid">
+               <div class="one wide column"></div>
+               <div class="fourteen wide column" style="margin-bottom: -20px;">
+                  <div class="ui secondary segment">
+                     <div class="ui grid">
+                        <div class="eight wide column">
+                           <div class="inline fields">
+                              <div class="six wide field">
+                                 <h4 style="color: #000;">ใบอนุญาตผลิตสุรา(ล่าสุด)</h4>
+                              </div>
+                           </div>
+                           <div class="inline fields">
+                              <div class="five wide field">
+                                 <label class="full-width text-right">ผลิตสุรา ชนิด : </label>
+                              </div>
+                              <div class="three wide field">
+                                 <label
+                                    class="full-width text-left">{{licenseData && (licenseData.licenseTypeDesp | isEmpty)}}</label>
+                              </div>
+                           </div>
+                           <div class="inline fields">
+                              <div class="five wide field">
+                                 <label class="full-width text-right">เลขที่รับ: </label>
+                              </div>
+                              <div class="three wide field">
+                                 <label
+                                    class="full-width text-left">{{licenseData && (licenseData.receiveNo | isEmpty)}}</label>
+                              </div>
+                           </div>
+                           <div class="inline fields">
+                              <div class="five wide field">
+                                 <label class="full-width text-right">อนุญาตวันที่: </label>
+                              </div>
+                              <div class="four wide field">
+                                 <label
+                                    class="full-width text-left">{{licenseData && ((licenseData.licenseDate| dateStringType: "DD MMMM YYYY") | isEmpty)}}</label>
+                              </div>
+                              <div class="six wide field">
+                                 <label class="full-width text-left">อายุ 3 ปี นับแต่วันที่ได้รับอนุญาต</label>
+                              </div>
+                           </div>
+                        </div>
+                        <div class=" eight wide column">
+                           <div class="inline fields"></div>
+                           <div class="inline fields"></div>
+                           <div class="inline fields">
+                              <div class="two wide field">
+                              </div>
+                              <div class="thirteen wide field">
+                                 <div class="ui checkbox">
+                                    <!-- <input type="radio" name="alcohol"> -->
+                                    <input type="radio" formControlName="licenseMenufac" value="Y" id="licenseMenufac">
+                                    <label>ถูกต้อง</label>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- line 3 -->
+                           <div class="inline fields">
+                              <div class="two wide field">
+                              </div>
+                              <div class="four wide field">
+                                 <div class="ui checkbox">
+                                    <input type="radio" formControlName="licenseMenufac" value="N" id="licenseMenufac">
+                                    <label>ไม่ถูกต้อง</label>
+                                 </div>
+                              </div>
+                              <div class="two wide field">
+                                 <label>หมายเหตุ</label>
+                              </div>
+                              <div class="six wide field">
+                                 <input type="text" formControlName="licenseMenufacRemark">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="one wide column"></div>
+            </div>
+            <div class="ui form grid">
+               <div class="one wide column"></div>
+               <div class="fourteen wide column" style="margin-bottom: -20px;">
+                  <div class="ui secondary segment">
+                     <div class="ui grid">
+                        <div class="eight wide column">
+                           <div class="inline fields">
+                              <div class="seven wide field">
+                                 <h4 style="color: #000;"> ใบอนุญาตขายสุราประเภทที่ ๒</h4>
+                              </div>
+                           </div>
+                           <div class="inline fields">
+                              <div class="five wide field">
+                                 <label class="full-width text-right">เลขที่ใบอนุญาต : </label>
+                              </div>
+                              <div class="six wide field">
+                                 <label
+                                    class="full-width text-left">{{licenseData && (licenseData.licenseNo | isEmpty)}}</label>
+                              </div>
+                           </div>
+                           <div class="inline fields">
+                              <div class="five wide field">
+                                 <label class="full-width text-right">อนุญาตให้ขายสุราได้ตั้งแต่: </label>
+                              </div>
+                              <div class="four wide field">
+                                 <label
+                                    class="full-width text-left">{{licenseData && ((licenseData.startDate| dateStringType: "DD MMMM YYYY") | isEmpty)}}</label>
+                              </div>
+                              <div class="three wide field">
+                                 <label class="full-width text-left">ถึงวันที่</label>
+                              </div>
+                              <div class="four wide field">
+                                 <label
+                                    class="full-width text-left">{{licenseData && ((licenseData.endDate| dateStringType: "DD MMMM YYYY") | isEmpty)}}</label>
+                              </div>
+                           </div>
+                        </div>
+                        <div class=" eight wide column">
+                           <div class="inline fields"></div>
+                           <div class="inline fields"></div>
+                           <div class="inline fields">
+                              <div class="two wide field">
+                              </div>
+                              <div class="thirteen wide field">
+                                 <div class="ui checkbox">
+                                    <!-- <input type="radio" name="alcohol"> -->
+                                    <input type="radio" formControlName="licenseType2" value="Y" id="licenseType2">
+                                    <label>ถูกต้อง</label>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- line 3 -->
+                           <div class="inline fields">
+                              <div class="two wide field">
+                              </div>
+                              <div class="four wide field">
+                                 <div class="ui checkbox">
+                                    <input type="radio" formControlName="licenseType2" value="N" id="licenseType2">
+                                    <label>ไม่ถูกต้อง</label>
+                                 </div>
+                              </div>
+                              <div class="two wide field">
+                                 <label>หมายเหตุ</label>
+                              </div>
+                              <div class="six wide field" [ngClass]="{'disabled': formData.get('licenseType2').value != 'N'}">
+                                 <input type="text" formControlName="licenseType2Remark">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="one wide column"></div>
+            </div>
+            <div class="ui form grid">
+               <div class="one wide column"></div>
+               <div class="fourteen wide column" style="margin-bottom: -20px;">
+                  <div class="ui secondary segment">
+                     <div class="ui form">
+                        <div class="inline fields">
+                           <div class="one wide field">
+                           </div>
+                           <div class="fifteen wide field">
+                              <label class="full-width">
+                                 แรงแอลกอฮอล์ 28 ดีกรี 30 ดีกรี 35 ดีกรี และ 40 ดีกรี
+                              </label>
+                           </div>
+                        </div>
+                        <!-- line 2 -->
+                        <div class="inline fields">
+                           <div class="two wide field">
+                           </div>
+                           <div class="thirteen wide field">
+                              <div class="ui checkbox">
+                                 <input type="radio" formControlName="achDegree" value="Y" id="achDegree">
+                                 <label>ถูกต้อง</label>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- line 3 -->
+                        <div class="inline fields">
+                           <div class="two wide field">
+                           </div>
+                           <div class="four wide field">
+                              <div class="ui checkbox">
+                                 <input type="radio" formControlName="achDegree" value="N" id="achDegree">
+                                 <label>ไม่ถูกต้อง</label>
+                              </div>
+                           </div>
+                           <div class="one wide field">
+                              <label>หมายเหตุ</label>
+                           </div>
+                           <div class="nine wide field"  [ngClass]="{'disabled': formData.get('achDegree').value != 'N'}">
+                              <input type="text" formControlName="achDegreeRemark">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="one wide column"></div>
+            </div>
+            <div class="ui form grid">
+               <div class="one wide column"></div>
+               <div class="fourteen wide column" style="margin-bottom: -20px;">
+                  <div class="ui secondary segment">
+                     <div class="ui form">
+                        <div class="inline fields">
+                           <div class="one wide field">
+                           </div>
+                           <div class="fifteen wide field">
+                              <label class="full-width">
+                                 บรรจุในภาชนะขนาด 0.330 ลิตร หรือ 0.625 ลิตรขึ้นไป
+                              </label>
+                           </div>
+                        </div>
+                        <!-- line 5 -->
+                        <div class="inline fields">
+                           <div class="two wide field">
+                           </div>
+                           <div class="thirteen wide field">
+                              <div class="ui checkbox">
+                                 <input type="radio" formControlName="achCapacity" value="Y" id="achCapacity">
+                                 <label>ถูกต้อง</label>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- line 6 -->
+                        <div class="inline fields">
+                           <div class="two wide field">
+                           </div>
+                           <div class="four wide field">
+                              <div class="ui checkbox">
+                                 <input type="radio" formControlName="achCapacity" value="N" id="achCapacity">
+                                 <label>ไม่ถูกต้อง</label>
+                              </div>
+                           </div>
+                           <div class="one wide field">
+                              <label>หมายเหตุ</label>
+                           </div>
+                           <div class="nine wide field"  [ngClass]="{'disabled': formData.get('achCapacity').value != 'N'}">
+                              <input type="text" formControlName="achCapacityRemark">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="one wide column"></div>
+            </div>
+            <div class="ui form grid">
+               <div class="one wide column"></div>
+               <div class="fourteen wide column" style="margin-bottom: -20px;">
+                  <div class="ui secondary segment">
+                     <div class="ui form">
+                        <!-- line 7 -->
+                        <div class="inline fields">
+                           <div class="one wide field">
+                           </div>
+                           <div class="fifteen wide field">
+                              <label class="full-width">
+                                 ใช้ฉลากภาชนะบรรจุสุรา ที่ได้รับความเห็นชอบจากกรมฯ แล้ว
+                              </label>
+                           </div>
+                        </div>
+                        <!-- line 8 -->
+                        <div class="inline fields">
+                           <div class="two wide field">
+                           </div>
+                           <div class="thirteen wide field">
+                              <div class="ui checkbox">
+                                 <input type="radio" formControlName="achStamp" value="Y" id="achStamp">
+                                 <label>ถูกต้อง</label>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- line 9 -->
+                        <div class="inline fields">
+                           <div class="two wide field">
+                           </div>
+                           <div class="four wide field">
+                              <div class="ui checkbox">
+                                 <input type="radio" formControlName="achStamp" value="N" id="achStamp">
+                                 <label>ไม่ถูกต้อง</label>
+                              </div>
+                           </div>
+                           <div class="one wide field">
+                              <label>หมายเหตุ</label>
+                           </div>
+                           <div class="nine wide field" [ngClass]="{'disabled': formData.get('achStamp').value != 'N'}">
+                              <input type="text" formControlName="achStampRemark">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="one wide column"></div>
+            </div>
+            <div class="ui form grid">
+               <div class="one wide column"></div>
+               <div class="fourteen wide column" style="margin-bottom: -20px;">
+                  <div class="ui secondary segment">
+                     <div class="ui form">
+                        <div class="inline fields">
+                           <div class="one wide field">
+                           </div>
+                           <div class="fifteen wide field">
+                              <label class="full-width">
+                                 ชนิดสุราที่ได้รับอนุญาต
+                              </label>
+                           </div>
+                        </div>
+                        <!-- line 11 -->
+                        <div class="inline fields">
+                           <div class="two wide field">
+                           </div>
+                           <div class="thirteen wide field">
+                              <div class="ui checkbox">
+                                 <input type="radio" formControlName="achApprove" value="Y" id="achApprove">
+                                 <label>ถูกต้อง</label>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- line 12 -->
+                        <div class="inline fields">
+                           <div class="two wide field">
+                           </div>
+                           <div class="four wide field">
+                              <div class="ui checkbox">
+                                 <input type="radio" formControlName="achApprove" value="N" id="achApprove">
+                                 <label>ไม่ถูกต้อง</label>
+                              </div>
+                           </div>
+                           <div class="one wide field">
+                              <label>หมายเหตุ</label>
+                           </div>
+                           <div class="nine wide field"  [ngClass]="{'disabled': formData.get('achApprove').value != 'N'}">
+                              <input type="text" formControlName="achApproveRemark">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="one wide column"></div>
+            </div>
+            <div class="ui form grid">
+               <div class="one wide column"></div>
+               <div class="fourteen wide column">
+                  <div class="ui secondary segment">
+                     <div class="ui form">
+                        <div class="inline fields">
+                           <div class="one wide field">
+                           </div>
+                           <div class="fifteen wide field">
+                              <label class="full-width">
+                                 ราคาขายสุรา ณ โรงานสุรา (ตามแจ้ง)
+                              </label>
+                           </div>
+                        </div>
+                        <!-- line 14 -->
+                        <div class="inline fields">
+                           <div class="two wide field">
+                           </div>
+                           <div class="thirteen wide field">
+                              <div class="ui checkbox">
+                                 <input type="radio" formControlName="achPrice" value="Y" id="achPrice">
+                                 <label>ถูกต้อง</label>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- line 15 -->
+                        <div class="inline fields">
+                           <div class="two wide field">
+                           </div>
+                           <div class="four wide field">
+                              <div class="ui checkbox">
+                                 <input type="radio" formControlName="achPrice" value="N" id="achPrice">
+                                 <label>ไม่ถูกต้อง</label>
+                              </div>
+                           </div>
+                           <div class="one wide field">
+                              <label>หมายเหตุ</label>
+                           </div>
+                           <div class="nine wide field" [ngClass]="{'disabled': formData.get('achPrice').value != 'N'}">
+                              <input type="text" formControlName="achPriceRemark">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="one wide column"></div>
+            </div>
+            <div class="ui form grid">
+               <div class="one wide column"></div>
+               <div class="fourteen wide column">
+                  <div class="ui secondary ">
+                     <div class="inline field text-center">
+                        <app-button-save (click)="onSave()"></app-button-save>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+
+         </form>
+      </segment>
+   </div>
+</div>

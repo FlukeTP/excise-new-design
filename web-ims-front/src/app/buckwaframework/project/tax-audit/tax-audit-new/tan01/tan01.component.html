@@ -1,0 +1,140 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<br>
+<div class="sixteen wide column">
+  <h2 class="ui header">ผลการคัดเลือกรายประจำปี</h2>
+
+  <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>ระบุเงื่อนไขในการค้นหา</span>
+  </div>
+  <div class="ui form center aligned" id="TAN01" ngNativeValidate>
+    <div class="ui attached  segment">
+      <input type="hidden" id="searchFlag">
+      <input type="hidden" id="id">
+
+      <div class="inline fields">
+
+        <div class="three wide field"></div>
+        <div class="two wide field">
+          <label>ปี (ปีปฏิทิน) <b style="color: red"> * </b></label>
+        </div>
+        <div class="three wide field column">
+          <div class="ui calendar" id="date" style="width: 100% !important;">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input id="fiscalYear" type="text" name="date-raw" autocomplete="off" [attr.readonly]="null" placeholder="ปปปป" [attr.required]="true">
+            </div>
+          </div>
+        </div>
+
+        <div class="two wide field">
+          <label>สถานะการดำเนินการ</label>
+        </div>
+        <div class="three wide field">
+          <select class="ui dropdown tan01 search selection " style="width: 100% !important;" id="status">
+            <option value="">ทั้งหมด</option>
+            <option *ngFor="let data of statusList" value="{{data.lovId}}">{{data.subType}}</option>
+          </select>
+        </div>
+
+      </div>
+      <br>
+      <div class="ui center aligned grid">
+        <div class="eight wide column">
+          <button class="ui mini primary button" type="button" (click)="clickSearch()">
+            <i class="search icon"></i>ค้นหา</button>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+  <br>
+  <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>ตารางผลการคัดเลือกรายประจำปี (ปีปฏิทิน) พ.ศ. {{modalYear}}</span>
+  </div>
+  <div class="ui attached  segment">
+    <table id="dataTable" class="ui small unstackable celled table nowrap striped selectable" style="width: 100%;">
+      <thead>
+        <tr>
+          <th style="text-align: center !important;">เลขทะเบียนสรรพสามิต</th>
+          <th style="text-align: center !important;">ชื่อผู้ประกอบการ/โรงอุตสาหกรรม</th>
+          <th style="text-align: center !important;">ที่อยู่สถานบริการ/โรงอุตสาหกรรม</th>
+          <th style="text-align: center !important;">สรรพสามิตภาค</th>
+          <th style="text-align: center !important;">สรรพสามิตพื้นที่</th>
+          <th style="text-align: center !important;">สินค้า</th>
+          <th style="text-align: center !important;">ด้านความเสี่ยง</th>
+          <th style="text-align: center !important;">สถานะการตรวจสอบ</th>
+          <th style="text-align: center !important;">วันที่เริ่มตรวจ</th>
+          <th style="text-align: center !important;">วันที่สิ้นสุดการตรวจ</th>
+          <th style="text-align: center !important;">รูปแบบการตรวจสอบ</th>
+          <th style="text-align: center !important;width:180px !important">จัดการ</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>
+
+<!-- Edit modal -->
+<div class="ui small modal transition hidden" id='modalEdit'>
+  <div class="header" style="text-align: center !important;background: #1e83db;color: white">
+    ระบุรายละเอียดการออกตรวจ
+  </div>
+
+  <div class="scrolling content">
+    <form id="addModal-form" ngNativeValidate>
+      <div class="ui form center aligned">
+
+        <input type="hidden" id="id">
+        <input type="hidden" id="asPlanSuccess">
+        <input type="hidden" id="outsidePlanSuccess">
+        <input type="hidden" id="fiscalYearEdit">
+
+        <div class="inline fields">
+          <div class="four wide field">
+            <label>วันที่เริ่มการตรวจ</label>
+          </div>
+          <div class="four wide field">
+            <div class="ui calendar tan01" id="modaldate" style="width: 100% !important;">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" id="dateFrom" name="date-raw" autocomplete="off" [attr.readonly]="null" placeholder="วว/ดด/ปปปป"
+                  [attr.required]="true">
+              </div>
+            </div>
+          </div>	
+          <div class="four wide field">
+            <label>วันที่สิ้นสุดการตรวจ</label>
+          </div>
+          <div class="four wide field">
+            <div class="ui calendar tan01" id="modaldate2" style="width: 100% !important;">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" id="dateTo" name="date-raw" autocomplete="off" [attr.readonly]="null" placeholder="วว/ดด/ปปปป"
+                  [attr.required]="true">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="four wide field">
+            <label>รูปแบบการตรวจสอบ</label>
+          </div>
+          <div class="four wide field">
+            <select class="ui dropdown tan01 search selection " style="width: 100% !important;" id="patternd">
+              <option value="">กรุณาเลือก</option>
+              <option *ngFor="let data of patterndList" value="{{data.lovId}}">{{data.subType}}</option>
+            </select>
+          </div>
+        </div>
+        <br>
+      </div>
+    </form>
+  </div>
+
+  <div class="actions">
+    <div class="ui mini green button" (click)="editData()">
+      <i class="save icon"></i>บันทึก</div>
+    <div class="ui mini deny button red">
+      <i class="close icon"></i>ยกเลิก</div>
+  </div>
+</div>
+<!--End Edit modal -->

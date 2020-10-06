@@ -1,0 +1,108 @@
+<app-breadcrumb style="width: 100%;" [route]="breadcrumb"></app-breadcrumb>
+<segment header="ข้อมูลสินทรัพย์" [loading]="false">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <div class="ui attached">
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">ประเภทสินทรัพย์</label>
+            </div>
+            <div class="four wide field ">
+              <select class="ui dropdown ai search" aria-placeholder="ประเภทสินทรัพย์" id="assetType" name="assetType"
+                [(ngModel)]="assetBalance.assetType">
+                <option value="0"></option>
+                <option value="ที่ดิน">ที่ดิน</option>
+                <option value="อาคาร/สิ่งก่อสร้าง">อาคาร/สิ่งก่อสร้าง</option>
+                <option value="ครุภัณฑ์สำนักงาน เกิน 5,000 บาท">ครุภัณฑ์สำนักงาน เกิน 5,000 บาท</option>
+                <option value="ครุภัณฑ์คอมพิวเตอร์ เกิน 5,000 บาท">ครุภัณฑ์คอมพิวเตอร์ เกิน 5,000 บาท</option>
+                <option value="อื่น ๆ เกิน 5,000 บาท">อื่น ๆ เกิน 5,000 บาท</option>
+                <option value="ครุภัณฑ์สำนักงาน ไม่เกิน 5,000 บาท">ครุภัณฑ์สำนักงาน ไม่เกิน 5,000 บาท</option>
+                <option value="ครุภัณฑ์คอมพิวเตอร์ ไม่เกิน 5,000 บาท">ครุภัณฑ์คอมพิวเตอร์ ไม่เกิน 5,000 บาท</option>
+                <option value="อื่น ๆ ไม่เกิน 5,000 บาท">อื่น ๆ ไม่เกิน 5,000 บาท</option>
+
+              </select>
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width">รหัสสินทรัพย์</label>
+            </div>
+            <div class="four wide field ">
+              <input type="text" placeholder="รหัสสินทรัพย์" class="custom" name="assetCode" id="assetCode"
+                [(ngModel)]="assetBalance.assetCode">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field ">
+              <label class="text-right full-width">ช่วงของข้อมูล</label>
+            </div>
+            <div class="four wide field ">
+              <div class="ui calendar" id="dateCalendarFrom" style="width:100%">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" autocomplete="off" id="startDate" name="budgetYearstart" placeholder="วว/ดด/ปปปป">
+                </div>
+              </div>
+            </div>
+            <div class="two wide field "><label class="text-right full-width">ถึง</label></div>
+            <div class="four wide field ">
+              <div class="ui calendar" id="dateCalendarTo" style="width:100%">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" autocomplete="off" id="endDate" name="budgetYearend" placeholder="วว/ดด/ปปปป">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="sixteen wide field ">
+              <div class="seven wide field "></div>
+              <app-button-search (click)="searchAssetBalance()"></app-button-search>
+              <app-button-clear (click)="cleanSearchPanel()"></app-button-clear>
+              <app-button-custom color="green" icon="plus icon" text="เพิ่มข้อมูล" (click)="createAssetBalance()">
+              </app-button-custom>
+              <!-- <button class="ui mini primary button" (click)="searchAssetBalance()">
+                <i class="search icon"></i>
+                ค้นหา
+              </button>
+              <button class="ui mini button" (click)="cleanSearchPanel()">
+                <i class="sync icon"></i>
+                ล้างข้อมูล
+              </button>
+              <button class="ui mini green button" (click)="createAssetBalance()">
+                <i class="plus icon"></i>
+                เพิ่มข้อมูล
+              </button> -->
+            </div>
+          </div>
+        </div>
+        <table id="dataTable" class="ui small celled table nowrap striped selectable" style="width: 100%">
+          <thead>
+            <tr>
+              <th style="text-align: center !important"></th>
+              <th style="text-align: center !important">รหัสสินทรัพย์</th>
+              <th style="text-align: center !important">ประเภทสินทรัพย์</th>
+              <th style="text-align: center !important">คำอธิบายสินทรัพย์</th>
+              <th style="text-align: center !important">จำนวนสินทรัพย์</th>
+              <th style="text-align: center !important">อัตราค่าเสื่อมราคาสินทรัพย์</th>
+              <th style="text-align: center !important">ค่าเสื่อมราคาสะสม</th>
+              <th style="text-align: center !important">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="inline fields"></div>
+        <div class="inline fields">
+
+          <div class="ui grid">
+            <div class="sixteen wide center aligned column">
+              <app-button-delete (click)="deleteAssetBalance()"></app-button-delete>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</segment>

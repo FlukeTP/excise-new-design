@@ -1,0 +1,233 @@
+<segment header="หนังสือเตือนให้ปฏิบัติตามหนังสือเรียก (ตส. ๐๑-๐๕)" [loading]="loading" [right]="true">
+  <div headRight>
+    {{taFormTS0105.get('formTsNumber').value}}
+  </div>
+
+  <form form [formGroup]="taFormTS0105">
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="bookNumber1" maxlength="20">
+        <label style="margin-right: 1em;"> / </label>
+        <input type="text" formControlName="bookNumber2" maxlength="20">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">สำนัก :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="officeName" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">วันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDocDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="docDate" id="docDate" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">เรื่อง :</label>
+      </div>
+      <div field [col]="14">
+        <label class="full-width text-left">เตือนให้ปฏิบัติตามหนังสือเรียก</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">เรียน :</label>
+      </div>
+      <div field [col]="14">
+        <input type="text" formControlName="docDear" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">อ้างถึง หนังสือเรียก ที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="refBookNumber1" maxlength="20">
+        <label style="margin-right: 1em;"> / </label>
+        <input type="text" formControlName="refBookNumber2" maxlength="20">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">ลงวันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarRefDocDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="refDocDate" id="refDocDate" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">สิ่งที่ส่งมาด้วย :</label>
+      </div>
+      <div field [col]="14">
+        <input type="text" formControlName="refDocSend" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="full-width text-right">ท่านมิได้ไปพบพนักงานเจ้าหน้าที่ในวันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarCaseDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="caseDate" id="caseDate" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">เวลา :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarCaseTime">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="caseTime" id="caseTime" placeholder="00:00" [attr.required]="true"
+              autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-left">น.</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <p>ฉะนั้น จึงเรียนเตือนมาเพื่อขอให้ท่านไปพบพนักงานเจ้าหน้าที่พร้อมทั้งนำหลักฐานต่างๆ
+          ตามหนังสือเรียกไปส่งมอบต่อพนักงานเจ้าหน้าที่ ณ :</p>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <input type="text" formControlName="destText" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">วันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDestDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="destDate" id="destDate" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">เวลา :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDestTime">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="destTime" id="destTime" placeholder="00:00" [attr.required]="true"
+              autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="9">
+        <label class="full-width text-left">น. อีกครั้งหนึ่ง</label>
+      </div>
+    </div>
+    <div inline>
+    </div>
+    <!-- ui grid -->
+    <div class="ui grid">
+      <!-- Left Column -->
+      <div field [col]="8">
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">ชื่อผู้ปฎิบัติงาน :</label>
+          </div>
+          <div field [col]="12">
+            <div class="ui action input">
+              <input type="text" formControlName="signOfficerFullName" maxlength="100">
+              <button class="ui button" (click)="searchModalOpen(1)">ค้นหา</button>
+            </div>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">ตำแหน่งผู้ปฏิบัติงาน :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="signOfficerPosition" maxlength="100">
+          </div>
+        </div>
+      </div>
+      <!-- Right Column -->
+      <div field [col]="8">
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">หมาเหตุ :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="otherText" maxlength="100">
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">โทร :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="otherPhone" maxlength="20">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <app-button-footer-report (save)="save($event)" (clear)="clear($event)" (export)="export($event)">
+    </app-button-footer-report>
+  </form>
+</segment>
+
+<ui-modal [id]="'searchModal'" type="custom" size="large">
+  <div class="ui header">
+    ค้นหารายชื่อ
+  </div>
+  <br>
+  <!-- <form form [formGroup]="formSearchModal">
+        </form> -->
+
+  <div grid>
+    <div [column]="16">
+      <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableModal">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">ลำดับ</th>
+            <th class="text-center">ชื่อ-นามสกุล</th>
+            <th class="text-center">ตำแหน่ง</th>
+          </tr>
+        </thead>
+      </table>
+      <br>
+    </div>
+  </div>
+
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

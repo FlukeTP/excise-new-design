@@ -1,0 +1,64 @@
+<br>
+
+<div class="ui form grid">
+  <div class="two wide column"></div>
+  <div class="fourteen wide column">
+
+
+    <div class="inline fields">
+      <div class="two wide field"> </div>
+      <div class="one wide field" [attr.data-tooltip]="status3"> <i class="small circular inverted green check icon"
+          style="font-size: 1em;"></i>
+      </div>
+      <div class="three wide field">
+        <a class="text-left full-width link" (click)="goTo('/tax-audit-new/ta02/02/02/01')">วิเคราะห์ข้อมูลเบื้องต้น</a>
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="ts one  wide field" [attr.data-tooltip]="status3"> <i class="small circular inverted green check icon"
+          style="font-size: 1em;"></i>
+      </div>
+      <div class="five wide field">
+        <label class="text-left full-width">ขออนุมัติออกตรวจ</label>
+      </div>
+      <!-- <div class="three wide field">
+          <app-button-save></app-button-save>
+          <app-button-custom color="primary" icon="eye icon" text="ดูแบบ"></app-button-custom>
+        </div> -->
+    </div>
+
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class=" ts one  wide field" [attr.data-tooltip]="status3"> <i
+          class="small circular inverted {{auditStepList[0].iconName}} icon" style="font-size: 1em;"></i>
+      </div>
+      <div class="five wide field">
+        <label class="text-left full-width">หนังสือนำตัวออกตรวจการเสียภาษีสรรพสามิต (ตส.๐๑-๐๗)</label>
+      </div>
+      <div class="four wide field">
+        <app-button-detail (click)="gotoTS07()"></app-button-detail>
+        <div class="ui label" *ngIf="auditStepList[0].formTsNumber != ''">{{auditStepList[0].formTsNumber}}</div>
+        <!-- <app-button-custom color="primary" icon="eye icon" text="ดูแบบ" (click)="goTo('/tax-audit-new/ta03/01')"></app-button-custom> -->
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="ts one  wide field" [attr.data-tooltip]="status3"> <i
+          class="small circular inverted {{auditStepList[1].iconName}} icon" style="font-size: 1em;"></i>
+      </div>
+      <div class="five wide field">
+        <label class="text-left full-width">สมุดสั่งการออกตรวจสอบภาษีสรรพสามิต (ตส.๐๑-๐๘)</label>
+      </div>
+      <div class="four wide field">
+        <app-button-detail (click)="gotoTS08()"></app-button-detail>
+        <div class="ui label" *ngIf="auditStepList[1].formTsNumber != ''">{{auditStepList[1].formTsNumber}}</div>
+        <!-- <app-button-custom color="primary" icon="eye icon" text="ดูแบบ" (click)="goTo('/tax-audit-new/ta03/01')">
+        </app-button-custom> -->
+      </div>
+    </div>
+    <br>
+  </div>
+</div>

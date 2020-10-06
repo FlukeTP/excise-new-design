@@ -1,0 +1,294 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+   <segment header="บันทึกเพิ่มราย/เปลี่ยนแปลงรายในแผน (TA011101)"  [right]="true">
+      <div class="ui form">
+
+         <form form [formGroup]="formReplace">
+            <div inline>
+               <div field [col]="3">
+                  <label class="full-width text-right">ส่วน/ภาค</label>
+               </div>
+               <div field [col]="4" [ngClass]="{'disabled': isArea || isSector}">
+                  <select class="ui dropdown full-width disabled" id="sector" (change)="onChangeSector($event)"
+                     formControlName="sector">
+                     <option value="">ทั้งหมด</option>
+                     <option value="0">ทั้งหมด</option>
+                     <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+                  </select>
+               </div>
+               <div field [col]="3" >
+                  <label class="full-width text-right"> ฝ่าย/พื้นที่</label>
+               </div>
+               <div field [col]="4" [ngClass]="{'disabled': isArea}">
+                  <select class="ui dropdown full-width  disabled" id="area" formControlName="area">
+                     <option value="">ทั้งหมด</option>
+                     <option value="0">ทั้งหมด</option>
+                     <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+                  </select>
+               </div>
+            </div>
+
+            <div inline>
+               <div field [col]="3">
+                  <label class="full-width text-right">เลขทะเบียนสรรพสามิตที่เลือก</label>
+               </div>
+               <div field [col]="4">
+                  <!-- <input type="text" class="full-width"> -->
+                  <div class="ui action input">
+                     <input type="text" placeholder="เลขทะเบียนสรรพสามิต" numberOnly formControlName="regid_select">
+                     <button class="ui button" (click)="searchOutPlanModal()">ค้นหา</button>
+                  </div>
+               </div>
+               <div field [col]="3">
+                  <label class=" full-width text-right">ชื่อผู้ประกอบการ</label>
+               </div>
+               <div field [col]="4">
+                  <input type="text" class="full-width custom-readonly" readonly formControlName="cusfullName_select">
+               </div>
+            </div>
+
+            <div inline>
+               <div field [col]="3">
+                  <label class=" full-width text-right">พิกัดสินค้า/บริการ</label>
+               </div>
+               <div field [col]="4">
+                  <input type="text" class="full-width custom-readonly" formControlName="duty_select" readonly>
+               </div>
+               <div field [col]="3">
+                  <label class=" full-width text-right"> ชื่อโรงอุสาหกรรม/สถานบริการ</label>
+               </div>
+               <div field [col]="4">
+                  <input type="text" class="full-width custom-readonly" formControlName="facfullName_select" readonly>
+               </div>
+            </div>
+
+            <div inline>
+               <div field [col]="3">
+
+               </div>
+               <div field [col]="2">
+                  <div class="ui  checkbox">
+                     <input type="radio" formControlName="planType" id="planType" value="E"
+                        (change)="onChangePlanType()">
+                     <label>เพิ่มราย</label>
+                  </div>
+               </div>
+
+               <div field [col]="2">
+                  <div class="ui  checkbox">
+                     <input type="radio" formControlName="planType" id="planType" value="I"
+                        (change)="onChangePlanType()">
+                     <label>เปลี่ยนรายในแผน</label>
+                  </div>
+               </div>
+
+               <div field [col]="2">
+                  <div class="ui  checkbox">
+                     <input type="radio" formControlName="planType" id="planType" value="R"
+                        (change)="onChangePlanType()">
+                     <label>เปลี่ยนรายสำรอง</label>
+                  </div>
+               </div>
+
+               <div field [col]="4">
+
+               </div>
+            </div>
+
+            <div inline>
+               <div field [col]="3">
+                  <label class=" full-width text-right">เลขทะเบียนสรรพสามิตที่เปลี่ยน</label>
+
+               </div>
+               <div field [col]="4">
+                  <!-- <input type="text" class="full-width ">  -->
+                  <div class="ui action input">
+                     <input type="text" [ngClass]="{'custom-readonly': planType == 'E'}" readonly="planType == 'E'"
+                        placeholder="เลขทะเบียนสรรพสามิต" numberOnly formControlName="regid_change">
+                     <button class="ui button" [ngClass]="{'disabled': planType == 'E'}"
+                        (click)="searchCusModal()">ค้นหา</button>
+                  </div>
+               </div>
+               <div field [col]="3">
+                  <label class="full-width text-right">ชื่อผู้ประกอบการ</label>
+               </div>
+               <div field [col]="4">
+                  <input type="text" class="full-width  custom-readonly" readonly formControlName="cusfullName_change">
+               </div>
+            </div>
+
+            <div inline>
+               <div field [col]="3">
+                  <label class=" full-width text-right">พิกัดสินค้า/บริการ</label>
+               </div>
+               <div field [col]="4">
+                  <input type="text" class="full-width custom-readonly" readonly formControlName="duty_change">
+               </div>
+               <div field [col]="3">
+                  <label class="full-width text-right"> ชื่อโรงอุตสาหกรรม/สถานบริการ</label>
+               </div>
+               <div field [col]="4">
+                  <input type="text" class="full-width custom-readonly" readonly formControlName="facfullName_change">
+               </div>
+            </div>
+
+            <div inline>
+               <div field [col]="3">
+                  <label class="full-width text-right">เหตุผลในการเพิ่ม/เปลี่ยนราย<span style="color: red">*</span></label>
+               </div>
+               <div field [col]="11">
+                  <textarea rows="3" maxlength="100" formControlName="replaceReason"></textarea>
+               </div>
+
+            </div>
+
+
+            <div class="ui center aligned grid">
+               <div class="eight wide column">
+                  <app-button-clear (click)="onClear()"></app-button-clear>
+                  <app-button-save (click)="onSaveOutPlan()"></app-button-save>
+                  <app-button-back routerLink="/tax-audit-new/ta01/11"></app-button-back>
+               </div>
+            </div>
+
+         </form>
+      </div>
+   </segment>
+
+</with-breadcrumb>
+
+<ui-modal [id]="'searchCusModal'" type="custom" size="large">
+   <div class="ui header">
+      ค้นหาเลขทะเบียนสรรพสามิต
+   </div>
+   <br>
+   <form form [formGroup]="formSearchModal">
+      <!-- <div inline>
+         <div field [col]="3">
+            <label class="text-right full-width">ปีงบประมาณ</label>
+         </div>
+         <div field [col]="4">
+            <input id="year">
+         </div>
+         <div field [col]="3">
+            <label class="text-right full-width">เลขทะเบียนสรรพสามิต</label>
+         </div>
+         <div field [col]="4">
+            <input id="newRegId" formControlName="newRegId">
+         </div>
+      </div>
+
+      <div inline>
+         <div field [col]="3">
+            <label class="text-right full-width"> สำนักงานสรรพสามิตภาค</label>
+         </div>
+         <div field [col]="4">
+            <select class="ui dropdown full-width" id="sector" (change)="onChangeSector($event)"
+               formControlName="sector">
+               <option value="">ทั้งหมด</option>
+               <option value="0">ทั้งหมด</option>
+               <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+            </select>
+         </div>
+         <div field [col]="3">
+            <label class="text-right full-width"> สำนักงานสรรพสามิตพื้นที่</label>
+         </div>
+         <div field [col]="4">
+            <select class="ui dropdown full-width" id="area" formControlName="area">
+               <option value="">ทั้งหมด</option>
+               <option value="0">ทั้งหมด</option>
+               <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+            </select>
+         </div>
+      </div> -->
+   </form>
+   <div class="ui grid">
+      <div class="sixteen wide column">
+         <div class="ui grid">
+            <div class="sixteen wide column">
+               <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tablePlan">
+                  <thead class="text-center">
+                     <tr>
+                        <th class="text-center">ลำดับ</th>
+                        <th class="text-center">สถานะ</th>
+                        <th class="text-center">เลขทะเบียนสรรพสามิต</th>
+                        <th class="text-center">ชื่อผู้ประกอบการ</th>
+                        <th class="text-center">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+                        <th class="text-center">ภาค/พื้นที่</th>
+                        <th class="text-center">ทุนจดทะเบียน</th>
+                        <th class="text-center">พิกัดสินค้า/บริการ</th>
+                     </tr>
+                  </thead>
+               </table>
+               <br>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="actions">
+      <app-button-cancel class="deny"></app-button-cancel>
+   </div>
+</ui-modal>
+
+
+<ui-modal [id]="'searchOutPlanModal'" type="custom" size="large">
+   <div class="ui header">
+      ค้นหาเลขทะเบียนสรรพสามิต
+   </div>
+   <br>
+   <form form [formGroup]="formSearchModal">
+      <div inline>
+         <div field [col]="3">
+            <label class="text-right full-width">เลขทะเบียนสรรพสามิต</label>
+         </div>
+         <div field [col]="3">
+            <input id="newRegId" formControlName="newRegId" (change)="onChangeNewRegId($event)" >
+         </div>
+         <div field [col]="2">
+            <label class="text-right full-width"> ภาค</label>
+         </div>
+         <div field [col]="3" >
+            <select class="ui dropdown full-width" id="sector_search" formControlName="sector" (change)="onChangeSector($event)"
+               formControlName="sector">
+               <option value="">ทั้งหมด</option>
+               <option value="0">ทั้งหมด</option>
+               <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+            </select>
+         </div>
+         <div field [col]="1">
+            <label class="text-right full-width"> พื้นที่</label>
+         </div>
+         <div field [col]="3" >
+            <select class="ui dropdown full-width" id="area_search" formControlName="area" (change)="onChangeArea($event)">
+               <option value="">ทั้งหมด</option>
+               <option value="0">ทั้งหมด</option>
+               <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+            </select>
+         </div>
+      </div>
+
+   </form>
+   <!-- <segment header="" [loading]="loading"> -->
+   <div grid>
+      <div [column]="16">
+         <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableOutPlan">
+            <thead class="text-center">
+               <tr>
+                  <th class="text-center">ลำดับ</th>
+                  <th class="text-center"> เลขทะเบียนสรรพสามิต</th>
+                  <th class="text-center">ชื่อผู้ประกอบการ</th>
+                  <th class="text-center">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+                  <th class="text-center">ภาค/พื้นที่</th>
+                  <th class="text-center">พิกัดสินค้า/บริการ</th>
+               </tr>
+            </thead>
+         </table>
+         <br>
+      </div>
+   </div>
+   <!-- </segment> -->
+
+   <div class="actions">
+      <app-button-cancel class="deny"></app-button-cancel>
+   </div>
+</ui-modal>

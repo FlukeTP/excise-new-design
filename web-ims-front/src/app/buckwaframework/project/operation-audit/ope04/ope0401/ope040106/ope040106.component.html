@@ -1,0 +1,59 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <!-- tab -->
+  <segment header="ตรวจปฏิบัติการสุรากลั่นชุมชน" [loading]="false">
+    <div form>
+      <div inline>
+        <div field [col]="2"></div>
+        <div field [col]="6">
+          <span>ชื่อผู้ประกอบอุตสาหกรรม: {{ data && (data.companyName | isEmpty) }}</span>
+        </div>
+        <div field [col]="2">
+        </div>
+        <div field [col]="1">
+          <span>เอกสารฐาน</span>
+        </div>
+        <div field [col]="5" class="btn">
+          <a class="ui label"><i class="file icon"></i> ไฟล์ 1</a>
+          <a class="ui label"><i class="file icon"></i> ไฟล์ 2</a>
+          <a class="ui label"><i class="file icon"></i> ไฟล์ 3</a>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="2"></div>
+        <div field [col]="4">
+          <span>ทะเบียนสรรพสามิตเลขที่: {{ data && (data.identifyNo | isEmpty) }}</span>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="2"></div>
+        <div field [col]="6"><span>ที่อยู่: {{ data && (data.address | isEmpty) }}</span>
+        </div>
+      </div>
+      <div class="ui divider"></div>
+    </div>
+    <div form>
+      <div inline>
+        <button class="ui large button btn-custom" [ngClass]="{'primary': urlActivate('/ope04/01/06/01')}"
+          (click)="routeTo('/ope04/01/06/01', buttons.oaCuslicenseId, 'oaCuslicenseId')">ข้อมูลผู้รับอนุญาต</button>
+        <button class="ui large button btn-custom" [ngClass]="{'primary': urlActivate('/ope04/01/06/03')}"
+          (click)="routeTo('/ope04/01/06/03', buttons.oaCuslicenseId, 'oaCuslicenseId')">สถานที่ทำสุรา</button>
+        <button class="ui large button btn-custom" [ngClass]="{'primary': urlActivate('/ope04/01/06/04')}"
+          (click)="routeTo('/ope04/01/06/04', buttons.oaCuslicenseId, 'oaCuslicenseId')">วัตถุดิบ</button>
+        <button class="ui large button btn-custom" [ngClass]="{'primary': urlActivate('/ope04/01/06/05')}"
+          (click)="routeTo('/ope04/01/06/05', buttons.oaCuslicenseId, 'oaCuslicenseId')">หมัก</button>
+        <button class="ui large button btn-custom" [ngClass]="{'primary': urlActivate('/ope04/01/06/06')}"
+          (click)="routeTo('/ope04/01/06/06', buttons.oaCuslicenseId, 'oaCuslicenseId')">กลั่น</button>
+        <button class="ui large button btn-custom" [ngClass]="{'primary': urlActivate('/ope04/01/06/07')}"
+          (click)="routeTo('/ope04/01/06/07', buttons.oaCuslicenseId, 'oaCuslicenseId')">บรรจุ</button>
+        <button class="ui large button btn-custom" [ngClass]="{'primary': urlActivate('/ope04/01/06/08')}"
+          (click)="routeTo('/ope04/01/06/08', buttons.oaCuslicenseId, 'oaCuslicenseId')">ปิดแสตมป์</button>
+          <button class="ui large button btn-custom" [ngClass]="{'primary': urlActivate('/ope04/01/06/10')}"
+          (click)="routeTo('/ope04/01/06/10', buttons.oaCuslicenseId, 'oaCuslicenseId')">สรุปผลการออกตรวจ</button>
+      </div>
+    </div>
+  </segment>
+
+  <!-- contents -->
+  <router-outlet></router-outlet>
+</with-breadcrumb>

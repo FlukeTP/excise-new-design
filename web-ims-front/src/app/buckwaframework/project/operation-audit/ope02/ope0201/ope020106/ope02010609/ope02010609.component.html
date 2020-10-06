@@ -1,0 +1,284 @@
+<segment header="การสุ่มตรวจ (ผู้ใช้)" [loading]="loading">
+  <div [center]="true" grid>
+    <div [column]="16">
+      <form form [formGroup]="form">
+
+        <div inline>
+          <div field [col]="1"></div>
+          <div field [col]="14">
+            <label>การสุ่มตรวจจำนวนการซื้อและการจำหน่ายน้ำมันหล่อลื่นฯ เปรียบเทียบกับจำนวนที่ได้รับอนุญาต</label>
+          </div>
+          <div field [col]="1"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="1"></div>
+          <div field [col]="3">
+            <label class="text-right full-width">ระหว่างเดือน</label>
+          </div>
+          <div field [col]="3" [ngClass]="{'error': invalid('monthStart')}">
+            <div class="ui calendar" [ngClass]="{'error': invalid('monthStart')}" id="date1">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" readonly placeholder="วัน เดือน ปี">
+              </div>
+            </div>
+          </div>
+          <div field [col]="2">
+            <label class="text-center full-width">
+              ถึงเดือน
+            </label>
+          </div>
+          <div field [col]="3" [ngClass]="{'error': invalid('monthEnd')}">
+            <div class="ui calendar" [ngClass]="{'error': invalid('monthEnd')}" id="date2">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" readonly placeholder="วัน เดือน ปี">
+              </div>
+            </div>
+          </div>
+          <div field [col]="1"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="12">
+            <label>การซื้อน้ำมันหล่อลื่นฯ มีจำนวนเชื้อ</label>
+          </div>
+          <div field [col]="2"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="3"></div>
+          <div field [col]="5">
+            <div class="ui radio checkbox">
+              <input type="radio" name="moreThanApprove" formControlName="moreThanApprove" value="N">
+              <label>ไม่เกินจากที่ได้รับอนุญาต</label>
+            </div>
+          </div>
+          <div field [col]="5">
+            <div class="ui radio checkbox">
+              <input type="radio" name="moreThanApprove" formControlName="moreThanApprove" value="Y">
+              <label>เกินจากที่ได้รับอนุญาต</label>
+            </div>
+          </div>
+          <div field [col]="3"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="6">
+            <label>ซื้อน้ำมันหล่อลื่นฯ จาก</label>
+          </div>
+          <div field [col]="3">
+            <label class="full-width text-center">ผู้ได้รับอนุญาต</label>
+          </div>
+          <div field [col]="3">
+            <label class="full-width text-center">ผู้ไม่ได้รับอนุญาต</label>
+          </div>
+          <div field [col]="2"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="3"></div>
+          <div field [col]="5">
+            <div class="ui checkbox">
+              <input type="checkbox" name="buyFromIndust" formControlName="buyFromIndust"
+                (change)="toggleBuyFromIndust($event)">
+              <label>ผู้ประกอบอุตสาหกรรม</label>
+            </div>
+          </div>
+          <div field class="center-all" [col]="3" [ngClass]="{ 'disabled': !form.get('buyFromIndust').value }">
+            <div class="ui checkbox">
+              <input type="radio" name="buyFromApproveM" formControlName="buyFromApproveM" value="Y">
+              <label></label>
+            </div>
+          </div>
+          <div field class="center-all" [col]="3" [ngClass]="{ 'disabled': !form.get('buyFromIndust').value }">
+            <div class="ui checkbox">
+              <input type="radio" name="buyFromApproveM" formControlName="buyFromApproveM" value="N">
+              <label></label>
+            </div>
+          </div>
+          <div field [col]="2"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="3"></div>
+          <div field [col]="5">
+            <div class="ui checkbox">
+              <input type="checkbox" name="buyFromImporter" formControlName="buyFromImporter"
+                (change)="toggleBuyFromImporter($event)">
+              <label>ผู้นำเข้า</label>
+            </div>
+          </div>
+          <div field class="center-all" [col]="3" [ngClass]="{ 'disabled': !form.get('buyFromImporter').value }">
+            <div class="ui checkbox">
+              <input type="radio" name="buyFromApproveI" formControlName="buyFromApproveI" value="Y">
+              <label></label>
+            </div>
+          </div>
+          <div field class="center-all" [col]="3" [ngClass]="{ 'disabled': !form.get('buyFromImporter').value }">
+            <div class="ui checkbox">
+              <input type="radio" name="buyFromApproveI" formControlName="buyFromApproveI" value="N">
+              <label></label>
+            </div>
+          </div>
+          <div field [col]="2"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="3"></div>
+          <div field [col]="5">
+            <div class="ui checkbox">
+              <input type="checkbox" name="buyFromAgent" formControlName="buyFromAgent"
+                (change)="toggleBuyFromAgent($event)">
+              <label>ตัวแทน</label>
+            </div>
+          </div>
+          <div field class="center-all" [col]="3" [ngClass]="{ 'disabled': !form.get('buyFromAgent').value }">
+            <div class="ui checkbox">
+              <input type="radio" name="buyFromApproveA" formControlName="buyFromApproveA" value="Y">
+              <label></label>
+            </div>
+          </div>
+          <div field class="center-all" [col]="3" [ngClass]="{ 'disabled': !form.get('buyFromAgent').value }">
+            <div class="ui checkbox">
+              <input type="radio" name="buyFromApproveA" formControlName="buyFromApproveA" value="N">
+              <label></label>
+            </div>
+          </div>
+          <div field [col]="2"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="12">
+            <label class="full-width text-left">ลักษณะการใช้ในอุตสาหกรรม</label>
+          </div>
+          <div field [col]="2"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="3"></div>
+          <div field [col]="5">
+            <div class="ui checkbox">
+              <input type="checkbox" name="usedType" formControlName="usedType" (change)="usedTypeChange($event)">
+              <label>ใช้ในอุตสาหกรรม</label>
+            </div>
+          </div>
+          <div field [col]="5" [ngClass]="{ 'disabled': !form.get('usedType').value, 'error': invalid('usedRemark') }">
+            <input type="text" name="usedRemark" formControlName="usedRemark">
+          </div>
+          <div field [col]="3"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="3"></div>
+          <div field [col]="5">
+            <div class="ui checkbox">
+              <input type="checkbox" name="salerType" formControlName="salerType" (change)="salerTypeChange($event)">
+              <label>แบ่งขายปลีก ขนาดบรรจุ</label>
+            </div>
+          </div>
+          <div field [col]="5"
+            [ngClass]="{ 'disabled': !form.get('salerType').value, 'error': invalid('salerCapacity') }">
+            <input type="text" name="salerCapacity" formControlName="salerCapacity">
+          </div>
+          <div field [col]="3"></div>
+        </div>
+
+        <div inline *ngIf="form.get('salerType').value">
+          <div field [col]="3"></div>
+          <div field [col]="3">
+            <label class="text-right full-width">โดยมีลูกค้าจำนวน</label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': invalid('sellForCount') }">
+            <input type="text" class="text-center custom-readonly" name="sellForCount" numberOnly
+              formControlName="sellForCount" readonly>
+          </div>
+          <div field [col]="3">
+            <label class="text-left full-width">รายคือ</label>
+          </div>
+          <div class="text-left" style="justify-content: flex-start" field [col]="3">
+            <app-button-add (click)="addFormArray()"></app-button-add>
+          </div>
+        </div>
+
+        <ng-container *ngIf="form.get('formArray')" formArrayName="formArray">
+          <div inline [formGroupName]="i" *ngFor="let formArr of form.get('formArray').controls; let i = index">
+            <div field [col]="3"></div>
+            <div field [col]="1">
+              <label class="text-right full-width">{{ i+1 }}</label>
+            </div>
+            <div field [col]="3" [ngClass]="{'error': invalidArr('custName', i)}">
+              <input type="text" formControlName="custName">
+            </div>
+            <div field [col]="1">
+              <label class="text-right full-width">ที่อยู่</label>
+            </div>
+            <div field [col]="3" [ngClass]="{'error': invalidArr('address', i)}">
+              <input type="text" formControlName="address">
+            </div>
+            <div field [col]="1">
+              <label class="text-right full-width">โทร</label>
+            </div>
+            <div field [col]="2" [ngClass]="{'error': invalidArr('mobile', i)}">
+              <input type="text" formControlName="mobile">
+            </div>
+            <div class="text-left" style="justify-content: flex-start" field [col]="2">
+              <app-button-delete (click)="sellForCountRemove(i)"></app-button-delete>
+            </div>
+          </div>
+        </ng-container>
+
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="12">
+            <label>ปริมาณการใช้น้ำมันหล่อลื่นฯ</label>
+          </div>
+          <div field [col]="2"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="3"></div>
+          <div field [col]="5">
+            <div class="ui radio checkbox">
+              <input type="radio" name="decent" formControlName="decent" value="Y">
+              <label>เหมาะสม</label>
+            </div>
+          </div>
+          <div field [col]="5">
+            <div class="ui radio checkbox">
+              <input type="radio" name="decent" formControlName="decent" value="N">
+              <label>ไม่เหมาะสม</label>
+            </div>
+          </div>
+          <div field [col]="3"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="12">
+            <label>เนื่องจาก...</label>
+          </div>
+          <div field [col]="2"></div>
+        </div>
+
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="11">
+            <textarea rows="4" name="conclusionText" formControlName="conclusionText"></textarea>
+          </div>
+          <div field [col]="2"></div>
+        </div>
+
+        <div inline>
+          <div class="center-all btn" field>
+            <app-button-save (click)="save()"></app-button-save>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</segment>

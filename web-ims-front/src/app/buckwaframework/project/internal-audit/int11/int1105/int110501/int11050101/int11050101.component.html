@@ -1,0 +1,55 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+    <segment header="แก้ไขรายละเอียดรายงานผลการปฏิบัติตามข้อเสนอแนะ" [loading]="false">
+        <form [formGroup]="editForm">
+            <div class="ui form grid ">
+                <div class="ui twelve wide centered column">
+                    <!-- row1 -->
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <label class="text-right full-width">เรื่องที่ตรวจ / ประเด็นที่ตรวจ :</label>
+                        </div>
+                        <div class="ten wide field ">
+                            <textarea class="ui issues" rows="3" style="width: 100%;" formControlName="issues" ></textarea>
+                        </div>
+                    </div>
+                    <!-- row2 -->
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <label class="text-right full-width">ข้อเสนอแนะของผู้ตรวจสอบภายใน :</label>
+                        </div>
+                        <div class="ten wide field">
+                            <textarea class="ui whatShouldBe" rows="3" style="width: 100%;" formControlName="whatShouldBe" ></textarea>
+                        </div>
+                    </div>
+                    <!-- row3 -->
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <label class="text-right full-width">แนวทางการพัฒนาการปฏิบัติตามข้อเสนอแนะ
+                                <br>ของหน่วยตรวจสอบภายใน :</label>
+                        </div>
+                        <div class="ten  wide field">
+                            <textarea rows="3" style="width: 100%;" formControlName="guidelinesDeveloping"></textarea>
+                        </div>
+                    </div>
+                    <!-- row4 -->
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <label class="text-right full-width">เอกสาร / หลักฐานอ้างอิง :</label>
+                        </div>
+                        <div class="ten  wide field">
+                            <textarea rows="3" style="width: 100%;" formControlName="reference"></textarea>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="ui one column centered grid">
+                        <div class="column aligned center">
+                            <app-button-save (click)="sendEdit()"></app-button-save>
+                            <app-button-back (click)="routeTo('/int11/05/01', idHead)"></app-button-back>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </segment>>

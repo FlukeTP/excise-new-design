@@ -1,0 +1,35 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+    <segment header="บันทึกผลการตรวจสอบ" [loading]="false">
+      <div class="ui form">
+      </div>
+      <div class="ui form">
+        <div class="inline fields">
+          <div class="three wide field"></div>
+          <div class="three wide field">
+            <label class="text-right full-width">บันทึกเอกสาร</label>
+          </div>
+          <div class="four wide field">
+              <input type="text" value="ตส. 01-10" >
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="three wide field"></div>
+          <div class="three wide field">
+            <label class="text-right full-width">บันทึกเอกสาร</label>
+          </div>
+          <div class="four wide field">
+              <input type="text" value="ตส. 01-11" >
+          </div>
+        </div>
+  
+        <div class="ui center aligned grid">
+          <div class="eight wide column">
+              <app-button-save routerLink="/tax-audit-new/select07"></app-button-save>
+              <app-button-back routerLink="/tax-audit-new/select07"></app-button-back>
+          </div>
+        </div>
+      </div>
+    </segment>
+  
+  
+  </with-breadcrumb>

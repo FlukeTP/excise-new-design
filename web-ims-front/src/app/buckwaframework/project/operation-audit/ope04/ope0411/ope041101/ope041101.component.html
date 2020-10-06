@@ -1,0 +1,108 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+    <segment header="{{header}}" [loading]="false">
+      <form>
+        <div class="ui form ">
+          <!-- row 1 -->
+          <!-- <div class="inline fields">
+            <div class="three wide field ">
+              <label class="text-right full-width">หน่วยงาน</label>
+            </div>
+            <div class="four wide field ">
+              <select class="ui search dropdown ai search full-width">
+                <option value="สรรพสามิตภาค 1">สรรพสามิตภาค 1</option>
+              </select>
+            </div>
+            <div class="two wide field ">
+                <label class="text-right full-width">ประจำเดือน</label>
+              </div>
+              <div class="four wide field ">
+                <select class="ui search dropdown ai search full-width">
+                  <option value="ต.ค. 2561">ต.ค. 2561</option> 
+                  <option value="ต.ค. 2561">ต.ค. 2561</option>
+                </select>
+              </div>
+          </div> -->
+          <!-- row 4 -->
+          <div class="inline fields">
+  
+            <div class="three wide field ">
+              <label class="text-right full-width">วันที่ออกตรวจ</label>
+            </div>
+            <div class="four wide field ">
+                <div class="ui calendar" style="width:100%" id="date1">
+                    <div class="ui input left icon">
+                     <i class="calendar alternate outline icon"></i>
+                      <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" value="02/18/2562">
+                    </div>
+                </div>
+            </div>
+  
+            <div class="two wide field ">
+              <label class="text-right full-width">ถึง</label>
+            </div>
+            <div class="four wide field ">
+                <div class="ui calendar" style="width:100%" id="date2">
+                    <div class="ui input left icon">
+                     <i class="calendar alternate outline icon"></i>
+                      <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" value="02/18/2562">
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="field">
+              <h3>รายชื่อผู้ถูกตรวจ</h3>
+            </div>
+            <div class="field btn">
+              <app-button-custom color="primary" text="เลือกจากรายการแจ้งเตือน" routerLink="/ope04/11/02"></app-button-custom>
+              <app-button-custom color="primary" text="เลือกจากรายชื่อ" routerLink="/ope04/11/03"></app-button-custom>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="one wide field"></div>
+            <div class="fifteen wide field">
+              <div class="ui ordered list" *ngIf="onApprove || onCreate">
+                <a class="item" *ngFor="let company of companies">{{ company }}</a>
+              </div> 
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="field">
+              <h3>รายชื่อผู้ออกตรวจ</h3>
+            </div>
+            <div class="field">
+              <app-button-custom color="primary" text="เลือกผู้ออกตรวจ" routerLink="/ope04/11/04"></app-button-custom>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="one wide field"></div>
+            <div class="fifteen wide field">
+              <div class="ui ordered list" *ngIf="onApprove || onCreate">
+                <a class="item" *ngFor="let employee of employees">{{ employee }}</a>
+              </div>
+            </div>
+          </div>
+          <div class="inline fields">
+              <div class="field">
+                <h3>ผู้มีอำนาจอนุมัติ</h3>
+              </div>
+          </div>
+          <div class="inline fields">
+                <div class="one wide field"></div>
+                <div class="fifteen wide field">
+                  <div class="ui ordered list">
+                    <a class="item" >นาย สมศักดิ์ จันทร์อังคาร</a>
+                  </div>
+                </div>
+          </div>
+          <div class="inline field btn text-center">
+              <app-button-save *ngIf="onInitial" [routerLink]="['/ope04/11']"></app-button-save>
+              <app-button-custom *ngIf="onCreate" text="ยื่นแผนอนุมัติ" [routerLink]="['/ope04/11']"></app-button-custom>
+              <app-button-custom color="green" *ngIf="onApprove" text="อนุมัติ" [routerLink]="['/ope04/11']"></app-button-custom>
+              <app-button-cancel [routerLink]="['/ope04/11']"></app-button-cancel>
+          </div>
+        </div>
+      </form>
+    </segment>
+  </with-breadcrumb>

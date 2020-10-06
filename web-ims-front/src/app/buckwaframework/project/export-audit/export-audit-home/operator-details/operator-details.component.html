@@ -1,0 +1,129 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<h2 class="ui header">รายละเอียดผู้ประกอบการ</h2>
+<div class="ui two column centered grid">
+  <div class="column">
+    <div class="ui segments">
+      <div class="ui segment center aligned" style=" background: #1e83db;color: white;">
+        <p>รายละเอียดผู้ประกอบการ</p>
+      </div>
+      <div class="ui secondary segment">
+        <label>ชื่อผู้ประกอบอุตสาหกรรม &nbsp;<b>{{company_name}}</b></label><br>
+        <label>ทะเบียนสรรพสามิตเลขที่ &nbsp;<b>{{excise_id}}</b></label>
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="four wide field">ชื่ออาคาร &nbsp;<b>{{building_name}}</b></div>
+            <div class="four wide field">ห้องเลขที่ &nbsp;<b>{{room_number}}</b></div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field">ชั้นที่ &nbsp;<b>{{floor}}</b></div>
+            <div class="four wide field">หมู่บ้าน &nbsp;<b>{{village}}</b></div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field">เลขที่ &nbsp;<b>{{number}}</b></div>
+            <div class="four wide field">หมู่ที่ &nbsp;<b>{{village_number}}</b></div>
+            <div class="four wide field">ตรอก/ซอย &nbsp;<b>{{by_way}}</b></div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field">ถนน &nbsp;<b>{{street}}</b></div>
+            <div class="four wide field">ตำบล/แขวง &nbsp;<b>{{tambol}}</b></div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field">อำเภอ/เขต &nbsp;<b>{{district}}</b></div>
+            <div class="four wide field">จังหวัด &nbsp;<b>{{province}}</b></div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field">รหัสไปรษณีย์ &nbsp;<b>{{zip_code}}</b></div>
+            <div class="four wide field">โทรศัพท์ &nbsp;<b>{{tel}}</b></div>
+            <div class="four wide field">Email &nbsp;<b>{{email}}</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column centered row">
+    <div class="column">
+      <div class="ui segments">
+        <div class="ui segment center aligned" style=" background: #1e83db;color: white;">
+          <p>ตรวจเอกสารใบคำขอ</p>
+        </div>
+        <div class="ui secondary segment">
+          <div class="ui four column grid">
+            <div class="column">
+              <p>&nbsp;&nbsp;ภส. 05-01</p>
+            </div>
+            <div class="column"></div>
+            <div class="column">
+              <div class="ui dropdown ai">
+                <button class="ui inverted orange button">รายละเอียด</button>
+                <div class="menu">
+                  <div class="item">
+                    <button class="ui green button">ผ่าน</button>
+                    <button class="ui red button">ไม่ผ่าน</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui four column grid">
+            <div class="column">
+              <p>&nbsp;&nbsp;ภส. 05-01/1</p>
+            </div>
+            <div class="column"></div>
+            <div class="column">
+              <div class="ui dropdown ai">
+                <button class="ui inverted orange button">รายละเอียด</button>
+                <div class="menu">
+                  <div class="item">
+                    <button class="ui green button">ผ่าน</button>
+                    <button class="ui red button">ไม่ผ่าน</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui four column grid">
+            <div class="column">
+              <p>&nbsp;&nbsp;PO</p>
+            </div>
+            <div class="column"></div>
+            <div class="column">
+              <div class="ui dropdown ai">
+                <button class="ui inverted orange button">รายละเอียด</button>
+                <div class="menu">
+                  <div class="item">
+                    <button class="ui green button">ผ่าน</button>
+                    <button class="ui red button">ไม่ผ่าน</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column centered row">
+    <div class="column">
+      <div class="ui segments">
+        <div class="ui segment center aligned">
+          <div class="ui icon buttons">
+            <button class="ui button">
+              <i class="image icon"></i> Picture
+            </button>
+            <button class="ui button">
+              <i class="map marker icon"></i> Location
+            </button>
+            <button class="ui button">
+              <i class="file alternate icon"></i> Upload file
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column centered row">
+    <div class="column cecnter aligned">
+      <button class="ui blue button">จบการทำงาน</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,244 @@
+<with-breadcrumb [breadcrumb]="breadcrumb"></with-breadcrumb>
+<segment header="เพิ่มข้อมูลปัจจัยเสี่ยง" [loading]="false">
+  <div *ngIf="!hideData">
+    <form [formGroup]="dataFactors" (ngSubmit)="onSubmit($event)">
+      <div class="ui form">
+        <div class="inline fields">
+          <div class="two wide field">
+            <label class="text-right full-width">ชื่อปัจจัยเสี่ยง</label>
+          </div>
+          <div class="eight wide field" [ngClass]="{'error': invalidControl('riskFactorsMaster')}">
+            <input type="text" formControlName="riskFactorsMaster">
+          </div>
+          <div class="one wide field">
+            <label class="text-right full-width">ด้าน</label>
+          </div>
+          <div class="five wide field" [ngClass]="{'error': invalidControl('side')}">
+            <select class="ui dropdown ia search selection fluid" multiple="" id="side" formControlName="side">
+              <option *ngFor="let data of sideList" value="{{data.value}}">{{data.data}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field" >
+            <label class="text-right full-width">ชื่อข้อมูล</label>
+          </div>
+          <div class="eight wide field" [ngClass]="{'error': invalidControl('infoUsedRiskDesc')}">
+            <input type="text" formControlName="infoUsedRiskDesc">
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field">
+            <label class="text-right full-width">ตัวชี้วัดความเสี่ยง</label>
+          </div>
+          <div class="eight wide field" [ngClass]="{'error': invalidControl('riskIndicators')}">
+            <input type="text" formControlName="riskIndicators">
+          </div>
+          <div class="two wide field">
+            <label class="text-right full-width">หน่วยค่าความเสี่ยง</label>
+          </div>
+          <div class="two wide field" [ngClass]="{'error': invalidControl('riskUnit')}">
+            <select class="ui dropdown ia search selection" id="riskUnit" formControlName="riskUnit">
+              <option *ngFor="let data of riskUnitList" value="{{data.value}}">{{data.data}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+            <label class="text-right full-width">ช่วงของข้อมูล</label>
+          </div>
+          <div class="two wide field " [ngClass]="{'error': invalidControl('dateFrom')}">
+            <div class="ui calendar" id="dateCalendarFrom" style="width:100%">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" autocomplete="off" id="startDate" name="budgetYearstart" placeholder="วว/ดด/ปปปป"
+                  formControlName="dateFrom">
+              </div>
+            </div>
+          </div>
+          <div class="one wide field "><label class="text-center full-width">ถึง</label></div>
+          <div class="two wide field " [ngClass]="{'error': invalidControl('dateTo')}">
+            <div class="ui calendar" id="dateCalendarTo" style="width:100%">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" autocomplete="off" id="endDate" name="budgetYearend" placeholder="วว/ดด/ปปปป"
+                  formControlName="dateTo">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui center aligned grid">
+        <div class="sixteen wide column">
+          <app-button-save [submit]="true"></app-button-save>
+          <app-button-back (click)="loacationBack()"></app-button-back>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="hideData">
+    <!-- hideData -->
+    <form id="assetBalanceForm" [formGroup]="dataFactorsData" class="ui form" ngNativeValidate>
+      <div class="ui form">
+        <div class="inline fields">
+          <div class="two wide field">
+            <label class="text-right full-width">ชื่อปัจจัยเสี่ยง : </label>
+          </div>
+          <div class="seven wide field">
+            <span>{{dataList.riskFactorsMaster}}</span>
+          </div>
+          <div class="one wide field">
+            <label class="text-right full-width">ด้าน : </label>
+          </div>
+          <div class="five wide field">
+            <span>{{dataList.side}}</span>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field">
+            <label class="text-right full-width">ชื่อข้อมูล : </label>
+          </div>
+          <div class="five wide field">
+            <span>{{dataList.infoUsedRiskDesc}}</span>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field">
+            <label class="text-right full-width">ตัวชี้วัดความเสี่ยง : </label>
+          </div>
+          <div class="five wide field">
+            <span>{{dataList.riskIndicators}}</span>
+          </div>
+          <div class="three wide field">
+            <label class="text-right full-width">หน่วยค่าความเสี่ยง : </label>
+          </div>
+          <div class="two wide field">
+            <span>{{dataList.riskUnit}}</span>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field" *ngIf="!showCalendar">
+            <label class="text-right full-width">ช่วงของข้อมูล : </label>
+          </div>
+          <div class="two wide field " *ngIf="showCalendar">
+              <label class="text-right full-width">ช่วงของข้อมูลเดิม : </label>
+            </div>
+          <div class="one wide field ">
+            <span>{{dataList.dateFrom}}</span>
+          </div>
+          <div class="one wide field "><label class="text-center full-width">ถึง</label></div>
+          <div class="one wide field ">
+            <span>{{dataList.dateTo}}</span>
+          </div>
+        </div>
+        <div *ngIf="showCalendar">
+          <div class="inline fields">
+            <div class="two wide field ">
+              <label class="text-right full-width">ช่วงของข้อมูล</label>
+            </div>
+            <div class="two wide field ">
+              <div class="ui calendar" id="dateCalendarFromNew" style="width:100%">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" autocomplete="off" id="startDateNew" name="budgetYearstart"
+                    placeholder="วว/ดด/ปปปป" formControlName="dateFrom">
+                </div>
+              </div>
+            </div>
+            <div class="one wide field "><label class="text-center full-width">ถึง</label></div>
+            <div class="two wide field ">
+              <div class="ui calendar" id="dateCalendarToNew" style="width:100%">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" autocomplete="off" id="endDateNew" name="budgetYearend" placeholder="วว/ดด/ปปปป"
+                    formControlName="dateTo">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field">
+            <label class="text-right full-width">อัพโหลดข้อมูลปัจจัยเสี่ยง</label>
+          </div>
+          <div class="three wide field">
+            <input id="file" type="file" name="file" accept=".xlsx" (change)="onChangeUpload($event)">
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" accept=".xlsx" icon="upload icon" text="อัพโหลด"
+              (click)="onUpload($event)"></app-button-custom>
+            <div *ngIf="showDataTable">
+              <app-button-custom color="primary" icon="download icon" text="Download Template"
+                (click)="dowloadTemplate()">
+              </app-button-custom>
+            </div>
+            <div *ngIf="showDataTableCode4">
+              <app-button-custom color="primary" icon="download icon" text="Download Template"
+                (click)="dowloadTemplate2()">
+              </app-button-custom>
+            </div>
+            <div *ngIf="showDataTableCode5">
+              <app-button-custom color="primary" icon="download icon" text="Download Template"
+                (click)="dowloadTemplate3()">
+              </app-button-custom>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="showDataTable">
+      <table id="dataTable" class="ui small celled table striped" style="width: 100%;">
+        <thead class="text-center">
+          <tr>
+            <th>ลำดับที่</th>
+            <th style="text-align: center !important;">โครงการ</th>
+            <!-- class="four wide field " -->
+            <th style="text-align: center !important;">ค่าความเสี่ยง</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <div *ngIf="showDataTableCode4">
+      <table id="dataTableCode4" class="ui small celled table striped" style="width: 100%;">
+        <thead class="text-center">
+          <tr>
+            <th>ลำดับที่</th>
+            <th style="text-align: center !important;">รหัสระบบสารสนเทศฯ</th>
+            <th style="text-align: center !important;">ระบบสารสนเทศฯ ของกรมสรรพสามิต</th>
+            <th style="text-align: center !important;">ค่าความเสี่ยง</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <div *ngIf="showDataTableCode5">
+      <table id="dataTableCode5" class="ui small celled table striped" style="width: 100%;">
+        <thead class="text-center">
+          <tr>
+            <th>ลำดับที่</th>
+            <th style="text-align: center !important;">รหัสสรรพสามิต</th>
+            <th style="text-align: center !important;">ภาค</th>
+            <th style="text-align: center !important;">พื้นที่</th>
+            <th style="text-align: center !important;">ค่าความเสี่ยง</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-save (click)="onSave($event)"></app-button-save>
+        <app-button-back (click)="loacationBack()"></app-button-back>
+      </div>
+    </div>
+  </div>
+</segment>
+
+<!-- form-data-excel -->
+<form id="form-data-excel" method="POST">
+  <input type="hidden" name="dataJson" id="dataJson">
+</form>

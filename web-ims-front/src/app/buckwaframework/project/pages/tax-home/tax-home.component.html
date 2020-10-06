@@ -1,0 +1,140 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<h2 class="ui header">การตรวจสอบภาษี</h2>
+<div class="ui grid">
+  <div class="twelve wide column">
+    <div class="ui three column grid">
+      <div class="column">
+        <div class="ui fluid link card">
+          <div class="ui relaxed items">
+            <a class="item" (click)="onClickType(1)">
+              <i class="large user circular alternate icon" style="background-color: #ffcc00 !important;"></i>
+              <div class="middle aligned content typeHead">
+                <span>การตรวจกำกับดูแล</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui fluid link card">
+          <div class="ui relaxed items">
+            <a class="item" (click)="onClickType(2)">
+              <i class="large home circular alternate icon" style="background-color: #ffcc00 !important;"></i>
+              <div class="middle aligned content typeHead">
+                <span>การตรวจสอบแบบเบ็ดเสร็จ ณ สถานประกอบการ</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui fluid link card">
+          <div class="ui relaxed items">
+            <a class="item middle aligned" (click)="onClickType(3)">
+              <i class="large book circular alternate icon" style="background-color: #ffcc00 !important;"></i>
+              <div class="middle aligned content typeHead">
+                <span>การตรวจสอบตามหนังสือเรียก</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="three wide column">
+    <div class="ui segment">
+      <div class="ui form">
+        <div class="inline field">
+          <span>ปีงบประมาณ</span>
+        </div>
+        <div class="inline field">
+          <select id="selectYear" class="ui dropdown ai" [(ngModel)]="yearSelect">
+            <option value="2560">2560</option>
+            <option value="2561">2561</option>
+            <option value="2562">2562</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="two column row">
+    <div class="twelve wide column">
+      <div class="ui segment">
+        <table id="tableData" class="ui small celled table nowrap striped selectable" style="width: 100%">
+          <thead>
+            <tr>
+              <th style="text-align: center !important;">ลำดับที่</th>
+              <th style="text-align: center !important;">เลขทะเบียนสรรพสามิต</th>
+              <th style="text-align: center !important;">ชื่อสำนักงานสรรพสามิต</th>
+              <th style="text-align: center !important;">สถานะดำเนินการ</th>
+              <th style="text-align: center !important;"></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div class="three wide column">
+      <div class="ui segment">
+        <div class="ui top header">
+          <span>แจ้งเตือน <i class="bell icon" style="color: #db2828;"></i></span>
+        </div>
+        <div class="ui feed">
+          <div *ngFor="let cnd of countNotificationData" class="event">
+            <div class="label">
+              <i class="circular clipboard middle aligned icon" style="background-color: #ffcc00 !important;"></i>
+            </div>
+            <div class="content">
+              <div class="summary" *ngIf="cnd.type=='CREATE_PLAN'">วิเคราะห์ความเสี่ยงประจำปีสำเร็จ</div>
+              <div class="summary" *ngIf="cnd.type=='PROCESS_PLAN_COMPLETED'">วิเคราะห์ความเสี่ยงจากส่วนกลางสำเร็จ</div>
+              <div class="meta">22/12/2561</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui fluid link card" [routerLink]="['/tax-audit-new/tan01']">
+          <div class="ui relaxed items">
+            <div class="item middle aligned">
+              <div class="content" style="padding-right: 10px;padding-left: 10px;">
+                <a class="header">
+                  <span>แผนการตรวจสอบประจำปีงบประมาณ</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><br />
+      <div class="column">
+        <div class="ui fluid link card" [routerLink]="['/tax-audit/tax00004']">
+          <div class="ui relaxed items">
+            <div class="item middle aligned">
+              <div class="content" style="padding-right: 10px;padding-left: 10px;">
+                <a class="header">
+                  <span>วิเคราะห์ความเสี่ยงประจำปีงบประมาณ</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><br />
+      <div class="column">
+        <div class="ui fluid link card" (click)="toTax()">
+          <div class="ui relaxed items">
+            <div class="item middle aligned">
+              <div class="content" style="padding-right: 10px;padding-left: 10px;">
+                <a class="header">
+                  <span>ผลการวิเคราะห์ความเสี่ยงประจำปีงบประมาณจากส่วนกลาง</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="two column row">
+    <div class="twelve wide column">
+
+    </div>
+  </div>
+</div>

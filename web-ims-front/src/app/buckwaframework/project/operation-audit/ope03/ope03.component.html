@@ -1,0 +1,76 @@
+<with-breadcrumb [breadcrumb]="breadcrumb" [lists]="lists">
+  <segment [loading]="false">
+    <div class="ui form">
+      <div class="ui centered grid">
+        <div class=" ui centered ten wide column">
+          <div class="inline fields">
+            <div class="three wide field"></div>
+            <div class="eight wide field">
+              <label class="custom-label-w-5 text-right">ปีงบประมาณ</label>
+              <div class="ui input">
+                <select id="selectYear" class="ui dropdown ai" [(ngModel)]="yearSelect">
+                  <option value="2560">2560</option>
+                  <option value="2561">2561</option>
+                  <option value="2562">2562</option>
+                </select>
+              </div>
+            </div>
+            <div class="two wide field grid">
+              <div class="sixteen center aligned column">
+                <app-button-search (click)="search()"></app-button-search>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sixteen wide column" style="margin-top: -30px">
+          <table id="dataTable" class="ui small celled table striped selectable nowrap" style="width: 100%">
+            <thead>
+              <tr style="text-align: center;">
+                <th class="four wide">ชื่อผู้ประกอบการ <i class="sort icon"></i></th>
+                <th class="four wide">สถานะ <i class="sort icon"></i></th>
+                <th class="two wide">รวบรวมข้อมูล<i class="sort icon"></i></th>
+                <th class="two wide">อนุมัติการออกตรวจ<i class="sort icon"></i></th>
+                <th class="two wide">ข้อมูลการออกตรวจ<i class="sort icon"></i></th>
+                <th class="two wide">รายงานการออกตรวจ<i class="sort icon"></i></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>บริษัท เลาทัน ลูอัส (ประเทศไทย) จำกัด</td>
+                <td class="text-center">อนุมัติการออกตรวจ </td>
+                <td class="text-center" style="color:green">อนุมัติ <i class="file alternate outline icon"></i></td>
+                <td class="text-center">กำลังดำเนินการ</td>
+                <td class="text-center" style="color: red">รออนุมัติ</td>
+                <td class="text-center"><a (click)="exportPDF($event)"><i class="big red file pdf icon"></i></a></td>
+              </tr>
+              <tr>
+                <td>บริษัท ซี.เอ.พาร์ท จำกัด</td>
+                <td class="text-center">รวบรวมข้อมูล</td>
+                <td class="text-center" style="color: red">รออนุมัติ <i class="file alternate outline icon"></i></td>
+                <td class="text-center" style="color: red">รออนุมัติ</td>
+                <td class="text-center" style="color: red">รออนุมัติ</td>
+                <td class="text-center"><a (click)="exportPDF($event)"><i class="big red file pdf icon"></i></a></td>
+              </tr>
+              <tr>
+                <td>บริษัท เกอร์ริ่ง(ไทยแลนด์) จำกัด</td>
+                <td class="text-center">รายงานการออกตรวจ</td>
+                <td class="text-center" style="color:green">อนุมัติ <i class="file alternate outline icon"></i></td>
+                <td class="text-center" style="color:green">อนุมัติ</td>
+                <td class="text-center" style="color:green">อนุมัติ</td>
+                <td class="text-center"><a (click)="exportPDF($event)"><i class="big red file pdf icon"></i></a></td>
+              </tr>
+              <tr>
+                <td>บริษัท อีมาส เอ็นเนอร์ยี่ เซอร์วิสเซส (ไทยแลนด์) จำกัด</td>
+                <td class="text-center">ข้อมูลการออกตรวจ</td>
+                <td class="text-center" style="color:green">อนุมัติ <i class="file alternate outline icon"></i></td>
+                <td class="text-center" style="color:green">อนุมัติ</td>
+                <td class="text-center">กำลังดำเนินการ</td>
+                <td class="text-center"><a (click)="exportPDF($event)"><i class="big red file pdf icon"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

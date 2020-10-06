@@ -1,0 +1,200 @@
+<br>
+<segment header="ตรวจสอบการต่อใบอนุญาต">
+  <form form [formGroup]="formSearch">
+    <div inline>
+      <div field [col]="2" [ngClass]="{'required': flagHeader}">
+        <label class="text-right full-width">สำนักงานสรรพสามิตภาค :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="4" [ngClass]="{'error': invalidSearchFormControl('sector')}">
+          <select class="ui dropdown full-width" id="sector" (change)="onChangeSector($event)" formControlName="sector">
+            <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+            <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" formControlName="sector" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="2">
+        <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่ :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="3" [ngClass]="{'error': invalidSearchFormControl('area')}">
+          <select class="ui dropdown full-width" id="area" (change)="onChangeArea($event)" formControlName="area">
+            <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="3">
+          <input type="text" class="custom-readonly" formControlName="area" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="2">
+        <label class="text-right full-width">สำนักงานสรรพสามิตสาขา :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="3" [ngClass]="{'error': invalidSearchFormControl('branch')}">
+          <select class="ui dropdown full-width" id="branch" formControlName="branch">
+            <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="3">
+          <input type="text" class="custom-readonly" formControlName="branch" readonly>
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div inline>
+      <div field [col]="2" [ngClass]="{'required': flagHeader}">
+        <label class="text-right full-width">วันที่ใบอนุญาตหมดอายุ :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="4"
+          [ngClass]="{'error': invalidSearchFormControl('licexpDateFrom') || invalidSearchFormControl('licexpDateTo')}">
+          <div class="ui calendar full-width" id="date1">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="inputDate1" readonly="">
+            </div>
+          </div>
+          ถึง&nbsp;&nbsp;&nbsp;
+          <div class="ui calendar full-width" id="date2">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="inputDate2" readonly="">
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" formControlName="licexpDateFrom" readonly>
+          ถึง&nbsp;&nbsp;&nbsp;
+          <input type="text" class="custom-readonly" formControlName="licexpDateTo" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="2">
+        <label class="text-right full-width">เลขที่กระดาษทำการ :</label>
+      </div>
+      <div field [col]="3">
+        <select class="ui dropdown full-width" (change)="onChangeauditLicexpNo($event)" formControlName="auditLicexpNo"
+          id="auditLicexpNo">
+          <option value="">เลือกเอกสาร</option>
+          <option *ngFor="let item of auditLicexpNoList let i =index" value="{{item.auditLicexpNo}}">
+            {{item.auditLicexpNo}}</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-search (click)="serach()" [disabled]="!flagButton"></app-button-search>
+        <app-button-save (click)="save()" [disabled]="flagButton"></app-button-save>
+        <app-button-export (click)="export()" [disabled]="!formSearch.get('auditLicexpNo').value"></app-button-export>
+        <app-button-clear (click)="clear()"></app-button-clear>
+      </div>
+    </div>
+  </form>
+
+</segment>
+
+<segment [loading]="loading">
+  <form form [formGroup]="formT1">
+    <div class='table-cont' id='table-cont'>
+      <table class="ui small celled table selectable" style="width: 120%">
+        <thead class="text-center">
+          <tr>
+            <th  class="one wide ">ลำดับ</th>
+            <th  class="two wide ">เลขทะเบียนสรรพสามิต</th>
+            <th  class="three wide ">ชื่อผู้ประกอบการ</th>
+            <th  class="three wide ">ชื่อสถานประกอบการ</th>
+            <th  class="two wide ">ประเภทใบอนุญาต</th>
+            <th  class="one wide ">เลขที่ใบอนุญาต</th>
+            <th  class="one wide ">วันที่ออกใบอนุญาต</th>
+            <th  class="one wide ">วันที่หมดอายุ</th>
+            <th  class="one wide ">วันที่ออกใบอนุญาตใหม่</th>
+            <th  class="one wide ">เลขที่ใบอนุญาตใหม่</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="auditLicexpDList">
+          <ng-container *ngIf="formT1.controls">
+            <ng-container *ngIf="formT1.controls.auditLicexpDList.controls!=0">
+              <tr [formGroupName]="i"
+                *ngFor="let item of formT1.controls.auditLicexpDList.controls; let i = index;let first = first;let last = last">
+                <td class="text-center">{{ i+1 }}</td>
+                <td class="text-center">{{ item.get('newRegId').value | isEmpty }}</td>
+                <td class="text-left">{{ item.get('cusFullName').value | isEmpty }}</td>
+                <td class="text-left">{{ item.get('facFullName').value | isEmpty }}</td>
+                <td class="text-center">{{ item.get('licType').value | isEmpty }}</td>
+                <td class="text-center">{{ item.get('licNo').value | isEmpty }}</td>
+                <td class="text-center">{{ item.get('licDate').value | isEmpty }}</td>
+                <td class="text-center">{{ item.get('expDate').value | isEmpty }}</td>
+                <td class="text-center">{{ item.get('licDateNew').value | isEmpty }}</td>
+                <td class="text-center">{{ item.get('licNoNew').value | isEmpty }}</td>
+              </tr>
+            </ng-container>
+
+            <ng-container *ngIf="formT1.controls.auditLicexpDList.controls==0">
+              <tr class="text-center">
+                <td colspan="14">ไม่พบข้อมูล</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+    <div inline>
+      <div field [col]="4">
+        <label class="text-right full-width">สรุปผลการตรวจสอบการต่อใบอนุญาต :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="auditFlag" id="auditFlag" value="1">
+          <label>ไม่พบประเด็น</label>
+        </div>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="auditFlag" id="auditFlag" value="2">
+          <label>พบประเด็น</label>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต<br>(ข้อเท็จจริง/Condition) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="conditionText" id="conditionText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">สิ่งที่ควรจะเป็น<br>(หลักเกณฑ์/Criteria) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="criteriaText" id="criteriaText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+
+  </form>
+</segment>

@@ -1,0 +1,91 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment [header]="'การวิเคราะห์แนวโน้มภาพรวมการเสียภาษี'" [loading]="loading">
+    <div form [formGroup]="formGroup">
+      <div inline>
+        <div field [col]="2"><label class="text-right full-width">ข้อมูลแนวโน้มการชำระภาษี</label></div>
+        <div field [col]="4" [ngClass]="{'error': validateField('taxType')}">
+          <select formControlName="taxType" id="taxType" class="ui fluid dropdown full-width" (change)="taxTypeChange($event.target.value)">
+            <option value=""></option>
+            <option *ngFor="let item of taxTypeList" [value]="item.paramCode">{{item.value1}}</option>
+          </select>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="2"><label class="text-right full-width">ช่วงเวลาตรวจสอบข้อมูล</label></div>
+        <div field [col]="2">
+          <div class="ui radio checkbox">
+            <input type="radio" formControlName="checkType" id="checkType" value="1" (change)="radioChange($event.target.value)">
+            <label>ปีงบประมาณ</label>
+          </div>
+        </div>
+        <div field [col]="2">
+          <div class="ui calendar" style="width: 100%" id="calendarBudgetYear">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" formControlName="budgetYear" id="budgetYear" placeholder="ปปปป"
+                [attr.required]="true" autocomplete="off">
+            </div>
+          </div>
+        </div>
+        <div field [col]="2">
+          <div class="ui radio checkbox">
+            <input type="radio" formControlName="checkType" id="checkType" value="2" (change)="radioChange($event.target.value)">
+            <label>ช่วงเดือน</label>
+          </div>
+        </div>
+        <div field [col]="2">
+          <div class="ui calendar" style="width: 100%" id="calendarMonthStart">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" formControlName="monthStart" id="monthStart" placeholder="ดด/ปปปป"
+                [attr.required]="true" autocomplete="off">
+            </div>
+          </div>
+        </div>
+        <div field [col]="1">
+          <label class="text-center full-width">ถึง</label>
+        </div>
+        <div field [col]="2">
+          <div class="ui calendar" style="width: 100%" id="calendarMonthEnd">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" formControlName="monthEnd" id="monthEnd" placeholder="ดด/ปปปป" [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+        </div>
+        <div field [col]="1">
+          <label class="text-right full-width">จำนวนย้อนหลัง</label>
+        </div>
+        <div field [col]="1" [ngClass]="{'disabled': formGroup.get('taxType').value == 'A1'}">
+          <select formControlName="previousYear" id="previousYear" class="ui fluid dropdown full-width">
+            <option value=""></option>
+            <option *ngFor="let item of previousYearList" [value]="item">{{item}}</option>
+          </select>
+        </div>
+        <div field [col]="1">
+          <label class="text-left full-width">ปี</label>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="2"><label class="text-right full-width">เลขทะเบียนสรรพสามิต</label></div>
+        <div field [col]="4">
+          <input type="text" formControlName="newRegId" id="newRegId">
+        </div>
+        <div field [col]="2"><label class="text-right full-width">ชื่อผู้ประกอบการ</label></div>
+        <div field [col]="4">
+          <input type="text" formControlName="facFullname" id="facFullname">
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="ui one column centered grid">
+      <div class="column aligned center">
+        <app-button-search (click)="search()"></app-button-search>
+        <app-button-clear (click)="clear()"></app-button-clear>
+      </div>
+    </div>
+  </segment>
+  <router-outlet></router-outlet>
+</with-breadcrumb>

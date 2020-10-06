@@ -1,0 +1,27 @@
+<segment header="การวิเคราะห์มูลค่าสินค้าที่เสียภาษี" [loading]="false">
+  <table id="table3" class="ui small celled table striped selectable  nowrap" style="width:100%">
+    <thead class="text-center">
+      <tr>
+        <th style="text-align: center !important">ลำดับ</th>
+        <th style="text-align: center !important" class="text-center">รายการ</th>
+        <th style="text-align: center !important">ปริมาณจากแบบรายการภาษีสรรพสามิต<!--ปริมาณ ภส. 03-07--></th>
+        <th style="text-align: center !important">ราคาขายปลีกแนะนำ (ไม่รวมภาษีมูลค่าเพิ่ม)</th>
+        <th style="text-align: center !important">มูลค่า</th>
+      </tr>
+    </thead>
+
+  </table>
+  <br>
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="five wide field">
+        <label class="text-left full-width">บันทึกการวิเคราะห์ข้อมูลเบื้องต้น</label>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="sixteen wide field">
+        <textarea [(ngModel)]="note" (change)="onChangeNote()"></textarea>
+      </div>
+    </div>
+  </div>
+</segment>

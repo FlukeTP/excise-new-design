@@ -1,0 +1,112 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<div class="ui grid" style="margin: 1%">
+  <div class="sixteen wide column segments">
+    <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+      <span> แบบประเมินระบบการควบคุมภายใน</span>
+    </div>
+    <div class="ui attached segment">
+      <div class="ui centered grid row">
+        <div class="ui centered fourteen wide column">
+          <div class="ui centered row grid">
+            <div class="ui centered fifteen wide column" style="padding: 14px 14px 0 14px !important;">
+              <div class="ui form">
+                <div class="inline aligned center fields">
+                  <div class="six wide centered field">
+                    <label class="text-right full-width">สำนักงานสรรพสามิตภาค: </label>
+                  </div>
+                  <div class="ten centered wide field">
+                    <div class="ui input">
+                      <select class="ui dropdown ai selection" style="width: 100%;" id="travelTo1" (change)="travelTo2Dropdown($event)"
+                        [(ngModel)]="code1">
+                        <option value="00">กรุณาเลือก</option>
+                        <option *ngFor="let data of travelTo1List" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="six wide centered field">
+                    <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่: </label>
+                  </div>
+                  <div class="ten centered wide field">
+                    <div class="ui input">
+                      <select class="ui dropdown ai selection" style="width: 100%;" id="travelTo2" (change)="travelTo3Dropdown($event)"
+                        [(ngModel)]="code2">
+                        <option value="00">กรุณาเลือก</option>
+                        <option *ngFor="let data of travelTo2List" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="inline aligned center fields">
+                  <div class="six wide centered field">
+                    <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่สาขา: </label>
+                  </div>
+                  <div class="ten centered wide field">
+                    <div class="ui input">
+                      <select class="ui dropdown ai selection" style="width: 100%;" id="travelTo3" [(ngModel)]="code3">
+                        <option value="00">กรุณาเลือก</option>
+                        <option *ngFor="let data of travelTo3List" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="six wide centered field">
+                    <label class="text-right full-width">ปีงบประมาณ: </label>
+                  </div>
+                  <div class="ten centered wide field">
+                    <div class="ui calendar" id="budgetyear" style="width:100%">
+                      <div class="ui input left icon">
+                        <i class="calendar alter nate outline icon"></i>
+                        <input type="text" name="date" id="date" readonly>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="ui centered row grid">
+          <div class="sixteen aligned center ">
+            <button class="ui mini primary button" (click)="searchWs()">
+              <i class="search icon"></i>
+              ค้นหา
+            </button>
+            <button class="ui mini green button" (click)="searchWs()">
+              <i class="add  icon"></i>
+              รายการใหม่</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="ui attached segment" id="data">
+  <table class="ui small collapsing celled table aligned hover striped selectable" id="dataTable" style="width: 100%;">
+    <thead>
+      <tr style="text-align: center">
+        <th>ที่</th>
+        <th>หน่วยรับตรวจ</th>
+        <th>ปีงบประมาณ</th>
+        <th>วันที่ทำการ</th>
+        <th>ผู้บันทึก</th>
+        <th>จัดการ</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <br>
+  <div class="ui centered row grid">
+    <div class="sixteen aligned center ">
+      <button class="ui mini red button">
+        <i class="trash icon"></i>
+        ลบ
+      </button>
+
+    </div>
+  </div>
+  <br>
+
+
+</div>

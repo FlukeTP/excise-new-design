@@ -1,0 +1,285 @@
+<segment header="บันทึกข้อตกลงยินยอมการชำระภาษีสรรพสามิต (ตส. ๐๑-๑๕)" [loading]="loading" [right]="true">
+  <div headRight>
+    {{formTS0115.get('formTsNumber').value}}
+  </div>
+
+  <form form [formGroup]="formTS0115">
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">สำนัก :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officeName" id="officeName" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">วันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar full-width" id="calendarDocDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="text" placeholder="วว ดดดด ปปปป" autocomplete="off" formControlName="docDate" id="docDate">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ข้าพเจ้า :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="ownerFullName" id="ownerFullName" maxlength="100">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ในฐานะ :</label>
+      </div>
+      <div field [col]="7">
+        <div class="ui radio checkbox">
+          <input type="radio" name="factoryType" formControlName="factoryType" id="factoryType" value="1">
+          <label>กรรมการผู้จัดการ</label>
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div class="ui radio checkbox">
+          <input type="radio" name="factoryType" formControlName="factoryType" id="factoryType" value="2">
+          <label>หุ้นส่วนผู้จัดการ</label>
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div class="ui radio checkbox">
+          <input type="radio" name="factoryType" formControlName="factoryType" id="factoryType" value="3">
+          <label>เจ้าของกิจการ</label>
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div class="ui radio checkbox">
+          <input type="radio" name="factoryType" formControlName="factoryType" id="factoryType" value="4">
+          <label>ผู้รับมอบอำนาจ</label>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">เลขทะเบียนสรรพสามิต</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="newRegId" id="newRegId" maxlength="17">
+      </div>
+      <div field [col]="1">
+        <app-button-custom [icon]="'search'" (click)="searchNewRegId()"></app-button-custom>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ชื่อโรงอุตสาหกรรม/<br>สถานบริการ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="factoryName" id="factoryName" maxlength="200">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ที่อยู่เลขที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facAddrNo" id="facAddrNo" maxlength="35">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ตรอก/ซอย :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facSoiName" id="facSoiName" maxlength="50">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ถนน :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facThnName" id="facThnName" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ตำบล/แขวง :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facTambolSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facTambolName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">อำเภอ/เขต :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facAmphurSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facAmphurName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">จังหวัด :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facProvinceSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facProvinceName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">รหัสไปรษณีย์ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facZipCode" id="facZipCode" maxlength="5">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <p>ขอให้ความยินยอมแก่พนักงานเจ้าหน้าที่ จะชำระภาษีให้แก่ทางราชการตามจำนวนที่พนักงานเจ้าหน้าที่
+          ได้ตรวจสอบ ดังนี้
+        </p>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="16">
+        <table class="  ui small celled nowrap table striped selectable" style="width:100%">
+          <thead>
+            <tr style="text-align: center !important">
+              <th class="two wide">รอบระยะเวลาที่ตรวจสอบ</th>
+              <th class="two wide">ประเภทสินค้า/บริการ</th>
+              <th class="two wide">จำนวนภาษี</th>
+              <th class="two wide">เบี้ยปรับ</th>
+              <th class="two wide">เงินเพิ่ม</th>
+              <th class="two wide">ภาษีเพื่อราชการส่วนท้องถิ่น</th>
+              <th class="two wide">รวม</th>
+              <th class="one wide"></th>
+            </tr>
+          </thead>
+          <tbody formArrayName="taFormTS0115DtlVoList">
+            <ng-container *ngIf="formTS0115.controls">
+              <tr [formGroupName]="i"
+                *ngFor="let item of formTS0115.controls.taFormTS0115DtlVoList.controls; let i = index;let first = first;let last = last">
+                <td style="width: 130px !important;">
+                  <div class="ui calendar" style="width: 100%" id="calendarListDate{{i}}">
+                    <div class="ui input left icon" (change)="callListCalendar(i)">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="calendar" formControlName="recDate" placeholder="วว ดดดด ปปปป" [attr.required]="true"
+                        autocomplete="off" readonly=''>
+                    </div>
+                  </div>
+                </td>
+                <td><input type="text" formControlName="dutyTypeText" maxlength="100" id="dutyTypeText"></td>
+                <td><input type="text" maxlength="15" numberOnly formControlName="taxAmt" id="taxAmt" class="text-right"
+                    (focus)="onFocusMoney(i, 'taxAmt')" (blur)="onBlurMoney(i, 'taxAmt')"></td>
+                <td><input type="text" maxlength="15" numberOnly formControlName="fineAmt" id="fineAmt"
+                    class="text-right" (focus)="onFocusMoney(i, 'fineAmt')" (blur)="onBlurMoney(i, 'fineAmt')"></td>
+                <td><input type="text" maxlength="15" numberOnly formControlName="extraAmt" id="extraAmt"
+                    class="text-right" (focus)="onFocusMoney(i, 'extraAmt')" (blur)="onBlurMoney(i, 'extraAmt')"></td>
+                <td><input type="text" maxlength="15" numberOnly formControlName="moiAmt" id="moiAmt"
+                    class="text-right custom-readonly" readonly></td>
+                <td><input type="text" maxlength="15" numberOnly formControlName="sumTaxAmt" id="sumTaxAmt"
+                    class="text-right custom-readonly" readonly></td>
+                <td class="text-center">
+                  <i *ngIf="!first && last" class="minus icon" style="color:red;cursor: pointer"
+                    (click)="removeListItem(i)"></i>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+        <a href="javascript:void(0)" (click)="addListItem()"><i class="plus icon" style="color:green;"></i>เพิ่ม</a>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <p>พนักงานเจ้าหน้าที่ได้แจ้งให้ข้าพเจ้าทราบข้อเท็จจริงในการตรวจสอบ วิธีการตรวจสอบภาษี ข้อกฎหมาย วิธีการคำนวณภาษี
+          และจำนวนเงินภาษีที่จะต้องชำระเพิ่มเติมแล้ว
+          ข้าพเจ้าขอรับรองว่าผลการตรวจสอบภาษีดังกล่าวข้างต้นเป็นความจริงทุกประการ
+        </p>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <p>บันทึกข้อตกลงยินยอมการชำระภาษีสรรพสามิตนี้ ข้าพเจ้าได้กระทำโดยความสมัครใจ</p>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ผู้ให้คำยินยอม :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="signOwnerFullName" id="signOwnerFullName" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">พยาน :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="signWitnessFullName1" id="signWitnessFullName1" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ผู้ตรวจสอบ :</label>
+      </div>
+      <div field [col]="6">
+        <div class="ui action input">
+          <input type="text" formControlName="signOfficerFullName" id="signOfficerFullName" maxlength="100">
+          <button class="ui button" (click)="searchModalOpen(1)">ค้นหา</button>
+        </div>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">พยาน :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="signWitnessFullName2" id="signWitnessFullName2" maxlength="100">
+      </div>
+    </div>
+    <br>
+    <br>
+    <app-button-footer-report (save)="save($event)" (clear)="clear($event)" (export)="export($event)">
+    </app-button-footer-report>
+  </form>
+</segment>
+
+<ui-modal [id]="'searchModal'" type="custom" size="large">
+  <div class="ui header">
+    ค้นหารายชื่อ
+  </div>
+  <br>
+  <!-- <form form [formGroup]="formSearchModal">
+                </form> -->
+
+  <div grid>
+    <div [column]="16">
+      <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableModal">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">ลำดับ</th>
+            <th class="text-center">ชื่อ-นามสกุล</th>
+            <th class="text-center">ตำแหน่ง</th>
+          </tr>
+        </thead>
+      </table>
+      <br>
+    </div>
+  </div>
+
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

@@ -1,0 +1,17 @@
+.menu-hide{
+    display: none !important;
+}
+
+.menu-all {
+    padding: .75em 1em;
+}
+
+.menu-all:hover {
+    cursor: pointer;
+    color: rgba(0,0,0,.95);
+    font-weight: 700;
+}
+
+.font-weight700 {
+    font-weight: 700;
+}

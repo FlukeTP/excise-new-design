@@ -1,0 +1,247 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="{{b.b15.label}} (TA0202)">
+    <div form>
+      <div inline>
+        <div field [col]="4"></div>
+        <div field [col]="3">
+          <label class="text-right full-width">ปีงบประมาณ</label>
+        </div>
+        <div field [col]="2">
+          <!-- <div class="ui calendar full-width" id="date1">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" autocomplete="off" placeholder="ปปปป" id="inputDate1" [(ngModel)]="yearSelect">
+            </div>
+          </div> -->
+          <select class="ui fluid dropdown full-width" (change)="budgerYearChange($event)" id="budgetYear">
+            <option *ngFor="let item of budgetYearList" value="{{item}}">{{item}}</option>
+          </select>
+        </div>
+        <div field [col]="3">
+          <!-- <app-button-search></app-button-search> -->
+        </div>
+        <!-- <div field [col]="4">
+          <div class="text-right full-width">
+            <app-button-custom style="margin-right: 0;" color="primary" text="เลือกรายนอกแผน"
+              routerLink="/tax-audit-new/ta02/02/se02"></app-button-custom>
+            <app-button-custom style="margin-right: 0;" color="primary" text="วางแผน" (click)="goToPlan()">
+            </app-button-custom>
+            <app-button-custom color="primary" text="ปฏิทิน" routerLink="/tax-audit-new/ta02/03"></app-button-custom>
+          </div>
+        </div> -->
+      </div>
+    </div>
+<!-- button line  -->
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-search (click)="searchPlan()"></app-button-search>
+        <app-button-custom text="บันทึกผู้ออกตรวจ" (click)="onAssignList()" [disabled]="!isAssing"></app-button-custom>
+      </div>
+    </div>
+
+    <!-- <div class="ui grid">
+      <div class="sixteen wide column"> -->
+    <table class="ui small celled table  striped selectable " style="width:100%" id="tablePlan">
+      <thead class="text-center">
+        <tr>
+          <th class="text-center"><input type="checkbox" class="ui checkbox" id="checkAll" (change)="checkAll($event)"
+              [checked]="isCheckAll">
+          </th>
+          <th class="text-center">ลำดับ</th>
+          <th class="text-center">เลขทะเบียนสรรพสามิต</th>
+          <!-- <th  class="text-center">ชื่อผู้ประกอบการ</th> -->
+          <th class="text-center">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+          <!-- <th  class="text-center">ที่อยู่โรงอุตสาหกรรม/สถานบริการ</th> -->
+          <th  class="text-center">พิกัด สินค้า/บริการ</th>
+          <th class="text-center">ภาค</th>
+          <th class="text-center">พื้นที่</th>
+          <th class="text-center">ประเภทแผน</th>
+          <!-- <th  class="text-center">พิกัด</th> -->
+          <th class="text-center">สถานะการดำเนินงาน</th>
+          <th class="text-center" style="max-width: 150px !important;">ประเภทการตรวจ</th>
+          <th class="text-center">วันที่ออกตรวจ</th>
+          <th class="text-center"> มอบหมายงาน</th>
+          <th class="text-center">ตรวจสอบภาษี</th>
+        </tr>
+      </thead>
+    </table>
+    <br>
+    <!-- </div>
+    </div> -->
+
+    <!-- <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-custom text="บันทึกผู้ออกตรวจ" (click)="onAssignList()" [disabled]="!isAssing"></app-button-custom>
+      </div>
+    </div> -->
+  </segment>
+</with-breadcrumb>
+
+<!-- modal -->
+<div class="ui mini modal " id="view">
+  <i class="close icon"></i>
+  <div class="header">
+    <i class="file outline icon"></i> วันที่ออกตรวจ
+  </div>
+  <div class="content">
+    <b>บริษัท นิสสัน มอเตอร์ เอเชีย แปซิฟิค จำกัด</b>
+    <p> 20 ธันวาคม - 30 ธันวาคม</p>
+    <p>รายชื่อผู้ตรวจ</p>
+
+  </div>
+</div>
+
+<ui-modal [id]="'auditType'" type="custom" size="tiny">
+  <div class="ui header">
+    เลือกประเภทการตรวจ
+  </div>
+  <div class="content">
+    <form class="ui form" [formGroup]="formModal">
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="four wide field">
+          <label>ประเภทการตรวจ</label>
+        </div>
+        <div class="twelve wide field">
+          <select class="ui fluid search dropdown full-width" formControlName="auditType" id="auditType"
+            name="auditType">
+            <option [value]="item.value1" *ngFor="let item of auditType">{{item.value1}}</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <app-button-save (click)="modalSubmit()"></app-button-save>
+    <app-button-cancel (click)="modalClose()"></app-button-cancel>
+  </div>
+</ui-modal>
+
+<ui-modal [id]="'assignModal'" type="custom" size="large">
+  <div class="ui header">
+      มอบหมายงานให้เจ้าหน้าที่ออกตรวจ
+  </div>
+  <br>
+  <!-- <div class="content scrolling"> -->
+  <form form [formGroup]="formAssign">
+    <div inline>
+      <div field [col]="3"><label class="full-width text-right">เลขทะเบียนสรรพสามิต</label></div>
+      <div field [col]="4"><input class="custom-readonly" readonly="" type="text" formControlName="newRegId"
+          id="newRegId"></div>
+      <div field [col]="4"><label class="full-width text-right">ชื่อโรงอุตสาหกรรม/สถานบริการ</label></div>
+      <div field [col]="4"><input class="custom-readonly" readonly="" type="text" formControlName="cusFullname"
+          id="cusFullname"></div>
+    </div>
+    <div inline>
+      <div field [col]="3"><label class="full-width text-right">สำนักงานสรรพสามิตภาค</label></div>
+      <div field [col]="4"><input class="custom-readonly" readonly="" type="text" formControlName="secDesc"
+          id="secDesc"></div>
+      <div field [col]="4"><label class="full-width text-right">ส่วนฯที่รับผิดชอบ</label></div>
+      <div field [col]="4"><input class="custom-readonly" readonly="" type="text" formControlName="deptShortName"></div>
+    </div>
+    <div inline>
+      <div field [col]="3"><label class="full-width text-right">สำนักงานสรรพสามิตพื้นที่</label></div>
+      <div field [col]="4"><input class="custom-readonly" readonly="" type="text" formControlName="areaDesc"
+          id="areaDesc"></div>
+      <div field [col]="4"><label class="full-width text-right">ฝ่ายฯที่รับผิดชอบ</label></div>
+      <div field [col]="4"><input class="custom-readonly" readonly="" type="text" formControlName="subdeptShortName">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3"></div>
+      <div field [col]="4"><label class="full-width">ชื่อ - นามสกุลผู้รับผิดชอบ</label></div>
+      <div field [col]="4"></div>
+      <div field [col]="4"><label class="full-width">ตำแหน่ง</label></div>
+    </div>
+    <!-- form-array -->
+    <div inline formArrayName="names" *ngFor="let item of formData.controls; let i = index">
+      <ng-container [formGroupName]="i">
+        <div field [col]="3">
+          <label class="full-width text-right">
+            <!-- <app-button-custom *ngIf="i==0" [icon]="'plus'" (click)="addItemAssign()"></app-button-custom> -->
+            <app-button-custom *ngIf="i!=0" [color]="'red'" [icon]="'window minimize'" (click)="removeItemAssign(i)">
+            </app-button-custom>
+          </label>
+        </div>
+        <div field [col]="4">
+          <!-- <div class="ui search full-width" id="{{'edPersonName'+i}}" (change)="onNameChange($event,i)" >
+              <div class="ui left icon input" >
+                <input class="prompt" type="text" formControlName="name" id="{{'Name'+i}}" placeholder="ชื่อ - สกุล">
+                <i class="user cicle icon"></i>
+              </div> -->
+          <!-- <select class="ui dropdown search ai " id="names" name="names" (change)="changeName($event)"
+                formControlName="name">
+                <option value="">รายการผู้ได้รับอนุญาต</option>
+                 <option value="{{ customer.identifyNo }}"
+                   *ngFor="let customer of customers; let i = index">
+                   {{ customer.identifyNo }} {{ customer.name }}</option> 
+              </select> -->
+          <!-- </div> -->
+          <select class="ui dropdown ai selection full-width " id="{{'edPersonName'+i}}" formControlName="name"
+            (change)="onNameChange($event,i)">
+            <!-- <option value="00">กรุณาเลือก</option> -->
+            <option *ngFor="let data of personList let j = index" value="{{j}}">{{data.name}}</option>
+          </select>
+        </div>
+        <div field [col]="4"></div>
+        <div field [col]="4"><input type="text" formControlName="position" id="position{{id}}" class="custom-readonly"
+            readonly=""></div>
+      </ng-container>
+    </div>
+
+    <!-- form-array end-->
+  </form>
+  <!-- </div> -->
+  <br>
+  <div class="actions">
+    <app-button-save (click)="saveAssign()" ></app-button-save>
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>
+
+
+<ui-modal [id]="'assignAllModal'" type="custom" size="large">
+  <div class="ui header">
+      มอบหมายงานให้เจ้าหน้าที่ออกตรวจ
+  </div>
+  <br>
+  <!-- <div class="content scrolling"> -->
+  <form form [formGroup]="formAssignAll">
+    <div inline>
+      <div field [col]="3"></div>
+      <div field [col]="5"><label class="full-width">ชื่อ - นามสกุลผู้รับผิดชอบ</label></div>
+      <div field [col]="1"></div>
+      <div field [col]="5"><label class="full-width">ตำแหน่ง</label></div>
+    </div>
+    <!-- form-array -->
+    <div inline formArrayName="names" *ngFor="let item of formDataAll.controls; let i = index">
+      <ng-container [formGroupName]="i">
+        <div field [col]="3">
+          <label class="full-width text-right">
+            <!-- <app-button-custom *ngIf="i==0" [icon]="'plus'" (click)="addItemAssignAll()"></app-button-custom> -->
+            <app-button-custom *ngIf="i!=0" [color]="'red'" [icon]="'window minimize'" (click)="removeItemAssignAll(i)">
+            </app-button-custom>
+          </label>
+        </div>
+        <div field [col]="5">
+          <select class="ui dropdown ai selection full-width " id="{{'edPersonName'+i}}" formControlName="name"
+            (change)="onNameChangeAll($event,i)">
+            <!-- <option value="00">กรุณาเลือก</option> -->
+            <option *ngFor="let data of personList let j = index" value="{{j}}">{{data.name}}</option>
+          </select>
+        </div>
+        <div field [col]="1"></div>
+        <div field [col]="5"><input type="text" formControlName="position" id="position{{id}}" class="custom-readonly"
+            readonly=""></div>
+      </ng-container>
+    </div>
+
+    <!-- form-array end-->
+  </form>
+  <!-- </div> -->
+  <br>
+  <div class="actions">
+    <app-button-save (click)="onSaveAssignAll()"></app-button-save>
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

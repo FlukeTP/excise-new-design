@@ -1,0 +1,103 @@
+<!-- breadcrumb -->
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<br>
+<!-- form search -->
+<segment header="ข้อมูลเบิกจ่าย" [loading]="false">
+  <form class="ui form">
+    <input type="hidden" id="searchFlag" name="searchFlag">
+    <!-- row 1 -->
+    <div class="inline fields">
+      <div class="three wide field">
+        <label class="text-right full-width">ประเภทงบประมาณ</label>
+      </div>
+      <div class="four wide field ">
+        <select name="budget" id="budget" class="ui ai dropdown  search full-width">
+          <option value="">กรุณาเลือก</option>
+          <option *ngFor="let item of budgetList" value="{{item.lovId}}">{{item.value1}}</option>
+        </select>
+      </div>
+      <div class="two wide field">
+        <label class="text-right full-width">กิจกรรม</label>
+      </div>
+      <div class="four wide field ">
+        <select name="activity" id="activity" class="ui ai dropdown  search full-width">
+          <option value="">กรุณาเลือก</option>
+          <option *ngFor="let item of activityList" value="{{item.value1}}">{{item.value1}}</option>
+        </select>
+      </div>
+    </div>
+    <!-- row 2 -->
+    <div class="inline fields">
+      <div class="three wide field">
+        <label class="text-right full-width">วันที่</label>
+      </div>
+      <div class="four wide field">
+        <div class="ui calendar" id="dateForm" style="width:100%">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="text" placeholder="วว/ดด/ปปปป">
+          </div>
+        </div>
+      </div>
+      <div class="two wide field">
+        <label class="text-right right full-width">ถึง</label>
+      </div>
+      <div class="four wide field">
+        <div class="ui calendar" id="dateTo" style="width:100%">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="text" placeholder="วว/ดด/ปปปป">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <!-- row 3 -->
+    <div class="ui center aligned grid">
+      <div class="six wide column">
+        <app-button-search (click)="onSearch()"></app-button-search>
+        <app-button-clear (click)="onClear()"></app-button-clear>
+        <app-button-add [routerLink]="[ '/int12/06/01/01'] "></app-button-add>
+      </div>
+    </div>
+  </form>
+  <br>
+  <div class="sixteen wide column">
+    <table id="dataTable" class="ui small celled table nowrap striped selectable" style="width: 100%">
+      <thead>
+        <tr>
+          <th style="text-align: center !important">ลำดับที่</th>
+          <th style="text-align: center !important">เลขที่เอกสารอ้างอิง</th>
+          <th style="text-align: center !important">วันที่ขอเบิก</th>
+          <th style="text-align: center !important">ประเภทงบประมาณ</th>
+          <th style="text-align: center !important">กิจกรรม</th>
+          <th style="text-align: center !important">งบ</th>
+          <th style="text-align: center !important">หมวด</th>
+          <th style="text-align: center !important">หมวดย่อย</th>
+          <th style="text-align: center !important">รายการ</th>
+          <th style="text-align: center !important">จำนวนเงินขอเบิก</th>
+          <th style="text-align: center !important">ภาษีหัก ณ ที่จ่าย</th>
+          <th style="text-align: center !important">หักประกันสังคม</th>
+          <th style="text-align: center !important">อื่นๆ</th>
+          <th style="text-align: center !important">จำนวนเงินขอรับ</th>
+          <th style="text-align: center !important">เลขที่เอกสารขอเบิก</th>
+          <th style="text-align: center !important">เลขที่เอกสารขอจ่าย</th>
+          <th style="text-align: center !important">หมายเหตุ</th>
+          <th style="text-align: center !important">จัดการ</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <br>
+  <div class="ui center aligned grid">
+    <div class="sixteen wide center aligned column">
+      <app-button-export (click)="export()"></app-button-export>
+    </div>
+  </div>
+</segment>
+
+
+<!-- form-data-excel -->
+<form id="form-data-excel" method="POST">
+  <input type="hidden" name="dataJson" id="dataJson">
+</form>

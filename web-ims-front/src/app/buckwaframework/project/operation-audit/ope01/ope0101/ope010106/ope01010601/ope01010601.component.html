@@ -1,0 +1,157 @@
+<div class="ui grid">
+    <div class="sixteen wide column">
+
+        <segment header="Solvent แบบ 1">
+            <div class="ui centered grid">
+                <div class="sixteen wide column">
+                    <div class="ui form">
+                        <!-- line 1 -->
+                        <div class="four inline fields">
+                            <div class="field">
+                                <label class="full-width text-right">
+                                    จำนวนพนักงานทั้งหมด/คน :
+                                </label>
+                            </div>
+                            <div class="field">
+                                <div class="ui input full-width">
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="full-width text-right">
+                                    พนักงานประจำ/คน :
+                                </label>
+                            </div>
+                            <div class="field">
+                                <div class="ui input full-width">
+                                    <input type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- line 2 -->
+                        <div class="four inline fields">
+                            <div class="field">
+                                <label class="full-width text-right">
+                                    เวลาเริ่มปฏิบัติและสิ้นสุดงาน ตั้งแต่เวลา/น. :
+                                </label>
+                            </div>
+                            <div class="field">
+                                <div class="ui input full-width">
+                                    <input type="time">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="full-width text-right">
+                                    ถึง/น. :
+                                </label>
+                            </div>
+                            <div class="field">
+                                <div class="ui input full-width">
+                                    <input type="time">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- line 3 -->
+                        <div class="four inline fields">
+                            <div class="field text-check">
+                                <label class="full-width text-right">
+                                    ลักษณะสถานประกอบการ :
+                                </label>
+                            </div>
+                            <div class="grouped fields">
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" name="companyType" checked="checked" id="companyType">
+                                        <label for="companyType">โรงงานผู้ผลิต</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" name="companyType" id="companyType">
+                                        <label for="companyType">นำเข้า</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="full-width text-right">
+                                    เช่าเดือนละ :
+                                </label>
+                            </div>
+                            <div class="field">
+                                <div class="ui input full-width">
+                                    <input type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- line 4 -->
+                        <div class="four inline fields">
+                            <div class="field text-check">
+                                <label class="full-width text-right">
+                                    วิธีสั่งซื้อสารละลายฯ :
+                                </label>
+                            </div>
+                            <div class="grouped fields">
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" name="methodBuy" checked="checked" id="methodBuy">
+                                        <label for="methodBuy">โรงงานผู้ผลิต</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" name="methodBuy" id="methodBuy">
+                                        <label for="methodBuy">นำเข้า</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" name="methodBuy" id="methodBuy">
+                                        <label for="methodBuy">ผ่านตัวแทน</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field text-check">
+                                <label class="full-width text-right">
+                                    วิธีการชำระเงิน :
+                                </label>
+                            </div>
+                            <div class="grouped fields">
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" name="payment" checked="checked" id="payment">
+                                        <label for="payment">เงินสด</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" name="payment" id="payment">
+                                        <label for="payment">เงินเชื่อ</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" name="payment" id="payment">
+                                        <label for="payment">โอนเงินเข้าบัญชีธนาคารของผู้ขาย</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="radio" name="payment" id="payment">
+                                        <label for="payment">อื่น ๆ ระบุ</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui divider"></div>
+                        <!-- line 5 -->
+                        <div class="inline field text-center">
+                            <app-button-save></app-button-save>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </segment>
+
+    </div>
+</div>

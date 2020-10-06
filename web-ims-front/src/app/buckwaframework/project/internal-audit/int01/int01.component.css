@@ -1,0 +1,12 @@
+.column-select {
+    background: green;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.column-select:hover {
+    background: rgb(0, 121, 0);
+    color: white;
+    cursor: pointer;
+}

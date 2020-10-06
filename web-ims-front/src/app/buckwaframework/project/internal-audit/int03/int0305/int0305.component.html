@@ -1,0 +1,370 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="ข้อมูลหลักปัจจัยเสี่ยง" [loading]="false" [right]="true">
+    <div headRight>
+      <app-button-custom color="gray" [text]="'รายละเอียดด้าน'" (click)="viewdetail2()">
+      </app-button-custom>
+    </div>
+    <div class="ui" grid>
+      <div class="sixteen wide column">
+        <!-- <form [formGroup]="searchForm"> -->
+        <div form>
+          <input type="hidden" id="riskFactorsLevelBefore" name="riskFactorsLevelBefore">
+          <input type="hidden" id="budgetYearBefore" name="budgetYearBefore">
+          <div inline>
+            <div field [col]="2">
+              <!-- <label class="text-right full-width">งานตรวจสอบ</label> -->
+            </div>
+            <div field [col]="5">
+              <!-- <select class="ui dropdown ia search selection " style="width: 100%;" id="inspectionWork"
+                (change)="getListMaster()" [formControl]="inspectionWork" [ngClass]="{'disabled': !dontFrom0306}">
+                <option *ngFor="let data of inspectionWorkList" value="{{data.paramInfoId}}">{{data.value1}}</option>
+              </select> -->
+            </div>
+            <div field [col]="9" class="text-right-button" *ngIf="dontFrom0306">
+              <app-button-custom class="float righted" color="green" icon="add icon" text="เพิ่มข้อมูลหลักปัจจัยเสี่ยง"
+                (click)="showModalAdd()">
+              </app-button-custom>
+            </div>
+          </div>
+        </div>
+        <!-- </form> -->
+      </div>
+    </div>
+
+    <div class="ui" form>
+      <div contentLeft>
+        <div class="ui mini buttons">
+          <button *ngFor="let data of inspectionWorkList; let i = index" class="ui button btn{{data.paramInfoId}}"
+            style="border-radius: 0px" [ngClass]="{'positive active': inspectionWorkTab == data.paramInfoId }"
+            (click)="getListMasterClick(data.paramInfoId)"><i
+              class="large {{data.iconName}} icon"></i>{{data.value1}}</button>
+        </div>
+      </div>
+      <div class="tabcontent" *ngIf="!dontFrom0306">
+        <table id="dataTable" class="ui small celled table striped selectable" style="width: 100%;">
+          <thead>
+            <tr class="text-center">
+              <th><input id="checkAll" type="checkbox" (click)="clickCheckAll($event)" /></th>
+              <th>ลำดับที่</th>
+              <th style="text-align: center !important;">ปัจจัยเสี่ยง</th>
+              <th style="text-align: center !important;">ด้าน</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="tabcontent" *ngIf="dontFrom0306">
+        <table id="dataTableFrom0306" class="ui small celled table striped selectable" style="width: 100%;">
+          <thead>
+            <tr class="text-center">
+              <th>ลำดับที่</th>
+              <th style="text-align: center !important;">ปัจจัยเสี่ยง</th>
+              <th style="text-align: center !important;">ด้าน</th>
+              <th style="width: 300px;">จัดการ</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <div class="inline field" *ngIf="!dontFrom0306">
+          <app-button-custom color="primary" icon="add icon" text="เพิ่มปัจจัยเสี่ยง" (click)="saveRiskFactor()">
+          </app-button-custom>
+          <app-button-back (click)="goLocation()" *ngIf="!dontFrom0306"></app-button-back>
+        </div>
+      </div>
+    </div>
+
+    <br>
+  </segment>
+</with-breadcrumb>
+
+<ui-modal [id]="'editModal'" [type]="'custom'" [size]="'large'">
+  <div class="ui header">
+    แก้ไขข้อมูลหลักปัจจัยเสี่ยง
+  </div>
+  <div class="content">
+    <div class="ui" form [formGroup]="editForm">
+      <input type="hidden" id="budgetYear" name="budgetYear" formControlName="budgetYear">
+      <div inline>
+        <div field [col]="2">
+          <label class="text-right full-width">ชื่อปัจจัยเสี่ยง</label>
+        </div>
+        <div field [col]="14" [ngClass]="{'error': invalidDataControl('riskFactorsMaster')}">
+          <input type="text" formControlName="riskFactorsMaster">
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="2">
+          <label class="text-right full-width">ด้าน</label>
+        </div>
+        <div field [col]="14" [ngClass]="{'error': invalidDataControl('side')}">
+          <select class="ui search multiple selection dropdown ia" multiple="" id="sideEdit" formControlName="side">
+            <option *ngFor="let data of sideList" value="{{data.value}}">{{data.data}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions ">
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-edit (click)="editFactos($event)"></app-button-edit>
+        <app-button-cancel class="positive"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>
+
+<ui-modal [id]="'saveModal'" [type]="'custom'" [size]="'large'">
+  <div class="ui header">
+    เพิ่มข้อมูลหลักปัจจัยเสี่ยง
+  </div>
+  <div class="content">
+    <div class="ui" form [formGroup]="saveForm">
+      <input type="hidden" id="budgetYear" name="budgetYear" formControlName="budgetYear">
+      <div inline>
+        <div field [col]="2">
+          <label class="text-right full-width">ชื่อปัจจัยเสี่ยง</label>
+        </div>
+        <div field [col]="14" [ngClass]="{'error': invalidSaveControl('riskFactorsMaster')}">
+          <input type="text" formControlName="riskFactorsMaster">
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="2">
+          <label class="text-right full-width">ด้าน</label>
+        </div>
+        <div field [col]="14" [ngClass]="{'error': invalidSaveControl('side')}">
+          <select class="ui dropdown ia search selection fluid" multiple="" id="sideSave" formControlName="side">
+            <option *ngFor="let data of sideList" value="{{data.value}}">{{data.data}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions ">
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-save (click)="saveFactos($event)"></app-button-save>
+        <app-button-cancel class="positive"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>
+
+<ui-modal [id]="'detail'" [type]="'custom'" [size]="'fullscreen'">
+  <div class="ui header">
+    <ng-container *ngIf="isEdit">แก้ไข</ng-container>
+    <ng-container *ngIf="!isEdit">เพิ่ม</ng-container>ข้อมูลปัจจัยเสี่ยง
+    {{dataselect?.iaRiskFactorsMaster.riskFactorsMaster}}
+  </div>
+  <div class="scrolling content">
+    <form ngNativeValidate (submit)="saveCondition($event)">
+      <div class="ui " form [formGroup]="dataForm">
+        <input type="hidden" id="budgetYear" name="budgetYear" formControlName="budgetYear">
+        <div inline>
+          <div field [col]="2">
+            <label class="text-right full-width">ชื่อปัจจัยเสี่ยง <span style="color: red">*</span></label>
+          </div>
+          <div field [col]="14" [ngClass]="{'error': invalidDataControl('riskFactorsMaster')}">
+            <input type="text" formControlName="riskFactorsMaster">
+          </div>
+        </div>
+
+        <!-- <div inline>
+              <div field [col]="2">
+                  <label class="text-right full-width">เชื่อมโยงข้อมูล <span style="color: red">*</span></label>
+                </div>
+                <div field [col]="14" [ngClass]="{'error': invalidDataControl('side')}">
+                  <select class="ui search selection dropdown ia" id="webService" formControlName="dataEvaluate">
+                    <option *ngFor="let data of webServiceData" value="{{data.value2}}">{{data.value1}}</option>
+                  </select>
+                </div>
+          </div> -->
+
+        <div inline>
+          <div field [col]="2">
+            <label class="text-right full-width">ด้าน <span style="color: red">*</span></label>
+          </div>
+          <div field [col]="14" [ngClass]="{'error': invalidDataControl('side')}">
+            <select class="ui search multiple selection dropdown ia" multiple="" id="sideEditDtl"
+              formControlName="side">
+              <option *ngFor="let data of sideList" value="{{data.value}}">{{data.data}}</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div inline>
+          <div field [col]="2" [ngClass]="{'error': invalidDataControl('side')}">
+            <label class="text-right full-width">ชื่อข้อมูล <span style="color: red">*</span></label>
+          </div>
+          <div field [col]="8" [ngClass]="{'error': invalidDataControl('infoUsedRiskDesc')}">
+            <input type="text" formControlName="infoUsedRiskDesc">
+          </div>
+          <div field [col]="2">
+            <label class="text-right full-width">ประเภทข้อมูล <span style="color: red">*</span></label>
+          </div>
+          <div field [col]="4" [ngClass]="{'error': invalidDataControl('dataEvaluate')}">
+            <select class="ui dropdown ia search selection" id="dataEvaluate" formControlName="dataEvaluate">
+              <!-- (change)="changeQtnEdit($event.target.value)" -->
+              <option *ngFor="let data of webServiceData" value="{{data.paramCode}}">{{data.value1}}</option>
+            </select>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="2">
+            <label class="text-right full-width">ตัวชี้วัดความเสี่ยง <span style="color: red">*</span></label>
+          </div>
+          <div field [col]="8" [ngClass]="{'error': invalidDataControl('riskIndicators')}">
+            <input type="text" formControlName="riskIndicators">
+          </div>
+          <div field [col]="2">
+            <label class="text-right full-width">หน่วยค่าความเสี่ยง <span style="color: red">*</span></label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': invalidDataControl('riskUnit')}">
+            <select class="ui dropdown ia search selection" id="riskUnit" formControlName="riskUnit">
+              <option *ngFor="let data of riskUnitList" value="{{data.value}}">{{data.data}}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- <div *ngIf="qtnEdit" inline>
+          <div field [col]="2">
+            <label class="full-width text-left">
+              แบบสอบถามปีงบประมาณ
+            </label>
+          </div>
+          <div field [col]="2">
+            <select name="qtnYear" [(ngModel)]="qtnYear" [ngModelOptions]="{standalone: true}"  (change)="selectYear()" class="ui fluid dropdown ai">
+              <option value="">ปปปป</option>
+              <option *ngFor="let year of years; let i = index" [value]="year.year">{{year.year}}</option>
+            </select>
+          </div>
+          <div field [col]="3">
+            <select name="qtnName" [(ngModel)]="qtnName" [ngModelOptions]="{standalone: true}"
+              [disabled]="years.length == 0" class="ui fluid dropdown ai">
+              <option value="">แบบสอบถาม</option>
+              <option *ngFor="let name of names; let i = index" [value]="name.id">{{name.name}}</option>
+            </select>
+          </div>
+          <div field [col]="4">
+            <label style="color: red" *ngIf="years.length == 0">ไม่พบข้อมูลแบบสอบถามเดิม</label>
+          </div>
+        </div> -->
+      </div>
+      <div class="inline fields">
+        <table id="dataTable" class="ui small celled table selectable">
+          <thead>
+            <tr>
+              <th style="text-align: center !important">ที่</th>
+              <th style="text-align: center !important">เงื่อนไข</th>
+              <th style="text-align: center !important" *ngIf="isEdit">
+                {{ qtnEdit ? 'ไม่มี/ไม่ใช่ (%)' : 'ค่าเริ่มต้น ('+ dataselect?.iaRiskFactorsConfig.riskUnit + ')' }}
+              </th>
+              <th style="text-align: center !important" *ngIf="!isEdit">
+                ค่าเริ่มต้น
+              </th>
+              <th style="text-align: center !important">เงื่อนไข</th>
+              <th style="text-align: center !important" *ngIf="isEdit">
+                {{ qtnEdit ? 'ไม่มี/ไม่ใช่ (%)' : 'ค่าสิ้นสุด (' + dataselect?.iaRiskFactorsConfig.riskUnit + ')' }}
+              </th>
+              <th style="text-align: center !important" *ngIf="!isEdit">
+                ค่าสิ้นสุด
+              </th><!--  -->
+              <th style="text-align: center !important">อัตราความเสี่ยง</th>
+              <th style="text-align: center !important ;width: 121.4286px;">แปลค่าความเสี่ยง</th>
+              <th style="text-align: center !important ;width: 121.4286px;">สี</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of datas; let i=index">
+              <td class="aligned center">{{i+1}}</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="condition{{i}}" name="condition{{i}}" [attr.required]="true"
+                  [(ngModel)]="datas[i].condition" (change)="changeCondution(i)">
+                  <option *ngFor="let listrange of conditionNon" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="valueone{{i}}" [(ngModel)]="datas[i].valueone" id="valueone{{i}}" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai conditionTo{{i}}" id="conditionTo{{i}}" name="conditionTo{{i}}"
+                  [attr.required]="true" [(ngModel)]="datas[i].conditionTo" (change)="changeCondutionTo(i)">
+                  <option *ngFor="let listrange of conditionRange" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="valuetwo{{i}}" [(ngModel)]="datas[i].valuetwo" id="valuetwo{{i}}"
+                    required="{{ datas[i].condition == '7' }}">
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="valueRl{{i}}" min="0" max="5" [(ngModel)]="datas[i].valueRl"
+                    id="valueRl{{i}}" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="convertValue{{i}}" [(ngModel)]="datas[i].convertValue"
+                  id="convertValue{{i}}" required disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="color{{i}}" [(ngModel)]="datas[i].color" id="color{{i}}"
+                  required>
+                  <option value="แดง">แดง</option>
+                  <option value="ส้ม">ส้ม</option>
+                  <option value="เหลือง">เหลือง</option>
+                  <option value="เขียว">เขียว</option>
+                  <option value="เขียวเข้ม">เขียวเข้ม</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+  <div class="actions ">
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-save (click)="saveCondition2($event)" *ngIf="!isEdit"></app-button-save>
+        <!-- *ngIf="!isEdit" -->
+        <app-button-save (click)="saveCondition($event)" *ngIf="isEdit"></app-button-save>
+        <app-button-cancel (click)="cancel()" class="positive"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>
+
+<ui-modal [id]="'detail2'" [type]="'custom'" [size]="'small'">
+  <div class="ui header">
+    รายละเอียดด้าน
+  </div>
+  <div class="content">
+    <P> <strong>1. ด้านกลยุทธ์(Startegy - S)</strong></P>
+    <P> <strong>2. ด้านการดำเนินงาน(Operation - O)</strong></P>
+    <P> <strong>3. ด้านผลการปฎิบัติงานหรือผลการดำเนินการ(Performance - P)</strong></P>
+    <P> <strong>4. ด้านการเงิน(Financial - F)</strong></P>
+    <P> <strong>5. ด้านการปฏิบัติตามกฎหมายและระเบียบ(Compliance - C)</strong></P>
+    <P> <strong>6. ด้านเทคโนโลยีสารสนเทศ(Information Technology)</strong></P>
+    <P> <strong>7. ด้านการควบคุมภายใน(Internal Control - I)</strong></P>
+  </div>
+  <div class="actions">
+    <!-- <app-button-cancel class="positive"></app-button-cancel> -->
+    <app-button-custom color="" icon="remove icon" text="ปิด" class="positive"></app-button-custom>
+  </div>
+</ui-modal>

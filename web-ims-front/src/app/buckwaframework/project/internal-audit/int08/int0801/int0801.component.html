@@ -1,0 +1,267 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+    <segment header="กระดาษทำการตรวจสอบข้อมูลทางบัญชีที่ถูกต้องตามดุลบัญชีปกติ" [loading]="loading">
+        <form [formGroup]="formSearch">
+            <div class="ui form">
+                <ng-container *ngIf="flagBtn !== 'E'">
+                    <div inline>
+                        <div field [col]="4" class="required">
+                            <label class="text-right full-width">หน่วยเบิกจ่าย</label>
+                        </div>
+                        <div field [col]="6" [ngClass]="{'error': validateField('deptDisb')}">
+                            <select class="ui search dropdown full-width header-dropdown" formControlName="deptDisb">
+                                <option value="">หน่วยเบิกจ่าย</option>
+                                <option *ngFor="let item of deptDisbList" value="{{item.gfDisburseUnit}}">
+                                    {{ item.gfDisburseUnit }} - {{ item.gfExciseName }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div inline>
+                        <div field [col]="4" class="required">
+                            <label class="text-right full-width">ประจำงวด</label>
+                        </div>
+                        <div field [col]="2" [ngClass]="{'error': validateField('period')}">
+                            <input type="text" formControlName="period">
+                        </div>
+
+                        <div field [col]="1" class="required">
+                            <label class="text-right full-width">ประจำปี</label>
+                        </div>
+                        <div field [col]="2" [ngClass]="{'error': validateField('periodYear')}">
+                            <div class="ui calendar" id="periodYearCld">
+                                <div class="ui input left icon">
+                                    <i class="calendar alter nate outline icon"></i>
+                                    <input type="text" formControlName="periodYear" autocomplete="off"
+                                        placeholder="ปปปป" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div field [col]="2">
+                            <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+                        </div>
+                        <div field [col]="3">
+                            <select class="ui search dropdown full-width header-dropdown" formControlName="auditGftbNo"
+                                (change)="auditGftbNoDropdownChange()">
+                                <option value="">เลขกระดาษทำการ</option>
+                                <option *ngFor="let a of auditGftbNoList; let i=index" value="{{ a.auditGftbNo }}">
+                                    {{ a.auditGftbNo }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="flagBtn === 'E'">
+                    <div inline>
+                        <div field [col]="4">
+                            <label class="text-right full-width">หน่วยเบิกจ่าย</label>
+                        </div>
+                        <div field [col]="6">
+                            <input class="custom-readonly" type="text" formControlName="deptDisb" readonly>
+                        </div>
+                    </div>
+
+                    <div inline>
+                        <div field [col]="4">
+                            <label class="text-right full-width">ประจำงวด</label>
+                        </div>
+                        <div field [col]="2">
+                            <input class="custom-readonly" type="text" formControlName="period" readonly>
+                        </div>
+
+                        <div field [col]="1">
+                            <label class="text-right full-width">ประจำปี</label>
+                        </div>
+                        <div field [col]="2">
+                            <input class="custom-readonly" type="text" formControlName="periodYear" readonly>
+                        </div>
+
+                        <div field [col]="2">
+                            <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+                        </div>
+                        <div field [col]="3">
+                            <select class="ui search dropdown full-width header-dropdown" formControlName="auditGftbNo"
+                                (change)="auditGftbNoDropdownChange()">
+                                <option value="">เลขกระดาษทำการ</option>
+                                <option *ngFor="let a of auditGftbNoList; let i=index" value="{{ a.auditGftbNo }}">
+                                    {{ a.auditGftbNo }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="ui center aligned grid">
+                    <div class="column">
+                        <app-button-search (click)="search()"></app-button-search>
+                        <app-button-clear (click)="clearData()"></app-button-clear>
+                        <app-button-save *ngIf="tabs.length > 0 && flagBtn === 'S'" (click)="save($event)">
+                        </app-button-save>
+                        <app-button-save *ngIf="tabs.length == 0 || flagBtn === '' || flagBtn === 'E'" disabled="true">
+                        </app-button-save>
+                        <app-button-export *ngIf="flagBtn === 'E'" (click)="export()"></app-button-export>
+                        <app-button-export *ngIf="flagBtn === '' || flagBtn === 'S'" [disabled]="true">
+                        </app-button-export>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- <div class="ui divider"></div> -->
+        <div class="ui grid">
+            <div class="sixteen wide column" style="padding-bottom: 0px;">
+                <div form>
+                    <div class="ui mini buttons">
+                        <button class="ui medium button btn-custom" [ngClass]="{'primary': flagTab == 1 }"
+                            (click)="changeFlagTab(1)" style="border-radius: 0px">
+                            หมวดทรัพย์สิน
+                        </button>
+
+                        <button class="ui medium button btn-custom" [ngClass]="{'primary': flagTab == 2 }"
+                            (click)="changeFlagTab(2)" style="border-radius: 0px">
+                            หมวดหนี้สิน
+                        </button>
+
+                        <button class="ui button btn" [ngClass]="{'primary': flagTab == 3 }" (click)="changeFlagTab(3)"
+                            style="border-radius: 0px">
+                            หมวดส่วนทุน
+                        </button>
+
+                        <button class="ui button btn" [ngClass]="{'primary': flagTab == 4 }" (click)="changeFlagTab(4)"
+                            style="border-radius: 0px">
+                            หมวดรายได้
+                        </button>
+
+                        <button class="ui button btn" [ngClass]="{'primary': flagTab == 5 }" (click)="changeFlagTab(5)"
+                            style="border-radius: 0px">
+                            หมวดค่าใช้จ่าย
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="ui small celled nowrap table sticky" style="width: 100%;">
+            <thead>
+                <tr class="text-center">
+                    <th>รหัส</th>
+                    <th>ชื่อบัญชีแยกประเภท</th>
+                    <th>ยอดยกมา</th>
+                    <th [ngClass]="{'blue-font': flagTab==1 || flagTab==5}">เดบิต</th>
+                    <th [ngClass]="{'blue-font': flagTab!=1 && flagTab!=5}">เครดิต</th>
+                    <th>ยอดยกไป</th>
+                    <th class="bg-td-I"></th>
+                    <th class="bg-td-I">ผลการตรวจสอบ</th>
+                </tr>
+            </thead>
+
+            <!-- no data -->
+            <tbody *ngIf="tabs.length == 0">
+                <tr>
+                    <td class="text-center" colspan="8">ไม่มีข้อมูล</td>
+                </tr>
+            </tbody>
+
+            <!-- have data -->
+            <tbody *ngIf="tabs.length > 0">
+                <tr *ngFor="let t of table; let i=index" [ngClass]="{
+                        'bg-danger': t.checkFlag === 'N', 
+                        'bg-td-I': ((t.accNo.charAt(0) == 1 || t.accNo.charAt(0) == 5) && t.valueTrueType == 2) 
+                        || ((t.accNo.charAt(0) != 1 && t.accNo.charAt(0) != 5) && t.valueTrueType == 1)
+                }">
+                    <td class="text-center">{{ t.accNo | isEmpty }}</td>
+                    <td>{{ t.accName | isEmpty }}</td>
+                    <td class="text-right">
+                        {{ t.bringForward | decimalFormat }}</td>
+                    <td class="text-right">
+                        {{ t.debit | decimalFormat }}</td>
+                    <td class="text-right">
+                        {{ t.credit | decimalFormat }}</td>
+                    <td class="text-right">{{ t.carryForward | decimalFormat }}</td>
+                    <td class="text-center">
+                        <i *ngIf="t.checkFlag === 'Y'" class="fa fa-check" aria-hidden="true" style="color: green"></i>
+                        <i *ngIf="t.checkFlag === 'N'" class="fa fa-exclamation" aria-hidden="true"
+                            style="color: red"></i>
+                    </td>
+                    <td class="text-center">
+                        <div class="ui form">
+                            <input *ngIf="flagBtn !== 'E'" type="text" (blur)="onBlurTestResult($event, flagTab-1, i)"
+                                [(ngModel)]="t.gftbTestResult" autocomplete="off">
+                            <input *ngIf="flagBtn === 'E'" class="custom-readonly" type="text"
+                                [(ngModel)]="t.gftbTestResult" readonly>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form [formGroup]="formConclude">
+            <div class="ui centered grid">
+                <div class="ui form sixteen wide column">
+                    <h4>สรุปผลการตรวจสอบข้อมูลทางบัญชีที่ถูกต้องตามดุลบัญชีปกติ</h4>
+                    <div inline>
+                        <div field [col]="3"></div>
+                        <div field [col]="2">
+                            <div class="ui radio checkbox" [ngClass]="{'disabled': flagBtn === 'E'}">
+                                <input type="radio" formControlName="gftbFlag" value="Y">
+                                <label>ถูกต้อง</label>
+                            </div>
+                        </div>
+                        <div field [col]="2">
+                            <div class="ui radio checkbox" [ngClass]="{'disabled': flagBtn === 'E'}">
+                                <input type="radio" formControlName="gftbFlag" value="N">
+                                <label>ไม่ถูกต้อง</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ng-container *ngIf="flagBtn !== 'E'">
+                        <div inline>
+                            <div field [col]="3">
+                                <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br>
+                                    (ข้อเท็จจริง/Condition) :</label>
+                            </div>
+                            <div field [col]="12">
+                                <textarea rows="3" style="width: 100%;" formControlName="gftbConditionText"></textarea>
+                            </div>
+                        </div>
+
+                        <div inline>
+                            <div field [col]="3">
+                                <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                                    :</label>
+                            </div>
+                            <div field [col]="12">
+                                <textarea rows="3" style="width: 100%;" formControlName="gftbCreteriaText"></textarea>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="flagBtn === 'E'">
+                        <div inline>
+                            <div field [col]="3">
+                                <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br>
+                                    (ข้อเท็จจริง/Condition) :</label>
+                            </div>
+                            <div field [col]="12">
+                                <textarea rows="3" style="width: 100%;" formControlName="gftbConditionText"
+                                    class="custom-readonly" readonly></textarea>
+                            </div>
+                        </div>
+
+                        <div inline>
+                            <div field [col]="3">
+                                <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                                    :</label>
+                            </div>
+                            <div field [col]="12">
+                                <textarea rows="3" style="width: 100%;" formControlName="gftbCreteriaText"
+                                    class="custom-readonly" readonly></textarea>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </form>
+    </segment>
+</with-breadcrumb>

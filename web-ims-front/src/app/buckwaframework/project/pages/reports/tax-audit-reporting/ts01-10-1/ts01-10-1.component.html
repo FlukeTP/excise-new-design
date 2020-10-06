@@ -1,0 +1,52 @@
+<form (submit)="onSubmit($event)" ngNativeValidate>
+  <div class="ui top centered attached header segment"
+          style="background: #1e83db;color: white">
+      <span>คำให้การ (ต่อ)</span>
+    </div>
+
+    <div class="ui attached segment">
+        <div class="ui grid">
+          <div class="ui two wide column">&nbsp;</div>
+          <div class="ui twelve wide column">
+              <div class="ui form">
+
+                <div class="inline fields">
+                  <div class="sixteen wide field">
+                    <label class="custom-label-w-18" style="width: 18% !important;">แผ่นที่ : </label>
+                    <input type="text" style="width: 100%;" name="number" [(ngModel)]="obj.number" required>
+                  </div>
+                </div>
+
+                <div class="inline fields">
+                  <div class="eight wide field">
+                    <label class="custom-label-w-18" style="width: 80% !important;">คำให้การต่อ ของ : </label>
+                  </div>
+                </div>
+
+                <div class="inline fields">
+                  <div class="sixteen wide field">
+                    <textarea rows="7" style="width: 100%; resize: none" name="item" [(ngModel)]="obj.item" required></textarea>
+                  </div>
+                </div>
+
+              </div>
+          </div>
+          <div class="ui two wide column">&nbsp;</div>
+        </div>
+    </div>
+
+    <div class="ui bottom centered attached segment">
+      <div class="ui center aligned grid">
+          <div class="eight wide column">
+            <button class="ui mini green button" type="submit">
+              <i class="save icon"></i>
+              พิมพ์เอกสาร
+            </button>
+            <button class="ui mini red button" type="button" (click)="onDiscard()">
+              <i class="times icon"></i>
+              ยกเลิก
+            </button>
+        </div>
+      </div>
+    </div>
+  </form>

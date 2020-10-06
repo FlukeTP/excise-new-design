@@ -1,0 +1,162 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <!-- condition -->
+  <segment header="รายการข้อมูลผู้ประกอบการที่เสียภาษีสรรพสามิต (TA010201)" [loading]="loading">
+    <div class="ui form">
+      <div class="inline fields">
+        <div field [col]="3">
+            <label class="text-right full-width">ปีงบประมาณ</label>
+        </div>
+        <div field [col]="4">
+            <input class="custom-readonly" readonly="" value="{{budgetYear}}">
+        </div>
+        <div field [col]="3">
+          <label class="text-right full-width">เลขที่รายการคัดเลือกราย</label>
+        </div>
+        <div field [col]="4">
+          <input class="custom-readonly" readonly="" value="{{analysisNumber}}">
+        </div>
+      </div>
+      <div class="inline fields">
+        <div field [col]="3">
+          <label class="text-right full-width">ช่วงการชำระภาษีปีนี้</label>
+        </div>
+        <div field [col]="4">
+          <input class="custom-readonly" id="before" placeholder="ดด/ปปปป" readonly="" type="text"
+            value="{{objMonth.yearMonthStart}}">
+          ถึง&nbsp;&nbsp;&nbsp;
+          <input class="custom-readonly" id="last" placeholder="ดด/ปปปป" readonly="" type="text"
+            value="{{objMonth.yearMonthEnd}}">
+        </div>
+        <div field [col]="3">
+          <label class="text-right full-width">เปรียบเทียบกับ ช่วงการชำระภาษีปีก่อน</label>
+        </div>
+        <div field [col]="4">
+          <input class="custom-readonly" id="before" placeholder="ดด/ปปปป" readonly="" type="text"
+            value="{{objMonth.yearMonthStartCompare}}">
+          ถึง&nbsp;&nbsp;&nbsp;
+          <input class="custom-readonly" id="last" placeholder="ดด/ปปปป" readonly="" type="text"
+            value="{{objMonth.yearMonthEndCompare}}">
+        </div>
+
+      </div>
+
+    </div>
+    <form class="ui form" [formGroup]="formSearch">
+      <div class="inline fields">
+        <div field [col]="3">
+          <label class="text-right full-width"> สำนักงานสรรพสามิตภาค</label>
+        </div>
+        <div field [col]="4">
+          <select class="ui search dropdown full-width" id="sector" (change)="onChangeSector($event)"
+            formControlName="sector">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+          </select>
+        </div>
+        <div field [col]="3">
+          <label class="text-right full-width"> สำนักงานสรรพสามิตพื้นที่</label>
+        </div>
+        <div field [col]="4">
+          <select class="ui search dropdown full-width" id="area" formControlName="area">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+          </select>
+        </div>
+        <div field [col]="1">
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="3">
+          <label class="text-right full-width"> ประเภทสินค้า/บริการ</label>
+        </div>
+        <div field [col]="4">
+          <select class="ui search dropdown full-width" id="facType" (change)="onChangeFacType($event)"
+            formControlName="facType">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of facTypeList" value="{{item.paramCode}}">{{item.value1}}</option>
+          </select>
+        </div>
+        <div field [col]="3">
+          <label class="text-right full-width"> พิกัด</label>
+        </div>
+        <div field [col]="4">
+          <select class="ui search dropdown full-width" id="dutyCode" formControlName="dutyCode">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of dutyCodeList" value="{{item.paramCode}}">{{item.value1}}</option>
+          </select>
+        </div>
+        <div field [col]="1">
+        </div>
+      </div>
+      <br>
+      <div class="ui center aligned grid">
+        <div class="eight wide column">
+          <app-button-search (click)="serach()"></app-button-search>
+          <app-button-clear (click)="clear()"></app-button-clear>
+          <app-button-save (click)="onSave()"></app-button-save>
+          <app-button-export (click)="export()"></app-button-export>
+          <app-button-back [routerLink]="['/tax-audit-new/ta01/02']"></app-button-back>
+        </div>
+      </div>
+    </form>
+  </segment>
+  <!-- result -->
+  <segment header="" [loading]="loading">
+    <!-- <br>
+    <div class="ui grid">
+      <button class="ui button custom-menu" type="button" (click)="munuHide()"><i class="bars icon"></i>เมนู</button>
+    </div>
+    <br><br> -->
+    <div class="ui grid">
+      <!-- <div class="three wide column" [ngClass]="{'menu-hide': menuhide}">
+        <div class="ui styled accordion">
+          <div class="title" (click)="onClickProductType('','')">
+            <i class="dropdown icon"></i>
+            ทั้งหมด
+          </div>
+          <div class="title active">
+            <i class="dropdown icon"></i>
+            พิกัดสินค้า
+          </div>
+          <div class="content active">
+            <p class="transition" *ngFor="let item of products" (click)="onClickProductType(item.paramCode,'1')"
+              style="cursor: pointer">
+              - {{item.value1}}</p>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            พิกัดบริการ
+          </div>
+          <div class="content ">
+            <p class="transition" *ngFor="let item of services" (click)="onClickProductType(item.paramCode,'2')"
+              style="cursor: pointer">
+              - {{item.value1}}</p>
+
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            พิกัดสินค้านำเข้า
+          </div>
+          <div class="content">
+            <p class="transition" *ngFor="let item of products" (click)="onClickProductType(item.paramCode,'3')"
+              style="cursor: pointer">
+              - {{item.value1}}</p>
+          </div>
+        </div>
+      </div> -->
+      <!-- <div [ngClass]="{'thirteen ': !menuhide, 'sixteen': menuhide, 'wide column' : true}"> -->
+      <div class="sixteen wide column">
+        <!-- table -->
+        <app-table-custom [datas]="datas" [recordTotal]="recordTotal" [objMonth]="objMonth"
+          [budgetYear]="budgetYearNumber" (pageChangeOutput)="pageChangeOutput($event)">
+        </app-table-custom>
+        <br>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

@@ -1,0 +1,27 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="ขออนุมัติแผนการตรวจสอบภาษี" [loading]="false">
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tablePlan">
+          <thead class="text-center">
+            <tr>
+              <th>ลำดับ</th>
+              <th>ทะเบียนสรรพสามิต เดิม/ใหม่</th>
+              <th>ชื่อผู้ประกอบการ</th>
+              <th>ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+              <th>ที่อยู่โรงอุตสาหกรรม/สถานบริการ</th>
+              <th>ภาค</th>
+              <th>พื้นที่</th>
+              <th>พิกัด</th>
+            </tr>
+          </thead>
+        </table>
+        <br>
+      </div>
+    </div>
+    <div class="ui centered grid">
+      <app-button-back routerLink="/tax-audit-new/ta01/07"></app-button-back>
+    </div><br>
+  </segment>
+</with-breadcrumb>

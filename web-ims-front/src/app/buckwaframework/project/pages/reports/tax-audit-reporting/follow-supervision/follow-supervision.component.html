@@ -1,0 +1,103 @@
+<form (submit)="onSubmit($event)" ngNativeValidate>
+  <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>รายงานผลการตรวจปฏิบัติการ ติดตามแนะนำกำกับดูแล</span>
+  </div>
+
+  <div class="ui attached segment">
+    <div class="ui grid center aligned">
+      <div class="ui center aligned centered fourteen wide column">
+        <div class="ui form center aligned">
+          <div class="inline fields">
+            <div class="three wide field"></div>
+            <div class="two wide field">
+              <label>ส่วนราชการ</label>
+            </div>
+            <div class="four wide field">
+              <input type="text" id="governmentService" name="governmentService" [(ngModel)]="obj.governmentService" >
+            </div>
+            <div class="one wide field"></div>
+            <div class="one wide field">
+              <label> วันที่</label>
+            </div>
+            <div class="four wide field ui calendar" id="date1">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" id="date" name="date" [(ngModel)]="obj.date" autocomplete="off">
+              </div>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="three wide field"></div>
+            <div class="two wide field">
+              <label>เรื่อง</label>
+            </div>
+            <div class="five wide field">
+              รายงานผลการตรวจปฏิบัติการ ติดตามแนะนำกำกับดูแล
+            </div>
+            <div class="one wide field">
+              <label> เรียน
+              </label>
+            </div>
+            <div class="four wide field">
+              <input type="text"  id="study" name="study" [(ngModel)]="obj.study" >
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="three wide field"></div>
+            <div class="eight wide field">
+              <label>ตรวจปฏิบัติการแนะนำกำกัลดูแล สถานประกอบการ / โรงอุตสาหกรรม</label>
+            </div>
+            <div class="four wide field">
+              <input type="text" id="actionMonitoring" name="actionMonitoring" [(ngModel)]="obj.actionMonitoring">
+            </div>
+          </div>
+
+          <div class="inline fields">
+              <div class="three wide field"></div> 
+              
+              <div class="eight wide field">
+                <label>มีผลการตรวจ ดังนี้</label>
+              </div>    
+            </div>
+
+            <div class="inline fields">
+                <div class="three wide field"></div>
+                <div class="twelve wide field">
+                <textarea role="8" cols="10" [(ngModel)]="obj.resultsAre" id="resultsAre" name="resultsAre"></textarea>
+                </div>    
+              </div>
+              <div class="inline fields">
+                  <div class="three wide field"></div>
+                  <div class="twelve wide field">
+                <label>จากการออกตรวจปฏิบัติการ ติดตามกำกับดูแลของเจ้าหน้าที่ในครั้งนี้ เจ้าหน้าที่ได้แนะนำเกี่ยวกับเรื่องต่างๆ ดังนี้</label>
+                  </div>    
+                </div>
+              <div class="inline fields">
+                  <div class="three wide field"></div>
+                  <div class="twelve wide field">
+                  <textarea role="8" cols="10" [(ngModel)]="obj.fromOperation"  id="fromOperation" name="fromOperation"></textarea>
+                  </div>    
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="ui bottom centered attached segment">
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <button class="ui mini green button" type="submit">
+          <i class="save icon"></i>
+          พิมพ์เอกสาร
+        </button>
+        <button class="ui mini red button" type="button" (click)="onDiscard()">
+          <i class="close icon"></i>
+          ยกเลิก
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

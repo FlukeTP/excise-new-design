@@ -1,0 +1,38 @@
+<div class="ui small celled nowrap table striped selectable">
+  <table>
+    <thead>
+      <tr class="center aligned">
+        <th class="one wide column">ภาค</th>
+        <th class="four wide column">พื้นที่</th>
+        <th class="four wide column">ผู้ประกอบการ</th>
+        <th class="one wide co  lumn"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>สรรพสามิตภาคที่ 1</td>
+        <td>อ่างทอง</td>
+        <td>บริษัท เอ็มทีพี เอชพี เจวี (ประเทศไทย) จำกัด</td>
+        <td class="center aligned">
+          <button class="ui toggle {{btnClass1}} button ai" (click)="toggleBtn1()">{{btnText1}}</button>
+        </td>
+      </tr>
+      <tr>
+        <td>สรรพสามิตภาคที่ 1</td>
+        <td>อยุธยา 1</td>
+        <td>ห้างหุ้นส่วนสามัญ แสงจันทร์ เอกมัย - รามอินทรา</td>
+        <td class="center aligned">
+          <button class="ui toggle {{btnClass2}} button ai" (click)="toggleBtn2()">{{btnText2}}</button>
+        </td>
+      </tr>
+      <tr>
+        <td>สรรพสามิตภาคที่ 2</td>
+        <td>ชลบุรี 2</td>
+        <td>บริษัท เอนเนอจี อินโนเวชั่น เทคโนโลยี จำกัด</td>
+        <td class="center aligned">
+          <button class="ui toggle {{btnClass3}} button ai" (click)="toggleBtn3()">{{btnText3}}</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

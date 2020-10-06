@@ -1,0 +1,110 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+    <div class="ui grid">
+      <div class="sixteen wide column">
+  
+        <segment header="ผลการคัดกรอง ผู้ได้รับอนุญาต" [loading]="false">
+          <div class="ui form">
+            <div class="ui inline fields centered grid">
+              <div class="field">
+                <label class="full-width right-label">
+                  ช่วงห่างการออกตรวจ
+                </label>
+              </div>
+              <div class="field">
+                <div class="ui right labeled input">
+                  <input type="number" class="text-right" value="3" placeholder="จำนวนปี">
+                  <div class="ui basic label">ปี</div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="full-width right-label">
+                  ความต่อเนื่องงบเดือน
+                </label>
+              </div>
+              <div class="field">
+                <div class="ui right labeled input">
+                  <input type="number" class="text-right" value="3" placeholder="จำนวนเดือน">
+                  <div class="ui basic label">เดือน</div>
+                </div>
+              </div>
+            </div>
+            <div class="ui inline fields centered grid">
+              <div class="btn field">
+                <app-button-custom color="primary" icon="check icon" text="คัดกรอง" icon="filter"></app-button-custom>
+                <app-button-edit (click)="goEdit()"></app-button-edit>
+                <app-button-back (click)="goBack()"></app-button-back>
+              </div>
+            </div>
+            <div class="inline field">
+              <div class="ui divider"></div>
+            </div>
+            <div class="ui fields centered grid">
+              <div class="eight wide field">
+                <h5 class="ui header">ช่วงห่างการออกตรวจ</h5>
+                <div class="scrollX scrollY custom">
+                  <table id="dataTable1" class="ui small celled table striped nowrap selectable unstackable" style="width: 100%;">
+                    <thead>
+                      <tr class="text-center">
+                        <th style="width: 108px"></th>
+                        <th style="width: 62px">#</th>
+                        <th>ภาค</th>
+                        <th>พื้นที่</th>
+                        <th>ชื่อผู้ประกอบการ</th>
+                        <th>วันที่ออกตรวจล่าสุด</th>
+                        <th>ช่วงห่างการออกตรวจ(ปี)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let table of dataTables1; let i = index">
+                        <td class="text-center">
+                          <div class="field">
+                            <app-button-custom color="primary" icon="check icon" text="เลือก"></app-button-custom>
+                          </div>
+                        </td>
+                        <td class="text-center">{{ i+1 }}</td>
+                        <td>{{ table.area }}</td>
+                        <td>{{ table.subArea }}</td>
+                        <td>{{ table.name }}</td>
+                        <td>{{ table.dateCk }}</td>
+                        <td>{{ table.lengthCk }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="eight wide field">
+                <h5 class="ui header">ความต่อเนื่องงบเดือน</h5>
+                <div class="scrollX scrollY custom">
+                  <table id="dataTable2" class="ui small celled table striped nowrap selectable unstackable" style="width: 100%;">
+                    <thead>
+                      <tr class="text-center">
+                        <th style="width: 108px"></th>
+                        <th style="width: 62px">#</th>
+                        <th>ภาค</th>
+                        <th>พื้นที่</th>
+                        <th>ชื่อผู้ประกอบการ</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let table of dataTables2; let i = index">
+                        <td class="text-center">
+                          <div class="field">
+                            <app-button-custom color="primary" icon="check icon" text="เลือก"></app-button-custom>
+                          </div>
+                        </td>
+                        <td class="text-center">{{ i+1 }}</td>
+                        <td>{{ table.area }}</td>
+                        <td>{{ table.subArea }}</td>
+                        <td>{{ table.name }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </segment>
+  
+      </div>
+    </div>
+  </with-breadcrumb>

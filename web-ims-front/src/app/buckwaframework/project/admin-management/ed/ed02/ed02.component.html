@@ -1,0 +1,135 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment [loading]="false" id="backcl">
+    <div class="large ui buttons" id="topview" *ngIf="tap == '2'">
+      <button class="large ui button" (click)="tabSlite('1')">ตั้งค่าตำแหน่งและอัตราเบิกจ่าย</button>
+      <button class="large ui positive button active" (click)="tabSlite('2')">เพิ่มรายการ</button>
+    </div>
+    <div class="large ui buttons" id="topview" *ngIf="tap == '1'">
+      <button class="large ui positive button active" (click)="tabSlite('1')">ตั้งค่าตำแหน่งและอัตราเบิกจ่าย</button>
+      <button class="large ui button " (click)="tabSlite('2')">เพิ่มรายการ</button>
+    </div>
+
+    <div class="large ui buttons" id="topview" *ngIf="tap == '3'">
+      <button class="large ui button " (click)="tabSlite('1')">ตั้งค่าตำแหน่งและอัตราเบิกจ่าย</button>
+      <button class="large ui positive button active" (click)="tabSlite('2')">แก้ไขรายการ</button>
+    </div>
+    <!-- ------------------------------tab1-------------------------------------- -->
+    <div class="tabcontent" *ngIf="tap == '1' ">
+      <segment [loading]="false">
+        <form class="ui form" [formGroup]="searchPosition">
+          <!-- row 1 -->
+          <div class="inline fields ui grid">
+            <div class="four wide field ">
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width">ตำแหน่ง</label>
+            </div>
+            <div class="four wide field ">
+              <input class="custom ng-untouched ng-pristine ng-valid" id="position" name="position" type="text"
+                formControlName="position">
+            </div>
+            <div class="four wide field ">
+              <app-button-search (click)="onSearch()"></app-button-search>
+            </div>
+          </div>
+        </form>
+        <table id="dataTable" class="ui small celled table striped selectable" style="width: 100%;">
+          <thead>
+            <tr>
+              <th style="text-align: center !important;">ลำดับที่</th>
+              <th style="text-align: center !important;">ตำแหน่ง</th>
+              <th style="text-align: center !important;">เบี้ยเลี้ยงหนึ่งวัน</th>
+              <th style="text-align: center !important;">เบี้ยเลี้ยงครึ่งวัน</th>
+              <th style="text-align: center !important;">ค่าธรรมเนียม ACCOM</th>
+              <th style="text-align: center !important;">ค่าธรรมเนียม ACCOM สองเท่า</th>
+              <th style="text-align: center !important;">ค่าธรรมเนียมแพ็คเกจ ACCOM </th>
+              <th style="text-align: center !important;">จัดการ</th>
+            </tr>
+          </thead>
+        </table>
+      </segment>
+    </div>
+    <!-- ------------------------------tab2-------------------------------------- -->
+    <div class="tabcontent" *ngIf="tap == '2' || tap == '3'">
+      <segment header="บันทึกรหัสบัญชีเงินฝาก" [loading]="false">
+        <form class="ui form" [formGroup]="formSaveConfig">
+          <!-- row 1 -->
+          <div class="inline fields  ui grid">
+            <div class="one wide field "></div>
+            <div class="three wide field ">
+              <label class="text-right full-width">ตำแหน่ง</label>
+            </div>
+            <div class="four wide field ">
+              <div class="ui input">
+                <input id="edPositionName" name="edPositionName" type="text" formControlName="edPositionName">
+              </div>
+            </div>
+            <div class="three wide field ">
+              <label class="text-right full-width">เบี้ยเลี้ยงครึ่งวัน</label>
+            </div>
+            <div class="four wide field ">
+              <input id="allowancesHalfDay" name="allowancesHalfDay" formControlName="allowancesHalfDay" numberOnly>
+            </div>
+            <div class="one wide field "></div>
+          </div>
+          <!-- row 2 -->
+          <div class="inline fields  ui grid">
+            <div class="one wide field "></div>
+            <div class="three wide field ">
+              <label class="text-right full-width">ค่าธรรมเนียม ACCOM</label>
+            </div>
+            <div class="four wide field ">
+              <div class="ui input">
+                <input id="accomFeeSingle" name="accomFeeSingle" type="text" formControlName="accomFeeSingle"
+                  numberOnly>
+              </div>
+            </div>
+            <div class="three wide field ">
+              <label class="text-right full-width">เบี้ยเลี้ยงหนึ่งวัน</label>
+            </div>
+            <div class="four wide field ">
+              <input id="allowancesDay" name="allowancesDay" type="text" formControlName="allowancesDay" numberOnly>
+            </div>
+            <div class="one wide field "></div>
+          </div>
+
+          <!-- row 3 -->
+          <div class="inline fields  ui grid">
+            <div class="one wide field "></div>
+            <div class="three wide field ">
+              <label class="text-right full-width">ค่าธรรมเนียม ACCOM สองเท่า</label>
+            </div>
+            <div class="four wide field ">
+              <div class="ui input">
+                <input id="accomFeeDouble" name="accomFeeDouble" type="text" formControlName="accomFeeDouble"
+                  numberOnly>
+              </div>
+            </div>
+          </div>
+
+          <!-- row 4 -->
+          <div class="inline fields  ui grid">
+            <div class="one wide field "></div>
+            <div class="three wide field ">
+              <label class="text-right full-width">ค่าธรรมเนียมแพ็คเกจ ACCOM</label>
+            </div>
+            <div class="four wide field ">
+              <div class="ui input">
+                <input id="accomFeePackages" name="accomFeePackages" type="text" formControlName="accomFeePackages"
+                  numberOnly>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="ui center aligned grid">
+          <div class="column">
+            <app-button-edit (click)="editDataposition()" *ngIf="tap == '3'"></app-button-edit>
+            <app-button-save (click)="saveConfig()" *ngIf="tap == '2'"></app-button-save>
+            <app-button-delete (click)="deletePosition()" *ngIf="tap == '3'"></app-button-delete>
+            <app-button-back (click)="tabSlite('1')"></app-button-back>
+          </div>
+        </div>
+      </segment>
+    </div>
+  </segment>
+</with-breadcrumb>

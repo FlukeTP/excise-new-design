@@ -1,0 +1,86 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<div class="ui modal show transition hidden" style="height: calc(6em + 15px);">
+    <i class="close icon"></i>
+    <div class="header">
+        ด้านแบบสอบถามระบบการควบคุมภายใน
+    </div>
+    <div class="ui form content">
+        <div class="inline fields">
+            <div class="four wide field">
+                &nbsp;
+            </div>
+            <div class="one wide field">
+                <label class="custom-label-w-20">ด้าน</label>
+            </div>
+            <div class="seven wide field">
+                <input type="text" name="sideExternal" id="sideExternal" [(ngModel)]="sideExternal">
+            </div>
+            <div class="four wide field">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui center aligned grid" style="margin: 0px">
+            <div class="eight wide field">
+                <button class="ui small green button" type="button" (click)="saveSideExternal()">
+                    <i class="save icon"></i> บันทึก
+                </button>
+            </div>
+
+            <div class="eight wide field">
+                <button class="ui small red button" type="button" id="closeList">
+                    <i class="close icon"></i> ยกเลิก
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui grid" style="margin: 2%">
+    <div class="sixteen wide column segments">
+        <div class="ui attached segment">
+            <div class="ui grid">
+                <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+                    <span>จัดการข้อมูลแบบสอบถามระบบการควบคุมภายใน</span>
+                </div>
+
+                <div class="centered fifteen wide column ">
+
+
+                    <table id="manageDataExternal" class="ui small celled table aligned hover striped selectable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">
+                                    <input id="checkAll" type="checkbox" (click)="clickCheckAll($event)" />
+                                </th>
+                                <th rowspan="2" style="text-align: center !important">ที่</th>
+                                <th rowspan="2" style="text-align: center !important">ด้านแบบสอบถามระบบการควบคุมภายใน</th>
+                                <th rowspan="1" colspan="2" style="text-align: center !important">จัดการ</th>
+                            </tr>
+                            <tr style="display:none">
+                                <td>ลบ</td>
+                                <td>เพิ่ม</td>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    <div class="inline fields">
+                        <div class="eight wide field" style="text-align: center">
+                            <button class="ui small green button" type="button" (click)="addData()">
+                                <i class="add icon"></i>
+                                เพิ่ม
+                            </button>
+                            <button class="ui small red button" type="button" (click)="deleteData()">
+                                <i class="trash alternate icon"></i>
+                                ลบ
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

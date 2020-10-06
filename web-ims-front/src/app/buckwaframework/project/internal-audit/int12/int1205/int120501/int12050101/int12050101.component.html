@@ -1,0 +1,175 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+    <segment header="เพิ่มข้อมูล รับ - โอนเงิน" [loading]="false">
+        <form [formGroup]="transferForm" (submit)="addData()">
+            <div class="ui form {{ loading ? 'loading' : '' }}">
+                <div class="inline fields">
+                    <div class="one wide field "></div>
+                    <div class="two wide field  ">
+                        <label>เอกสารอ้างอิง :</label>
+                    </div>
+                    <div class="one wide field required">
+                        <label>ที่ กค</label>
+                    </div>
+                    <div class="three wide field " [ngClass]="{ 'error': submitted && f.mofNum.errors }">
+                        <input type="text" formControlName="mofNum" [ngClass]="{ 'is-invalid': submitted && f.mofNum.errors }">
+                    </div>
+                    <div class="one wide field required">
+                        <label class="custom-label-w-25 text-right">เลขที่</label>
+                    </div>
+                    <div class="three wide field " [ngClass]="{ 'error': submitted && f.refNum.errors }">
+                        <input type="text" numberOnly formControlName="refNum" autocomplete="off">
+                        <!-- numberOnly [dash]="true" -->
+                    </div>
+                    <div class="two wide field required text-right">
+                        <label class="custom-label-w-25 text-right">วันที่เอกสาร</label>
+                    </div>
+                    <div class="three wide field" [ngClass]="{ 'error': submitted && f.refDate.errors }">
+                        <div class="ui calendar" id="calendar" style="width:100%">
+                            <div class="ui input left icon">
+                                <i class="calendar alter nate outline icon"></i>
+                                <input type="text" placeholder="วว/ดด/ปปปป" formControlName="refDate" id="refDate"
+                                    autocomplete="off" readonly="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="one wide field "></div>
+                    <div class="two wide field required">
+                        <label>รายการโอนเงิน</label>
+                    </div>
+                    <div class="four wide field" [ngClass]="{ 'error': submitted && f.transferList.errors }">
+                        <select class="ui search dropdown ai search" formControlName="transferList" id="transferList">
+                            <option value="">กรุณาเลือก</option>
+                            <option *ngFor="let data of comboBox1 | async" [ngValue]="data.value1">{{data.value1}}</option>
+                        </select>
+                    </div>
+                    <div class="two wide field required ">
+                        <label class="custom-label-w-25 text-right">ประเภทเงิน</label>
+                    </div>
+                    <div class="four wide field " [ngClass]="{ 'error': submitted && f.budgetType.errors }">
+                        <select class="ui search dropdown ai search" formControlName="budgetType" id="budgetType">
+                            <option value="">กรุณาเลือก</option>
+                            <option *ngFor="let data of comboBox2 | async" value="{{data.value1}}">{{data.value1}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="one wide field "></div>
+                    <div class="two wide field required ">
+                        <label>งบ</label>
+                    </div>
+                    <div class="four wide field " [ngClass]="{ 'error': submitted && f.budget.errors }">
+                        <select class="ui search dropdown ai search" formControlName="budget" id="budget" (change)="budgetChange($event)">
+                            <option value="">กรุณาเลือก</option>
+                            <option *ngFor="let data of comboBox3" value="{{data.budgetId}}">{{data.budgetName}}</option>
+                        </select>
+                    </div>
+                    <div class="two wide field required">
+                        <label class="custom-label-w-25 text-right">หมวด</label>
+                    </div>
+                    <div class="four wide field " [ngClass]="{ 'error': submitted && f.ctgBudget.errors }">
+                        <select class="ui search dropdown ai search" formControlName="ctgBudget" id="ctgBudget"
+                            (change)="ctgBudgetChange($event)">
+                            <option value="">กรุณาเลือก</option>
+                            <option *ngFor="let data of combobox4" value="{{data.categoryId}}">{{data.categoryName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="one wide field "></div>
+                    <div class="two wide field required ">
+                        <label>หมวดย่อย</label>
+                    </div>
+                    <div class="four wide field" [ngClass]="{ 'error': submitted && f.subCtgBudget.errors }">
+                        <select class="ui search dropdown ai search" formControlName="subCtgBudget" id="subCtgBudget">
+                            <option value="">กรุณาเลือก</option>
+                            <option *ngFor="let data of combobox5" value="{{data.listId}}">{{data.listName}}</option>
+                        </select>
+                    </div>
+                    <div class="two wide field required">
+                        <label class="custom-label-w-25 text-right">กิจกรรม</label>
+                    </div>
+                    <div class="four wide field " [ngClass]="{ 'error': submitted && f.activities.errors }">
+                        <select class="ui search dropdown ai search" formControlName="activities" id="activities">
+                            <option value="">กรุณาเลือก</option>
+                            <option *ngFor="let data of comboBox6 | async" value="{{data.value1}}">{{data.value1}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="one wide field "></div>
+                    <div class="two wide field required">
+                        <label>จำนวนเงิน</label>
+                    </div>
+                    <div class="four wide field " [ngClass]="{ 'error': submitted && f.amount.errors }">
+                        <input type="text" numberOnly formControlName="amount" id="amount" autocomplete="off">
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="one wide field "></div>
+                    <div class="two wide field required">
+                        <label>คำอธิบายรายการ</label>
+                    </div>
+                    <div class="nine wide field " [ngClass]="{ 'error': submitted && f.descriptionList.errors }">
+                        <input type="text" formControlName="descriptionList" id="descriptionList" autocomplete="off">
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="one wide field "></div>
+                    <div class="two wide field ">
+                        <label>หมายเหตุ</label>
+                    </div>
+                    <div class="nine wide field">
+                        <textarea rows="6" cols="10" formControlName="note" id="note"></textarea>
+                    </div>
+                </div>
+                <div class="ui center aligned grid">
+                    <div class="four wide column">
+                        <button *ngIf="flag !== 'EDIT'" class="ui mini green button" (click)="checkStatus('SAVE')" type="submit">
+                            <i class="plus icon"></i>เพิ่ม
+                        </button>
+                        <button *ngIf="flag === 'EDIT'" class="ui mini green button" (click)="checkStatus('EDIT')" type="submit">
+                            <i class="save icon"></i>บันทึก
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <br>
+        <table id="datatable" class="ui small celled table striped nowrap selectable" style="width: 100%">
+            <thead>
+                <tr style="text-align: center;">
+                    <th rowspan="2">ลำดับที่</th>
+                    <th colspan="3">เอกสารอ้างอิง</th>
+                    <th rowspan="2">รายการโอนเงิน</th>
+                    <th rowspan="2">ประเภทเงิน</th>
+                    <th rowspan="2">รหัส</th>
+                    <th rowspan="2">กิจกรรม</th>
+                    <th rowspan="2">งบ</th>
+                    <th rowspan="2">หมวด</th>
+                    <th rowspan="2">หมวดย่อย</th>
+                    <th rowspan="2">รายการ</th>
+                    <th rowspan="2">จำนวนเงิน</th>
+                    <th rowspan="2">หมายเหตุ</th>
+                </tr>
+                <tr style="text-align: center;">
+                    <th>ที่ กค</th>
+                    <th>เลขที่</th>
+                    <th>ว.ด.ป</th>
+                </tr>
+            </thead>
+        </table>
+        <br>
+        <div class="ui center aligned grid">
+            <div class="sixteen wide column">
+                <button class="ui mini primary button" [ngClass]="{'disabled': checkTable.length < 1 }" (click)="onSave()">
+                    <i class="save icon"></i> บันทึก
+                </button>
+                <button class="ui mini  button" (click)="hidedata()">
+                    <i class="close icon"></i> ยกเลิก
+                </button>
+            </div>
+        </div>
+    </segment>
+</with-breadcrumb>

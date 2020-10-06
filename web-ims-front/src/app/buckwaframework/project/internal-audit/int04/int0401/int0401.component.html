@@ -1,0 +1,231 @@
+<with-breadcrumb [breadcrumb]="breadcrumb" [cart]="cart">
+  <segment header="คัดเลือกราย">
+    <div class="ui active inverted dimmer">
+      <div class="ui text loader">กำลังโหลดข้อมูล</div>
+    </div>
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <form class="ui form" [formGroup]="searchForm">
+          <div class="inline fields">
+            <div class="one wide field">
+              <label class="text-right full-width">ปีงบประมาณ</label>
+            </div>
+            <div class="two wide field" [ngClass]="{ 'error': validateField('budgetYear') }">
+              <div class="ui calendar" id="budgetyearCld" style="width:100%">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" formControlName="budgetYear" placeholder="ปปปป" readonly>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="three wide field">
+              <label class="text-right full-width">ประเภทการประเมินความเสี่ยง</label>
+            </div>
+            <div class="five wide field" [ngClass]="{ 'error': validateField('riskType') }">
+              <select class="ui dropdown ai" id="risk" formControlName="riskType" (change)="handleSearch($event)">
+                <option value="">กรุณาเลือก</option>
+                <option *ngFor="let item of dropdownRisk; let i=index" value="{{item.id}}">{{item.riskType}}
+                </option>
+              </select>
+            </div> -->
+            <!-- <div class="two wide column">
+              <app-button-search (click)="handleSearch($event)">
+              </app-button-search>
+            </div> -->
+            <div class="four wide column full-width text-right">
+              <app-button-custom color="primary" *ngIf="int0401Ids.length==0" [disabled]="int0401Ids.length==0"
+                text="คัดเลือกราย"></app-button-custom>
+              <app-button-custom color="primary" *ngIf="int0401Ids.length>0" (click)="updateData()" text="คัดเลือกราย">
+              </app-button-custom>
+            </div>
+          </div>
+        </form>
+        <!-- style="max-height: calc(100vh - 272px - 86px);" -->
+        <!-- id: 1, ความเสี่ยงสำนักงานสรรพสามิตภาคพื้นที่ -->
+        <div contentLeft>
+          <div class="ui mini buttons">
+            <button *ngFor="let item of dropdownRisk; let i = index" class="ui button btn{{item.id}}" style="border-radius: 0px"
+              [ngClass]="{'positive active': riskTypeTab == item.id }" (click)="riskTypeClick($event, item.id)"><i
+                class="large {{item.iconName}} icon"></i>{{item.riskType}}</button>
+          </div>
+        </div>
+        <div class="tabcontent scrollAll" id="_type4_scroll">
+          <table id="_type4" *ngIf="_type4" class="ui celled table small scrollTableCustom" style="width: 100%;">
+            <thead>
+              <tr style="text-align: center">
+                <th rowspan="3">
+                  <input class="ui checkbox" type="checkbox" name="chkAll" (change)="onCheckAll($event)" id="chkAll">
+                </th>
+                <th rowspan="3">ลำดับที่</th>
+                <th rowspan="3">ระบบสารสนเทศฯ ของกรมสรรพสามิต</th>
+                <th [attr.colspan]="int0401Header.length*3">ปัจจัยเสี่ยง ( จำนวน {{int0401Header.length}} ปัจจัย )</th>
+                <th rowspan="3">อัตราความเสี่ยง</th>
+                <th rowspan="3">แปลค่าความเสี่ยง</th>
+              </tr>
+              <tr style="text-align: center">
+                <ng-container *ngFor="let header of int0401Header; let i=index">
+                  <th colspan="3">{{ header.name }} ( น้ำหนัก {{ header.percent }} % )</th>
+                </ng-container>
+              </tr>
+              <tr style="text-align: center">
+                <ng-container *ngIf="int0401Header.length > 0">
+                  <ng-container *ngFor="let list of int0401Header; let i=index">
+                    <th>{{list.dataCal}}</th>
+                    <th>อัตราความเสี่ยง</th>
+                    <th>แปลค่าความเสี่ยง</th>
+                  </ng-container>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody style="cursor: all-scroll">
+              <tr class="text-center" *ngIf="int0401Data.length==0">
+                <td [attr.colspan]="int0401Header.length > 0 ? (int0401Header.length*3) + 5 : 7">ไม่พบข้อมูล</td>
+              </tr>
+              <tr *ngFor="let int0401 of int0401Data; let i=index">
+                <td style="text-align: center !important;">
+                  <input class="ui checkbox" type="checkbox" (change)="onCheck($event, i)" name="chk{{i}}"
+                    id="chk{{i}}">
+                </td>
+                <td class="text-center">{{i+1}}</td>
+                <td style="max-width: 300px;min-width: 300px;" class="word-break">{{int0401.systemName | isEmpty }}</td>
+                <ng-container *ngFor="let list of int0401.listsCal; let j = index">
+                  <td class="text-right">{{ list.dataCal | decimalFormat:"###,###.00"  }}</td>
+                  <td class="text-center">{{ list.riskRate | isEmpty }}</td>
+                  <td class="text-center" [ngStyle]="{'background-color': list.codeColor}">
+                    {{ list.translatingRisk | isEmpty }}</td>
+                </ng-container>
+                <td class="text-center">{{int0401.riskRate | decimalFormat:"###,###.00" }}</td>
+                <td class="text-center" [ngStyle]="{'background-color': int0401.riskColor }">
+                  {{int0401.riskText | isEmpty}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- end id: 1 -->
+        <!-- style="max-height: calc(100vh - 272px - 86px);" -->
+        <!-- id: 2, ความเสี่ยงสำนักงานสรรพสามิตภาคพื้นที่ -->
+        <div class="tabcontent scrollAll" id="_type5_scroll">
+          <table id="_type5" *ngIf="_type5" class="ui celled table small scrollTableCustom" style="width: 100%;">
+            <thead>
+              <tr style="text-align: center">
+                <th rowspan="3">
+                  <input class="ui checkbox" type="checkbox" name="chkAll" (change)="onCheckAll($event)" id="chkAll">
+                </th>
+                <th rowspan="3">ลำดับที่</th>
+                <th rowspan="3"> สำนัก / สำนักงานสรรพสามิตภาค</th>
+                <th rowspan="3"> ฝ่าย / ส่วน / สำนักงานสรรพสามิตพื้นที่</th>
+                <th [attr.colspan]="int0401Header.length*3">ปัจจัยเสี่ยง ( จำนวน {{int0401Header.length}} ปัจจัย )</th>
+                <th rowspan="3">อัตราความเสี่ยง</th>
+                <th rowspan="3">แปลค่าความเสี่ยง</th>
+              </tr>
+              <tr style="text-align: center">
+                <ng-container *ngFor="let header of int0401Header; let i=index">
+                  <th colspan="3">{{ header.name }} ( น้ำหนัก {{ header.percent }} % ) </th>
+                </ng-container>
+              </tr>
+              <tr style="text-align: center">
+                <ng-container *ngIf="int0401Header.length > 0">
+                  <ng-container *ngFor="let list of int0401Header; let i=index">
+                    <th>{{list.dataCal}}</th>
+                    <th>อัตราความเสี่ยง</th>
+                    <th>แปลค่าความเสี่ยง</th>
+                  </ng-container>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody style="cursor: all-scroll">
+              <tr class="text-center" *ngIf="int0401Data.length==0">
+                <td [attr.colspan]="int0401Header.length > 0 ? (int0401Header.length*3) + 6 : 8">ไม่พบข้อมูล</td>
+              </tr>
+              <tr *ngFor="let int0401 of int0401Data; let i=index">
+                <td style="text-align: center !important;">
+                  <input class="ui checkbox" type="checkbox" (change)="onCheck($event, i)" name="chk{{i}}"
+                    id="chk{{i}}">
+                </td>
+                <td class="text-center">{{i+1}}</td>
+                <td style="max-width: 200px;min-width: 200px;" class="word-break">
+                  {{int0401.exciseDepartmentVo.sector | isEmpty }}</td>
+                <td style="max-width: 200px;min-width: 200px;" class="word-break">
+                  {{int0401.exciseDepartmentVo.area | isEmpty }}</td>
+                <ng-container *ngFor="let list of int0401.listsCal; let j = index">
+                  <td class="text-right">{{ list.dataCal | decimalFormat:"###,###.00"  }}</td>
+                  <td class="text-center">{{ list.riskRate | isEmpty }}</td>
+                  <td class="text-center" [ngStyle]="{'background-color': list.codeColor}">
+                    {{ list.translatingRisk | isEmpty }}</td>
+                </ng-container>
+                <td class="text-center">{{int0401.riskRate | decimalFormat:"###,###.00" }}</td>
+                <td class="text-center" [ngStyle]="{'background-color': int0401.riskColor }">
+                  {{int0401.riskText | isEmpty}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- end id: 2 -->
+        <!-- style="max-height: calc(100vh - 272px - 86px);" -->
+        <!-- id: 3, ความเสี่ยงโครงการยุทธศาสตร์ของกรมสรรพสามิต -->
+        <div class="tabcontent scrollAll" id="_type3_scroll">
+          <table id="_type3" *ngIf="_type3" class="ui celled table small scrollTableCustom" style="width: 100%;">
+            <thead>
+              <tr style="text-align: center">
+                <th rowspan="3">
+                  <input class="ui checkbox" type="checkbox" name="chkAll" (change)="onCheckAll($event)" id="chkAll">
+                </th>
+                <th rowspan="3">ลำดับที่</th>
+                <th rowspan="3">โครงการ</th>
+                <th [attr.colspan]="int0401Header.length*3">ปัจจัยเสี่ยง ( จำนวน {{int0401Header.length}} ปัจจัย )</th>
+                <th rowspan="3">อัตราความเสี่ยง</th>
+                <th rowspan="3">แปลค่าความเสี่ยง</th>
+              </tr>
+              <tr style="text-align: center">
+                <ng-container *ngFor="let header of int0401Header; let i=index">
+                  <th colspan="3">{{ header.name }} ( น้ำหนัก {{ header.percent }} % ) </th>
+                </ng-container>
+              </tr>
+              <tr style="text-align: center">
+                <ng-container *ngIf="int0401Header.length > 0">
+                  <ng-container *ngFor="let list of int0401Header; let i=index">
+                    <th>{{list.dataCal}}</th>
+                    <th>อัตราความเสี่ยง</th>
+                    <th>แปลค่าความเสี่ยง</th>
+                  </ng-container>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody style="cursor: all-scroll">
+              <tr class="text-center" *ngIf="int0401Data.length==0">
+                <td [attr.colspan]="int0401Header.length > 0 ? (int0401Header.length*3) + 5 : 7">ไม่พบข้อมูล</td>
+              </tr>
+              <tr *ngFor="let int0401 of int0401Data; let i=index">
+                <td style="text-align: center !important;">
+                  <input class="ui checkbox" type="checkbox" (change)="onCheck($event, i)" name="chk{{i}}"
+                    id="chk{{i}}">
+                </td>
+                <td class="text-center">{{i+1}}</td>
+                <td style="max-width: 300px;min-width: 300px;" class="word-break">{{int0401.projectName}}</td>
+                <ng-container *ngFor="let list of int0401.listsCal; let j = index">
+                  <td class="text-right">{{ list.dataCal | decimalFormat:"###,###.00"  }}</td>
+                  <td class="text-center">{{ list.riskRate | isEmpty }}</td>
+                  <td class="text-center" [ngStyle]="{'background-color': list.codeColor}">
+                    {{ list.translatingRisk | isEmpty }}</td>
+                </ng-container>
+                <td class="text-center">{{int0401.riskRate | decimalFormat:"###,###.00" }}</td>
+                <td class="text-center" [ngStyle]="{'background-color': int0401.riskColor }">
+                  {{int0401.riskText | isEmpty}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- end id: 3 -->
+
+
+      </div>
+      <!-- <div class="sixteen wide column text-center">
+        <app-button-custom color="primary" *ngIf="int0401Ids.length==0" [disabled]="int0401Ids.length==0"
+          text="คัดเลือกราย"></app-button-custom>
+        <app-button-custom color="primary" *ngIf="int0401Ids.length>0" (click)="updateData()" text="คัดเลือกราย">
+        </app-button-custom>
+      </div> -->
+    </div>
+
+  </segment>
+</with-breadcrumb>

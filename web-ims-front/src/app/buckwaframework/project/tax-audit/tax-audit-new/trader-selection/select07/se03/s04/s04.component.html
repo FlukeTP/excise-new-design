@@ -1,0 +1,40 @@
+
+    
+
+    <app-form-search header="กระดาษทำการตรวจนับสินค้าคงเหลือ" [formSearch]="formGroup" (search)="search($event)" (uploadTemplate)="uploadTemplate($event)"
+    (clear)="clear($event)"></app-form-search>
+  <segment header="อัพโหลด Template ข้อมูลสำหรับบันทึกผลการตรวจสอบด้านปริมาณ" [loading]="false" *ngIf="hideUpload">
+    <form class="ui form ng-untouched ng-pristine ng-valid" id="upload-form" ngnativevalidate="">
+      <div class="inline fields  ui grid">
+        <div class="three wide field">
+          <label class="text-right full-width">เลือกไฟล์ Template ข้อมูล</label>
+        </div>
+        <div class="four wide field">
+          <input id="file" type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" (change)="onChangeUpload($event)" required>
+        </div>
+        <div class="four wide field">
+          <app-button-upload (click)="onUpload($event)"></app-button-upload>
+        </div>
+      </div>
+    </form>
+  </segment>
+    <segment  [loading]="false" *ngIf="hideResult">
+        <div class="inline field btn text-right">
+            <app-button-export (click)="exportFile()"></app-button-export>
+          </div>
+      <table  class="ui small celled table nowrap striped selectable" style="width: 100%" id="dataTable">
+        <thead class="text-center">
+          <tr>
+            <th style="text-align: center !important">ลำดับ</th>
+            <th style="text-align: center !important">รายการ</th>
+            <th style="text-align: center !important">ยอดคงเหลือตามบัญชี</th>
+            <th style="background-color: #184b7d;text-align: center !important">ยอดสินค้าคงเหลือจากการตรวจนับ</th>
+            <th style="text-align: center !important">ผลต่าง</th>
+          </tr>
+        </thead>
+        <tbody>
+        
+         
+        </tbody>
+      </table>
+    </segment>

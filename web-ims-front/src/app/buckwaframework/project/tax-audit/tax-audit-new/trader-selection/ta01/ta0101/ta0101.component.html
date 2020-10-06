@@ -1,0 +1,551 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+
+      <segment header="{{b.b08.label}} (TA0101)" [loading]="loading">
+        <div class="ui form">
+          <form class="ui form" [formGroup]="formYear">
+            <div class="inline fields">
+              <div class="four wide field"></div>
+              <div class="three wide field">
+                <label class="text-right full-width">ปีงบประมาณ</label>
+              </div>
+              <div class="two wide field">
+                <div class="ui calendar" style="width: 100%" id="calendar">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="calendar" formControlName="budgetYear" placeholder="ปปปป" id="calendarYear"
+                      name="calendar" [attr.required]="true" autocomplete="off">
+                  </div>
+                </div>
+              </div>
+              <div class="four wide field">
+                <app-button-search (click)="search()"></app-button-search>
+              </div>
+            </div>
+          </form>
+          <!-- <div class="inline fields">
+            <div class="three wide field"></div>
+            <div class="two wide required field">
+              <label class="full-width text-center">ระยะเวลาที่ตรวจสอบ</label>
+            </div>
+            <div class="three wide field ui calendar" id="calendar">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" readonly="" value="" id="calendarraw" name="calendarraw" [attr.required]="true"
+                  autocomplete="off" placeholder="ดด/ปปปป">
+              </div>
+            </div>
+            <div class="one wide field">
+              <label class="text-center full-width">ถึง</label>
+            </div>
+            <div class="three wide field ui calendar" id="calendar1">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" readonly="" value="" id="calendar1raw" name="calendar1raw" [attr.required]="true"
+                  autocomplete="off" placeholder="ดด/ปปปป">
+              </div>
+            </div>
+          </div> -->
+          <br>
+          <!-- <br>
+
+          <div class="ui grid">
+            <button class="ui button custom-menu" type="button" (click)="munuHide()"><i
+                class="bars icon"></i>เมนู</button>
+          </div> -->
+          <div class="ui grid">
+            <div class="three wide column" [ngClass]="{'menu-hide': menuhide}">
+              <div class="ui vertical menu" style="width: auto">
+                <div class="item">
+                  <div class="header">เงื่อนไขในการคัดเลือกรายที่จะออกตรวจในช่วงเวลาที่กำหนด</div>
+                </div>
+                <div class="item">
+                  <div class="menu">
+                    <a class="item hover" [ngClass]="{'active': linkTab[3]}" (click)="onChangeLink(3, null)">
+                      1. ผู้ประกอบการที่ไม่เคยถูกตรวจภาษี</a>
+                  </div>
+                  <div class="menu">
+                    <div class="fields">
+                      <div class="twelve wide field" style="padding-right: 0;">
+                        <p class="item hover" [ngClass]="{'active': linkTab[0][0]}" style="padding-right: 0;">
+                          2. ผู้เสียภาษีที่มีแนวโน้มการชำระภาษีผิดปกติ</p>
+                      </div>
+                      <div class="four wide field">
+                        <app-button-custom color="green" icon="plus icon" (click)="numMonthModalShow(0)">
+                        </app-button-custom>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="menu" *ngFor="let item of listLink1;let i = index">
+                    <div class="fields">
+                      <div class="sixteen wide field">
+                        <a class="item hover" [ngClass]="{'active': linkTab[0][i+1]}" (click)="onChangeLink(0, i+1)"
+                          style="padding-right: 0.5em;">
+                          &nbsp;&nbsp;2.{{i+1}} {{item.condGroupDesc}} {{item.monthNum}}M{{item.condGroupNum}}G</a>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="menu">
+                    <p class="item hover" [ngClass]="{'active': linkTab[1]||linkTab[2]||linkTab[3]}">
+                      3. อื่นๆ</p>
+                  </div>
+                  <div class="menu">
+                    <a class="item hover" [ngClass]="{'active': linkTab[1]}" (click)="onChangeLink(1, null)">
+                      &nbsp;&nbsp;3.1 ขนาดของทุนจดทะเบียน</a>
+                  </div>
+                  <div class="menu">
+                    <a class="item hover" [ngClass]="{'active': linkTab[2]}" (click)="onChangeLink(2, null)">
+                      &nbsp;&nbsp;3.2 ประเภทสินค้าและบริการที่มีความเสี่ยงในการหลีกเลี่ยงภาษี</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div [ngClass]="{'thirteen ': !menuhide, 'sixteen': menuhide, 'wide column' : true}">
+              <!-- link 2.1 -->
+              <!-- <div class="headForm" *ngIf="linkTab[0][1]">
+                <b></b>
+              </div> -->
+              <segment
+                header="2.{{listLink1Id}} ผู้เสียภาษีที่มีแนวโน้มการชำระภาษีผิดปกติ เงื่อนไข {{hdrForm.get('monthNum').value}} เดือน"
+                [loading]="false" *ngIf="linkTab1">
+                <form class="ui form" [formGroup]="hdrForm">
+                  <div class=" inline fields" style="margin: 0;">
+                    <div class="one wide field"></div>
+                    <div class="four wide field">
+                      <label class="full-width text-right">จำนวนเดือนในการประเมินคัดเลือกราย</label>
+                    </div>
+                    <div class="two wide field ui">
+                      <input type="text" formControlName="monthNum" class="custom-readonly" readonly>
+                      <!-- <select class="ui fluid search dropdown full-width" id="selectMonthDropdown"
+                        formControlName="numMonth" (change)="onBtnHide()">
+                        <option *ngFor="let item of selectMonth" [ngValue]="item">{{item}}</option>
+                      </select> -->
+                    </div>
+                    <div class="field">
+                      <label>เดือน</label>
+                    </div>
+                    <div class="field">
+                      <label class="full-width text-right">จำนวนกลุ่ม</label>
+                    </div>
+                    <div class="two wide field">
+                      <input type="text" formControlName="condGroupNum" class="custom-readonly" readonly>
+                      <!-- <select class="ui fluid search dropdown full-width custom-readonly" readonly id="selectGroupDropdown"
+                        formControlName="numGroup">
+                        <option *ngFor="let item of selectGroup" [ngValue]="item">{{item}}</option>
+                      </select> -->
+                    </div>
+                    <div class="four wide field"></div>
+                    <div class="one wide field" style="padding-right: 0;">
+                      <app-button-custom color="yellow" icon="cog icon" (click)="numMonthModalShow(1)">
+                      </app-button-custom>
+                    </div>
+                  </div>
+                  <br>
+                  <div class=" inline fields" style="margin: 0;">
+                    <div class="two wide field" style="padding-right: 0;"></div>
+                    <div class="two wide field" style="padding-right: 2px;">
+                      <label class="full-width text-center">ความถี่ในการชำระภาษี</label>
+                    </div>
+                    <div class="three wide field" style="padding-right: 2px;">
+                      <label class="full-width text-center">จำนวนเดือนที่ชำระภาษี</label>
+                    </div>
+                    <div class="seven wide field" style="padding-right: 2px;">
+                      <label class="full-width text-center">อัตราผลต่างของการชำระภาษีในการเปรียบเทียบ</label>
+                    </div>
+                    <div class="two wide field" style="padding-right: 2px;">
+                      <label class="full-width text-center">ระดับความเสี่ยง</label>
+                    </div>
+                  </div><br>
+                  <form class="ui form" [formGroup]="se01Form">
+                    <div formArrayName="condGroup"
+                      *ngFor="let item of se01Form.get('condGroup').controls; let i = index;let first = first;let last = last">
+                      <div class=" inline fields" [formGroupName]="i" style="margin: 0 0 0.5em 0;">
+                        <div class="two wide field" style="padding-right: 0;">เงื่อนไขกลุ่มที่ {{i+1}}</div>
+                        <div class="two wide field" style="padding-right: 2px;"
+                          [ngClass]="{'error': validateSe01Form(i, 'taxFreqType')}">
+                          <select class="ui fluid search dropdown full-width" id="taxFreqType"
+                            formControlName="taxFreqType"
+                            (change)="onFormValueChange(item.get('taxFreqType'), 'taxFreqType', i)">
+                            <option [value]="item.paramCode" *ngFor="let item of taxFreqTypeLevel">{{item.value1}}
+                            </option>
+                          </select>
+                        </div>
+
+                        <!-- <div class="two wide field" style="padding-right: 2px;">
+                          <select *ngIf="checkFrequency(i)"
+                            class="ui fluid search dropdown full-width taxMonthSelect{{i}}" id="taxMonthSelect"
+                            formControlName="taxMonthSelect" (change)="onBtnHide()">
+                            <option [value]="item.value" *ngFor="let item of numMonthLevel">{{item.text}}</option>
+                          </select>
+                        </div> -->
+                        <div class="three wide field ui"
+                          [ngClass]="{ error: valedateFieldCondGroup(item.get('taxMonthStart'), 'taxMonthStart') }"
+                          style="padding: 0 2em 0 2em;">
+                          <input *ngIf="checkFrequency(i)" class="text-center" type="number"
+                            formControlName="taxMonthStart"
+                            (change)="onFormValueChange(item.get('taxMonthStart'), 'taxMonth', i)" style="width: 65%;">
+                          <label *ngIf="checkFrequency(i)" style="margin-right: 0.75em;">ถึง</label>
+                          <input *ngIf="checkFrequency(i)" class="text-center" type="number"
+                            (change)="onFormValueChange(item.get('taxMonthEnd'), 'taxMonth', i)"
+                            formControlName="taxMonthEnd" style="width: 65%;">
+                        </div>
+                        <div class="two wide field" style="padding-right: 2px;"
+                          [ngClass]="{'error': validateSe01Form(i, 'rangeTypeStart')}">
+                          <select class="ui fluid search dropdown full-width rangeTypeStart" id="rangeTypeStart"
+                            formControlName="rangeTypeStart" (change)="reDropDown(i)">
+                            <option [value]="item.value" *ngFor="let item of numMonthLevel">{{item.text}}</option>
+                          </select>
+                        </div>
+                        <div class="five wide field ui full-width text-center" style="padding-right: 2px;">
+                          <div class="five wide field" style=" margin: 0; padding: 0 0.25em 0 0; ">
+                            <div [ngClass]="{'error': validateSe01Form(i, 'rangeStart')}"
+                              *ngIf="'' != checkRangeTypeStart(i)">
+                              <input class="text-right" type="number" formControlName="rangeStart"
+                                (change)="onChangeValue(i, 'rangeStart', $event)">
+                            </div>
+                          </div>
+
+                          <!-- <label *ngIf="'2' == checkRangeTypeStart(i)">ถึง&nbsp;</label> -->
+                          <div class="six wide field" style=" margin: 0; padding: 0 0.25em 0 0; ">
+                            <div *ngIf="'1' == checkRangeTypeStart(i) || '2' == checkRangeTypeStart(i)"
+                              class="full-width">
+                              <select class="ui fluid search dropdown rangeTypeEnd{{i}}" id="rangeTypeEnd{{i}}"
+                                formControlName="rangeTypeEnd" (change)="onChangeRangeTypeEnd(i)">
+                                <option [value]="item.value" *ngFor="let item of numMonthLevel2">{{item.text}}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="five wide field" style=" margin: 0; padding: 0 0.25em 0 0; ">
+                            <div [ngClass]="{'error': validateSe01Form(i, 'rangeEnd')}"
+                              *ngIf="('0' != checkRangeTypeEnd(i) && null != checkRangeTypeEnd(i)) && ('1' == checkRangeTypeStart(i) || '2' == checkRangeTypeStart(i))">
+                              <input class="text-right" type="number" formControlName="rangeEnd"
+                                (change)="onChangeValue(i, 'rangeEnd', $event)">
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <div class="one wide field"></div> -->
+                        <div class="two wide field" style="padding: 0 0 0 1.5em;"
+                          [ngClass]="{ error: valedateFieldCondGroup(item.get('riskLevel'), 'riskLevel') }">
+                          <select class="ui fluid search dropdown full-width" id="selectRiskLevel"
+                            *ngIf="'' != item.get('taxFreqType').value" formControlName="riskLevel"
+                            (change)="onRiskLevelChange(i)">
+                            <option [value]="item.paramCode" *ngFor="let item of selectRiskLevel">{{item.value1}}
+                            </option>
+                          </select>
+                        </div>
+                        <!-- <div class="two wide field" style="padding-right: 2px;">
+                          <app-button-delete (click)="removeCondGroup(i)" *ngIf="last"></app-button-delete>
+                        </div> -->
+                      </div>
+                      <div class="inline fields" [formGroupName]="i" style="margin: 0.25em 0 0.5em 0;">
+                        <div class="two wide field"></div>
+                        <div class="fourteen wide field" style="padding-right: 0;">
+                          <input style="background: #feff501a;" type="text" formControlName="condDtlDesc">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="row fields">
+                    <div class="two wide column text-right">
+                      <!-- <app-button-custom text="เพิ่มเงื่อนไข" icon="add" color="green" (click)="addCondGroup()"
+                        *ngIf="this.hdrForm.get('condGroupNum').value > this.se01Form.get('condGroup').value.length">
+                      </app-button-custom> -->
+                    </div>
+                  </div>
+                  <!-- <div class="inline fields">
+                    <div class="sixteen wide field" *ngIf="'N' == hdrForm.get('newFacFlag').value">
+                      เงื่อนไขกลุ่มที่ {{se01Form.get('condGroup').value.length+1}}
+                      {{condMain2}}
+                    </div>
+                  </div> -->
+                  <div class="text-center">
+                    <app-button-custom text="สร้างรายการคัดเลือกราย" *ngIf="!buttonHide" (click)="createWs()">
+                    </app-button-custom>
+                    <app-button-save *ngIf="dataIsNotNull" (click)="onSubmit($event)"></app-button-save>
+                  </div>
+                </form>
+              </segment>
+              <!-- link 2 -->
+              <div class="headForm" *ngIf="linkTab[1]">
+                <b>3.1 ขนาดของทุนจดทะเบียน</b>
+              </div>
+              <segment header="" [loading]="false" *ngIf="linkTab[1]">
+                <form class="ui form" [formGroup]="se21Form">
+                  <div class="inline fields">
+                    <div class="one wide field"></div>
+                    <div class="three wide field">
+                      <label>ประเภทสินค้าและบริการ</label>
+                    </div>
+                    <div class="five wide field" [ngClass]="{'error': validateSe21Form('dutyCode')}">
+                      <select class="ui fluid search dropdown full-width dutyCode" id="capital"
+                        (change)="dutyCodeChange()" name="capital" formControlName="dutyCode">
+                        <!-- <option value="0" selected disabled> </option> -->
+                        <option value="0000" selected>เลือกทั้งหมด</option>
+                        <option [value]="item.capital.dutyCode" *ngFor="let item of capital">{{item.capitalDesc}}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="field">
+                      <app-button-custom color="green" icon="plus icon" (click)="addCapitalModalShow()">
+                      </app-button-custom>
+                    </div>
+                  </div>
+                  <div class="inline fields">
+                    <div class="one wide field"></div>
+                    <div class="one wide field">
+                      <label class="text-center full-width">กลุ่ม</label>
+                    </div>
+                    <div class="two wide field">
+                      <label class="text-center full-width">ขนาดกิจการ</label>
+                    </div>
+                    <div class="six wide field">
+                      <label class="text-center full-width">ทุนจดทะเบียน (ล้านบาท)</label>
+                    </div>
+                  </div>
+                  <div class="inline fields">
+                    <div class="one wide field"></div>
+                    <div class="one wide field">
+                      <label class="text-center full-width">1</label>
+                    </div>
+                    <div class="two wide field">
+                      <label class="full-width">ใหญ่มาก</label>
+                    </div>
+                    <div class="six wide field">
+                      <div class="eight wide field">
+                        <label class="full-width">มากกว่า</label>
+                      </div>
+                      <div class="six wide field" [ngClass]="{'error': validateSe21Form('hugeCapitalAmount')}">
+                        <input class="text-right" formControlName="hugeCapitalAmount" numberOnly type="text"
+                          (focus)="onFocus($event, 'hugeCapitalAmount')" (blur)="onBlur($event, 'hugeCapitalAmount')">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="inline fields">
+                    <div class="one wide field"></div>
+                    <div class="one wide field">
+                      <label class="text-center full-width">2</label>
+                    </div>
+                    <div class="two wide field">
+                      <label class="full-width">ใหญ่</label>
+                    </div>
+                    <div class="six wide field">
+                      <div class="eight wide field">
+                        <label class="full-width">มากกว่า</label>
+                      </div>
+                      <div class="six wide field" [ngClass]="{'error': validateSe21Form('largeCapitalAmount')}">
+                        <input class="text-right" formControlName="largeCapitalAmount" numberOnly type="text"
+                          (focus)="onFocus($event, 'largeCapitalAmount')" (blur)="onBlur($event, 'largeCapitalAmount')">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="inline fields">
+                    <div class="one wide field"></div>
+                    <div class="one wide field">
+                      <label class="text-center full-width">3</label>
+                    </div>
+                    <div class="two wide field">
+                      <label class="full-width">ปานกลาง</label>
+                    </div>
+                    <div class="six wide field">
+                      <div class="eight wide field">
+                        <label class="full-width">มากกว่า</label>
+                      </div>
+                      <div class="six wide field" [ngClass]="{'error': validateSe21Form('mediumCapitalAmount')}">
+                        <input class="text-right" formControlName="mediumCapitalAmount" numberOnly type="text"
+                          (focus)="onFocus($event, 'mediumCapitalAmount')"
+                          (blur)="onBlur($event, 'mediumCapitalAmount')">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="inline fields">
+                    <div class="one wide field"></div>
+                    <div class="one wide field">
+                      <label class="text-center full-width">4</label>
+                    </div>
+                    <div class="two wide field">
+                      <label class="full-width">เล็ก</label>
+                    </div>
+                    <div class="six wide field">
+                      <div class="eight wide field">
+                        <label class="full-width">น้อยกว่าหรือเท่ากับ</label>
+                      </div>
+                      <div class="six wide field" [ngClass]="{'error': validateSe21Form('smallCapitalAmount')}">
+                        <input class="text-right" formControlName="smallCapitalAmount" numberOnly type="text"
+                          (focus)="onFocus($event, 'smallCapitalAmount')" (blur)="onBlur($event, 'smallCapitalAmount')">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <app-button-save (click)="submitSe21Form()"></app-button-save>
+                    <app-button-clear (click)="resetSe21Form()"></app-button-clear>
+                    <app-button-delete (click)="onDeleteCapital()"></app-button-delete>
+                  </div>
+                </form>
+              </segment>
+              <!-- link 3 -->
+              <div class="headForm" *ngIf="linkTab[2]">
+                <b>3.2 ประเภทสินค้าและบริการที่มีความเสี่ยงในการหลีกเลี่ยงภาษี</b>
+              </div>
+              <segment header="" [loading]="false" *ngIf="linkTab[2]">
+                <form class="ui form" [formGroup]="se22Form">
+                  <div class="inline fields">
+                    <div class="one wide field"></div>
+                    <div class="five wide field">
+                      <label class="text-center full-width">พิกัดสินค้าและบริการ</label>
+                    </div>
+                    <div class="two wide field">
+                      <label class="text-center full-width">ระดับความเสี่ยง</label>
+                    </div>
+                  </div>
+                  <div class="ui form" formArrayName="productTypeGroup"
+                    *ngFor="let productType of se22Form.get('productTypeGroup').controls; let i = index;">
+                    <div class="inline fields" [formGroupName]="i">
+                      <div class="one wide field"></div>
+                      <div class="five wide field">
+                        <label class="full-width">{{productType.get('riskDesc').value}}</label>
+                      </div>
+                      <div class="two wide field" [ngClass]="{'error': validateSe22Form(i, 'riskLevel')}">
+                        <select class="ui fluid search dropdown full-width" id="selectRisk3Level" (change)="onBtnHide()"
+                          formControlName="riskLevel">
+                          <option [value]="item.paramCode" *ngFor="let item of selectRisk3Level">{{item.value1}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <app-button-save *ngIf="dataIsNotNull" (click)="submitSe22Form()"></app-button-save>
+                  </div>
+                </form>
+              </segment>
+              <!-- link 4 -->
+              <div class="headForm" *ngIf="linkTab[3]">
+                <b>1 ผู้เสียภาษีที่ไม่ถูกตรวจสอบภาษีมากกว่าหนึ่งปีขึ้นไป</b>
+              </div>
+              <segment header="" [loading]="false" *ngIf="linkTab[3]">
+                <form class="ui form" [formGroup]="se23Form">
+                  <div class="inline fields">
+                    <div class="six wide field">
+                      <label class="full-width">ผู้ประกอบการที่ไม่มีการตรวจสอบภาษี ในระยะเวลา</label>
+                    </div>
+                    <div class="one wide field ui" [ngClass]="{ error: validateSe23Form('noTaxAuditYearNum') }">
+                      <input type="number"
+                        (change)="onFormValueChange(se23Form.get('noTaxAuditYearNum'), 'noTaxAuditYearNum', i)"
+                        formControlName="noTaxAuditYearNum">
+                    </div>
+                    <div class="one wide field">
+                      <label>ปี</label>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <app-button-save *ngIf="dataIsNotNull" (click)="submitSe23Form()"></app-button-save>
+                  </div>
+                </form>
+              </segment>
+
+            </div>
+          </div>
+          <br>
+        </div>
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>
+
+<ui-modal [id]="'numMonthModal'" type="custom" size="small">
+  <div class="ui header">
+    กำหนดจำนวนเดือนที่ต้องการวิเคราะห์
+  </div>
+  <div class="content">
+    <form class="ui form" [formGroup]="modalForm">
+      <div class="inline fields">
+        <div class="field">
+          <label class="full-wide text-center">คำอธิบาย</label>
+        </div>
+        <div class="twelve wide field" [ngClass]="{'error': validateModalForm('condGroupDesc')}">
+          <input type="text" formControlName="condGroupDesc">
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="field">
+          <label>จำนวนเดือนในการที่ต้องการวิเคราะห์</label>
+        </div>
+        <div class="two wide field" style="padding-right: 0.5em" [ngClass]="{'error': validateModalForm('monthNum')}">
+          <select class="ui fluid search dropdown full-width" formControlName="monthNum" (change)="onBtnHide()">
+            <option *ngFor="let item of selectMonth" [value]="item">{{item}}</option>
+          </select>
+        </div>
+        <div class="one wide field">
+          <label>เดือน</label>
+        </div>
+        <div class="field">
+          <label>จำนวนกลุ่ม</label>
+        </div>
+        <div class="two wide field" [ngClass]="{'error': validateModalForm('condGroupNum')}">
+          <select class="ui fluid search dropdown full-width" formControlName="condGroupNum">
+            <option *ngFor="let item of selectGroup" [value]="item">{{item}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="field">
+          <div class="ui checkbox fontWeigth600">
+            <label for="check1">ผู้ประกอบการที่จดทะเบียนในช่วงเวลาที่กำหนด</label>
+            <input type="checkbox" name="modalcheck1" id="check1" formControlName="newFacFlag">
+          </div>
+        </div>
+        <div class="eight wide field">
+          <div class="ui calendar" style="width: 100%" id="regDateStart">
+            <div class="ui input left icon" [ngClass]="{'error': validateModalForm('regDateStart')}">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendarStart" name="calendar" [attr.required]="true"
+                autocomplete="off" formControlName="regDateStart">
+            </div>
+          </div>
+          <label style="padding-right: 7px;">ถึง</label>
+          <div class="ui calendar" style="width: 100%" id="regDateEnd">
+            <div class="ui input left icon" [ngClass]="{'error': validateModalForm('regDateEnd')}">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendarEnd" name="calendar" [attr.required]="true"
+                autocomplete="off" formControlName="regDateEnd">
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <app-button-save (click)="onSaveModal()"></app-button-save>
+    <app-button-delete *ngIf="confModal" (click)="onDeleteModal()"></app-button-delete>
+    <app-button-cancel class="deny" (click)="onClearModal()"></app-button-cancel>
+  </div>
+</ui-modal>
+
+<ui-modal [id]="'addCapitalModal'" type="custom" size="small">
+  <div class="ui header">
+    เพิ่มประเภทสินค้าและบริการ
+  </div>
+  <div class="content">
+    <form class="ui form">
+      <div class="inline fields">
+        <div class="four wide field">
+          <label>ประเภทสินค้าและบริการ</label>
+        </div>
+        <div class="five wide field" [ngClass]="{'error': addCapModalSubmitted}">
+          <select class="ui fluid search dropdown full-width dutyCodeModal" id="dutyCodeModal" name="dutyCodeModal"
+            [(ngModel)]="dutyCodeModal">
+            <!-- <option value="0" selected disabled> </option> -->
+            <option [value]="item.dutyGroupCode" *ngFor="let item of selectProduct">{{item.dutyGroupName}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <app-button-add (click)="onAddCapitalModal()"></app-button-add>
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

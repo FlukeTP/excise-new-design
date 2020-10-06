@@ -1,0 +1,364 @@
+<segment header="หนังสือมอบอำนาจ (ตส. ๐๑-๐๖)"  [loading]="loading" [right]="true" >
+  <div headRight>
+    {{formTS0106.get('formTsNumber').value}}
+  </div>
+  
+  <form form [formGroup]="formTS0106">
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">เขียนที่ :</label>
+      </div>
+      <div field [col]="9">
+        <input type="text" formControlName="docPlace" maxlength="100">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">วันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDocDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="docDate" id="docDate" placeholder="วว ดดดด ปปปป" [attr.required]="true"
+              autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ข้าพเจ้า :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="writerFullName" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">มีฐานะเป็น :</label>
+      </div>
+      <div field [col]="6">
+        <div class="ui radio checkbox">
+          <input type="radio" name="writerPositionFlag" id="writerPositionFlag1" (click)="writerPositionFlagClick('1')">
+          <label for="writerPositionFlag1">เจ้าของ</label>
+        </div>
+        <div class="ui radio checkbox">
+          <input type="radio" name="writerPositionFlag" id="writerPositionFlag2" (click)="writerPositionFlagClick('2')">
+          <label for="writerPositionFlag2">ผู้จัดการ</label>
+        </div>
+        <div class="ui radio checkbox">
+          <input type="radio" name="writerPositionFlag" id="writerPositionFlag3" (click)="writerPositionFlagClick('3')">
+          <label for="writerPositionFlag3">กรรมการผู้จัดการ</label>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">เลขทะเบียนสรรพสามิต :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="newRegId" maxlength="17">
+      </div>
+      <div field [col]="1">
+        <app-button-custom [icon]="'search'" (click)="searchNewRegId()"></app-button-custom>
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ชื่อโรงอุตสาหกรรม/<br>สถานบริการ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="factoryName" maxlength="200">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">สถานที่ตั้งเลขที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facAddrNo" maxlength="" maxlength="35">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">หมู่ที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facMooNo" maxlength="2">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">ตรอก/ซอย :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facSoiName" maxlength="50">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ถนน :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facThnName" maxlength="50">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">ตำบล/<br>แขวง :</label>
+      </div>
+      <div field [col]="4">
+          <div class="ui search full-width facTambolSearch">
+            <div class="ui icon input">
+              <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facTambolName" maxlength="100">
+            </div>
+            <div class="results"></div>
+          </div>
+        <!-- <input type="text" formControlName="facTambolName" maxlength="100"> -->
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">อำเภอ/เขต :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facAmphurSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facAmphurName" maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" formControlName="facAmphurName" maxlength="100"> -->
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">จังหวัด :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facProvinceSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facProvinceName" maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" formControlName="facProvinceName" maxlength="100"> -->
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">รหัสไปรษณีย์ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facZipCode" maxlength="5">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">โทรศัพท์ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facTelNo" maxlength="20">
+      </div>
+    </div>
+    <div inline>
+        <div field [col]="2">
+        </div>
+        <div field [col]="14">
+          <label class="full-width text-left">ไม่สามารถให้ถ้อยคำหรือส่งมอบบัญชีเอกสารหลักฐานต่อเจ้าพนักงานสรรพสามิตหรือพนักงานเจ้าหน้าที่
+            ตามหนังสือเชิญพบหรือหนังสือเรียก หรือหนังสือแจ้งให้เสียภาษีหรือหนังสือยกคำคัดค้านการประเมิน
+          </label>
+        </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">เลขที่หนังสือ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="refBookNumber1" maxlength="20">
+        <label style="margin-right: 1em;"> / </label>
+        <input type="text" formControlName="refBookNumber2" maxlength="20">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">ลงวันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarRefDocDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="refDocDate" id="refDocDate" placeholder="วว ดดดด ปปปป" [attr.required]="true"
+              autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">จึงขอมอบอำนาจให้ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="authFullName" maxlength="100">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">อายุ :</label>
+      </div>
+      <div field [col]="1">
+        <input type="text" formControlName="authAge" numberOnly maxlength="2" >
+        <label class="full-width text-left">ปี</label>
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">บ้านเลขที่ :</label>
+      </div>
+      <div field [col]="2">
+        <input type="text" formControlName="authAddrNo" maxlength="3">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">ตรอก/ซอย :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="authSoiName" maxlength="50">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ถนน :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="authThnName" maxlength="50">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">ตำบล/<br>แขวง :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width authTambolSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="authTambolName" maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" formControlName="authTambolName" maxlength="100"> -->
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">อำเภอ/เขต :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width authAmphurSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="authAmphurName" maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" formControlName="authAmphurName" maxlength="100"> -->
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">จังหวัด :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width authProvinceSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="authProvinceName" maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" formControlName="authProvinceName" maxlength="100" maxlength="100"> -->
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">รหัสไปรษณีย์ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="authZipCode" maxlength="5">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">โทรศัพท์ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="authTelNo" maxlength="20">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">บัตรประจำตัวประชาชน :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="authCardId" maxlength="13">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ออกให้ ณ ที่ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="authCardPlace" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <label class="full-width text-left">ซึ่งเป็นผู้รู้เรื่องเกี่ยวกับกิจการและเรื่องภาษีสรรพสามิตของข้าพเจ้าเป็นอย่างดี
+          เป็นผู้มาส่งมอบบัญชีเอกสารหลักฐาน ให้ถ้อยคำชี้แจงหรือตอบข้อซักถามของพนักงานเจ้าหน้าที่เกี่ยวกับภาษีสรรพสามิต
+          ตลอดจนกิจการอื่นใดที่เกี่ยวข้อง หรือเกี่ยวกับการตรวจสอบภาษีแทนตัวข้าพเจ้าได้จนเสร็จการ
+        </label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">การกระทำใดๆ ที่ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="docText" maxlength="100">
+      </div>
+      <div field [col]="8">
+        <label class="full-width text-left">ได้กระทำตามที่ข้าพเจ้ามอบหมายให้กระทำการแทนไปดังกล่าวมาข้างต้น
+        </label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <label class="full-width text-left">ข้าพเจ้ายินยอมรับผิดชอบเสมือนหนึ่งข้าพเจ้าได้กระทำการนั้นๆ ด้วยตัว
+          ข้าพเจ้าเองทั้งสิ้น เพื่อเป็นหลักฐานผู้มอบอำนาจและผู้รับมอบอำนาจ ต่างได้ลงลายมือชื่อไว้เป็นสำคัญต่อหน้าพยานข้างท้ายนี้
+        </label>
+      </div>
+    </div>
+    <div inline>
+    </div>
+    <!-- ui grid -->
+    <div class="ui grid">
+      <!-- Left Column -->
+      <div field [col]="8">
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">ผู้มอบอำนาจ :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="signAuthFullName1" maxlength="100">
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">ผู้มอบอำนาจ :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="signAuthFullName2" maxlength="100">
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">ผู้รับมอบอำนาจ :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="signAuthFullName3" maxlength="100">
+          </div>
+        </div>
+      </div>
+      <!-- Right Column -->
+      <div field [col]="8">
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">พยาน :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="signWitnessFullName1" maxlength="100">
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">พยาน :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="signWitnessFullName2" maxlength="100">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <app-button-footer-report (save)="save($event)" (clear)="clear($event)" (export)="export($event)">
+    </app-button-footer-report>
+  </form>
+</segment>

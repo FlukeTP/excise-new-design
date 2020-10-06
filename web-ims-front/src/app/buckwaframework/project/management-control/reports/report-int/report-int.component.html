@@ -1,0 +1,126 @@
+<div class="ui center aligned grid">
+  <div class="twelve wide column">
+
+    <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+      <span>รายงานผลการตรวจสอบภายใน</span>
+    </div>
+
+    <form class="ui form center aligned" (submit)="onSubmit($event)" ngNativeValidate>
+      <div class="ui attached segment">
+        <div class="ui center aligned grid">
+          <div class="twelve wide column">
+            <div class="field">
+              <label style="text-align: left;font-size: 15px;margin-bottom: 15px;">ค้นหารายงานผลการตรวจ
+                <br>
+              </label>
+              <div class="inline fields">
+                <div class="three wide field">
+                  <label>ปีงบประมาณ : </label>
+                </div>
+                <div class="five wide field">
+                  <div class="ui calendar" id="year" style="width: 100%">
+                    <div class="ui input left icon">
+                     <i class="calendar alternate outline icon"></i>
+                      <input type="text" placeholder="ปี" autocomplete="off" [attr.readonly]="null" id="year" name="year" [attr.required]="true">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="inline fields">
+                <div class="sixteen wide field">
+                  <div class="ui center aligned grid" style="width: 100%">
+                    <div class="sixteen wide column">
+                      <button type="submit" class="ui mini green button">ค้นหารายงาน</button>
+                      <button type="button" (click)="onCancel()" class="ui mini red button">ยกเลิก</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="twelve wide column" *ngIf="toggled">
+
+    <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+      <span>รายงานผลการตรวจสอบภายใน ประจำปีงบประมาณ
+        <span style="color: red">{{year}}</span>
+      </span>
+    </div>
+
+
+    <div class="ui attached segment">
+      <div class="ui center aligned grid">
+        <div class="fifteen wide column" style="overflow-x: scroll;padding: 0;margin: 2em;">
+          <table class="ui very compact table" style="width: 150%;margin: 0 !important;">
+            <thead>
+              <tr>
+                <th colspan="7" style="background: #1e83db;color: white;text-align: center">รายงานผลการตรวจ</th>
+              </tr>
+              <tr>
+                <th>ลำดับที่</th>
+                <th>ชื่อรายงาน</th>
+                <th>ภาค</th>
+                <th>พื้นที่</th>
+                <th>พิกัด</th>
+                <th>ปีงบประมาณ</th>
+                <th>File</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>รายงานผลการตรวจสอบภายใน พื้นที่ ลพบุรี ภาค 2</td>
+                <td>ภาค 2</td>
+                <td>ลพบุรี</td>
+                <td>น้ำมัน</td>
+                <td>{{year}}</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>รายงานผลการตรวจสอบภายใน พื้นที่ พิษณุโลก ภาค 3</td>
+                <td>ภาค 3</td>
+                <td>-</td>
+                <td>น้ำมัน</td>
+                <td>{{year}}</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>รายงานผลการตรวจสอบภายใน พื้นที่ เชียงราย ภาค 4</td>
+                <td>ภาค 4</td>
+                <td>-</td>
+                <td>น้ำดื่ม</td>
+                <td>{{year}}</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>รายงานผลการตรวจสอบภายใน พื้นที่ น่าน ภาค 4</td>
+                <td>ภาค 4</td>
+                <td>-</td>
+                <td>รถยนต์</td>
+                <td>{{year}}</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>รายงานผลการตรวจสอบภายใน พื้นที่ กรุงเทพ 2 ภาค 10</td>
+                <td>ภาค 10</td>
+                <td>กทม 1</td>
+                <td>น้ำดื่ม</td>
+                <td>{{year}}</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>

@@ -1,0 +1,807 @@
+<div class="sixteen wide column">
+  <div class="ui attached centered segment">
+    <br>
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="two wide field ">
+        </div>
+        <div class="four wide field ">
+          <label class="text-left full-width" style="font-size:30px;">ออกตรวจ</label>
+        </div>
+        <div class="ten wide field">
+        </div>
+      </div>
+
+      <div class="ui top attached tabular menu">
+        <a class="item active" data-tab="first">ตรวจสอบรายได้</a>
+        <a class="item " data-tab="second">ตรวจสอบพัสดุ</a>
+        <a class="item" data-tab="third">ตรวจสอบบัญชี</a>
+        <a class="item" data-tab="four">ตรวจสอบเบิกจ่าย</a>
+        <a class="item" data-tab="five">ตรวจสอบแบบประเมินระบบควบคุมภายใน</a>
+      </div>
+      <div class="ui bottom attached tab segment active" data-tab="first">
+        <!-- ตรวจสอบรายได้  -->
+        <div class="inline fields">
+          <div class="two wide field "></div>
+          <div class="four wide field "></div>
+          <div class="two wide field">
+            <span class="text-center full-width">สถานะการดำเนินงาน</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">สถานะการอนุมัติ</span>
+          </div>
+          <div class="four wide field"></div>
+          <div class="two wide field "></div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;1.ตรวจสอบใบเสร็จรับเงินภาษีสรรพสามิต</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:green;">สำเร็จ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width" style="color:red;">ไม่ผ่าน</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" (click)="routeToCheckTexReceript()"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int06/05"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;2.ตรวจสอบใบอนุญาต</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:green;">สำเร็จ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width" style="color:green;">ผ่าน</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" (click)="routeToChackLicens()"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int06/06"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;3.ตรวจสอบใบเสร็จค่าปรับเปรียบเทียบคดี</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field " style="color:black;">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int06/07"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int06/07"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label
+              class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;4.ตรวจสอบการรับ-ส่งเงินค่าปรับเปรียบเทียบคดี</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field " style="color:black;">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int06/08"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int06/08"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;5.ตรวจสอบการนำฝาก/ส่งเงินรายได้</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field " style="color:black;">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int06/09"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int06/09"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;6.ตรวจสอบงบสรุปยอดเงินค่าภาษีกับงบทดลอง</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:green;">สำเร็จ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width" style="color:green;">ผ่าน</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int06/10"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int06/10"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;7.ตรวจสอบสถิติการชำระภาษีของผู้ประกอบการ</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:green;">สำเร็จ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width" style="color:red;">ไม่ผ่าน</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int06/11"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int06/11"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;8.ตรวจสอบสถิติการต่ออายุใบอนุญาต</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field " style="color:black;">
+
+            <span class="text-center full-width">-</span>
+
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int06/12"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int06/12"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;9.ตรวจสอบสถิติการพิมพ์ใบอนุญาตซ้ำ</label>
+          </div>
+          <div class="two wide field">
+
+            <span class="text-center full-width" style="color:green;">สำเร็จ</span>
+
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width" style="color:green;">ผ่าน</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" (click)="routeTos('/int06/13')" ></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int06/13"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+
+
+      </div>
+      <div class="ui bottom attached tab segment " data-tab="second">
+        <!-- ตรวจสอบพัสดุ  -->
+        <div class="inline fields">
+          <div class="two wide field "></div>
+          <div class="four wide field "></div>
+          <div class="two wide field">
+            <span class="text-center full-width">สถานะการดำเนินงาน</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">สถานะการอนุมัติ</span>
+          </div>
+          <div class="four wide field"></div>
+          <div class="two wide field "></div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">1.ตรวจสอบแสตมป์</label>
+          </div>
+          <div class="two wide field">
+          </div>
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field">
+          </div>
+          <div class="two wide field ">
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;1.1.ตรวจสอบแสตมป์</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:green;">สำเร็จ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width" style="color:green;">ผ่าน</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด"  (click)="routeTo()" ></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int07/01/01"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+
+
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;1.2.บัญชีคุมการรับ-จ่ายแสตมป์</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int07/01/03"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">2.ตรวจสอบสินทรัพย์</label>
+          </div>
+          <div class="two wide field">
+          </div>
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field">
+          </div>
+          <div class="two wide field ">
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;2.1.ตรวจสอบสินทรัพย์แบบอัพโหลด</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:green;">สำเร็จ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width" style="color:red;">ไม่ผ่าน</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int07/02/01"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">3.ตรวจสอบจัดซื้อจัดจ้าง</label>
+          </div>
+          <div class="two wide field">
+          </div>
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field">
+          </div>
+          <div class="two wide field ">
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;3.1.ตรวจสอบผลการจัดซื้อจัดจ้าง</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field " style="color:black;">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int07/03/01"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+      </div>
+      <div class="ui bottom attached tab segment" data-tab="third">
+        <!-- ตรวจสอบบัญชี  -->
+        <div class="inline fields">
+          <div class="two wide field "></div>
+          <div class="four wide field "></div>
+          <div class="two wide field">
+            <span class="text-center full-width">สถานะการดำเนินงาน</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width"> สถานะการอนุมัติ</span>
+          </div>
+          <div class="four wide field"></div>
+          <div class="two wide field "></div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;1.ตรวจสอบข้อมูลบัญชี</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:green;">สำเร็จ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width" style="color:red;">ไม่ผ่าน</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int08/01"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int08/01"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;2.ตรวจสอบงบทดลองกระทบยอด เดบิต เครดิต
+              บัญชีแยกประเภท</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:green;">สำเร็จ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width" style="color:green;">ผ่าน</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int08/02"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int08/02"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;3.ตรวจสอบรายงานเคลื่อนไหวเงินฝากคลัง</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int08/03"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int08/03"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;4.ตรวจสอบการนำส่งเงินบัญชีเจ้าหนี้ อปท.</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int08/04"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int08/04"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+      </div>
+
+      <div class="ui bottom attached tab segment" data-tab="four">
+        <!-- ตรวจสอบเบิกจ่าย  -->
+        <div class="inline fields">
+          <div class="two wide field "></div>
+          <div class="four wide field "></div>
+          <div class="two wide field">
+            <span class="text-center full-width">สถานะการดำเนินงาน</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width"> สถานะการอนุมัติ</span>
+          </div>
+          <div class="four wide field"></div>
+          <div class="two wide field "></div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">1.ตรวจสอบข้อมูลค่าใช้จ่าย</label>
+          </div>
+          <div class="two wide field">
+          </div>
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field">
+          </div>
+          <div class="two wide field ">
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;1.1.ตรวจสอบข้อมูลค่าใช้จ่าย</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:green;">สำเร็จ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width" style="color:green;">ผ่าน</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int09/01/01"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int09/01/01"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">2.ตรวจสอบการเบิกและจ่ายเงิน</label>
+          </div>
+          <div class="two wide field">
+          </div>
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field">
+          </div>
+          <div class="two wide field ">
+          </div>
+        </div>
+
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;2.1.เปรียบเทียบรายงานสรุปรายการขอเบิก</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:green;">สำเร็จ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width" style="color:green;">ผ่าน</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int09/02/01"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int09/02/01"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">3.ทะเบียนคุมการรับจ่ายเงิน</label>
+          </div>
+          <div class="two wide field">
+          </div>
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field">
+          </div>
+          <div class="two wide field ">
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;3.1.ทะเบียนคุมเช็ค</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" (click)="routeToCheckControlre()"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int09/03/03"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;3.2.ทะเบียนคุม KTB-Corporate</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int09/03/04"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int09/03/04"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;3.3.ทะเบียนคุมเงินนอกงบประมาณ</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <!-- routerLink="/int09/03/05" -->
+            <app-button-custom color="primary" text="รายละเอียด"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;3.4.ทะเบียนคุมเงินงบประมาณ</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <!-- routerLink="/int09/03/06" -->
+            <app-button-custom color="primary" text="รายละเอียด"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">4.ตรวจสอบวันปฎิบัติงาน</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int09/12"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int09/12"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">5.ตรวจการเบิกค่าสาธารณูปโภค</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int09/13"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int09/13"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+
+      </div>
+      <div class="ui bottom attached tab segment" data-tab="five">
+        <!-- ตรวจสอบแบบประเมินระบบควบคุมภายใน -->
+        <div class="inline fields">
+          <div class="two wide field "></div>
+          <div class="four wide field "></div>
+          <div class="two wide field">
+            <span class="text-center full-width">สถานะการดำเนินงาน</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width"> สถานะการอนุมัติ</span>
+          </div>
+          <div class="four wide field"></div>
+          <div class="two wide field "></div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;1.แบบประเมินองค์ประกอบการควบคุมภายใน (แบบ ปย.1)
+              5 ด้าน</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:green;">สำเร็จ</span>
+          </div>
+          <div class="two wide field " style="color:red;">
+            <span class="text-center full-width" style="color:red;">ไม่ผ่าน</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int13/01"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int13/01"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;2.รายงานผลการประเมินองค์ประกอบการควบคุมภายใน
+              (แบบ ปย.1)</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int13/02"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int13/02"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;3.แบบสอบถาม</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int13/03"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int13/03"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label
+              class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;4.รายงานการประเมินผลและการปรับปรุงการควบคุมภายในของหน่วยงานย่อย
+              (แบบ ปย.2)</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int13/04"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int13/04"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;5.คำสั่งแต่งตั้งคณะทำงานควบคุมภายใน</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int13/05"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int13/05"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+
+
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="four wide field ">
+            <label class="text-left full-width">&nbsp;&nbsp;&nbsp;&nbsp;6.สรุปผลการตรวจสอบ</label>
+          </div>
+          <div class="two wide field">
+            <span class="text-center full-width" style="color:blue;">กำลังดำเนินการ</span>
+          </div>
+          <div class="two wide field ">
+            <span class="text-center full-width">-</span>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int13/06"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int13/06"></app-button-custom>
+          </div>
+          <div class="two wide field "></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

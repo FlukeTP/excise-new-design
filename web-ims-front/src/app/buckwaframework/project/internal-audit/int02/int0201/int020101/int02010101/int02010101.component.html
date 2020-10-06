@@ -1,0 +1,249 @@
+<div #top></div>
+<with-breadcrumb [breadcrumb]="breadcrumb">
+    <segment header="รายละเอียดด้าน{{ qtnSide?.sideName }}" [loading]="false" *ngIf="flagStr !== 'READ'">
+        <div class="ui form">
+            <div class="inline center-all fields">
+                <div class="sixteen wide field" [formGroup]="forms">
+                    <table class="ui mini very compact celled table noselect">
+                        <thead class="text-center">
+                            <tr>
+                                <th colspan="3">รายละเอียด</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody cdkDropList [cdkDropListData]="qtnDtls" (cdkDropListDropped)="onDropDtl($event)"
+                            class="text-center">
+                            <tr>
+                                <td style="width: 64px !important">
+                                    {{ forms.get('seq').value }}
+                                </td>
+                                <td class="text-left" colspan="2">
+                                    <div class="ui form">
+                                        <div class="inline field" style="padding-right: 0"
+                                            [ngClass]="{'error': invalid('sideDtl')}">
+                                            <div class="ui input full-width">
+                                                <input type="text" class="full-width" name="sideDtl"
+                                                    formControlName="sideDtl">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="width: 188px !important;">
+                                    <app-button-add (click)="addDtl()"></app-button-add>
+                                </td>
+                            </tr>
+                            <ng-container *ngIf="qtnDtls.length > 0 && forms.get('children').value.length > 0">
+                                <tr formArrayName="children" *ngFor="let item of qtnDtls; let i = index" cdkDrag
+                                    cdkDragLockAxis='y'>
+                                    <td style="width: 64px !important;vertical-align: top;padding-top: 1em;cursor: all-scroll;"
+                                        cdkDragHandle>
+                                        <i class="ui icon align justify"></i>
+                                    </td>
+                                    <td style="width: 64px !important;vertical-align: top;padding-top: 1em;">
+                                        <p>{{ item.seq }}.{{ item.seqDtl }}</p>
+                                    </td>
+                                    <td [formGroupName]="i" class="text-left">
+                                        <div class="ui form">
+                                            <div class="inline fields" style="padding-right: 0;margin-bottom: 0;"
+                                                [ngClass]="{'error': invalidChildren('sideDtl', i)}">
+                                                <div class="field full-width" style="padding-right: 0;">
+                                                    <div class="ui input full-width">
+                                                        <input type="text" class="full-width"
+                                                            (keyup)="chilrenKeyPress(i)" name="sideDtl{{i}}"
+                                                            formControlName="sideDtl">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ng-container
+                                                *ngIf="item.children.length > 0 && forms.get('children').at(i).get('children').value.length > 0">
+                                                <ng-container formArrayName="children"
+                                                    *ngFor="let item2 of item.children; let j = index">
+                                                    <div class="inline fields"
+                                                        style="padding-right: 0;margin-bottom: 0;margin-top: .5em;">
+                                                        <div class="one wide field text-center"
+                                                            style="justify-content: center;">
+                                                            {{ item.seq }}.{{ item.seqDtl }}.{{ j+1 }}
+                                                        </div>
+                                                        <div [formGroupName]="j" class="fifteen wide field"
+                                                            style="padding-right: 0"
+                                                            [ngClass]="{'error': invalidChildren2('sideDtl', i, j)}">
+                                                            <div class="ui input full-width">
+                                                                <input type="text" class="full-width"
+                                                                    (keyup)="chilren2KeyPress(i, j)"
+                                                                    name="sideDtl{{i}}{{j}}" formControlName="sideDtl">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                            </ng-container>
+                                        </div>
+                                    </td>
+                                    <td style="width: 188px !important;">
+                                        <div class="ui form">
+                                            <div class="inline fields" style="padding-right: 0;margin: 0;">
+                                                <app-button-delete (click)="deleteDtl(item.id, i)">
+                                                </app-button-delete>
+                                                <app-button-custom (click)="addDtl2(i)" color="green"
+                                                    text="เพิ่มข้อย่อย">
+                                                </app-button-custom>
+                                            </div>
+                                            <div class="inline fields"
+                                                style="padding-right: 0;margin-bottom: 0;margin-top: .5em;"
+                                                *ngFor="let item2 of item.children; let j = index">
+                                                <app-button-delete (click)="deleteDtl2(item.id, i, j)">
+                                                </app-button-delete>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="inline text-center field">
+                <app-button-save *ngIf="!forms.get('id').value" (click)="saveDtl()"></app-button-save>
+                <app-button-save *ngIf="forms.get('id').value" (click)="updateDtl()"></app-button-save>
+                <app-button-clear (click)="cancelDtl()"></app-button-clear>
+            </div>
+        </div>
+    </segment>
+    <segment [loading]="false">
+        <div class="ui form">
+            <div class="inline center-all fields">
+                <div class="sixteen wide field">
+                    <table class="ui mini very compact celled table">
+                        <thead class="text-center" *ngIf="flagStr !== 'READ' ">
+                            <tr>
+                                <th style="width: 64px">#</th>
+                                <th>รายการ</th>
+                                <th style="width: 188px !important">จัดการ</th>
+                            </tr>
+                        </thead>
+
+                        <thead class="text-center" *ngIf="flagStr === 'READ' ">
+                            <tr>
+                                <th style="width: 64px">#</th>
+                                <th>รายการ</th>
+                            </tr>
+                        </thead>
+
+                        <tbody *ngIf="qtnDtlsAll.length == 0">
+                            <tr class="text-center">
+                                <td colspan="3">ไม่พบข้อมูลแบบสอบถาม</td>
+                            </tr>
+                        </tbody>
+
+                        <tbody *ngIf="qtnDtlsAll.length > 0 && flagStr !== 'READ' " cdkDropList
+                            [cdkDropListData]="qtnDtlsAll" (cdkDropListDropped)="onDrop($event)" class="text-center">
+                            <tr #heading id="heading{{i}}" class="heading"
+                                *ngFor="let item of qtnDtlsAll; let i = index" cdkDrag cdkDragLockAxis='y'>
+                                <td style="width: 64px !important;cursor: all-scroll;vertical-align: top;padding-top: 1em;"
+                                    cdkDragHandle>
+                                    <i style="cursor: all-scroll;" class="ui icon align justify"></i>
+                                </td>
+                                <td class="text-left" style="padding: 0;width: calc(100% - 252px) !important;">
+                                    <div class="ui form">
+                                        <div class="inline fields" style="margin: 1em 0 1em;padding: 0 2em;">
+                                            <div class="sixteen wide field">
+                                                <label class="full-width text-left">
+                                                    {{ item.seq }} {{ item.sideDtl }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <ng-container *ngFor="let child of item.children; let j = index">
+                                            <div class="inline field" style="padding-right: 0;">
+                                                <div class="ui divider"></div>
+                                            </div>
+                                            <div class="inline fields" style="margin: 1em 0 1em;">
+                                                <div class="one wide field"></div>
+                                                <div class="fifteen wide field">
+                                                    <label class="full-width text-left">
+                                                        {{ child.seq }}.{{ child.seqDtl }}
+                                                        {{ child.sideDtl }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <ng-container *ngFor="let chd of child.children; let k = index">
+                                                <div class="inline field" style="padding-right: 0;">
+                                                    <div class="ui divider"></div>
+                                                </div>
+                                                <div class="inline fields" style="margin: 1em 0 1em;">
+                                                    <div class="two wide field"></div>
+                                                    <div class="fourteen wide field">
+                                                        <label class="full-width text-left">
+                                                            {{ child.seq }}.{{ chd.seq }}.{{ chd.seqDtl }}
+                                                            {{ chd.sideDtl }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                </td>
+                                <td style="width: 188px !important;vertical-align: top;padding-top: 1em;">
+                                    <app-button-edit (click)="onEdit(item.id, top);"></app-button-edit>
+                                    <app-button-delete (click)="delete(item.id)"></app-button-delete>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                        <tbody *ngIf="qtnDtlsAll.length > 0 && flagStr === 'READ' " cdkDropList
+                            [cdkDropListData]="qtnDtlsAll" (cdkDropListDropped)="onDrop($event)" class="text-center">
+                            <tr #heading id="heading{{i}}" class="heading"
+                                *ngFor="let item of qtnDtlsAll; let i = index" cdkDrag cdkDragLockAxis='y'>
+                                <td style="width: 64px !important;cursor: all-scroll;vertical-align: top;padding-top: 1em;"
+                                    cdkDragHandle>
+                                    <i style="cursor: all-scroll;" class="ui icon align justify"></i>
+                                </td>
+                                <td class="text-left" style="padding: 0;width: calc(100% - 252px) !important;">
+                                    <div class="ui form">
+                                        <div class="inline fields" style="margin: 1em 0 1em;padding: 0 2em;">
+                                            <div class="sixteen wide field">
+                                                <label class="full-width text-left">
+                                                    {{ item.seq }} {{ item.sideDtl }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <ng-container *ngFor="let child of item.children; let j = index">
+                                            <div class="inline field" style="padding-right: 0;">
+                                                <div class="ui divider"></div>
+                                            </div>
+                                            <div class="inline fields" style="margin: 1em 0 1em;">
+                                                <div class="one wide field"></div>
+                                                <div class="fifteen wide field">
+                                                    <label class="full-width text-left">
+                                                        {{ child.seq }}.{{ child.seqDtl }}
+                                                        {{ child.sideDtl }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <ng-container *ngFor="let chd of child.children; let k = index">
+                                                <div class="inline field" style="padding-right: 0;">
+                                                    <div class="ui divider"></div>
+                                                </div>
+                                                <div class="inline fields" style="margin: 1em 0 1em;">
+                                                    <div class="two wide field"></div>
+                                                    <div class="fourteen wide field">
+                                                        <label class="full-width text-left">
+                                                            {{ child.seq }}.{{ chd.seq }}.{{ chd.seqDtl }}
+                                                            {{ chd.sideDtl }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="inline text-center field">
+                <app-button-save *ngIf="isChanged && flagStr !== 'READ' " (click)="onSave()"></app-button-save>
+                <app-button-back (click)="back()"></app-button-back>
+            </div>
+        </div>
+    </segment>
+</with-breadcrumb>

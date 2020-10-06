@@ -1,0 +1,129 @@
+<segment header="รายงานการตรวจสอบภาษีสรรพสามิต  (ตส. ๐๑-๑๔/๑)" [loading]="loading" [right]="true">
+  <div headRight>
+    {{formTS01141.get('formTsNumber').value}}
+  </div>
+
+  <form form [formGroup]="formTS01141">
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">เรียน :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="docDear" id="docDear" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">วันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar full-width" id="calendarDocDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="text" placeholder="วว ดดดด ปปปป" autocomplete="off" formControlName="docDate" id="docDate">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="6">
+        <label class="text-left full-width">ผลการตรวจสอบภาษีสรรพสามิตราย</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">เลขทะเบียนสรรพสามิต :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="newRegId" id="newRegId" maxlength="17">
+      </div>
+      <div field [col]="1">
+        <app-button-custom [icon]="'search'" (click)="searchNewRegId()"></app-button-custom>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ชื่อโรงอุตสาหกรรม/<br>สถานบริการ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="factoryName" id="factoryName" maxlength="200">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ประเภทกิจการ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="factoryTypeText" id="factoryTypeText" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ระยะเวลาที่ตรวจสอบตั้งแต่ :</label>
+      </div>
+      <div field [col]="5">
+        <div class="ui calendar full-width" id="calendarAuditDateStart">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="text" placeholder="วว ดดดด ปปปป" autocomplete="off" formControlName="auditDateStart" id="analysisDateStart">
+          </div>
+        </div>
+        <label class="text-center" style=" width:30%">ถึง</label>
+        <div class="ui calendar full-width" id="calendarAuditDateEnd">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="text" placeholder="วว ดดดด ปปปป" autocomplete="off" formControlName="auditDateEnd" id="analysisDateEnd">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="6">
+        <label class="text-left full-width">ปรากฏรายละเอียดดังนี้ :</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <textarea rows="4" formControlName="auditDesc" id="auditDesc" maxLength="4000"></textarea>
+      </div>
+    </div>
+    <div formArrayName="taFormTS01141VoList">
+      <ng-container *ngIf="formTS01141.controls">
+        <div [formGroupName]="i" *ngFor="let item of formTS01141['controls'].taFormTS01141VoList['controls']; let i = index;">
+          <div inline>
+            <div field [col]="2">
+            </div>
+            <div field [col]="3">
+              <label class="text-left full-width">ใบต่อ ตส. ๐๑-๑๔/๑ แผ่นที่ {{item.get('pageNo').value}}</label>
+            </div>
+            <div field [col]="10">
+            </div>
+            <ng-container *ngIf="this.taFormTS01141VoList.length-1==i">
+              <div field [col]="1">
+                <i class="minus icon" style="color:red;cursor: pointer" (click)="removeTaFormTS01141VoList(i)"></i>
+              </div>
+            </ng-container>
+          </div>
+          <div inline>
+            <div field [col]="2">
+            </div>
+            <div field [col]="14">
+              <textarea rows="4" formControlName="auditDesc" id="auditDesc" maxLength="4000"></textarea>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="2">
+        <a href="javascript:void(0)" (click)="addTaFormTS01141VoList()"><i class="plus icon" style="color:green;"></i>สร้างใบต่อ</a>
+      </div>
+    </div>
+    <br>
+    <br>
+    <app-button-footer-report (save)="save($event)" (clear)="clear($event)" (export)="export($event)">
+    </app-button-footer-report>
+  </form>
+</segment>

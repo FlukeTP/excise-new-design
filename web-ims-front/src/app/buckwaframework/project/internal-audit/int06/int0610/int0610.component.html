@@ -1,0 +1,279 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายได้ที่จัดเก็บระบบงานรายได้กับงบทดลองรายเดือน" [loading]="loading">
+    <form [formGroup]="formSearch">
+      <div class="ui form">
+        <ng-container *ngIf="flagExport === 'N'">
+          <div inline>
+            <div field [col]="1">
+              <!-- something -->
+            </div>
+            <div field [col]="2" class="required">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div field [col]="5" [ngClass]="{'error': validateField('sector')}">
+              <select class="ui dropdown full-width" id="sector" (change)="dropdownChange($event, 'SECTOR')"
+                formControlName="sector">
+                <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+                <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+              </select>
+            </div>
+            <div field [col]="3" class="required">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div field [col]="3" [ngClass]="{'error': validateField('area')}">
+              <select class="ui dropdown full-width" id="area" (change)="dropdownChange($event, 'AREA')"
+                formControlName="area">
+                <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+                <!-- <option value="0">ทั้งหมด</option> -->
+                <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div inline>
+            <div field [col]="1">
+              <!-- something -->
+            </div>
+            <div field [col]="2" class="required">
+              <label class="text-right full-width">ช่วงเดือน</label>
+            </div>
+            <div field [col]="2" [ngClass]="{'error': validateField('periodFrom')}">
+              <div class="ui calendar" id="periodFromCld">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" formControlName="periodFrom" autocomplete="off" placeholder="ดด/ปปปป" readonly>
+                </div>
+              </div>
+            </div>
+            <div field [col]="1" class="required">
+              <label class="text-center full-width">ถึง</label>
+            </div>
+            <div field [col]="2" [ngClass]="{'error': validateField('periodTo')}">
+              <div class="ui calendar" id="periodToCld">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" formControlName="periodTo" autocomplete="off" placeholder="ดด/ปปปป" readonly>
+                </div>
+              </div>
+            </div>
+
+            <div field [col]="3">
+              <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+            </div>
+            <div field [col]="3">
+              <select class="ui search dropdown full-width" formControlName="auditIncGfNo"
+                (change)="auditIncGfNoChange($event)">
+                <option value="">เลขกระดาษทำการ</option>
+                <option *ngFor="let a of auditIncGfNoList" value="{{a.auditIncGfNo}}">{{ a.auditIncGfNo  }}</option>
+              </select>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="flagExport === 'Y'">
+          <div inline>
+            <div field [col]="1">
+              <!-- something -->
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div field [col]="5">
+              <input type="text" class="custom-readonly" formControlName="sector" readonly>
+            </div>
+            <div field [col]="3">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div field [col]="3">
+              <input type="text" class="custom-readonly" formControlName="area" readonly>
+            </div>
+          </div>
+
+          <div inline>
+            <div field [col]="1">
+              <!-- something -->
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">ช่วงเดือน</label>
+            </div>
+            <div field [col]="2">
+              <input type="text" class="custom-readonly" formControlName="periodFrom" readonly>
+            </div>
+            <div field [col]="1">
+              <label class="text-center full-width">ถึง</label>
+            </div>
+            <div field [col]="2">
+              <input type="text" class="custom-readonly" formControlName="periodTo" readonly>
+            </div>
+
+            <div field [col]="3">
+              <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+            </div>
+            <div field [col]="3">
+              <select class="ui search dropdown full-width" formControlName="auditIncGfNo"
+                (change)="auditIncGfNoChange($event)">
+                <option value="">เลขกระดาษทำการ</option>
+                <option *ngFor="let a of auditIncGfNoList" value="{{a.auditIncGfNo}}">{{ a.auditIncGfNo  }}</option>
+              </select>
+            </div>
+          </div>
+        </ng-container>
+
+
+
+        <div class="ui center aligned grid">
+          <div class="column">
+            <app-button-search *ngIf="flagExport === 'Y'" [disabled]="true"></app-button-search>
+            <app-button-search *ngIf="flagExport === 'N'" (click)="search()"></app-button-search>
+            <app-button-clear (click)="clearData()"></app-button-clear>
+            <app-button-save *ngIf="tabs.length > 0 && flagExport === 'N'" (click)="save($event)"></app-button-save>
+            <app-button-save *ngIf="tabs.length == 0 || flagExport === 'Y'" disabled="true"></app-button-save>
+            <app-button-export *ngIf="flagExport === 'Y'" (click)="export()"></app-button-export>
+            <app-button-export *ngIf="flagExport === 'N'" [disabled]="true"></app-button-export>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <ng-container *ngIf="tabs.length > 0">
+      <div class="ui divider"></div>
+      <div class="ui grid">
+        <div class="sixteen wide column">
+          <div form>
+            <button class="ui medium button btn-custom" [ngClass]="{'primary': flagTab == i }"
+              (click)="changeFlagTab(i)" *ngFor="let item of tabs; let i = index;">
+              {{ item.exciseOrgDisb?.exciseNameAbbr }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="ui divider"></div>
+    </ng-container>
+
+    <table id="dataTable" class="ui small celled nowrap table sticky" style="width: 100%;">
+      <thead>
+        <tr class="text-center">
+          <!-- <th [attr.colspan]="cols.length + 1">บัญชีแยกประเภทเจ้าหนี้ อปท. GFMIS</th> -->
+          <th>รหัสภาษี</th>
+          <th>รายการภาษี</th>
+          <th>จำนวนเงิน(ระบบรายได้)</th>
+          <th>รหัส GL</th>
+          <th>ชื่อรายได้</th>
+          <th>จำนวนเงิน</th>
+          <th>ผลต่าง</th>
+        </tr>
+      </thead>
+
+      <!-- no data -->
+      <tbody *ngIf="table.length == 0">
+        <tr>
+          <td class="text-center" colspan="7">ไม่มีข้อมูล</td>
+        </tr>
+      </tbody>
+
+      <!-- have data -->
+      <tbody *ngIf="table.length > 0">
+        <ng-container *ngFor="let t of table; let i=index">
+          <tr *ngFor="let s of t.summary; let j=index">
+            <td class="text-center">{{ s.incomeCode }}</td>
+            <td>{{ s.incomeName | isEmpty }}</td>
+            <td class="text-right">{{ s.netTaxAmt | decimalFormat }}</td>
+            <ng-container *ngIf="j == 0">
+              <td class="text-center">{{ t.accNo | isEmpty }}</td>
+              <td>{{ t.accName | isEmpty }}</td>
+              <td class="text-right">{{ t.carryForward | decimalFormat }}</td>
+              <td class="text-right">{{ t.difference | decimalFormat }}</td>
+            </ng-container>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
+    <form [formGroup]="formConclude">
+      <div class="ui centered grid">
+        <div class="ui form sixteen wide column">
+          <h4>สรุปผลการตรวจสอบรายได้ที่จัดเก็บระบบงานรายได้กับงบทดลองรายเดือน</h4>
+          <ng-container *ngIf="flagExport === 'Y'">
+            <!-- row0 -->
+            <div inline>
+              <div field [col]="3"></div>
+              <div field [col]="2">
+                <div class="ui radio checkbox">
+                  <input type="radio" formControlName="auditFlag" value="Y" disabled>
+                  <label>ถูกต้อง</label>
+                </div>
+              </div>
+              <div field [col]="2">
+                <div class="ui radio checkbox">
+                  <input type="radio" formControlName="auditFlag" value="N" disabled>
+                  <label>ไม่ถูกต้อง</label>
+                </div>
+              </div>
+            </div>
+            <!-- row1 -->
+            <div inline>
+              <div field [col]="3">
+                <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br>
+                  (ข้อเท็จจริง/Condition) :</label>
+              </div>
+              <div field [col]="12">
+                <textarea class="custom-readonly" rows="3" style="width: 100%;" formControlName="incgfConditionText"
+                  readonly></textarea>
+              </div>
+            </div>
+            <!-- row2 -->
+            <div inline>
+              <div field [col]="3">
+                <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                  :</label>
+              </div>
+              <div field [col]="12">
+                <textarea class="custom-readonly" rows="3" style="width: 100%;" formControlName="incgfCreteriaText"
+                  readonly></textarea>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="flagExport === 'N'">
+            <!-- row0 -->
+            <div inline>
+              <div field [col]="3"></div>
+              <div field [col]="2">
+                <div class="ui radio checkbox">
+                  <input type="radio" formControlName="auditFlag" value="Y">
+                  <label>ถูกต้อง</label>
+                </div>
+              </div>
+              <div field [col]="2">
+                <div class="ui radio checkbox">
+                  <input type="radio" formControlName="auditFlag" value="N">
+                  <label>ไม่ถูกต้อง</label>
+                </div>
+              </div>
+            </div>
+            <!-- row1 -->
+            <div inline>
+              <div field [col]="3">
+                <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br>
+                  (ข้อเท็จจริง/Condition) :</label>
+              </div>
+              <div field [col]="12">
+                <textarea rows="3" style="width: 100%;" formControlName="incgfConditionText"></textarea>
+              </div>
+            </div>
+            <!-- row2 -->
+            <div inline>
+              <div field [col]="3">
+                <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                  :</label>
+              </div>
+              <div field [col]="12">
+                <textarea rows="3" style="width: 100%;" formControlName="incgfCreteriaText"></textarea>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </form>
+  </segment>
+</with-breadcrumb>

@@ -1,0 +1,308 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายงานการประเมินผลและการปรับปรุงการควบคุมภายในของหน่วยงานย่อย (แบบ ปย.2)" [loading]="loading">
+    <!-- <div class="ui two column centered grid">
+      <div class="column" style="text-align: center">
+        <label>ชื่อส่วนงานย่อย สำนักงานสรรพสามิตภาค 1</label>
+        <label><br>แบบสอบถามการควบคุมภายใน</label>
+        <label><br>ชุดที่ 1 ด้านการบริหาร</label>
+        <label><br>สำหรับปีสิ้นสุด วันที่ 30 เดือน กันยายน พ.ศ. 2561</label>
+      </div>
+    </div> -->
+
+    <div class="ui form">
+      <form [formGroup]="formSearch">
+        <div class="sixteen wide column">
+          <ng-container *ngIf="flagSearch">
+            <div inline>
+              <div field [col]="2" class="required">
+                <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+              </div>
+              <div field [col]="4" [ngClass]="{'error': validateField('sector')}">
+                <select class="ui dropdown full-width" id="sector" (change)="dropdownChange($event, 'SECTOR')"
+                  formControlName="sector">
+                  <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+                  <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+                </select>
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+              </div>
+              <div field [col]="3" [ngClass]="{'error': validateField('area')}">
+                <select class="ui dropdown full-width" id="area" (change)="dropdownChange($event, 'AREA')"
+                  formControlName="area">
+                  <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+                  <option value="0">ทั้งหมด</option>
+                  <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+                </select>
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">สำนักงานสรรพสามิตสาขา</label>
+              </div>
+              <div field [col]="3">
+                <select class="ui dropdown full-width" id="branch" formControlName="branch"
+                  (change)="dropdownChange($event, 'BRANCH')">
+                  <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+                  <option value="0">ทั้งหมด</option>
+                  <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptName}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div inline>
+              <div field [col]="2">
+                <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+              </div>
+              <div field [col]="4">
+                <select class="ui dropdown full-width" (change)="dropdownChange($event, 'No.')"
+                  formControlName="auditPy2No" id="auditPy2No">
+                  <option value="">เลขที่กระดาษทำการ</option>
+                  <option *ngFor="let item of AuditPy2NoList" value="{{item.auditPy2No}}">
+                    {{item.auditPy2No}}
+                  </option>
+                </select>
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">ปีงบประมาณ</label>
+              </div>
+              <div field [col]="2" [ngClass]="{'error': validateField('budgetYear')}">
+                <div class="ui calendar" id="budgetYearCld">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" formControlName="budgetYear" autocomplete="off" placeholder="ปปปป" readonly>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="!flagSearch">
+            <div inline>
+              <div field [col]="2">
+                <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+              </div>
+              <div field [col]="4">
+                <input type="text" class="custom-readonly" formControlName="sector">
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+              </div>
+              <div field [col]="3">
+                <input type="text" class="custom-readonly" formControlName="area">
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">สำนักงานสรรพสามิตสาขา</label>
+              </div>
+              <div field [col]="3">
+                <input type="text" class="custom-readonly" formControlName="branch">
+              </div>
+            </div>
+
+            <div inline>
+              <div field [col]="2">
+                <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+              </div>
+              <div field [col]="4">
+                <select class="ui dropdown full-width" (change)="dropdownChange($event, 'No.')"
+                  formControlName="auditPy2No" id="auditPy2No">
+                  <option value="">เลขที่กระดาษทำการ</option>
+                  <option *ngFor="let item of AuditPy2NoList" value="{{item.auditPy2No}}">
+                    {{item.auditPy2No}}
+                  </option>
+                </select>
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">ปีงบประมาณ</label>
+              </div>
+              <div field [col]="2">
+                <input type="text" class="custom-readonly" formControlName="budgetYear">
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="ui center aligned grid">
+          <div class="column">
+            <app-button-search *ngIf="!flagSearch" disabled="true"></app-button-search>
+            <app-button-search *ngIf="flagSearch" (click)="search()"></app-button-search>
+            <app-button-save *ngIf="details.length == 0" disabled="true"></app-button-save>
+            <app-button-save *ngIf="details.length > 0" (click)="save($event)">
+            </app-button-save>
+            <app-button-clear (click)="clearFormSearch()"></app-button-clear>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- <div class="ui divider"></div>
+      <div class="ui grid">
+        <div class="sixteen wide column">
+          <div form>
+            <button class="ui medium button btn-custom" [ngClass]="{'primary': flagHdr == i }" (click)="changeFlagBtn(i)"
+              *ngFor="let item of pmAssessData; let i = index;">
+              {{item.formName}}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="ui divider"></div> -->
+
+    <br>
+    <div class="sixteen wide column">
+      <div style="overflow-x: scroll">
+        <table class="ui small celled table striped selectable" style="width: 100%">
+          <thead>
+            <tr class="text-center">
+              <th>
+                กระบวนการปฏิบัติงาน/โครงการ/กิจกรรม/ด้านของงานที่ประเมินและวัตถุประสงค์ของการควบคุม
+              </th>
+              <th>การควบคุมที่มีอยู่</th>
+              <th>ประเมินการควบคุม</th>
+              <th style="min-width: 200px;">ความเสี่ยงที่ยังที่อยู่</th>
+              <th style="min-width: 200px;">การปรับปรุง/การควบคุม</th>
+              <th style="min-width: 200px;">กำหนดเสร็จ/ผู้รับผิดชอบ</th>
+              <th style="min-width: 200px;">หมายเหตุ</th>
+              <th style="min-width: 160px;">ผลการตรวจ (กลุ่มการตรวจสอบภายใน)</th>
+            </tr>
+          </thead>
+          <!-- no data -->
+          <tbody *ngIf="details.length == 0">
+            <tr>
+              <td class="text-center" colspan="8">ไม่มีข้อมูล</td>
+            </tr>
+          </tbody>
+
+          <!-- have data -->
+          <tbody *ngIf="details.length > 0">
+            <tr *ngFor="let item of details; let i = index;">
+              <td>
+                <div class="field">
+                  <textarea class="custom-readonly" rows="10" cols="60" readonly>
+                    {{ item.py2TopicName }}
+{{ item.py2Topic1Main }}
+                  </textarea>
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <textarea class="custom-readonly" rows="10" cols="60" readonly>
+{{ item.py2Topic2Ctl }}
+                  </textarea>
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <textarea class="custom-readonly" rows="10" cols="60" readonly>
+                    {{ item.py2Topic3Assess }}
+                  </textarea>
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <textarea class="custom-readonly" rows="10" cols="60" readonly>{{ item.py2Topic4Risk }}
+                      </textarea>
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <textarea class="custom-readonly" rows="10" cols="60" readonly>{{ item.py2Topic5Improve }}
+                      </textarea>
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <textarea class="custom-readonly" rows="10" cols="60" readonly>{{ item.py2Topic6Owner }}
+                      </textarea>
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <textarea class="custom-readonly" rows="10" cols="60" readonly>{{ item.py2Topic7Remark }}
+                      </textarea>
+                </div>
+              </td>
+              <td>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="chkDtl{{ item.pmPy2DSeq }}" value="Y"
+                      [checked]="item.py2AuditResult === 'Y'"
+                      (click)="changeRadiosDtl(item.pmPy2DSeq, 'Y', i, item.auditPy2DId)">
+                    <label>เพียงพอ เหมาะสม</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="radio" name="chkDtl{{ item.pmPy2DSeq }}" value="N"
+                      [checked]="item.py2AuditResult === 'N'"
+                      (click)="changeRadiosDtl(item.pmPy2DSeq, 'N', i, item.auditPy2DId)">
+                    <label>ไม่เพียงพอ</label>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <br>
+    <div class="sixteen wide column">
+      <form [formGroup]="formHeader">
+        <div class="ui form">
+          <div class="field">
+            <h4>ประเมินโดยรวม</h4>
+          </div>
+
+          <div inline>
+            <div field [col]="1">
+              <!-- some thing -->
+            </div>
+            <div field [col]="2">
+              <div class="ui radio checkbox">
+                <input type="radio" name="py2AuditResult" formControlName="py2AuditResult" value="Y"
+                  [checked]="formHeader.get('py2AuditResult').value === 'Y'">
+                <label>กิจกรรมครบ</label>
+              </div>
+            </div>
+            <div field [col]="2">
+              <div class="ui radio checkbox">
+                <input type="radio" name="py2AuditResult" formControlName="py2AuditResult" value="N"
+                  [checked]="formHeader.get('py2AuditResult').value === 'N'">
+                <label>กิจกรรมไม่ครบ</label>
+              </div>
+            </div>
+          </div>
+
+          <div inline>
+            <div field [col]="1">
+              <!-- some thing -->
+            </div>
+            <div field [col]="2">
+              <div class="ui radio checkbox">
+                <input type="radio" name="py2ActivityResult" formControlName="py2ActivityResult" value="Y"
+                  [checked]="formHeader.get('py2ActivityResult').value === 'Y'">
+                <label>เพียงพอ เหมาะสม</label>
+              </div>
+            </div>
+            <div field [col]="4">
+              <div class="ui radio checkbox">
+                <input type="radio" name="py2ActivityResult" formControlName="py2ActivityResult" value="N"
+                  [checked]="formHeader.get('py2ActivityResult').value === 'N'">
+                <label>ไม่เพียงพอ/ไม่บรรลุวัตถุประสงค์</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>ข้อตรวจพบ</label>
+            <textarea rows="6" formControlName="py2AuditEvident"></textarea>
+          </div>
+
+          <div class="field">
+            <label>ข้อเสนอแนะ</label>
+            <textarea rows="6" formControlName="py2AuditSuggestion"></textarea>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </segment>
+</with-breadcrumb>

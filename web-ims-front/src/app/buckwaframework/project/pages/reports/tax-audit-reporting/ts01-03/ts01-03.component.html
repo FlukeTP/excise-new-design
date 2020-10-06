@@ -1,0 +1,310 @@
+
+
+<form (submit)="onSubmit($event)" ngNativeValidate> 
+  <div class="ui top centered attached header segment"
+        style="background: #1e83db;color: white">
+    <span>หนังสือเรียกตามพระราชบัญญัติสรรพสามิต พ.ศ. ๒๕๖๐</span>
+  </div>
+
+  <div class="ui attached segment">
+      <div class="ui grid">
+        <div class="ui two wide column">&nbsp;</div>
+        <div class="ui twelve wide column">
+            <div class="ui form">
+
+              <div class="inline fields">
+                <div class="eight wide field">
+                    <div class="sixteen wide fields">
+                      <div class="four wide field">
+                        <label class="custom-label-w-18">ที่</label>
+                      </div>
+                      <div class="twelve wide field">
+                        ......................../............................
+                      </div>
+                    </div>
+                </div>
+                <div class="eight wide field">
+                  <label class="custom-label-w-18" style="width: 10% !important;">วันที่</label>
+                  <div class="ui calendar" style="width:100%" id="date1">
+                    <div class="ui input left icon">
+                     <i class="calendar alternate outline icon"></i>
+                      <input type="text"  placeholder="วัน เดือน ปี">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="inline fields">
+                <div class="sixteen wide field">
+                  <label class="custom-label-w-20">สำนัก</label>
+                  <input type="text"  name="office" [(ngModel)]="obj.office" required >
+                </div>
+              </div>
+
+              <div class="inline fields">
+                <div class="sixteen wide field">
+                  <label class="custom-label-w-20">หนังสือเรียกมายัง</label>
+                  <input type="text"  name="department" [(ngModel)]="obj.department" required >
+                </div>
+              </div>
+
+              <div class="inline fields">
+                <div class="ui checkbox">
+                  <input type="radio" name="agreeBox" [(ngModel)]="obj.agreeBox" required value="factory">
+                  <label>โรงอุตสาหกรรม&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                </div>
+                <div class="ui checkbox">
+                  <input type="radio" name="agreeBox" [(ngModel)]="obj.agreeBox" required value="service">
+                  <label>สถานบริการ&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                </div>
+                <div class="ui checkbox">
+                  <input type="radio"  name="agreeBox" [(ngModel)]="obj.agreeBox" required value="company">
+                  <label>สถานประกอบการผู้นำเข้า&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                </div>
+              </div>
+
+              <div class="inline fields">
+                  <div class="one wide field">
+                      <label>ชื่อ</label>
+                  </div>
+                  <div class="seven wide field">
+                    <input type="text"name="name" [(ngModel)]="obj.name" required >
+                  </div>               
+                  <div class="four wide field">
+                      <label>ทะเบียนสรรพสามิตเลขที่</label>
+                  </div>
+                  <div class="five wide field">
+                    <!-- <input type="text" id="exciseId" name="exciseId" [(ngModel)]="obj.exciseId" (change)="optionAddress()" required > -->
+                    <input type="text" id="exciseId" name="exciseId" [(ngModel)]="obj.exciseId"  required >
+                  </div>
+              </div>
+
+              <div class="inline fields">
+                  <div class="three wide field">
+                    <label>สถานที่ตั้งเลขที่</label>
+                  </div>
+                  <div class="five wide field">
+                    <input type="text"  name="homeNumber" [(ngModel)]="obj.homeNumber"  required >
+                  </div>
+                  <div class="two wide field">
+                      <label>ตรอก/ซอย</label>
+                  </div>
+                  <div class="six wide field">
+                    <input type="text"  name="byWay" [(ngModel)]="obj.byWay"  required >
+                  </div>
+              </div>
+
+              <div class="inline fields">
+                  <div class="three wide field">
+                    <label>ถนน</label>
+                  </div>
+                  <div class="five wide field">
+                    <input type="text"  name="street" [(ngModel)]="obj.street"  required >
+                  </div>
+                  <div class="two wide field">
+                      <label>ตำบล/แขวง</label>
+                  </div>
+                  <div class="six wide field">
+                    <input type="text"  name="tambol" [(ngModel)]="obj.tambol"  required >
+                  </div>
+              </div>
+              
+              <div class="inline fields">
+                  <div class="three wide field">
+                    <label>อำเภอ/เขต</label>
+                  </div>
+                  <div class="five wide field">
+                    <input type="text"  name="district" [(ngModel)]="obj.district"  required >
+                  </div>
+                  <div class="two wide field">
+                      <label>จังหวัด</label>
+                  </div>
+                  <div class="six wide field">
+                    <input type="text"  name="province" [(ngModel)]="obj.province"  required >
+                  </div>
+              </div>
+
+              <div class="inline fields">
+                  <div class="three wide field">
+                    <label>รหัสไปรษณีย์</label>
+                  </div>
+                  <div class="five wide field">
+                    <input type="text"  name="zipCode" [(ngModel)]="obj.zipCode"  required >
+                  </div>
+              </div>
+
+              <hr>
+              <div class="inline fields">
+                  <div class="eight wide field">
+                      <label>สถานที่ตั้งสำนักงานใหญ่ตามหนังสือรับรองกระทรวงพาณิชย์</label>
+                  </div>
+                  <div class="eight wide field">
+                      <div class="ui checkbox">
+                        <input type="checkbox" name="addressBox" [(ngModel)]="obj.addressBox" (click)="isAddress()">
+                        <label>ใช้ที่อยู่เดียวกันกับสถานที่ตั้งด้านบน</label>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="inline fields">
+                  <div class="three wide field">
+                    <label>สถานที่ตั้งเลขที่</label>
+                  </div>
+                  <div class="five wide field ui {{ obj.addressBox === true && 'disabled' }} input">
+                    <input type="text"  name="homeNumber1" [(ngModel)]="obj.homeNumber1"  required >
+                  </div>
+                  <div class="two wide field">
+                      <label>ตรอก/ซอย</label>
+                  </div>
+                  <div class="six wide field ui {{ obj.addressBox === true && 'disabled' }} input">
+                    <input type="text"  name="byWay1" [(ngModel)]="obj.byWay1"  required >
+                  </div>
+              </div>
+
+              <div class="inline fields">
+                  <div class="three wide field">
+                    <label>ถนน</label>
+                  </div>
+                  <div class="five wide field ui {{ obj.addressBox === true && 'disabled' }} input">
+                    <input type="text"  name="street1" [(ngModel)]="obj.street1"  required >
+                  </div>
+                  <div class="two wide field">
+                      <label>ตำบล/แขวง</label>
+                  </div>
+                  <div class="six wide field ui {{ obj.addressBox === true && 'disabled' }} input">
+                    <input type="text"  name="tambol1" [(ngModel)]="obj.tambol1"  required >
+                  </div>
+              </div>
+              
+              <div class="inline fields">
+                  <div class="three wide field">
+                    <label>อำเภอ/เขต</label>
+                  </div>
+                  <div class="five wide field ui {{ obj.addressBox === true && 'disabled' }} input">
+                    <input type="text"  name="district1" [(ngModel)]="obj.district1"  required >
+                  </div>
+                  <div class="two wide field">
+                      <label>จังหวัด</label>
+                  </div>
+                  <div class="six wide field ui {{ obj.addressBox === true && 'disabled' }} input">
+                    <input type="text"  name="province1" [(ngModel)]="obj.province1"  required >
+                  </div>
+              </div>
+
+              <div class="inline fields">
+                  <div class="three wide field">
+                    <label>รหัสไปรษณีย์</label>
+                  </div>
+                  <div class="five wide field ui {{ obj.addressBox === true && 'disabled' }} input">
+                    <input type="text"  name="zipCode1" [(ngModel)]="obj.zipCode1"  required >
+                  </div>
+              </div>
+              
+              <div class="inline fields">
+                  <div class="three wide field">
+                      <label>ด้วย</label>
+                  </div>
+                  <div class="thirteen wide field">
+                    <input type="text"  name="with" [(ngModel)]="obj.with"  required >
+                  </div>
+              </div>
+              
+              <div class="inline fields">
+                <div class="ten wide field">
+                  <label class="custom-label-w-30">อาศัยอำนาจตามความในมาตรา</label>
+                  <input type="text"  name="article" [(ngModel)]="obj.article"  required >
+                </div>
+                <div class="six wide field">
+                  <label class="custom-label-w-18">หมวด</label>
+                  <input type="text"  name="group" [(ngModel)]="obj.group"  required >
+                </div>
+              </div>
+
+              <div class="inline fields">
+                <div class="three wide field">
+                    <label>ให้ท่านไป ณ</label>
+                </div>
+                <div class="thirteen wide field">
+                  <input type="text"  name="location" [(ngModel)]="obj.location"  required >
+                </div>
+              </div>
+
+              <div class="inline fields">
+                <div class="three wide field">
+                  <label>ในวันที่</label>
+                </div>
+                <div class="five wide field">
+                  <div class="ui calendar" style="width: 100%" id="date2">
+                    <div class="ui input left icon">
+                     <i class="calendar alternate outline icon"></i>
+                      <input type="text"  placeholder="วัน เดือน ปี">
+                    </div>
+                  </div>
+                </div>
+                <div class="two wide field">
+                    <label>เวลา</label>
+                </div>
+                <div class="six wide field">
+                  <div class="ui calendar" style="width:100%" id="time">
+                    <div class="ui input left icon">
+                     <i class="calendar alternate outline icon"></i>
+                      <input type="text" name="time" autocomplete="off" [(ngModel)]="obj.time1" style="width:100%" placeholder="เวลา">
+                    </div>
+                  </div>
+                  <label class="custom-label-w-18">&nbsp;&nbsp;น.</label>
+                </div>
+              </div>
+
+              <div class="inline fields">
+                <div class="sixteen wide field">
+                  <label class="custom-label-w-20" style="color: red">*เพื่อให้ถ้อยคำพิจารณาการชำระภาษี</label>
+                </div>
+              </div>
+
+              <div class="inline fields">
+                <div class="three wide field">
+                    <label>ให้ท่านนำ</label>
+                </div>
+                <div class="thirteen wide field">
+                  <input type="text"  name="document" [(ngModel)]="obj.document"  required >
+                </div>
+              </div>
+
+              <div class="inline fields">
+                <div class="sixteen wide field">
+                  <label class="custom-label-w-20" style="color: red">*เพื่อประกระกอบการพิจารณาการชำระภาษี</label>
+                </div>
+              </div>
+
+              <div class="inline fields">
+                <div class="eight wide field">
+                  <label class="custom-label-w-18">ลงชื่อ</label>
+                  <input type="text"  name="signature" [(ngModel)]="obj.signature"  required >
+                </div>
+                <div class="eight wide field">
+                  <label class="custom-label-w-18">โทร</label>
+                  <input type="text"  name="phoneNumber" [(ngModel)]="obj.phoneNumber"  required >
+                </div>
+              </div>
+
+            </div>
+        </div>
+        <div class="ui two wide column">&nbsp;</div>
+      </div>
+  </div>
+
+  <div class="ui bottom centered attached segment">
+    <div class="ui center aligned grid">
+        <div class="eight wide column">
+          <button class="ui mini green button" type="submit">
+            <i class="save icon"></i>
+            พิมพ์เอกสาร
+          </button>
+          <button class="ui mini red button" type="button" (click)="onDiscard()">
+            <i class="times icon"></i>
+            ยกเลิก
+          </button>
+      </div>
+    </div>
+  </div>
+</form>

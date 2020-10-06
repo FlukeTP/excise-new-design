@@ -1,0 +1,108 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="คัดเลือกรายจากรายการ" [loading]="false">
+    <div id="divDataTable" [ngClass]="{'thirteen': !toggle, 'sixteen': toggle,'wide': true, 'column': true, 'transition-left-2': toggle}">
+      <div>
+        <!-- <div style="overflow-x: scroll;overflow-y: hidden;padding-bottom: 14px;"> -->
+            <table class="ui small celled table aligned hover striped selectable nowrap scrollX">
+                <thead class="text-center">
+                  <tr>
+                    <th rowspan="2"><input type="checkbox"></th>
+                    <th rowspan="2">ลำดับ</th>
+                    <th rowspan="2">ทะเบียนสรรพสามิต เดิม/ใหม่</th>
+                    <th rowspan="2">ชื่อผู้ประกอบการ</th>
+                    <th rowspan="2">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+                    <th rowspan="2">ที่อยู่โรงอุตสาหกรรม/สถานบริการ</th>
+                    <th rowspan="2">ภาค</th>
+                    <th rowspan="2">พื้นที่</th>
+                    <th colspan="4">ความเสี่ยง</th>
+                    <th colspan="2">การชำระภาษีในสภาวะปกติ (บาท)</th>
+                    <th rowspan="2">เปลี่ยนแปลง (ร้อยละ)</th>
+                    <th rowspan="2">เปอร์เซ็นส่วนเบี่ยงเบน</th>
+                    <th rowspan="2">ชำระภาษี(เดือน)</th>
+                    <th rowspan="2">พิกัด</th>
+                   
+                    <th rowspan="2">สถานะล่าสุด</th>
+                    <th rowspan="2">เลขทะเบียนสรรพสามิตเก่า</th>
+                    <th rowspan="2">สถานะ/วันที่</th>
+                    <th colspan="3">การชำระภาษี 3 เดือนแรก</th>
+                    <th colspan="3">การชำระภาษี 3 เดือนหลัง</th>
+                  </tr>
+      
+                  <tr>
+                    <th>มีความเสี่ยง</th>
+                    <th>ชำระผิดปกติ</th>
+                    <th>กระทำความผิด</th>
+                    <th>ไม่มีการตรวจกำกับดูแล 1 ปี ขึ้นไป</th>
+      
+                    <th>3 เดือนแรก</th>
+                    <th>3 เดือนหลัง</th>
+                    <th>ม.ค. 61</th>
+                    <th>ก.พ. 61</th>
+                    <th>มี.ค. 61</th>
+                    <th>เม.ย. 61</th>
+                    <th>พ.ค. 61</th>
+                    <th>มิ.ย. 61</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of datas ; let i = index">
+                    <td><input type="checkbox"></td>
+                    <td class="text-center">{{i+1}}</td>
+                    <td class="text-center">{{item.data1}}</td>
+                    <td>{{item.data2}}</td>
+                    <td>{{item.data3}}</td>
+                    <td class="text-left">{{item.data11}}</td>
+                    <td>{{item.data4}}</td>                            
+                    <td>{{item.data5}}</td>
+                    <td class="text-center">
+                      <!-- <i *ngIf="i!= 1 && i!=5" class="check icon " style="color:red; cursor: pointer;" (click)="showDetail(1)"></i> -->
+                    </td>
+                    <td class="text-center"><i *ngIf="2 == item.data18" class="check icon " style="color:red; cursor: pointer;" (click)="showDetail(2)"></i></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"><i *ngIf="4== item.data18" class="check icon " style="color:red; cursor: pointer;" (click)="showDetail(4)"></i></td>
+                    <td class="text-center">{{item.data6}}</td>
+                    <td class="text-center">{{item.data7}}</td>
+                    <td class="text-right">{{item.data8}}</td>
+                    <td class="text-right"> </td>
+                    <td class="text-center">{{item.data9}}</td>
+                    <td class="text-left">{{item.data10}}</td>
+                    <td class="text-right"> </td>
+                    <td class="text-right"> </td>
+                    <td class="text-right"> </td>
+                    <td class="text-right">{{item.data12}}</td>
+                    <td class="text-right">{{item.data13}}</td>
+                    <td class="text-right">{{item.data14}}</td>
+                    <td class="text-right">{{item.data15}}</td>
+                    <td class="text-right">{{item.data16}}</td>
+                    <td class="text-right">{{item.data17}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        <br>
+        <!-- <div>ชื่อผู้ประกอบการที่ถูกเลือก: </div>
+                <div class="ui bulleted list" *ngFor="let item of dataSelect">
+                  <div class="item">{{item.data.data2}}</div>
+                </div> -->
+        <br>
+        <div class="ui one column centered grid">
+          <div class="column aligned center">
+            <app-button-custom color="green" routerLink="/tax-audit-new/ta0106">เลือกราย</app-button-custom>
+            <app-button-back routerLink="/tax-audit-new/ta0105"></app-button-back>
+          </div>
+        </div>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>
+
+<ui-modal [id]="'riskModal'" type="custom" size="small">
+    <div class="ui header">
+        {{txtHead}}
+    </div>
+    <div class="content">
+      <pre>{{txt}}</pre>
+    </div>
+    <div class="actions">          
+        <app-button-cancel class="deny"></app-button-cancel>
+    </div>
+</ui-modal>

@@ -1,0 +1,118 @@
+<segment [right]="true" header="ข้อมูลวัตถุดิบ" [loading]="loading">
+  <div headRight>
+    <p>ภส.๐๗-๐๑/๑</p>
+  </div>
+  <div class="ui form" [formGroup]="forms">
+    <!-- line 1 -->
+    <div class="inline field">
+      <table class="ui small celled table striped selectable">
+        <thead>
+          <tr class="text-center">
+            <th>#</th>
+            <th>ว.ด.ป.</th>
+            <th>รายการ</th>
+            <th>หลักฐาน</th>
+            <th>รับ</th>
+            <th>จ่าย</th>
+            <th>คงเหลือ</th>
+            <th style="width: 100px"></th>
+          </tr>
+        </thead>
+        <tbody formArrayName="datas">
+          <ng-container *ngIf="forms.controls.datas">
+            <tr [formGroupName]="i" *ngFor="let data of forms.controls.datas.controls; let i = index">
+              <td style="text-align: center">
+                {{i+1}}
+              </td>
+              <td>
+                <div class="ui calendar full-width" id="calendar{{i}}">
+                  <div class="ui input left icon">
+                    <i class="calendar alternate outline icon"></i>
+                    <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="calendarDate{{i}}">
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" name="material" formControlName="material">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" name="evidence" formControlName="evidence">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" class="text-right" name="receive" formControlName="receive" numberOnly [format]="nfDirective('receive', i)">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" class="text-right" name="pay" formControlName="pay" numberOnly [format]="nfDirective('pay', i)">
+                </div>
+              </td>
+              <td>
+                <div class="ui input">
+                  <input type="text" class="text-right" name="balance" formControlName="balance" numberOnly [format]="nfDirective('balance', i)">
+                </div>
+              </td>
+              <td style="text-align: center">
+                <app-button-delete (click)="onDelField(i, data.get('oaAlcoholMaterialId').value)"></app-button-delete>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td style="border-top : 1px solid #CACBCD; background: #ccc;"></td>
+            <td style="border-top : 1px solid #CACBCD; background: #ccc;"></td>
+            <td style="border-top : 1px solid #CACBCD; background: #ccc;"></td>
+            <td style="border-top : 1px solid #CACBCD;">รวม</td>
+            <td style="border-top : 1px solid #CACBCD; text-align: right;">
+              {{ calReceive | decimalFormat }}
+            </td>
+            <td style="border-top : 1px solid #CACBCD; text-align: right;">
+              {{ calPay | decimalFormat }}
+            </td>
+            <td style="border-top : 1px solid #CACBCD; text-align: right;">
+              {{ calBalance | decimalFormat }}
+            </td>
+            <td style="border-top : 1px solid #CACBCD;text-align: center">
+              <app-button-add (click)="onAddField()"></app-button-add>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <!-- line 2 -->
+    <div class="inline field">
+      <div class="ui accordion">
+        <div class="title">
+          <i class="dropdown icon"></i>
+          คำอธิบายบัญชีประจำวัน
+        </div>
+        <div class="content">
+          <table class="ui small celled compact table striped selectable">
+            <thead>
+              <tr>
+                <th>ชื่อช่องรายการ</th>
+                <th>คำอธิบาย</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let description of descriptions;let i = index">
+                <td class="text-left">({{ i+1 }}) {{ description.name }}</td>
+                <td class="text-left">{{ description.content }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- line 3 -->
+    <div class="inline text-center field">
+      <app-button-save (click)="submit()"></app-button-save>
+    </div>
+  </div>
+</segment>

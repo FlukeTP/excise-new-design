@@ -1,0 +1,31 @@
+.hover {
+    cursor: pointer;
+}
+
+.hover:hover {
+    color: black !important;
+}
+
+.active {
+    color: black !important;
+}
+.wrapper:hover #slide {
+    transition: 1s;
+    left: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.transition-left {
+    /* position: fixed;
+    left: -270px; */
+    display: none
+}
+.custom-menu{
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0.285714rem;
+    border-bottom-right-radius: 0.285714rem;
+    border-bottom-left-radius: 0rem;
+}

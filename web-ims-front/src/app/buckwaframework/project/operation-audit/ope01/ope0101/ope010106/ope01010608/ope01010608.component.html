@@ -1,0 +1,52 @@
+<segment header="กรรมวิธีในการผลิต" [loading]="loading">
+  <div [center]="true" grid>
+    <div [column]="16">
+      <form form [formGroup]="form">
+        <div [center]="true" inline>
+          <div field [col]="14">
+            <label class="full-width text-left">วัตถุดิบและภาชนะ</label>
+          </div>
+        </div>
+        <div [center]="true" inline>
+          <div field [col]="14" [ngClass]="{'error': invalid('meterialProduct')}">
+            <textarea name="meterialProduct" formControlName="meterialProduct" rows="7"></textarea>
+          </div>
+        </div>
+        <div [center]="true" inline>
+          <div field [col]="7">
+            <label>ขั้นตอนการผลิต</label>
+          </div>
+          <div field [col]="5">
+            <label class="text-right full-width">เอกสารประกอบ</label>
+          </div>
+          <div field [col]="1" [ngClass]="{'error': invalid('docCount')}">
+            <input type="text" name="docCount" formControlName="docCount">
+          </div>
+          <div field [col]="1">
+            <label>ฉบับ</label>
+          </div>
+        </div>
+        <div [center]="true" inline>
+          <div field [col]="14" [ngClass]="{'error': invalid('methodProduct')}">
+            <textarea name="methodProduct" formControlName="methodProduct" rows="7"></textarea>
+          </div>
+        </div>
+        <div [center]="true" inline>
+          <div field [col]="14">
+            <label class="full-width text-left">สินค้าและผลิตภัณฑ์ที่จะผลิตได้</label>
+          </div>
+        </div>
+        <div [center]="true" inline>
+          <div field [col]="14" [ngClass]="{'error': invalid('resultProduct')}">
+            <textarea name="resultProduct" formControlName="resultProduct" rows="7"></textarea>
+          </div>
+        </div>
+        <div inline>
+          <div class="center-all btn" field>
+            <app-button-save (click)="save()"></app-button-save>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</segment>

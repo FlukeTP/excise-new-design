@@ -1,0 +1,110 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <segment header="ส่งแบบสอบถามระบบการควบคุมภายใน" [loading]="false">
+        <form [formGroup]="searchForm">
+          <div class="ui attached">
+            <div class="ui form">
+
+              <div class="inline fields">
+                <div class="one wide field ">
+                  <label class="text-right full-width">ปีงบประมาณ</label>
+                </div>
+                <div class="two wide field ">
+                  <div class="ui calendar" style="width:100%" id="year">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="calendar" placeholder="ปปปป" formControlName="budgetYear" readonly=""
+                        autocomplete="off">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="four wide field">
+                  <!-- <app-button-search submit="submit" style="margin: 0px"></app-button-search> -->
+                  <!-- <app-button-custom color="green" text="เพิ่มแบบสอบถามใหม่" icon="plus" routerLink="/int02/01/01">
+                  </app-button-custom> -->
+                </div>
+
+                <div class="four wide field "></div>
+
+                <!-- <div class="two wide field ">
+                  <label class="text-right full-width">สร้างโดย</label>
+                </div>
+                <div class="four wide field ">
+                  <input type="text" placeholder="ระบุชื่อ" formControlName="createdBy" />
+                </div> -->
+              </div>
+
+              <!-- <div class="inline fields">
+                <div class="one wide field "></div>
+                <div class="two wide field ">
+                  <label class="text-right full-width">ชื่อแบบสอบถาม</label>
+                </div>
+                <div class="four wide field ">
+                  <input type="text" formControlName="nameQtn">
+                </div>
+              </div> -->
+
+              <!-- <div class="inline fields">
+                <div class="one wide field "></div>
+                <div class="two wide field ">
+                  <label class="text-right full-width">สร้างวันที่</label>
+                </div>
+                <div class="four wide field ">
+                  <div class="ui calendar" id="date1" style="width:100%">
+                    <div class="ui input left icon">
+                      <i class="calendar alternate outline icon"></i>
+                      <input type="text" placeholder="วว/ดด/ปปป" formControlName="startDate" readonly="">
+                    </div>
+                  </div>
+                </div>
+                <div class="two wide field ">
+                  <label class="text-right full-width">ถึงวันที่</label>
+                </div>
+                <div class="four wide field ">
+                  <div class="ui calendar" id="date2" style="width:100%">
+                    <div class="ui input left icon">
+                      <i class="calendar alternate outline icon"></i>
+                      <input type="text" placeholder="วว/ดด/ปปป" formControlName="endDate" readonly="">
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <br>
+              <div class="ui center aligned grid">
+                <div class="sixteen wide column">
+                  <app-button-search submit="submit"></app-button-search>
+                  <app-button-custom color="green" text="สร้างแบบสอบถาม" routerLink="/int02/01/01"></app-button-custom>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </form>
+        <div class="sixteen wide column">
+          <table id="dataTable" class="ui small celled nowrap table striped selectable" style="width:100%">
+            <thead>
+              <tr style="text-align: center;">
+                <th rowspan="2">ลำดับที่</th>
+                <th rowspan="2">ชื่อแบบสอบถาม</th>
+                <!-- <th>ปีงบประมาณ</th> -->
+                <th rowspan="2">หมายเหตุ</th>
+                <!-- <th>สร้างโดย</th>
+                <th>วันที่สร้าง</th>
+                <th>แก้ไขโดย</th>
+                <th>วันที่แก้ไข</th> -->
+                <th colspan="2">ช่วงเวลาตอบแบบสอบถาม</th>
+                <th rowspan="2">สถานะ</th>
+                <th rowspan="2">จัดการ</th>
+              </tr>
+              <tr>
+                <th style="text-align: center !important">วันที่เริ่ม</th>
+                <th style="text-align: center !important">วันที่สิ้นสุด</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>

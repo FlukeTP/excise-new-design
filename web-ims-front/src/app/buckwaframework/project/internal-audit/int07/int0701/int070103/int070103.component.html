@@ -1,0 +1,116 @@
+<app-breadcrumb style="width: 100%;" [route]="breadcrumb"></app-breadcrumb>
+<segment header="บัญชีคุมการรับ - จ่ายแสตมป์" [loading]="false">
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="one wide field"></div>
+      <div class="three wide field">
+        <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+      </div>
+      <div class="four wide field">
+        <select class="ui dropdown search selection" style="width: 100%;" id="travelTo1" (change)="travelTo2Dropdown($event)">
+          <option value="">กรุณาเลือก</option>
+          <option *ngFor="let data of travelTo1List" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+        </select>
+      </div>
+      <div class="two wide field">
+        <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+      </div>
+      <div class="four wide field">
+        <select class="ui dropdown search selection" style="width: 100%;" id="travelTo2" (change)="travelTo3Dropdown($event)">
+          <option value="">กรุณาเลือก</option>
+          <option *ngFor="let data of travelTo2List" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="one wide field"></div>
+      <div class="three wide field">
+        <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่สาขา</label>
+      </div>
+      <div class="four wide field">
+        <select class="ui dropdown search selection" style="width: 100%;" id="travelTo3" (change)="setTravelTo($event)">
+          <option value="">กรุณาเลือก</option>
+          <option *ngFor="let data of travelTo3List" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+        </select>
+      </div>
+      <div class="two wide field">
+        <label class="text-right full-width">ปีงบประมาณ</label>
+      </div>
+      <div class="four wide field column">
+        <div class="ui calendar" id="date3" style="width: 100%;">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input id="pickyear" type="text" name="date-raw" autocomplete="off" [attr.readonly]="null" placeholder="ปปปป"
+              [attr.required]="true">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui grid">
+    <div class="row centered">
+      <app-button-search></app-button-search>
+      <app-button-clear></app-button-clear>
+    </div>
+  </div>
+  <br>
+  <table class="ui small celled table striped selectable display nowrap" style="width: 100%;">
+    <thead class="text-center">
+      <tr>
+        <th colspan="2">พ.ศ.2561</th>
+        <th rowspan="2">รายการ</th>
+        <th rowspan="2">หลักฐานการรับ/จ่าย</th>
+        <th rowspan="2">รับ (ดวง)</th>
+        <th rowspan="2">จ่าย (ดวง)</th>
+        <th rowspan="2">คงเหลือ(ดวง)</th>
+        <th rowspan="2">ส่งคืน(ดวง)</th>
+        <th rowspan="2">ชำรุด(ดวง)</th>
+        <th rowspan="2">แสตมป์ดี (ดวง)</th>
+        <th rowspan="2">ภาษี (บาท)</th>
+        <th rowspan="2">ผู้ลงบัญชี</th>
+        <th rowspan="2">ผู้รับผิดชอบ</th>
+        <th rowspan="2">หมายเหตุ</th>
+      </tr>
+      <tr>
+        <th>เดือน</th>
+        <th>วันที่</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <br>
+  <div class="sixteen wide column">
+    <div class="ui centered grid">
+      <div class="ui form fourteen wide column">
+        <!-- row1 -->
+        <div class="inline fields">
+          <div class="four wide field">
+            <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br> (ข้อเท็จจริง/Condition) :</label>
+          </div>
+          <div class="ten  wide field">
+            <textarea rows="3" style="width: 100%;"></textarea>
+          </div>
+        </div>
+        <!-- row2 -->
+        <div class="inline fields">
+          <div class="four wide field">
+            <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+              :</label>
+          </div>
+          <div class="ten  wide field">
+            <textarea rows="3" style="width: 100%;"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui grid">
+    <div class="row centered">
+      <app-button-save></app-button-save>
+      <app-button-export></app-button-export>
+      <app-button-back routerLink="/int10/01"></app-button-back>
+      
+    </div>
+  </div>
+</segment>

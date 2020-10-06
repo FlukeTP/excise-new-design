@@ -1,0 +1,24 @@
+.hd{
+    margin-bottom: -14px !important;
+    margin-top: -9px !important;
+}
+
+input[type=checkbox]
+{
+  
+  -ms-transform: scale(2);
+  -moz-transform: scale(2);
+  -webkit-transform: scale(2);
+  -o-transform: scale(1);
+  padding: 6px;
+}
+.ic{
+    margin-left: 34px !important;
+}
+.iy{
+    margin-left: -5px !important;
+}
+.ir{
+    margin-left: 90px !important;
+}
+

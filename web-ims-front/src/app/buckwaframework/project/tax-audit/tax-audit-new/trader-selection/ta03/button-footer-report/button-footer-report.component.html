@@ -1,0 +1,8 @@
+<div class="ui center aligned grid">
+  <div class="sixteen wide column">
+    <app-button-save *ngIf="!saveActive" (click)="onSave()"></app-button-save>
+    <app-button-save *ngIf="saveActive" (click)="onSave2()"></app-button-save>
+    <app-button-clear (click)="onClear()"></app-button-clear>
+    <app-button-export (click)="onExport()"></app-button-export>
+  </div>
+</div>

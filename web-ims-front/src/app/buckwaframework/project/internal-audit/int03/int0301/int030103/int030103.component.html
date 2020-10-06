@@ -1,0 +1,207 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="กำหนดเงื่อนไขความเสี่ยงทั้งหมด" [loading]="false">
+    <form ngNativeValidate (submit)="saveCondition($event)">
+      <div class="ui form">
+        <div class="inline fields" *ngFor="let listdata of listdynamic ; let i = index">
+          <div class="two wide field "></div>
+          <div class="six wide field">
+            <label>{{listdata.iaRiskFactors.riskFactors}}</label>
+          </div>
+          <div class="two wide field">
+            <input class="custom ng-untouched ng-pristine ng-valid" type="text" numberOnly
+              [(ngModel)]="listdata.iaRiskFactorsConfig.percent " name="percent{{i}}" id="percent{{i}}" required
+              placeholder="ค่าร้อยละ" (keydown)="percentCheck()"> &nbsp;&nbsp;%
+            <!--  -->
+            <input class="custom ng-untouched ng-pristine ng-valid" type="hidden"
+              [(ngModel)]="listdata.iaRiskFactorsConfig.id " name="idConfigSet{{i}}" id="idConfigSet{{i}}" required>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field"></div>
+          <div class="six wide field">
+            <label class="text-right full-width">ค่าเปอร์เซ็นรวม </label>
+          </div>
+          <div class="two wide field">
+            <input class="custom-readonly" type="number" name="sum" placeholder="ค่าร้อยละ" value="{{sum}}" readonly>
+            &nbsp;&nbsp;%
+            <input type="hidden" name="sumConfigSet">
+          </div>
+          <div class="five wide field">
+            <span style="color:red;" *ngIf="percenCon || !inputBlank">*ค่าเปอร์เซ็นรวมต้องเท่ากับ 100%
+              และแต่ละความเสี่ยงมากกว่า 0%</span>
+          </div>
+        </div>
+      </div>
+      <h3>กำหนดเงื่อนไขความเสี่ยง</h3>
+      <div class="inline fields">
+        <table id="dataTable" class="ui small celled table striped selectable">
+          <thead>
+            <tr>
+              <th style="text-align: center !important">ที่</th>
+              <th style="text-align: center !important">เงื่อนไข</th>
+              <th style="text-align: center !important">ค่าเริ่มต้น (เปอร์เซ็น)</th>
+              <th style="text-align: center !important">เงื่อนไข</th>
+              <th style="text-align: center !important">ค่าสิ้นสุด (เปอร์เซ็น)</th>
+              <th style="text-align: center !important">อัตราความเสี่ยง</th>
+              <th style="text-align: center !important ;width: 121.4286px;">แปลค่าความเสี่ยง</th>
+              <th style="text-align: center !important ;width: 121.4286px;">สี</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of datas; let i=index">
+              <td class="aligned center">{{i+1}}</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai" id="condition{{i}}" name="condition{{i}}" [attr.required]="true"
+                  [(ngModel)]="datas[i].condition" (change)="changeCondution(i)">
+                  <option *ngFor="let listrange of conditionNon" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="valueone{{i}}" [(ngModel)]="datas[i].valueone" id="valueone{{i}}" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai conditionTo{{i}}" id="conditionTo{{i}}" name="conditionTo{{i}}" [attr.required]="true"
+                  [(ngModel)]="datas[i].conditionTo" (change)="changeCondutionTo(i)">
+                  <option *ngFor="let listrange of conditionRange" value="{{listrange.value2}}">{{listrange.value1}}
+                  </option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="valuetwo{{i}}" [(ngModel)]="datas[i].valuetwo" id="valuetwo{{i}}"
+                    required="{{ datas[i].condition == '<>' }}">
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="number" name="valueRl{{i}}" min="0" max="9" [(ngModel)]="datas[i].valueRl"
+                    id="valueRl{{i}}" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="convertValue{{i}}" [(ngModel)]="datas[i].convertValue"
+                  id="convertValue{{i}}" required disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" name="color{{i}}" [(ngModel)]="datas[i].color" id="color{{i}}"
+                  required>
+                  <option value="แดง">แดง</option>
+                  <option value="ส้ม">ส้ม</option>
+                  <option value="เหลือง">เหลือง</option>
+                  <option value="เขียว">เขียว</option>
+                  <option value="เขียวเข้ม">เขียวเข้ม</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div class="inline fields latest-inline">
+        <div class="ui center aligned grid btn">
+          <div class="sixteen wide field">
+            <app-button-save (click)="saveCondition($event)" *ngIf="button1"></app-button-save>
+            <app-button-edit (click)="editCondition($event)" *ngIf="button2"></app-button-edit>
+            <!-- <app-button-save (click)="editCondition($event)" *ngIf="button2"></app-button-save> -->
+            <!-- <app-button-edit (click)="editCondition($event)" *ngIf="button2"></app-button-edit> -->
+            <app-button-back (click)="golocation()"></app-button-back>
+            <!-- <app-button-cancel routerLink="/int03/01"></app-button-cancel> -->
+          </div>
+        </div>
+      </div>
+      <br>
+    </form>
+  </segment>
+</with-breadcrumb>
+
+<!-- <form ngNativeValidate (submit)="saveCondition($event)">
+    <div class="inline fields">
+      <table id="dataTable" class="ui small celled table striped selectable">
+        <thead>
+          <tr>
+            <th style="text-align: center !important">ที่</th>
+            <th style="text-align: center !important">เงื่อนไข</th>
+            <th style="text-align: center !important">ค่าเริ่มต้น</th>
+            <th style="text-align: center !important">...</th>
+            <th style="text-align: center !important">ค่าสิ้นสุด</th>
+            <th style="text-align: center !important">อัตราความเสี่ยง</th>
+            <th style="text-align: center !important">แปลค่าความเสี่ยง</th>
+            <th style="text-align: center !important">สี</th>
+            <th style="text-align: center !important"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of datas; let i=index">
+            <td class="aligned center">{{i+1}}</td>
+            <td class="aligned center">
+              <select class="ui dropdown ai" id="condition{{i}}" name="condition{{i}}" [attr.required]="true" [(ngModel)]="datas[i].condition"
+                (change)="changeCondution(i)">
+                <option value="<>">ระหว่าง</option>
+                <option value=">">มากกว่า</option>
+                <option value="<">น้อยกว่า</option>
+              </select>
+            </td>
+            <td class="aligned center">
+              <div class="ui input">
+                <input type="number" name="value1{{i}}" [(ngModel)]="datas[i].value1" id="value1{{i}}" required>
+              </div>
+            </td>
+            <td class="aligned center">{{ datas[i].condition ? datas[i].condition : '...' }}</td>
+            <td class="aligned center">
+              <div class="ui input">
+  
+                <input type="number" name="value2{{i}}" [(ngModel)]="datas[i].value2" id="value2{{i}}" required="{{ datas[i].condition == '<>' }}">
+              </div>
+            </td>
+  
+            <td class="aligned center">
+              <div class="ui input">
+                <input type="number" name="valueRl{{i}}" min="0" max="9" style="width: 100%;" [(ngModel)]="datas[i].valueRl"
+                  id="valueRl{{i}}" required>
+              </div>
+            </td>
+            <td class="aligned center">
+              <select class="ui fluid dropdown" name="convertValue{{i}}" [(ngModel)]="datas[i].convertValue" id="convertValue{{i}}"
+                required>
+                <option value="ต่ำมาก">ต่ำมาก</option>
+                <option value="ต่ำ">ต่ำ</option>
+                <option value="ปานกลาง">ปานกลาง</option>
+                <option value="สูง">สูง</option>
+                <option value="สูงมาก">สูงมาก</option>
+              </select>
+            </td>
+            <td class="aligned center">
+              <select class="ui fluid dropdown" name="color{{i}}" [(ngModel)]="datas[i].color" id="color{{i}}" required>
+                <option value="แดง">แดง</option>
+                <option value="เหลือง">เหลือง</option>
+                <option value="เขียว">เขียว</option>
+              </select>
+            </td>
+            <td class="aligned center">
+              <button class="ui icon red mini button" type="button" (click)="delRow(i)">
+                <i class="times icon"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="inline fields latest-inline">
+      <div class="sixteen wide field">
+        <div class="ui center aligned grid btn">
+          <app-button-add (click)="addRow()"></app-button-add>
+          <app-button-save submit="submit"></app-button-save>
+          <app-button-cancel (click)="cancel()"></app-button-cancel>
+        </div>
+      </div>
+    </div>
+  </form> -->

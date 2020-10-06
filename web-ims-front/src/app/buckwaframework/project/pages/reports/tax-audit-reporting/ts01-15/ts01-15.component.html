@@ -1,0 +1,206 @@
+<form (submit)="onSubmit($event)" >
+<div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>บันทึกข้อตกลงยินยอมการชำระภาษีสรรพสามิต</span>
+</div>
+
+<div class="ui attached segment">
+    <div class="ui grid">
+        <div class="ui two wide column">&nbsp;</div>
+        <div class="ui twelve wide column">
+            <div class="ui form">
+
+                <div class="inline fields">
+                    <div class="two wide field">
+                        <p>สำนัก : </p>
+                    </div>
+
+                    <div class="five wide field">
+                        <input type="text" [(ngModel)]="obj.office" name="office" id="office">
+                    </div>
+
+                    <div class="one wide field">
+                        <p>วันที่ : </p>
+                    </div>
+
+                    <div class="two wide field">
+                        <input type="text"  [(ngModel)]="obj.date" name="date" id="date">
+                    </div>
+
+                    <div class="one wide field" style="padding-right: 0px;">
+                        <p>เดือน : </p>
+                    </div>
+
+                    <div class="two wide field">
+                        <input type="text"  [(ngModel)]="obj.month" name="month" id="month">
+                    </div>
+
+                    <div class="one wide field">
+                        <p>ปี : </p>
+                    </div>
+
+                    <div class="two wide field">
+                        <input type="text"  [(ngModel)]="obj.year" name="year" id="year">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="two wide field">
+                        <p>ข้าพเจ้า :</p>
+                    </div>
+
+                    <div class="six wide field">
+                        <input type="text" [(ngModel)]="obj.ourself" name="ourself" id="ourself">
+                    </div>
+
+                    <div class="eight wide field">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="two wide field">
+                        <p>ราย :</p>
+                    </div>
+
+                    <div class="six wide field">
+                        <input type="text" [(ngModel)]="obj.account" name="account" id="account">
+                    </div>
+
+                    <div class="four wide field">
+                        <p>ทะเบียนสรรพสามิตเลขที่ : </p>
+                    </div>
+
+                    <div class="four wide field">
+                        <input type="text"  [(ngModel)]="obj.exciseRegistration" name="exciseRegistration" id="exciseRegistration">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="two wide field">
+                        <p>ที่อยู่เลขที่ :</p>
+                    </div>
+
+                    <div class="fourteen wide field">
+                        <textarea name="" id="" cols="30" rows="4" style="resize: none;" [(ngModel)]="obj.addressNumber" name="addressNumber" id="addressNumber"></textarea>
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="sixteen wide field">
+                        <p>ขอให้ความยินยอมแก่พนักงานเจ้าหน้าที่ จะชำระภาษีให้แก่ทางราชการตามจำนวนที่พนักงานเจ้าหน้าที่ได้ตรวจสอบ ดังนี้ :</p>
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="sixteen wide field">
+                        <table class="ui celled padded table" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <th class="single line">ลำดับที่</th>
+                                    <th>รอบระยะเวลาที่ตรวจสอบ</th>
+                                    <th>ประเภทสินค้า/บริการ</th>
+                                    <th>จำนวนภาษี</th>
+                                    <th>เบี้ยปรับ</th>
+                                    <th>งานเพิ่ม</th>
+                                    <th>ภาษีเพื่อราชการส่วนท้องถิ่น</th>
+                                    <th>รวม</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let number of numbers; let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td><input type="text" name="" id=""></td>
+                                    <td><input type="text" name="" id=""></td>
+                                    <td><input type="text" name="" id=""></td>
+                                    <td><input type="text" name="" id=""></td>
+                                    <td><input type="text" name="" id=""></td>
+                                    <td><input type="text" name="" id=""></td>
+                                    <td><input type="text" name="" id=""></td>
+                                    <td style="cursor: pointer">
+                                        <a (click)="onDelField(i)" style="text-decoration: none;color: red" *ngIf="(i+1) > 3">ลบ</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="sixteen wide field">
+                        <a (click)="onAddField()" style="cursor: pointer"><i class="plus icon"></i> เพิ่ม</a>
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="three wide field">
+                        <p>ผู้ให้คำยินยอม : </p>
+                    </div>
+
+                    <div class="six wide field">
+                        <input type="text" [(ngModel)]="obj.consentor" name="consentor" id="consentor">
+                    </div>
+
+                    <div class="seven wide field">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="three wide field">
+                        <p>ผู้ตรวจสอบ :</p>
+                    </div>
+
+                    <div class="six wide field">
+                        <input type="text"  [(ngModel)]="obj.inspector" name="inspector" id="inspector">
+                    </div>
+
+                    <div class="seven wide field">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="three wide field">
+                        <p>พยาน : </p>
+                    </div>
+
+                    <div class="six wide field">
+                        <input type="text"  [(ngModel)]="obj.witness1" name="witness1" id="witness1">
+                    </div>
+
+                    <div class="seven wide field">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="three wide field">
+                        <p>พยาน : </p>
+                    </div>
+
+                    <div class="six wide field">
+                        <input type="text"  [(ngModel)]="obj.witness2" name="witness2" id="witness2">
+                    </div>
+
+                    <div class="seven wide field">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="ui two wide column">&nbsp;</div>
+    </div>
+</div>
+
+<div class="ui bottom centered attached segment">
+    <div class="ui center aligned grid">
+        <div class="eight wide column">
+            <button class="ui mini green button" type="submit">
+          <i class="save icon"></i>
+          พิมพ์เอกสาร
+        </button>
+            <button class="ui mini red button" type="button" (click)="onDiscard()">
+          <i class="times icon"></i>
+          ยกเลิก
+        </button>
+        </div>
+    </div>
+</div>
+</form>

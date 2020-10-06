@@ -1,0 +1,88 @@
+<div class="ui grid" style="margin: 2%">
+    <div class="sixteen wide column segments">
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>ค้นหารายงานการประเมินผลและการปรับปรุงการควบคุมภายใน (แบบ ปย.2)</span>
+        </div>
+        <div class="ui attached segment">
+            <div class="ui centered grid row">
+                <div class="ui centered fourteen wide column">
+                    <div class="ui centered row grid">
+                        <div class="ui centered fifteen wide column" style="padding: 14px 14px 0 14px !important;">
+                            <div class="ui form">
+                                <div class="inline aligned center fields">
+                                    <div class="six wide centered field">
+                                        <label>สำนักงานสรรพสามิตภาค: </label>
+                                    </div>
+                                    <div class="ten centered wide field">
+                                        <div class="ui input">
+                                            <input type="text">
+                                        </div>
+                                    </div>
+                                    <div class="six wide centered field">
+                                        <label>สำนักงานสรรพสามิตพื้นที่: </label>
+                                    </div>
+                                    <div class="ten centered wide field">
+                                        <div class="ui input">
+                                            <input type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inline aligned center fields">
+                                    <div class="six wide centered field">
+                                        <label>สำนักงานสรรพสามิตพื้นที่สาขา: </label>
+                                    </div>
+                                    <div class="ten centered wide field">
+                                        <div class="ui input">
+                                            <input type="text">
+                                        </div>
+                                    </div>
+                                    <div class="six wide centered field">
+                                        <label>ปีงบประมาณ: </label>
+                                    </div>
+                                    <div class="ten centered wide field">
+                                        <div class="ui input">
+                                            <input type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui centered row grid">
+                    <div class="ui centered two wide column" style="padding: 0;">
+                        <div class="ui form">
+                            <div class="inline fields">
+                                <div class="sixteen aligned center wide field">
+                                    <button class="ui blue button" (click)="search()" type="button">ค้นหา</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui segment">
+            <div class="ui grid">
+                <div class="sixteen wide column">
+                    <table id="dataTable" style="width: 100%;" class="ui small collapsing celled table aligned hover striped selectable">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center">ชื่อส่วนงานย่อย</th>
+                                <th style="text-align: center">ปีงบประมาณ</th>
+                                <th style="text-align: center">วันที่บันทึก</th>
+                                <th style="text-align: center">ผู้บันทึก</th>
+                                <th style="text-align: center">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

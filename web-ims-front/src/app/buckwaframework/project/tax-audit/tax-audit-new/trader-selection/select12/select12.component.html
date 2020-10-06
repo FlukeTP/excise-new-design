@@ -1,0 +1,88 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <segment header="ผลการคัดเลือกราย" [loading]="false">
+        <div class="ui form">
+          <!-- table -->
+          <table class="ui small celled table aligned hover striped selectable nowrap scrollX">
+            <thead class="text-center">
+              <tr>
+                <th rowspan="2">
+                  <app-button-custom color="red"><i class="trash alternate icon"></i></app-button-custom><br>ลบทั้งหมด
+                </th>
+                <th rowspan="2">ลำดับ</th>
+                <th rowspan="2">ทะเบียนสรรพสามิต เดิม/ใหม่</th>
+                <th rowspan="2">ชื่อผู้ประกอบการ</th>
+                <th rowspan="2">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+                <th rowspan="2">ภาค</th>
+                <th rowspan="2">พื้นที่</th>
+                <th colspan="2">การชำระภาษีในสภาวะปกติ (บาท)</th>
+                <th rowspan="2">เปลี่ยนแปลง (ร้อยละ)</th>
+                <th rowspan="2">เปอร์เซ็นส่วนเบี่ยงเบน</th>
+                <th rowspan="2">ชำระภาษี(เดือน)</th>
+              </tr>
+              <tr>
+                <th>
+                  5 เดือนแรก</th>
+                <th>
+                  5 เดือนหลัง </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of datas">
+                <td class="text-center">
+                  <app-button-custom color="red"><i class="trash alternate icon"></i></app-button-custom>
+                </td>
+                <td class="text-center">{{item.data0}}</td>
+                <td>{{item.data1}}</td>
+                <td>{{item.data2}}</td>
+                <td>{{item.data3}}</td>
+                <td>{{item.data4}}</td>
+                <td>{{item.data5}}</td>
+                <td class="text-center">{{item.data6}}</td>
+                <td class="text-center">{{item.data7}}</td>
+                <td class="text-right">{{item.data8}}</td>
+                <td class="text-right">{{item.data9}}</td>
+                <td class="text-right">{{item.data10}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <br>
+        <div class="ui center aligned grid">
+          <div class="eight wide column">
+            <app-button-custom color="green" (click)="callModal()">ส่งข้อมูล</app-button-custom>
+            <app-button-back (click)="goBack()"></app-button-back>
+          </div>
+        </div>
+      </segment>
+    </div>
+  </div>
+
+  <!-- modal -->
+  <div class="ui modal" id="send">
+    <i class="close icon"></i>
+    <div class="header">
+      เลือกส่ง
+    </div>
+    <div class="content">
+      <div class="actions">
+        <div class="text-center">
+          <p>ระบุวันตอบกลับ</p>
+          <div class="ui calendar" style="width:100%" id="date2">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" placeholder="ดด/ปปปป">
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="text-center">
+          <button class="deny ui mini primary button" routerLink="/tax-audit-new/ta0106">ส่วนกลาง</button>
+          <button class="deny ui mini primary button" routerLink="/tax-audit-new/ta0106">ภาคพื้นที่</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</with-breadcrumb>

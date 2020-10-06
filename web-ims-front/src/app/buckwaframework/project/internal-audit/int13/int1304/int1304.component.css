@@ -1,0 +1,11 @@
+/* .ui.button {
+    box-shadow: none !important;
+    width: 100%;
+} */
+
+.topic-color {
+    background-color: #cccc !important;
+}
+.btn-custom{
+    margin-top: 10px;
+}

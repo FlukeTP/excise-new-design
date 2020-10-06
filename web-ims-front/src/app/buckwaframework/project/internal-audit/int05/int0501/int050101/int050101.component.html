@@ -1,0 +1,205 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<br>
+<div *ngIf="pickedType=='1162'">
+  <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>รายละเอียดเอกสาร ก่อนเดินทางไปราชการ</span>
+  </div>
+
+  <div class="ui attached  segment">
+    <br>
+    <div class="inline fields" style="text-align: center !important;">ประเภทการเบิก &nbsp; ก่อนเดินทางไปราชการ</div>
+    <div class="inline fields" style="text-align: center !important;">ปีงบประมาณ &nbsp; {{fiscalYear}}</div>
+    <div class="inline fields" style="text-align: center !important;">วันที่เดินทาง &nbsp; {{departureDate}} -
+      {{returnDate}}</div>
+    <div class="inline fields" style="text-align: center !important;">เดินทางไป &nbsp; {{travelToDescription}}</div>
+    <br>
+    <!-- <div class="inline fields" style="text-align: right !important;">
+    <button class="ui mini green button" type="button" (click)="modalAddDocument()"><i class="plus icon"></i>เพิ่มเอกสาร</button>
+  </div> -->
+    <div class="ui raised segment">
+      <a class="ui blue ribbon label">
+        <h3>เอกสาร เงินงบประมาณ</h3>
+      </a>
+      <table id="tableData" class="ui small celled table nowrap striped selectable" style="width: 100%">
+        <thead>
+          <tr>
+            <th style="text-align: center !important;">ลำดับที่</th>
+            <th style="text-align: center !important;">วันที่สร้าง</th>
+            <th style="text-align: center !important;">ผู้สร้าง</th>
+            <th style="text-align: center !important;">ประเภทเอกสาร</th>
+            <th style="text-align: center !important;">เรื่อง</th>
+            <th style="text-align: center !important;">ประเภทการเบิก</th>
+            <th style="text-align: center !important;">ประเภทงบประมาณ</th>
+            <th style="text-align: center !important;">สถานะการดำเนินการ</th>
+            <th style="text-align: center !important;width:180px !important">จัดการ</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <br>
+    <div class="ui raised segment">
+      <a class="ui teal ribbon label">
+        <h3>เอกสาร เงินนอกงบประมาณ</h3>
+      </a>
+
+      <table id="tableData3" class="ui small celled table nowrap striped selectable" style="width: 100%">
+        <thead>
+
+          <tr>
+            <th style="text-align: center !important;">ลำดับที่</th>
+            <th style="text-align: center !important;">วันที่สร้าง</th>
+            <th style="text-align: center !important;">ผู้สร้าง</th>
+            <th style="text-align: center !important;">ประเภทเอกสาร</th>
+            <th style="text-align: center !important;">เรื่อง</th>
+            <th style="text-align: center !important;">ประเภทการเบิก</th>
+            <th style="text-align: center !important;">ประเภทงบประมาณ</th>
+            <th style="text-align: center !important;">สถานะการดำเนินการ</th>
+            <th style="text-align: center !important;width:180px !important">จัดการ</th>
+          </tr>
+
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+<br>
+<div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+  <span>รายละเอียดเอกสาร หลังเดินทางไปราชการ</span>
+</div>
+
+<div class="ui attached  segment">
+  <br>
+  <div class="inline fields" style="text-align: center !important;">ประเภทการเบิก &nbsp; หลังเดินทางไปราชการ </div>
+  <div class="inline fields" style="text-align: center !important;">ปีงบประมาณ &nbsp; {{fiscalYear}}</div>
+  <div class="inline fields" style="text-align: center !important;">วันที่เดินทาง &nbsp; {{departureDate}} -
+    {{returnDate}}</div>
+  <div class="inline fields" style="text-align: center !important;">เดินทางไป &nbsp; {{travelToDescription}}</div>
+  <br>
+  <!-- <div class="inline fields" style="text-align: right !important;">
+    <button class="ui mini green button" type="button" (click)="modalAddDocument()"><i class="plus icon"></i>เพิ่มเอกสาร</button>
+  </div> -->
+  <div class="ui raised segment">
+    <a class="ui blue ribbon label">
+      <h3>เอกสาร เงินงบประมาณ</h3>
+    </a>
+
+    <table id="tableData4" class="ui small celled table nowrap striped selectable" style="width: 100%">
+      <thead>
+        <tr>
+          <th style="text-align: center !important;">ลำดับที่</th>
+          <th style="text-align: center !important;">วันที่สร้าง</th>
+          <th style="text-align: center !important;">ผู้สร้าง</th>
+          <th style="text-align: center !important;">ประเภทเอกสาร</th>
+          <th style="text-align: center !important;">เรื่อง</th>
+          <th style="text-align: center !important;">ประเภทการเบิก</th>
+          <th style="text-align: center !important;">ประเภทงบประมาณ</th>
+          <th style="text-align: center !important;">สถานะการดำเนินการ</th>
+          <th style="text-align: center !important;width:180px !important">จัดการ</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <br>
+  <div class="ui raised segment">
+    <a class="ui teal ribbon label">
+      <h3>เอกสาร เงินนอกงบประมาณ</h3>
+    </a>
+    <table id="tableData5" class="ui small celled table nowrap striped selectable" style="width: 100%">
+      <thead>
+
+        <tr>
+          <th style="text-align: center !important;">ลำดับที่</th>
+          <th style="text-align: center !important;">วันที่สร้าง</th>
+          <th style="text-align: center !important;">ผู้สร้าง</th>
+          <th style="text-align: center !important;">ประเภทเอกสาร</th>
+          <th style="text-align: center !important;">เรื่อง</th>
+          <th style="text-align: center !important;">ประเภทการเบิก</th>
+          <th style="text-align: center !important;">ประเภทงบประมาณ</th>
+          <th style="text-align: center !important;">สถานะการดำเนินการ</th>
+          <th style="text-align: center !important;width:180px !important">จัดการ</th>
+        </tr>
+
+      </thead>
+    </table>
+  </div>
+</div>
+<br>
+<div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+  <span>แนบเอกสารหลักฐาน</span>
+</div>
+<form id="upload-form" ngNativeValidate (submit)="onUpload($event)">
+  <div class="ui attached  segment">
+    <div class="ui form center aligned" ngNativeValidate>
+      <br>
+      <div class="inline fields">
+        <div class="three wide field"></div>
+        <div class="two wide field">
+          <label>ชื่อเอกสาร</label>
+        </div>
+        <div class="six wide field">
+          <input class="inputfile" type="file" name="fileUpload" id="fileUpload" accept=".pdf, image/*, text/plain, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.doc,.docx"
+            (change)="onChangeUpload($event)" required>
+        </div>
+
+        <div class="two wide field">
+          <button class="ui mini yellow button" type="submit">
+            <i class="upload icon"></i>อัพโหลด</button>
+        </div>
+
+      </div>
+
+
+      <br>
+      <table id="tableData2" class="ui small celled table nowrap striped selectable" style="width: 100%">
+        <thead>
+
+          <tr>
+            <th style="text-align: center !important;">ลำดับที่</th>
+            <th style="text-align: center !important;">วันที่สร้าง</th>
+            <th style="text-align: center !important;">ผู้สร้าง</th>
+            <th style="text-align: center !important;">ชื่อเอกสาร</th>
+            <th style="text-align: center !important;">ขนาด (KB)</th>
+            <th style="text-align: center !important;width:180px !important">จัดการ</th>
+          </tr>
+
+        </thead>
+      </table>
+    </div>
+    <div class="ui form center aligned grid">
+      <button class="ui mini button" type="button" (click)="clickBack()">
+        <i class="close icon"></i>ยกเลิก</button>
+    </div>
+    <br>
+    <br>
+  </div>
+</form>
+<!-- add modal -->
+<div class="ui large modal transition hidden" id='modalAddDocument'>
+
+  <div class="header" style="text-align: center !important;background: #1e83db;color: white">
+    เลือกประเภทเอกสาร
+  </div>
+
+  <div class="content">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="three wide field"></div>
+        <div class="two wide field">
+          <label>ประเภทเอกสาร</label>
+        </div>
+        <div class="six wide field">
+          <select class="ui dropdown search selection" id="documentType" id="documentType" style="width:100%">
+            <option value="">กรุณาเลือก</option>
+            <option *ngFor="let data of documentTypeList" value="{{data.lovId}}">{{data.typeDescription}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <div class="ui red deny button">ยกเลิก</div>
+    <div class="ui green button" (click)="addDocument()">ตกลง</div>
+  </div>
+</div>
+<!--End add modal -->

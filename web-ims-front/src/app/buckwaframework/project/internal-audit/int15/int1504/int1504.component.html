@@ -1,0 +1,225 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment [loading]="false" id="backcl">
+    <div class="large ui buttons" id="topview" *ngIf="tap == '2'">
+      <button class="large ui button" (click)="tabSlite('1')">โครงสร้างรหัสกรมสรรพสามิตระบบ GFMIS</button>
+      <button class="large ui positive button active" (click)="tabSlite('2')">เพิ่มรายการ</button>
+    </div>
+    <div class="large ui buttons" id="topview" *ngIf="tap == '1'">
+      <button class="large ui positive button active" (click)="tabSlite('1')">โครงสร้างรหัสกรมสรรพสามิตระบบ
+        GFMIS</button>
+      <button class="large ui button " (click)="tabSlite('2')">เพิ่มรายการ</button>
+    </div>
+
+    <div class="large ui buttons" id="topview" *ngIf="tap == '3'">
+      <button class="large ui button " (click)="tabSlite('1')">โครงสร้างรหัสกรมสรรพสามิตระบบ GFMIS</button>
+      <button class="large ui positive button active" (click)="tabSlite('2')">แก้ไขรายการ</button>
+    </div>
+    <!-- ------------------------------tab1-------------------------------------- -->
+    <div class="tabcontent" *ngIf="tap == '1' ">
+      <segment [loading]="false">
+        <table class="ui small celled nowrap table striped selectable" style="width:100%" id="datatableall">
+          <thead id="thHeader">
+            <tr style="text-align: center;">
+              <th class="text-center">รหัสหน่วยงาน(กรมสรรพสามิต)</th>
+              <th class="text-center">ชื่อหน่วยงานใต้สังกัด</th>
+              <th class="text-center">รหัสศูนย์ต้นทุน</th>
+              <th class="text-center">รหัสหน่วยเบิกจ่าย</th>
+              <th class="text-center">รหัสรหัสเจ้าของเงินฝาก</th>
+              <th class="text-center">หน่วยรับงบประมาณ</th>
+              <th class="text-center">รหัสหน่วยงาน</th>
+              <th class="text-center">รหัสพื้นที่</th>
+              <th class="text-center">การจัดการ</th>
+            </tr>
+          </thead>
+        </table>
+      </segment>
+    </div>
+    <!-- ------------------------------tab2-------------------------------------- -->
+    <div class="tabcontent" *ngIf="tap == '2' || tap == '3'">
+      <segment header="บันทึกโครงสร้างรหัสกรมสรรพสามิตระบบ GFMIS" [loading]="false">
+        <form [formGroup]="formsave">
+          <div class="ui form">
+            <div class="ui grid">
+              <div class="sixteen wide column">
+                <div inline>
+                  <div field [col]="3">
+                    <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+                  </div>
+                  <div field [col]="4" [ngClass]="{'error': validateField('sector')}">
+                    <select class="ui dropdown full-width" id="sector" (change)="dropdownChange($event, 'SECTOR')"
+                      formControlName="sector">
+                      <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+                      <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+                    </select>
+                  </div>
+                  <div field [col]="2">
+                    <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+                  </div>
+                  <div field [col]="4">
+                    <select class="ui dropdown full-width" id="area" (change)="dropdownChange($event, 'AREA')"
+                      formControlName="area">
+                      <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+                      <option value="0">ทั้งหมด</option>
+                      <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div inline>
+                  <div field [col]="3">
+                    <label class="text-right full-width">สำนักงานสรรพสามิตสาขา</label>
+                  </div>
+                  <div field [col]="4">
+                    <select class="ui dropdown full-width" id="branch" formControlName="branch"
+                      (change)="dropdownChange($event, 'BRANCH')">
+                      <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+                      <option value="0">ทั้งหมด</option>
+                      <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptName}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div inline>
+                  <div field [col]="3">
+                    <label class="text-right full-width">รหัสศูนย์ต้นทุน</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="gfCostCenter" maxlength="10" numberOnly>
+                  </div>
+                  <div field [col]="2">
+                    <label class="text-right full-width">หน่วยรับงบประมาณ</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="gfRecBudget" maxlength="10" numberOnly>
+                  </div>
+                </div>
+                <div inline>
+                  <div field [col]="3">
+                    <label class="text-right full-width">รหัสหน่วยเบิกจ่าย</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="gfDisburseUnit" maxlength="10" numberOnly>
+                  </div>
+                  <div field [col]="2">
+                    <label class="text-right full-width">รหัสหน่วยงาน</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="gfDeptCode" maxlength="4" numberOnly>
+                  </div>
+                </div>
+                <div inline>
+                  <div field [col]="3">
+                    <label class="text-right full-width">รหัสเจ้าของเงินฝาก</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="gfOwnerDeposit" maxlength="10" numberOnly>
+                  </div>
+                  <div field [col]="2">
+                    <label class="text-right full-width">รหัสพื้นที่</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="gfAreaCode" maxlength="4" numberOnly>
+                  </div>
+                </div>
+                <!-- ----------------------------------FORMARRAY--------------------------------------- -->
+
+                <div inline>
+                  <div field [col]="3">
+                    <label class="text-right full-width">เพิ่มบัญชีเงินฝาก</label>
+                  </div>
+                  <div field [col]="3">
+                    <app-button-custom color="green" icon="plus icon" (click)="addCreds()"></app-button-custom>
+                  </div>
+                </div>
+
+                <div inline formArrayName="depaccList" *ngFor="let creds of depaccList.controls; let i = index">
+                  <div field [col]="3">
+                    <label class="text-right full-width">รหัสบัญชีเงินฝากที่ {{i+1}}</label>
+                  </div>
+                  <div field [col]="4">
+                    <ng-container [formGroupName]="i">
+                      <div class="ui fluid action input">
+                        <input type="text" placeholder="เลขรหัสบัญชี" formControlName="gfDepositCode">
+                        <div class="ui button" (click)="viewDetail(i)">ค้นหา</div>
+                      </div>
+                      <app-button-custom color="red" icon="delete icon" (click)="deleteCreds(i)"></app-button-custom>
+                    </ng-container>
+                  </div>
+                  <!-- <div field [col]="2">
+                      
+                  </div> -->
+                </div>
+
+                <!-- --------------------------------------------------------------------------------- -->
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="ui center aligned grid">
+          <div class="column">
+            <app-button-edit (click)="editApi()" *ngIf="tap == '3'"></app-button-edit>
+            <app-button-save (click)="saveTwoData()" *ngIf="tap == '2'"></app-button-save>
+            <app-button-delete (click)="deleteData()" *ngIf="tap == '3'"></app-button-delete>
+            <app-button-back (click)="tabSlite('1')"></app-button-back>
+          </div>
+        </div>
+      </segment>
+    </div>
+  </segment>
+</with-breadcrumb>
+
+
+<ui-modal [id]="'detail'" [size]="'large'" [type]="'custom'">
+  <div class="ui header">
+    ค้นหารหัสบัญชี
+  </div>
+  <br>
+  <!-- <form form [formGroup]="formSearchModal">
+      <div inline>
+        <div field [col]="4">
+          <label class="text-right full-width">ประเภทบัญชี</label>
+        </div>
+        <div field [col]="3">
+          <select class="ui dropdown full-width" id="coaType" formControlName="coaType" (change)="onChangeCoa($event)">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of coaParametor" value="{{item.value2}}">{{item.value1}}</option>
+          </select>
+        </div>
+        <div field [col]="2">
+          <label class="text-right full-width">รหัสบัญชี</label>
+        </div>
+        <div field [col]="3">
+          <select id="coaCode" name="coaCode" class="ui fluid dropdown ia-dropdown search " formControlName="coaCode"
+            (change)="onChangeCoaCode($event)">
+            <option value="">เลขรหัสบัญชี</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of datain1" value="{{item.coaCode}}">{{item.coaCode}}</option>
+          </select>
+        </div>
+      </div>
+    </form> -->
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <div class="ui grid">
+        <div class="sixteen wide column">
+          <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableCoa">
+            <thead class="text-center">
+              <tr>
+                <th class="text-center">ลำดับ</th>
+                <th class="text-center">รหัสบัญชี</th>
+                <th class="text-center">ชื่อบัญชี</th>
+              </tr>
+            </thead>
+          </table>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions ">
+    <div class="ui right aligned grid">
+      <div class="sixteen wide column">
+        <app-button-cancel (click)="closeModal()"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>

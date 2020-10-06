@@ -1,0 +1,749 @@
+<app-breadcrumb style="width: 100%;" [route]="breadcrumb"></app-breadcrumb>
+<div class="ui grid">
+    <div class="sixteen wide column">
+        <segment header="แผนการตรวจสอบภายใน ประจำปี 2562" [loading]="loading">
+            <form [formGroup]="header" (submit)="chioce($event, 'APPROVE')">
+                <div class="ui form">
+                    <div class="inline fields">
+                        <div class="one wide centered field">
+                            <label class="text-right full-width">ปีงบประมาณ</label>
+                        </div>
+                        <div class="two wide field">
+                            <div class="ui calendar" style="width:100%" id="year">
+                                <div class="ui input left icon">
+                                    <i class="calendar alter nate outline icon"></i>
+                                    <input type="calendar" id="budgetYear" placeholder="ปปปป" maxlength="4"
+                                        name="budgetYear" formControlName="budgetYear" readonly="" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="three wide field">
+                            <!-- empty -->
+                        </div>
+                        <div class="two wide field">
+                            <label class="text-right full-width">ผู้อนุมัติ :</label>
+                        </div>
+                        <div class="three wide field">
+                            {{ header.get('approvers').value }}
+                        </div>
+
+                        <div class="two wide field">
+                            <label class="text-right full-width">ตำแหน่ง :</label>
+                        </div>
+                        <div class="three wide field">
+                            {{ header.get('position').value }}
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="ui grid">
+                    <div class="sixteen wide column">
+                        <div class="ui form">
+                            <div class="inline fields">
+                                <div class="eight wide field">
+                                    <label class="text-right full-width">สถานะการอนุมัติผลการคัดเลือก :</label>
+                                </div>
+                                <div class="two wide field">
+                                    {{ header.get('statusStr').value }}
+                                </div>
+                                <div class="four wide field">
+                                    <app-button-custom color="green" icon="check" text="อนุมัติ" btnType="submit"
+                                        style="margin: 0px;">
+                                    </app-button-custom>
+                                    <app-button-custom color="red" icon="close" text="ไม่อนุมัติ"
+                                        (click)="chioce($event, 'REJECT')">
+                                    </app-button-custom>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <div class="sixteen wide column">
+                <table id="table" class="ui small celled table striped selectable scrollX" style="width: 100%;">
+                    <thead>
+                        <tr class="center aligned">
+                            <th rowspan="2">ลำดับ</th>
+                            <th rowspan="2">กิจกรรม</th>
+                            <th rowspan="2">ความถี่</th>
+                            <th rowspan="2">หน่วยนับ</th>
+                            <th rowspan="2">ผู้รับผิดชอบหลัก</th>
+                            <th rowspan="2">จัดการ</th>
+                            <th colspan="12">ปีงบประมาณ 2562</th>
+                            <th colspan="2">ปีงบปะมาณ 2563</th>
+                        </tr>
+                        <tr class="center aligned">
+                            <th>ต.ค. 61</th>
+                            <th>พ.ย. 61</th>
+                            <th>ธ.ค. 61</th>
+                            <th>ม.ค. 62</th>
+                            <th>ก.พ. 62</th>
+                            <th>มี.ค. 62</th>
+                            <th>เม.ย. 62</th>
+                            <th>พ.ค. 62</th>
+                            <th>มิ.ย. 62</th>
+                            <th>ก.ค. 62</th>
+                            <th>ส.ค. 62</th>
+                            <th>ก.ย. 62</th>
+                            <th>ต.ค. 63</th>
+                            <th>ตั้งแต่ พ.ย.</th>
+                            <!-- <ng-container *ngFor="let t of thTag">
+                                <th>{{t.}}</th>
+                            </ng-container> -->
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <ng-container *ngFor="let main of table let i = index;">
+                        <tr>
+                            <td>{{ i+1 }}</td>
+                            <td>{{ main.inspectionWorkStr }}</td>
+                            <td>{{ main.frequency }}</td>
+                            <td>{{ main.unit }}</td>
+                            <td>{{ main.responsiblePerson }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <ng-container *ngFor="let chrild of main.detail let j = index">
+                            <tr>
+                                <td>{{ i+1 }}.{{ j+1 }}</td>
+                                <td>{{ chrild.activity }}</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{ chrild.responsiblePerson }}</td>
+                                <td>
+                                    <app-button-edit *ngIf="chrild.checkBtnDtl"
+                                        (click)="routeTo('/int01/01', chrild.planDtlId)">
+                                    </app-button-edit>
+                                    <app-button-custom *ngIf="!chrild.checkBtnDtl" color="primary" text="ระบุรายละเอียด"
+                                        (click)="routeTo('/int01/01', chrild.planDtlId)">
+                                    </app-button-custom>
+                                    <app-button-custom color="orange" text="รายละเอียดการดำเนินการ"
+                                        (click)="routeTo('/int01/02', chrild.planDtlId)">
+                                    </app-button-custom>
+                                </td>
+
+                                <!-- month10 -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <ng-container *ngFor="let month10 of chrild.monthVo.month10">
+                                        <app-button-custom color="{{ getColor(month10.colorCode) }}"
+                                            text="{{ month10.activityShort }}">
+                                        </app-button-custom>
+                                    </ng-container>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month11 -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month11 of chrild.monthVo.month11"
+                                        color="{{ getColor(month11.colorCode) }}" text="{{ month11.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month12 -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month12 of chrild.monthVo.month12"
+                                        color="{{ getColor(month12.colorCode) }}" text="{{ month12.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month01 -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month01 of chrild.monthVo.month01"
+                                        color="{{ getColor(month01.colorCode) }}" text="{{ month01.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month02 -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month02 of chrild.monthVo.month02"
+                                        color="{{ getColor(month02.colorCode) }}" text="{{ month02.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month03 -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month03 of chrild.monthVo.month03"
+                                        color="{{ getColor(month03.colorCode) }}" text="{{ month03.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month04 -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month04 of chrild.monthVo.month04"
+                                        color="{{ getColor(month04.colorCode) }}" text="{{ month04.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month05 -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month05 of chrild.monthVo.month05"
+                                        color="{{ getColor(month05.colorCode) }}" text="{{ month05.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month06 -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month06 of chrild.monthVo.month06"
+                                        color="{{ getColor(month06.colorCode) }}" text="{{ month06.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month07 -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month07 of chrild.monthVo.month07"
+                                        color="{{ getColor(month07.colorCode) }}" text="{{ month07.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month08 -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month08 of chrild.monthVo.month08"
+                                        color="{{ getColor(month08.colorCode) }}" text="{{ month08.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month09 -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month09 of chrild.monthVo.month09"
+                                        color="{{ getColor(month09.colorCode) }}" text="{{ month09.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month10Y -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month10Y of chrild.monthVo.month10Y"
+                                        color="{{ getColor(month10Y.colorCode) }}" text="{{ month10Y.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+
+                                <!-- month11Y -->
+                                <td *ngIf="chrild.monthVo" class="text-center">
+                                    <app-button-custom *ngFor="let month12Y of chrild.monthVo.month12Y"
+                                        color="{{ getColor(month12Y.colorCode) }}" text="{{ month12Y.activityShort }}">
+                                    </app-button-custom>
+                                </td>
+                                <td *ngIf="!chrild.monthVo">
+                                    <!-- some thing -->
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                    <!-- <tr>
+                        <td>3.1</td>
+                        <td>งานตรวจสอบงานโครงการ</td>
+                        <td>1</td>
+                        <td>โครงการ</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>&nbsp; &nbsp; &nbsp; (1) โครงการปรับปรุงและพัฒนาระบบสารสนเทศกรมสรรพสามิต เพื่อรองรับพระราช
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; บัญญัติภาษีสรรพสามิตใหม่
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <app-button-custom color="primary" text="ระบุรายละเอียด" routerLink="/int01/01">
+                            </app-button-custom>
+                            <app-button-custom color="orange" text="รายละเอียดการดำเนินการ" routerLink="/int01/02/01">
+                            </app-button-custom>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">EN</td>
+                        <td style="background-color:rgb(100, 100, 100)">AU</td>
+                        <td style="background-color:rgb(100, 100, 100)">RE</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3.2</td>
+                        <td>งานตรวจสอบระบบงานสารสนเทศหลักของกรมสรรพสามิต</td>
+                        <td>2</td>
+                        <td>ระบบ</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>&nbsp; &nbsp; &nbsp; (1) ระบบงาน BI</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <app-button-custom color="primary" text="ระบุรายละเอียด" routerLink="/int01/01">
+                            </app-button-custom>
+                            <app-button-custom color="orange" text="รายละเอียดการดำเนินการ" routerLink="/int01/02/01">
+                            </app-button-custom>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">EN</td>
+                        <td style="background-color:rgb(100, 100, 100)">AU</td>
+                        <td style="background-color:rgb(100, 100, 100)">RE</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3.3</td>
+                        <td>งานตรวจสอบสรรพสามิตภาคและสรรพสามิตพื้นที่</td>
+                        <td>8</td>
+                        <td>หน่วยงาน</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            &nbsp; &nbsp; &nbsp; (1) สรรพสามิตพื้นที่ร้อยเอ็ด
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <app-button-custom color="primary" text="ระบุรายละเอียด"></app-button-custom>
+                            <app-button-custom color="orange" text="รายละเอียดการดำเนินการ"></app-button-custom>
+                        </td>
+                        <td style="background-color:rgb(94, 243, 94)">EN</td>
+                        <td style="background-color:rgb(94, 243, 94)">AU</td>
+                        <td style="background-color:rgb(56, 128, 223)">RE</td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">MO</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+
+                            &nbsp; &nbsp; &nbsp; (2) สรรพสามิตภาค 3
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <app-button-custom color="primary" text="ระบุรายละเอียด"></app-button-custom>
+                            <app-button-custom color="orange" text="รายละเอียดการดำเนินการ"></app-button-custom>
+                        </td>
+                        <td style="background-color:rgb(56, 128, 223)">EN</td>
+                        <td style="background-color:rgb(100, 100, 100)">AU</td>
+                        <td style="background-color:rgb(100, 100, 100)">RE</td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">MO</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            &nbsp; &nbsp; &nbsp; (3) สรรพสามิตพื้นที่สมุทรปราการ
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <app-button-custom color="primary" text="ระบุรายละเอียด" routerLink="/int01/01">
+                            </app-button-custom>
+                            <app-button-custom color="orange" text="รายละเอียดการดำเนินการ" routerLink="/int01/02/01">
+                            </app-button-custom>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(94, 243, 94)">EN</td>
+                        <td style="background-color:rgb(94, 243, 94)">AU</td>
+                        <td style="background-color:rgb(94, 243, 94)">RE</td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(56, 128, 223)">MO</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            &nbsp; &nbsp; &nbsp; (4) สรรพสามิตพื้นที่เชียงราย
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <app-button-custom color="primary" text="ระบุรายละเอียด" routerLink="/int01/01">
+                            </app-button-custom>
+                            <app-button-custom color="orange" text="รายละเอียดการดำเนินการ" routerLink="/int01/02/01">
+                            </app-button-custom>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">EN</td>
+                        <td style="background-color:rgb(100, 100, 100)">AU</td>
+                        <td style="background-color:rgb(100, 100, 100)">RE</td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">MO</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            &nbsp; &nbsp; &nbsp; (5) สรรพสามิตพื้นที่สุราษฎร์ธานี
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <app-button-custom color="primary" text="ระบุรายละเอียด" routerLink="/int01/01">
+                            </app-button-custom>
+                            <app-button-custom color="orange" text="รายละเอียดการดำเนินการ" routerLink="/int01/02/01">
+                            </app-button-custom>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">EN</td>
+                        <td style="background-color:rgb(100, 100, 100)">AU</td>
+                        <td style="background-color:rgb(100, 100, 100)">RE</td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">MO</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            &nbsp; &nbsp; &nbsp;(6) สรรพสามิตพื้นที่นนทบุรี
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <app-button-custom color="primary" text="ระบุรายละเอียด" routerLink="/int01/01">
+                            </app-button-custom>
+                            <app-button-custom color="orange" text="รายละเอียดการดำเนินการ" routerLink="/int01/02/01">
+                            </app-button-custom>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">EN</td>
+                        <td style="background-color:rgb(100, 100, 100)">AU</td>
+                        <td style="background-color:rgb(100, 100, 100)">RE</td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">MO</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            &nbsp; &nbsp; &nbsp;(7) สรรพสามิตพื้นที่มหาสารคาม
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <app-button-custom color="primary" text="ระบุรายละเอียด" routerLink="/int01/01">
+                            </app-button-custom>
+                            <app-button-custom color="orange" text="รายละเอียดการดำเนินการ" routerLink="/int01/02/01">
+                            </app-button-custom>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">EN</td>
+                        <td style="background-color:rgb(100, 100, 100)">AU</td>
+                        <td style="background-color:rgb(100, 100, 100)">RE</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">MO</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            &nbsp; &nbsp; &nbsp;(8) สรรพสามิตพื้นที่ชัยภูมิ
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <app-button-custom color="primary" text="ระบุรายละเอียด" routerLink="/int01/01">
+                            </app-button-custom>
+                            <app-button-custom color="orange" text="รายละเอียดการดำเนินการ" routerLink="/int01/02/01">
+                            </app-button-custom>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">EN</td>
+                        <td style="background-color:rgb(100, 100, 100)">AU</td>
+                        <td style="background-color:rgb(100, 100, 100)">RE</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:rgb(100, 100, 100)">MO</td>
+                        <td></td>
+                    </tr> -->
+                </table>
+                <div class="ui grid">
+                    <div class="four wide column"></div>
+                    <div class="eight wide column text-center">
+                        <button class="ui mini primary button" routerLink="03">
+                            สรุปผลการตรวจสอบภายในประจำปี
+                        </button>
+                    </div>
+
+                    <div class="four wide column">
+                        <div class="ui segment">
+                            <div class="ui form">
+                                <div inline>
+                                    <div field [col]="4">
+                                        <label style="color:red">*หมายเหตุ</label>
+                                    </div>
+                                </div>
+
+                                <div inline>
+                                    <div field [col]="8">
+                                        <label> &nbsp; EN = Engagement</label>
+                                    </div>
+                                    <div field [col]="8">
+                                        <label> &nbsp; AU = Audit</label>
+                                    </div>
+                                </div>
+
+                                <div inline>
+                                    <div field [col]="8">
+                                        <label> &nbsp; RE = Report</label>
+                                    </div>
+                                    <div field [col]="8">
+                                        <label> &nbsp; MO = Monitoring</label>
+                                    </div>
+                                </div>
+
+                                <div inline>
+                                    <div field [col]="4">
+                                        <label style="color:red">*สถานะ</label>
+                                    </div>
+                                </div>
+
+                                <div inline>
+                                    <div field [col]="8">
+                                        <label>
+                                            <i class="stop icon" style="color:rgb(100, 100, 100)"> </i> :
+                                            ยังไม่ได้ดำเนินการ
+                                        </label>
+                                    </div>
+                                    <div field [col]="8">
+                                        <label><i class="stop icon" style="color:rgb(56, 128, 223)"></i> :
+                                            กำลังดำเนินการ
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div inline>
+                                    <div field [col]="9">
+                                        <label><i class="stop icon" style="color:rgb(94, 243, 94)"></i> :
+                                            ดำเนินการเสร็จสิ้น
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+                <div class="ui centered row grid">
+                    <div class="sixteen aligned center ">
+
+                    </div>
+                </div>
+                <br>
+            </div>
+        </segment>
+    </div>
+</div>
+
+<ui-modal [id]="'detail'" [size]="'mini'" [type]="'custom'">
+    <div class="ui header">
+        รายละเอียด
+    </div>
+    <div class="content">
+        <div class="ui form" [formGroup]="changeDetail">
+            <div class="fields">
+                <div class="eight wide field ui calendar" id="dateCalendarFrom">
+                    <div class="ui input left icon">
+                        <i class="calendar alter nate outline icon"></i>
+                        <input type="calendar" placeholder="วว/ดด/ปปปป" id="dateFrom" formControlName="dateFrom"
+                            name="dateFrom" autocomplete="off">
+                    </div>
+                </div>
+                <div class="eight wide field ui calendar" id="dateCalendarTo">
+                    <div class="ui input left icon">
+                        <i class="calendar alter nate outline icon"></i>
+                        <input type="calendar" placeholder="วว/ดด/ปปปป" id="dateTo" formControlName="dateTo"
+                            name="dateTo" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui mini positive button" (click)="saveDetail()">
+            บันทึก
+        </div>
+        <div class="ui mini negative button">
+            ยกเลิก
+        </div>
+    </div>
+</ui-modal>

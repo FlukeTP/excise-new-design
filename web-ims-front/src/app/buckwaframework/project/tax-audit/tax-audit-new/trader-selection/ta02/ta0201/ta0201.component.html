@@ -1,0 +1,174 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="ติดตามผลการตรวจสอบภาษีประจำปีงบประมาณ {{budgetYear}} (TA0201)" [loading]="loading">
+    <form class="ui form" [formGroup]="formSearch">
+      <div inline>
+        <div field [col]="2">
+          <label class="text-right full-width">ปีงบประมาณ</label>
+        </div>
+        <div field [col]="2">
+          <select class="ui fluid dropdown full-width" (change)="budgerYearChange($event)" id="budgetYear">
+            <option *ngFor="let item of budgetYearList" value="{{item}}">{{item}}</option>
+          </select>
+        </div>
+        <div field [col]="2">
+          <label class="text-right full-width"> สำนักงานสรรพสามิตภาค</label>
+        </div>
+        <div field [col]="3" [ngClass]="{'disabled': isArea || isSector}">
+          <select class="ui dropdown full-width" id="sector" (change)="onChangeSector($event)" formControlName="sector">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+          </select>
+        </div>
+        <div field [col]="2">
+          <label class="text-right full-width"> สำนักงานสรรพสามิตพื้นที่</label>
+        </div>
+        <div field [col]="3" [ngClass]="{'disabled': isArea}">
+          <select class="ui dropdown full-width" id="area" formControlName="area" (change)="onChangeArea($event)">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+          </select>
+        </div>
+      </div>
+      <br>
+      <div inline>
+        <div field [col]="2">
+
+        </div>
+        <div field [col]="12">
+          <div class="ui  segment full-width" >
+            <div inline style="margin: 0">
+              <div field [col]="2">
+                <label class="text-right full-width center-align"><h4>สรุปผล</h4></label>
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width center-align">แผนผล </label>
+              </div>
+              <div field [col]="2">
+                <label class="center-align"> {{sumPlan}} &nbsp;&nbsp;ราย</label>
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width center-align"> ออกตรวจ </label>
+              </div>
+              <div field [col]="2">
+                <label class="center-align" >{{sumAuditPlan}} &nbsp;&nbsp;ราย</label>
+              </div>
+
+              <div field [col]="2">
+                <label class="text-right full-width center-align">สรุปผล </label>
+              </div>
+              <div field [col]="2">
+                <label class="center-align" >{{sumResultPlan}} &nbsp;&nbsp;ราย</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </form>
+    <form class="ui form" [formGroup]="formPlan">
+      <ng-container *ngFor="let item of [0,3,6,9];let i = index">
+        <div inline>
+          <div field [col]="2"></div>
+          <ng-container *ngFor="let month of [0,1,2];let j = index">
+
+            <div field [col]="3">
+              <div class="ui cards">
+                <div class="card">
+                  <div class="content" [ngStyle]="{'background-color': gbCard[i]}">
+                    <div class="header" style="text-align: center;">{{monthYearList[item  + month].monthName}}</div>
+                  </div>
+                  <div class="content">
+                    <div class="description">
+                      <div inline>
+                        <!-- <div field [col]="6"></div> -->
+                        <div field [col]="5"> แผนผล</div>
+                        <div field [col]="5"></div>
+                        <div field [col]="4"><label
+                            class="text-right">{{monthYearList[item  + month].facNum | isEmpty}}</label></div>
+                        <div field [col]="2">ราย</div>
+                      </div>
+                      <!-- <div inline>
+                        <div field [col]="5"> แผนอนุมัติ</div>
+                        <div field [col]="6"></div>
+                        <div field [col]="3">{{monthYearList[item  + month].facNum | isEmpty}}</div>
+                        <div field [col]="2">ราย</div>
+                      </div> -->
+                      <div inline>
+                        <!-- <div field [col]="6"></div> -->
+                        <div field [col]="5"> ออกตรวจ</div>
+                        <div field [col]="5"></div>
+                        <div field [col]="4"><label
+                            class="text-right">{{monthYearList[item  + month].audNum | isEmpty}}</label></div>
+                        <div field [col]="2">ราย</div>
+                      </div>
+                      <div inline>
+                        <!-- <div field [col]="6"></div> -->
+                        <div field [col]="5"> สรุปผล</div>
+                        <div field [col]="5"></div>
+                        <div field [col]="4"><label
+                            class="text-right">{{monthYearList[item  + month].sumNum | isEmpty}}</label>
+                        </div>
+                        <div field [col]="2">ราย</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="ui bottom attached button">
+                        <i class="eye icon"></i>
+                        รายละเอียด
+                      </div> -->
+                  <div class="extra content">
+                    <span class="right floated">
+                      <a><i class="eye icon"></i></a>
+                    </span>
+                    <span [hidden]="officeCode=='001400'">
+                      <a (click)="clickEdit(monthYearList[item+month])"><i class="edit icon"></i></a>
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div field [col]="1"></div>
+          </ng-container>
+        </div>
+      </ng-container>
+      <br>
+      <br>
+      <div class="text-center">
+        <app-button-custom text="แก้ไขแผน" (click)="gotoEditPlan()">
+        </app-button-custom>
+        <!-- <app-button-save (click)="onSubmit()"></app-button-save> -->
+        <!-- <app-button-back [routerLink]="['/tax-audit-new/ta02/05']"></app-button-back> -->
+      </div>
+    </form>
+  </segment>
+</with-breadcrumb>
+
+<ui-modal [id]="'editModal'" type="custom" size="small">
+  <div class="ui header">
+    เพิ่มจำนวนแผน เดือน {{selectEdit.monthName}} ประจำปีงบประมาณ {{budgetYear}}
+  </div>
+  <br>
+  <div>
+    <form form [formGroup]="formEdit">
+      <div inline>
+        <div field [col]="3"><label class="full-width text-right">จำนวนแผน </label></div>
+        <!-- <div field [col]="4"><input type="text"></div> -->
+        <div field [col]="5">
+          <input type="text" numberOnly formControlName="facNum">
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-left">ราย</label>
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <app-button-save (click)="onSubmit()"></app-button-save>
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

@@ -1,0 +1,415 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<br>
+<div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+  <span>รายละเอียดสัญญาการยืมเงิน</span>
+</div>
+<div class="ui attached segment">
+  <br>
+  <div class="inline fields" style="text-align: center !important;">
+    <h1>สัญญาการยืมเงิน</h1>
+  </div>
+  <br>
+  <form [formGroup]="loanAgreementForm" (submit)="save()">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="twelve wide field"></div>
+        <div class="one wide field" style="text-align: center !important;">
+          <label class="text-right full-width">เลขที่ </label>
+        </div>
+
+        <div class="three wide field" style="text-align: center !important;" [ngClass]="{ 'error': submitted && f.order.errors }">
+          <input type="text" formControlName="order">
+        </div>
+
+      </div>
+      <div class="inline fields">
+        <div class="two wide field">
+          <label class="text-right full-width">ยื่นต่อ</label>
+        </div>
+        <div class="five wide field" [ngClass]="{ 'error': submitted && f.filing.errors }">
+          <input type="text" formControlName="filing">
+        </div>
+        <div class="one wide field">(๑)</div>
+        <div class="five wide field"></div>
+        <div class="three wide field">
+          <label class="text-center full-width">วันครบกำหนด</label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="thirteen wide field"></div>
+        <div class="three wide field" [ngClass]="{ 'error': submitted && f.deadLinesStr.errors }">
+          <div class="ui calendar" id="deadLinesCld" style="width:100%; text-align: center">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" placeholder="วว/ดด/ปปปป" formControlName="deadLinesStr" autocomplete="off" readonly="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field">
+          <label class="text-right full-width">ข้าพเจ้า</label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.ourself.errors }">
+          <input type="text" formControlName="ourself">
+        </div>
+        <div class="one wide field">
+          <label class="text-right full-width">ตำแหน่ง</label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.position.errors }">
+          <input type="text" formControlName="position">
+        </div>
+        <div class="one wide field">
+          <label class="text-right full-width">สังกัด</label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.affiliation.errors }">
+          <input type="text" formControlName="affiliation">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field" style="font-size: 0.9rem;text-align: right !important;">
+          <label class="text-right full-width">
+            มีความประสงค์ขอยืมเงินจาก
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.borrowFrom.errors }">
+          <input type="text" formControlName="borrowFrom">
+        </div>
+
+      </div>
+      <div class="inline fields">
+        <div class="two wide field">
+          <label class="text-right full-width">(๒)เพื่อเป็นค่าใช้จ่ายในการ</label>
+        </div>
+        <div class="fourteen wide field" [ngClass]="{ 'error': submitted && f.forCost.errors }">
+          <textarea rows="3" formControlName="forCost"></textarea>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="inline fields">
+        <div class="two wide field" style="text-align: right !important;">
+          <label class="text-right full-width">ตั้งแต่วันที่</label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.startDateStr.errors }">
+          <div class="ui calendar" id="startDateCld" style="width: 100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" formControlName="startDateStr" autocomplete="off" [attr.readonly]="null" placeholder="วว/ดด/ปปปป"
+                [attr.required]="true">
+            </div>
+          </div>
+        </div>
+        <div class="one wide field">
+          <label class="text-center full-width">ถึงวันที่</label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.endDateStr.errors }">
+          <div class="ui calendar" id="endDateCld" style="width: 100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" formControlName="endDateStr" autocomplete="off" [attr.readonly]="null" placeholder="วว/ดด/ปปปป"
+                [attr.required]="true">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field" style="text-align: right !important;">
+          <label class="text-center full-width">(๓)ดังรายละเอียดต่อไปนี้</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label>
+            - ค่าเบี้ยเลี้ยง
+          </label>
+        </div>
+        <div class="eight wide field"></div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.allowance.errors }">
+          <input type="text" formControlName="allowance" (keyup)="numberToThaiText('sumOtherCost')" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label>
+            - ค่าที่พัก
+          </label>
+        </div>
+        <div class="eight wide field"></div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.accommodationCost.errors }">
+          <input type="text" formControlName="accommodationCost" (keyup)="numberToThaiText('sumOtherCost')" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label>
+            - ค่าพาหนะ
+          </label>
+        </div>
+        <div class="eight wide field"></div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.travelCost.errors }">
+          <input type="text" formControlName="travelCost" (keyup)="numberToThaiText('sumOtherCost')" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label>
+            - ค่าใช้จ่ายอื่น
+          </label>
+        </div>
+        <div class="eight wide field"></div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.otherCost.errors }">
+          <input type="text" formControlName="otherCost" (keyup)="numberToThaiText('sumOtherCost')" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width">
+            (ตัวอักษร
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.totalCostStr.errors }">
+          <input class="custom-readonly" type="text" formControlName="totalCostStr">
+        </div>
+        <div class="two wide field">
+          <label class="text-left full-width">
+            ) รวมเงิน (บาท)
+          </label>
+        </div>
+        <div class="two wide field">
+          <label class="text-right full-width">
+            รวมเป็นเงิน
+          </label>
+        </div>
+        <div class="four wide field" [ngClass]="{ 'error': submitted && f.totalCost.errors }">
+          <input class="custom-readonly" type="text" formControlName="totalCost">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field"></div>
+        <div class="eleven wide field">
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ข้าพเจ้าสัญญาว่าจะปฏิบัติตามระเบียบของทางราชการทุกประการ &nbsp;
+          และจะนำใบสำคัญคู่จ่ายที่ถูกต้อง &nbsp; พร้อมทั้ง
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field"></div>
+        <div class="eleven wide field">
+          เงินเหลือจ่าย&nbsp;(ถ้ามี)&nbsp;ส่งภายในกำหนดไว้ในระเบียบการจ่ายเงินจากกองคลัง &nbsp; คือภายใน&nbsp; &nbsp;
+          15 &nbsp; &nbsp; วัน &nbsp; นับแต่วันที่เดินทาง
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field"></div>
+        <div class="eleven wide field">
+          กลับมาถึง&nbsp;ถ้าข้าพเจ้าไม่ส่งตามกำหนด&nbsp;ข้ำพเจ้ายินยอมให้หักเงินเดือน&nbsp;ค่าจ้าง&nbsp;เบี้ยหวัด&nbsp;บำเหน็จ&nbsp;บำนาญ&nbsp;หรือเงินอื่นใด
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field"></div>
+        <div class="eleven wide field">
+          ที่ข้าพเจ้าพึงได้รับจากทางราชการ&nbsp;ชดใช้จำนวนเงินที่ยืมไปจนครบถ้วนได้ทันที
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="inline fields">
+        <div class="four wide field"></div>
+        <div class="five wide field">
+          <label>ลายมือชื่อ...........................................................................ผู้ยืม</label>
+        </div>
+        <div class="one wide field"></div>
+        <div class="three wide field">
+          <label>วันที่...........................................................</label>
+        </div>
+      </div>
+      <br>
+      <br>
+
+      <div class="inline fields">
+        <div class="two wide field">
+          <label>เสนอ</label>
+        </div>
+        <div class="three wide field">
+          <label>อธิบดีกรมสรรพสามิต</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="six wide field">
+          <label class="text-right full-width">
+            ได้ตรวจสอบแล้ว &nbsp; &nbsp; เห็นสมควรอนุมัติให้ยืมตามใบยืมฉบับนี้ได้ &nbsp; &nbsp; จำนวน
+          </label>
+        </div>
+        <div class="five wide field" [ngClass]="{ 'error': submitted && f.deserveLend.errors }">
+          <input type="text" formControlName="deserveLend" (keyup)="numberToThaiText('deserveLend')" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="six wide field">
+          <label class="text-right full-width">
+            ตัวอักษร
+          </label>
+        </div>
+        <div class="five wide field" [ngClass]="{ 'error': submitted && f.deserveLendStr.errors }">
+          <input class="custom-readonly" type="text" formControlName="deserveLendStr">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="four wide field"></div>
+        <div class="five wide field">
+          <label>ลงชื่อ...........................................................................</label>
+        </div>
+        <div class="one wide field"></div>
+        <div class="three wide field">
+          <label>วันที่...........................................................</label>
+        </div>
+      </div>
+      <br>
+      <br>
+
+      <div class="inline fields">
+        <div class="sixteen wide field">
+          <label class="text-center full-width">คำอนุมัติ</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="six wide field">
+          <label class="text-right full-width">
+            อนุมัติให้ยืมตามเงื่อนไขข้างต้นได้ &nbsp; &nbsp; เป็นเงิน
+          </label>
+        </div>
+        <div class="five wide field" [ngClass]="{ 'error': submitted && f.approvedLend.errors }">
+          <input type="text" formControlName="approvedLend" (keyup)="numberToThaiText('approvedLend')" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="six wide field">
+          <label class="text-right full-width">
+            ตัวอักษร
+          </label>
+        </div>
+        <div class="five wide field" [ngClass]="{ 'error': submitted && f.approvedLendStr.errors }">
+          <input class="custom-readonly" type="text" formControlName="approvedLendStr">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="four wide field"></div>
+        <div class="five wide field">
+          <label>ลงชื่อผู้อนุมัติ...........................................................................</label>
+        </div>
+        <div class="one wide field"></div>
+        <div class="three wide field">
+          <label>วันที่...........................................................</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="sixteen wide field">
+          <label class="text-center full-width">ใบรับเงิน</label>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="six wide field">
+          <label class="text-right full-width">
+            ได้รับเงินยืมจำนวน
+          </label>
+        </div>
+        <div class="five wide field" [ngClass]="{ 'error': submitted && f.loanAmount.errors }">
+          <input type="text" formControlName="loanAmount" (keyup)="numberToThaiText('loanAmount')" (keypress)="typeNumber($event)">
+        </div>
+        <div class="one wide field">
+          <label>
+            บาท
+          </label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="six wide field">
+          <label class="text-right full-width">
+            ตัวอักษร
+          </label>
+        </div>
+        <div class="five wide field" [ngClass]="{ 'error': submitted && f.loanAmountStr.errors }">
+          <input class="custom-readonly" type="text" formControlName="loanAmountStr">
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field"></div>
+        <div class="five wide field">
+          <label>รายมือชื่อ...........................................................................ผู้รับเงิน</label>
+        </div>
+        <div class="one wide field"></div>
+        <div class="three wide field">
+          <label>วันที่...........................................................</label>
+        </div>
+      </div>
+
+
+      <br>
+      <br>
+      <br>
+      <div class="ui center aligned grid">
+        <div class="eight wide grid">
+          <button class="ui mini primary button" type="submit"><i class="save icon"></i>บันทึก</button>
+          <button class="ui mini button" type="button" (click)="clickBack()"><i class="close icon"></i>ยกเลิก</button>
+        </div>
+      </div>
+      <br>
+    </div>
+  </form>
+</div>

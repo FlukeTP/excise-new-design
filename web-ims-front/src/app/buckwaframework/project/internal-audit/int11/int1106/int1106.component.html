@@ -1,0 +1,189 @@
+<app-breadcrumb style="width: 100%;" [route]="breadcrumb"></app-breadcrumb>
+<segment header="บทสรุปผู้บริหาร" [loading]="false">
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="fourteen wide field">
+        <label>สรุปผลการตรวจสอบการปฏิบัติงานของสำนักงานสรรพสามิตภาค / พื้นที่ / พื้นที่สาขา กรมสรรพสามิต ประจำปีงบประมาณ
+          2562</label>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="twelve wide field">
+        <textarea rows="2"></textarea>
+      </div>
+      <div class="two wide field"></div>
+    </div>
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="fourteen wide field">
+        <label>สรุปผลการวิเคราะห์สาเหตุข้อตรวจพบและข้อเสนอแนะในภาพรวม</label>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="twelve wide field">
+        <textarea rows="2"></textarea>
+      </div>
+      <div class="two wide field"></div>
+    </div>
+
+  </div>
+  <div class="ui grid">
+    <div class="sixteen wide column text-right">
+      <app-button-add (click)="showModal(0)"></app-button-add>
+    </div>
+  </div>
+  <table id="table" class="ui small celled table striped selectable " style="width: 100%;">
+    <thead>
+      <tr class="text-center">
+        <th>สาเหตุข้อตรวจพบ</th>
+        <th style="min-width: 580px;">ข้อเสนอแนะ</th>
+        <th rowspan="2" style="width: 169px;">จัดการ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1. ระบบการควบคุมภายในที่ไม่เพียงพอและเหมาะสม คิดเป็นร้อยละ 28 เช่น
+          ไม่มีการสอบทานงานระหว่างกัน การมอบหมายอำนาจหน้าที่ไม่ถูกต้องครบถ้วน และไม่เป็นปัจจุบัน
+          การจัดทำทะเบียนคุมเพื่อใช้ในการสอบ ทานไม่เป็นปัจจุบัน เป็นต้น อาจส่งผลกระทบให้การปฏิบัติงานไม่มี
+          ผู้รับผิดชอบโดยตรง ไม่มีเอกสารหลักฐานที่ใช้ในการสอบยันระหว่างกัน
+        </td>
+        <td>
+          <br>1. ให้สำนักงานสรรพสามิตภาค/พื้นที่/พื้นที่สาขา ทบทวนระบบการควบคุมภายในให้ครอบคลุมทุกด้าน
+          เป็นประจำ และกำหนดมาตรการบทลงโทษเป็น ลายลักษณ์อักษร และประกาศให้ถือปฏิบัติอย่าง เคร่งครัด
+
+          <br>2. สร้างความตระหนักรู้ให้เห็นถึงความสำคัญของ การมีระบบการควบคุมภายในที่ดี ที่ช่วยให้เจ้าหน้าที่
+          ปฏิบัติงานได้อย่างมีประสิทธิภาพ เกิดความสบายใจในการทำงาน
+
+
+        </td>
+        <td>
+          <app-button-edit (click)="showModal(1)"></app-button-edit>
+          <app-button-delete></app-button-delete>
+        </td>
+      </tr>
+      <tr>
+        <td>2. ด้านบุคลากร คิดเป็นร้อยละ 35 เช่น เจ้าหน้าที่มีความรู้ความเข้าใจเกี่ยวกับ
+          กฎระเบียบข้อบังคับที่เกี่ยวข้องไม่เพียงพอ
+          เจ้าหน้าที่ ปฏิบัติงานไม่ครบถ้วน ไม่เป็นไปตามกฎระเบียบ ข้อบังคับที่เกี่ยวข้อง เจ้าหน้าที่ขาดความระมัดระวัง
+          รอบคอบในการปฏิบัติงาน เจ้าหน้าที่มีการโยกย้าย / เปลี่ยนแปลงหน้าที่ความรับผิดชอบ เจ้าหน้าที่บรรจุ ใหม่
+          เป็นต้น อาจส่งผลกระทบให้การปฏิบัติงานไม่ถูกต้อง เกิดความเสียหายต่อส่วนราชการและต่อผู้ปฏิบัติงาน ได้ เช่น
+          ภาพลักษณ์ของส่วนราชการ การโดนโทษทางวินัย การเรียกเงินคืน ต้องปฏิบัติงานหลายครั้ง เป็นต้น
+        </td>
+        <td>
+          1. ให้สำนักงานสรรพสามิตภาค/พื้นที่/พื้นที่สาขา จัดทำ KM ภายในหน่วยงานอย่างน้อยเดือนละ 1 เรื่อง
+          เพื่อเผยแพร่ความรู้ให้กับเจ้าหน้าที่ภายในหน่วยงาน
+
+          <br>2. ให้สำนักบริหารทรัพยากรบุคคล จัดหลักสูตร ฝึกอบรมให้ความรู้เกี่ยวกับกฎระเบียบข้อบังคับที่ เกี่ยวข้อง
+          ให้เจ้าหน้าที่ผู้ปฏิบัติงานอย่างทั่วถึง
+
+          <br>3. ให้เจ้าหน้าที่ศึกษาหาความรู้จากคู่มือหรือ แนวทางการปฏิบัติงานเพื่อให้สามารถปฏิบัติงานได้ อย่างถูกต้อง
+        </td>
+        <td>
+          <app-button-edit (click)="showModal(2)"></app-button-edit>
+          <app-button-delete></app-button-delete>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="fourteen wide field">
+        <label><br>สรุปผลการตรวจสอบการปฏิบัติงานของสำนักงานสรรพสามิตภาค / พื้นที่ / พื้นที่สาขา กรมสรรพสามิต
+          ประจำปีงบประมาณ
+          2562</label>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="twelve wide field">
+        <textarea rows="2"></textarea>
+      </div>
+      <div class="two wide field"></div>
+    </div>
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="fourteen wide field">
+        <label>ปัญหาและอุปสรรคในการปฏิบัติตามข้อเสนอแนะ</label>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="twelve wide field">
+        <textarea rows="2"></textarea>
+      </div>
+      <div class="two wide field"></div>
+    </div>
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="fourteen wide field">
+        <label>แนวทางแก้ไข</label>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="two wide field"></div>
+      <div class="twelve wide field">
+        <textarea rows="2"></textarea>
+      </div>
+      <div class="two wide field"></div>
+    </div>
+  </div>
+  <div class="ui grid">
+    <div class="four wide column"></div>
+    <div class="eight wide column text-center">
+      <app-button-save></app-button-save>
+      <app-button-back routerLink="/int01/03"></app-button-back>
+    </div>
+  </div>
+</segment>
+
+
+
+<ui-modal [id]="'detail'" [type]="'custom'" [size]="'large'">
+  <div class="ui header form">
+      <div class="inline fields">
+    <div *ngIf="show1 || show2">แก้ไข</div ><div *ngIf="show">เพิ่ม</div>บทสรุปผู้บริหาร
+    </div>
+  </div>
+  <div class="content">
+    <div class="ui form">
+      <div class="field">
+        <label>สาเหตุข้อตรวจพบ</label>
+        <div *ngIf="show">
+          <textarea rows="2"></textarea>
+        </div>
+        <div *ngIf="show1">
+          <textarea rows="2">{{data1}}</textarea>
+        </div>
+
+        <div *ngIf="show2">
+          <textarea rows="4">{{data2}}</textarea>
+        </div>
+      </div>
+      <div class="field">
+        <label>ข้อเสนอแนะ</label>
+        <div *ngIf="show">
+          <textarea rows="3"></textarea>
+        </div>
+        <div *ngIf="show1">
+          <textarea rows="3">{{detail1}}</textarea>
+        </div>
+        <div *ngIf="show2">
+          <textarea rows="4">{{detail2}}</textarea>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="actions ">
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-save class="positive"></app-button-save>
+        <app-button-cancel class="negative"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>

@@ -1,0 +1,79 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+    <segment header="ข้อมูลค่าสาธารณูปโภค" [loading]="false">
+      <form class="ui form" [formGroup]="formSave">
+        <!-- row 1 -->
+        <input type="hidden" [(ngModel)]="model.searchFlag" name="searchFlag">
+        <div class="inline fields ui centered grid " >
+          <div class="one wide field "></div>
+          <div class="three wide field ">
+            <label class="text-right full-width">ประเภทค่าสาธารณูปโภค</label>
+          </div>
+          <div class="four wide field">
+            <select class="ui dropdown search  ia full-width" id="utilityType" name="utilityType" formControlName="utilityType">
+                <option value="">กรุณาเลือก</option>
+              <option *ngFor="let data of utilityTypeList" value="{{data.paramCode}}">{{data.value1}}</option>
+            </select>
+          </div>
+          <div class="two wide field  ">
+            <label class="text-right full-width">เลขที่ใบแจ้งหนี้</label>
+          </div>
+          <div class="four wide field">
+            <input type="text" placeholder="เลขที่ใบแจ้งหนี้" class="custom" name="invoiceNum" id="invoiceNum" formControlName="utilityType">
+          </div>
+          <div class="two wide field "></div>
+        </div>
+        <div class="inline fields centered ui grid">
+          <div class="three wide field">
+            <label class="text-right full-width">ช่วงวันที่</label>
+          </div>
+          <div class="four wide field ">
+            <div class="ui calendar" id="dateCalendarFrom" style="width:100%">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" autocomplete="off" id="startDate" name="startDate" formControlName = "startDate" placeholder="วว/ดด/ปปปป">
+              </div>
+            </div>
+          </div>
+          <div class="two wide field">
+            <label class="text-right full-width">ถึงวันที่</label>
+          </div>
+          <div class="four wide field ">
+            <div class="ui calendar" id="dateCalendarTo" style="width:100%">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" autocomplete="off" id="endDate" name="endDate" placeholder="วว/ดด/ปปปป">
+              </div>
+            </div>
+          </div>
+          <div class="one wide field "></div>
+        </div>
+        <br><br>
+        <div class="ui stackable center aligned page grid">
+          <button class="ui mini primary button" type="button" (click)="search()"><i class="search icon"></i>
+            ค้นหา</button>
+          <button class="ui mini gray button" type="button" (click)="clear()"><i class="sync icon"></i>
+            ล้างข้อมูล</button>
+          <button class="ui mini green button" type="button" routerLink="/int12/08/01/01"><i class="plus icon"></i>
+            เพิ่มข้อมูล</button>
+        </div><br>
+      </form>
+      <br>
+      <table id="dataTable" class="ui small celled table nowrap striped selectable" style="width: 100%">
+          <thead>
+            <tr style="text-align: center;">
+              <th>ลำดับที่</th>
+              <th>ประเภทค่าสาธารณูปโภค</th>
+              <th>ใบแจ้งหนี้เดือน</th>
+              <th>เลขที่ใบแจ้งหนี้</th>
+              <th>วันที่ในใบแจ้งหนี้</th>
+              <th>เลขที่ ขบ.</th>
+              <th>วันที่เบิก</th>
+              <th>จำนวนเงิน</th>
+              <th>จัดการ</th>
+            </tr>
+          </thead>
+        </table>
+      <br>
+    </segment>
+  </with-breadcrumb>

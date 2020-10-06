@@ -1,0 +1,225 @@
+<div class="sixteen wide column">
+  <div class="ui attached centeblack segment">
+    <br>
+
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="two wide field ">
+        </div>
+        <div class="four wide field ">
+          <label style="font-size:30px;">ก่อนออกตรวจ</label>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field ">
+        </div>
+        <div class="four wide field ">
+          <h3>ประมาณค่าใช้จ่ายในการเดินทางไปราชการ</h3>
+        </div>
+        <div class="three wide field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="frequency" checked="checked" (click)="checkShow(true)">
+            <label>ก่อนเดินทางไปราชการ</label>
+          </div>
+        </div>
+        <div class="three wide field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="frequency" (click)="checkShow(false)">
+            <label>หลังเดินทางไปราชการ</label>
+          </div>
+        </div>
+        <div class="four wide field ">
+            <app-button-confirm></app-button-confirm>
+        </div>
+      </div>
+      <div *ngIf="show">
+          <div class="inline fields">
+              <div class="two wide field ">
+              </div>
+              <div class="six wide field ">
+              </div>
+              <div class="two wide field">
+                  สถานะการดำเนินงาน
+              </div>
+              <div class="two wide field">
+                  สถานะการอนุมัติ
+              </div>
+
+            </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="six wide field ">
+            <label>1.ประมาณค่าใช้จ่ายในการเดินทางไปราชการ</label>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="six wide field ">
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;ประมาณการค่าใช้จ่ายในการเดินทางไปราชการ (เงินงบประมาณ)</label>
+          </div>
+          <div class="two wide field" style="color:blue;">
+            กำลังดำเนินการ
+          </div>
+          <div class="two wide field " style="color:black;">
+            <div class="eight wide field ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</div>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int05/01/01/01"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int05/01/01/01"></app-button-custom>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="six wide field ">
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;ประมาณการค่าใช้จ่ายในการเดินทางไปราชการ (เงินนอกงบประมาณ)</label>
+          </div>
+          <div class="two wide field" style="color:blue;">
+            กำลังดำเนินการ
+          </div>
+          <div class="two wide field " style="color:black;">
+            <div class="eight wide field">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</div>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int05/01/01/01"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int05/01/01/01"></app-button-custom>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="six wide field ">
+            <label>2.ขออนุมัติเดินทางไปราชการ</label>
+          </div>
+          <div class="two wide field" style="color:blue;">
+            กำลังดำเนินการ
+          </div>
+          <div class="two wide field " style="color:black;">
+            <div class="eight wide field">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</div>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int11/03"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int11/03"></app-button-custom>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="six wide field ">
+            <label>3.หนังสือขอกันเงินค่าใช้จ่ายในการเดินทางไปราชการ</label>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="six wide field ">
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;หนังสือขอกันเงินค่าใช้จ่ายในการเดินทางไปราชการ (เงินงบประมาณ)</label>
+          </div>
+          <div class="two wide field" style="color:blue;">
+            กำลังดำเนินการ
+          </div>
+          <div class="two wide field " style="color:black;">
+            <div class="eight wide field">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</div>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int11/03"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int11/03"></app-button-custom>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="six wide field ">
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;หนังสือขอกันเงินค่าใช้จ่ายในการเดินทางไปราชการ (เงินนอกงบประมาณ)</label>
+          </div>
+          <div class="two wide field" style="color:blue;">
+            กำลังดำเนินการ
+          </div>
+          <div class="two wide field " style="color:black;">
+            <div class="eight wide field">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</div>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int11/03"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int11/03"></app-button-custom>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="six wide field ">
+            <label>4.หนังสือขอใช้รถยนต์ส่วนกลางในการไปราชการต่างจังหวัด</label>
+          </div>
+          <div class="two wide field" style="color:blue;">
+            กำลังดำเนินการ
+          </div>
+          <div class="two wide field " style="color:black;">
+            <div class="eight wide field">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</div>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int11/03"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int11/03"></app-button-custom>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="six wide field ">
+            <label>5.ขอยืมเงินค่าใช้จ่ายในการเดินทางไปราชการ</label>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="six wide field ">
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;สัญญาการยืมเงิน (กรณียืมเงินงบประมาณ)</label>
+          </div>
+          <div class="two wide field" style="color:blue;">
+            กำลังดำเนินการ
+          </div>
+          <div class="two wide field " style="color:black;">
+            <div class="eight wide field">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</div>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int05/01/01/02"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int05/01/01/02"></app-button-custom>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="two wide field ">
+          </div>
+          <div class="six wide field ">
+            <label>&nbsp;&nbsp;&nbsp;&nbsp;หนังสือขอยืมเงิน (กรณียืมเงินนอกงบประมาณ)</label>
+          </div>
+          <div class="two wide field" style="color:blue;">
+            กำลังดำเนินการ
+          </div>
+          <div class="two wide field " style="color:black;">
+            <div class="eight wide field">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</div>
+          </div>
+          <div class="four wide field">
+            <app-button-custom color="primary" text="รายละเอียด" routerLink="/int11/03"></app-button-custom>
+            <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" routerLink="/int11/03"></app-button-custom>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field ">
+        </div>
+        <div class="six wide field ">
+          <label>หนังสือแจ้งการเข้าตรวจ</label>
+        </div>
+        <div class="two wide field" style="color:blue;">
+          กำลังดำเนินการ
+        </div>
+        <div class="two wide field " style="color:black;">
+          <div class="eight wide field">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</div>
+        </div>
+        <div class="four wide field">
+          <app-button-custom color="primary" text="รายละเอียด" [routerLink]="['/int11/03']"></app-button-custom>
+          <app-button-custom color="primary" text="ตรวจสอบและอนุมัติ" [routerLink]="['/int11/03']"></app-button-custom>
+        </div>
+      </div>
+    </div>
+  </div>

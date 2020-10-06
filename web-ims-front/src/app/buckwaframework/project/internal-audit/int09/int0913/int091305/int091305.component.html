@@ -1,0 +1,117 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment
+    header="รายละเอียดค่าใช้จ่ายค่าสาธารณูปโภค({{formHead.get('ubillTypeStr').value}}) ปีงบประมาณ {{formHead.get('budgetYear').value}}"
+    [loading]="loading">
+
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <div form>
+          <div inline>
+            <button class="ui medium button btn-custom" [ngClass]="{'primary': quarterFlag === 'A' }"
+              (click)="changeFlagBtn('A')">
+              ไตรมาสที่ 1-2
+            </button>
+
+            <button class="ui medium button btn-custom" [ngClass]="{'primary': quarterFlag === 'B' }"
+              (click)="changeFlagBtn('B')">
+              ไตรมาสที่ 3-4
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui divider"></div>
+
+    <div class="sixteen wide column">
+      <table class="ui small celled nowrap table striped selectable" style="width:100%">
+        <thead *ngIf="quarterFlag == 'A'">
+          <tr class="text-center">
+            <th rowspan="2">ลำดับที่</th>
+            <th rowspan="2">หน่วยงาน</th>
+            <th colspan="4">ไตรมาสที่ 1</th>
+            <th colspan="4">ไตรมาสที่ 2</th>
+          </tr>
+          <tr class="text-center">
+
+            <!-- ไตรมาส 1 -->
+            <th>ต.ค {{formHead.get('budgetYear').value - 1}}</th>
+            <th>พ.ย. {{formHead.get('budgetYear').value - 1}}</th>
+            <th>ธ.ค. {{formHead.get('budgetYear').value - 1}}</th>
+            <th>รวม</th>
+
+            <!-- ไตรมาส 2 -->
+            <th>ม.ค {{formHead.get('budgetYear').value}}</th>
+            <th>ก.พ. {{formHead.get('budgetYear').value}}</th>
+            <th>มี.ค. {{formHead.get('budgetYear').value}}</th>
+            <th showTotal>รวม</th>
+          </tr>
+        </thead>
+
+        <thead *ngIf="quarterFlag == 'B'">
+          <tr class="text-center">
+            <th rowspan="2">ลำดับที่</th>
+            <th rowspan="2">หน่วยงาน</th>
+            <th colspan="4">ไตรมาสที่ 3</th>
+            <th colspan="4">ไตรมาสที่ 4</th>
+          </tr>
+          <tr class="text-center">
+
+            <!-- ไตรมาส 3 -->
+            <th>เม.ย. {{formHead.get('budgetYear').value}}</th>
+            <th>พ.ค. {{formHead.get('budgetYear').value}}</th>
+            <th>มิ.ย. {{formHead.get('budgetYear').value}}</th>
+            <th>รวม</th>
+
+            <!-- ไตรมาส 4 -->
+            <th>ก.ค. {{formHead.get('budgetYear').value}}</th>
+            <th>ส.ค. {{formHead.get('budgetYear').value}}</th>
+            <th>ก.ย. {{formHead.get('budgetYear').value}}</th>
+            <th>รวม</th>
+          </tr>
+        </thead>
+
+        <tbody *ngIf="data.quarter.length > 1 && quarterFlag == 'A'">
+          <tr *ngFor="let d of data.quarter; let i = index" [ngClass]="{'showTotal': i == data.quarter.length-1}">
+            <td class="text-center" *ngIf="i <= data.quarter.length-2">{{ i+1 }}</td>
+            <td *ngIf="i <= data.quarter.length-2">{{ d.department | isEmpty }}</td>
+            <td class="text-right" *ngIf="i == data.quarter.length-1" colspan="2">{{ d.department | isEmpty }}</td>
+            <td class="text-right">{{ d.q1Oct | isEmpty }}</td>
+            <td class="text-right">{{ d.q1Nov | isEmpty }}</td>
+            <td class="text-right">{{ d.q1Dec | isEmpty }}</td>
+            <td class="text-right showTotal">{{ d.q1Total | isEmpty }}</td>
+            <td class="text-right">{{ d.q2Jan | isEmpty }}</td>
+            <td class="text-right">{{ d.q2Feb | isEmpty }}</td>
+            <td class="text-right">{{ d.q2Mar | isEmpty }}</td>
+            <td class="text-right showTotal">{{ d.q2Total | isEmpty }}</td>
+          </tr>
+        </tbody>
+
+        <tbody *ngIf="data.quarter.length > 1 && quarterFlag == 'B'">
+          <tr *ngFor="let d of data.quarter; let i = index" [ngClass]="{'showTotal': i == data.quarter.length-1}">
+            <td class="text-center" *ngIf="i <= data.quarter.length-2">{{ i+1 }}</td>
+            <td *ngIf="i <= data.quarter.length-2">{{ d.department | isEmpty }}</td>
+            <td class="text-right" *ngIf="i == data.quarter.length-1" colspan="2">{{ d.department | isEmpty }}</td>
+            <td class="text-right">{{ d.q3Apr | isEmpty }}</td>
+            <td class="text-right">{{ d.q3May | isEmpty }}</td>
+            <td class="text-right">{{ d.q3Jun | isEmpty }}</td>
+            <td class="text-right showTotal">{{ d.q3Total | isEmpty }}</td>
+            <td class="text-right">{{ d.q4Jul | isEmpty }}</td>
+            <td class="text-right">{{ d.q4Aug | isEmpty }}</td>
+            <td class="text-right">{{ d.q4Sep | isEmpty }}</td>
+            <td class="text-right showTotal">{{ d.q4Total | isEmpty }}</td>
+          </tr>
+        </tbody>
+
+        <tbody *ngIf="data.quarter.length <= 1">
+          <tr>
+            <td colspan="10" class="text-center">ไม่พบข้อมูล</td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </segment>
+</with-breadcrumb>

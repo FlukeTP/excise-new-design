@@ -1,0 +1,323 @@
+<app-breadcrumb style="width: 100%;" [route]="breadcrumb"></app-breadcrumb>
+<segment header="{{act == '' ? 'เพิ่มข้อมูลสินทรัพย์' : 'แก้ไขข้อมูลสินทรัพย์'}}" [loading]="false">
+  <div class="ui grid">
+    <div class="sixteen wide column" id="assetBalance">
+      <div class="ui attached">
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">
+                <b style="color: red">*</b>ส่วนราชการ
+              </label>
+
+            </div>
+            <div class="four wide field ">
+              <input type="text" placeholder="ส่วนราชการ" class="custom" name="governmentSector" id="governmentSector"
+                [(ngModel)]="assetBalance.governmentSector">
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width"><b style="color: red">*</b>หน่วยงาน</label>
+            </div>
+            <div class="four wide field ">
+              <input type="text" placeholder="หน่วยงาน" class="custom" name="institute" id="institute" [(ngModel)]="assetBalance.institute">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">ประเภทสินทรัพย์</label>
+            </div>
+            <div class="four wide field ">
+              <!-- <input type="text" class="custom" name="assetType" id="assetType" [(ngModel)]="assetBalance.assetType"> -->
+              <select class="ui search dropdown ai" aria-placeholder="ประเภทสินทรัพย์" id="assetType" name="assetType"
+                [(ngModel)]="assetBalance.assetType">
+                <option value="0"></option>
+                <option *ngFor="let assetType of ddtAssetType; let i=index" selected="{{assetType.value1 == assetBalance.assetType}}"
+                  value="{{assetType.value1}}">{{assetType.value1}}</option>
+
+
+              </select>
+
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width">รหัสสินทรัพย์</label>
+            </div>
+            <div class="four wide field ">
+              <input type="text" placeholder="รหัสสินทรัพย์" class="custom" name="assetCode" id="assetCode" [(ngModel)]="assetBalance.assetCode">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">ลักษณะ/คุณสมบัติสินทรัพย์</label>
+            </div>
+            <div class="four wide field ">
+              <input type="text" placeholder="ลักษณะ/คุณสมบัติสินทรัพย์" class="custom" name="assetFeature" id="assetFeature"
+                [(ngModel)]="assetBalance.assetFeature">
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width">รุ่น/แบบสินทรัพย์</label>
+            </div>
+            <div class="four wide field ">
+              <input type="text" placeholder="รุ่น/แบบสินทรัพย์" class="custom" name="assetModel" id="assetModel"
+                [(ngModel)]="assetBalance.assetModel">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">สถานที่ตั้ง/หน่วยงานที่รับผิดชอบ</label>
+            </div>
+            <div class="four wide field ">
+              <input type="text" placeholder="สถานที่ตั้ง/หน่วยงานที่รับผิดชอบ" class="custom" name="picAddress" id="picAddress"
+                [(ngModel)]="assetBalance.picAddress">
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width">ชื่อผู้ขาย / ผู้รับจ้าง/ผู้บริจาค</label>
+            </div>
+            <div class="four wide field ">
+              <input type="text" placeholder="ชื่อผู้ขาย / ผู้รับจ้าง/ผู้บริจาค" class="custom" name="vendorsName" id="vendorsName"
+                [(ngModel)]="assetBalance.vendorsName">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">ที่อยู่ผู้ขาย/ผู้รับจ้าง/ผู้บริจาค</label>
+            </div>
+            <div class="four wide field ">
+              <input type="text" placeholder="ที่อยู่ผู้ขาย/ผู้รับจ้าง/ผู้บริจาค" class="custom" name="vendorsAddress"
+                id="vendorsAddress" [(ngModel)]="assetBalance.vendorsAddress">
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width">เบอร์ติดต่อผู้ขาย/ผู้รับจ้าง/ผู้บริจาค</label>
+            </div>
+            <div class="four wide field ">
+              <input type="text" placeholder="เบอร์ติดต่อผู้ขาย/ผู้รับจ้าง/ผู้บริจาค" class="custom" name="vendorsPhone"
+                id="vendorsPhone" [(ngModel)]="assetBalance.vendorsPhone">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">ประเภทงบประมาณ</label>
+            </div>
+            <div class="ten wide field ">
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="typeCost" value="เงินงบประมาณ" [(ngModel)]="assetBalance.typeCost">
+                  <label>เงินงบประมาณ</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="typeCost" value="เงินนอกงบประมาณ" [(ngModel)]="assetBalance.typeCost">
+                  <label>เงินนอกงบประมาณ</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="typeCost" value="เงินบริจาค/เงินช่วยเหลือ" [(ngModel)]="assetBalance.typeCost">
+                  <label>เงินบริจาค/เงินช่วยเหลือ</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="typeCost" value="อื่นๆ" [(ngModel)]="assetBalance.typeCost">
+                  <label>อื่นๆ</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">วิธีการได้มาซึ่งสินทรัพย์</label>
+            </div>
+            <div class="ten wide field ">
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="acquisition" value="ตกลงราคา" [(ngModel)]="assetBalance.acquisition">
+                  <label>ตกลงราคา</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="acquisition" value="สอบราคา" [(ngModel)]="assetBalance.acquisition">
+                  <label>สอบราคา</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="acquisition" value="ประกวดราคา" [(ngModel)]="assetBalance.acquisition">
+                  <label>ประกวดราคา</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="acquisition" value="วิธีพิเศษ" [(ngModel)]="assetBalance.acquisition">
+                  <label>วิธีพิเศษ</label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui radio checkbox">
+                  <input type="radio" name="acquisition" value="รับบริจาค" [(ngModel)]="assetBalance.acquisition">
+                  <label>รับบริจาค</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width"> <b style="color: red">*</b> วันที่เอกสารได้รับสินทรัพย์</label>
+            </div>
+            <div class="four wide field ">
+
+              <div class="ui calendar" style="width:100%" id="documentDate">
+                <div class="ui input left icon">
+                  <i class="calendar alternate outline icon"></i>
+                  <input type="calendar" placeholder="วันที่เอกสารได้รับสินทรัพย์" id="documentDateField" name="documentDate"
+                    autocomplete="off">
+                </div>
+              </div>
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width">เลขที่เอกสารสินทรัพย์</label>
+            </div>
+            <div class="four wide field ">
+              <input type="text" placeholder="เลขที่เอกสารสินทรัพย์" class="custom" name="documentNo" id="documentNo"
+                [(ngModel)]="assetBalance.documentNo">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">คำอธิบายสินทรัพย์</label>
+            </div>
+            <div class="ten wide field ">
+              <input type="text" placeholder="คำอธิบายสินทรัพย์" class="custom" name="assetDescription" id="assetDescription"
+                [(ngModel)]="assetBalance.assetDescription">
+            </div>
+
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">จำนวนสินทรัพย์</label>
+            </div>
+            <div class="two wide field ">
+              <input type="number" placeholder="จำนวนสินทรัพย์" class="custom" name="assetAmount" id="assetAmount"
+                [(ngModel)]="assetBalance.assetAmount">
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width">ราคาสินทรัพย์ต่อหน่วย</label>
+            </div>
+            <div class="two wide field ">
+              <input type="number" placeholder="ราคาสินทรัพย์ต่อหน่วย" class="custom" name="unitPriceAsset" id="unitPriceAsset"
+                [(ngModel)]="assetBalance.unitPriceAsset">
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width">มูลค่ารวมสินทรัพย์</label>
+            </div>
+            <div class="two wide field ">
+              <input type="number" placeholder="มูลค่ารวมสินทรัพย์" class="custom" name="totlePriceAsset" id="totlePriceAsset"
+                value="{{assetBalance.unitPriceAsset * assetBalance.assetAmount }}" readonly [(ngModel)]="assetBalance.totlePriceAsset">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">อายุการใช้งานสินทรัพย์</label>
+            </div>
+            <div class="one wide field ">
+              <input type="number" placeholder="วัน" class="custom" name="day" id="day" [(ngModel)]="day">
+            </div>
+            <div class="one wide field ">
+              <input type="number" placeholder="เดือน" class="custom" name="month" id="month" [(ngModel)]="month">
+            </div>
+            <div class="one wide field ">
+              <input type="number" placeholder="ปี" class="custom" name="year" id="year" [(ngModel)]="year">
+            </div>
+            <div class="one wide field ">
+              <label class="text-right full-width"> <b style="color: red">*</b> วันที่ผลิต/ใช้งาน</label>
+            </div>
+            <div class="two wide field ">
+
+
+              <div class="ui calendar" style="width:100%" id="dateOfManufacture">
+                <div class="ui input left icon">
+                  <i class="calendar alternate outline icon"></i>
+                  <input type="calendar" placeholder="วันที่ผลิต/ใช้งาน" id="dateOfManufactureField" name="dateOfManufacture"
+                    autocomplete="off">
+                </div>
+              </div>
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width">อัตราค่าเสื่อมราคาสินทรัพย์</label>
+            </div>
+            <div class="two wide field ">
+              <input type="number" placeholder="เลขที่เอกสารสินทรัพย์" class="custom" name="depreciationRate" id="depreciationRate"
+                [(ngModel)]="assetBalance.depreciationRate">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">ค่าเสื่อมราคาประจำปี</label>
+            </div>
+            <div class="two wide field ">
+              <input type="number" placeholder="ค่าเสื่อมราคาประจำปี" class="custom" name="annualDepreciation" id="annualDepreciation"
+                readonly [(ngModel)]="assetBalance.annualDepreciation">
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width">ค่าเสื่อมราคาสะสม</label>
+            </div>
+            <div class="two wide field ">
+              <input type="number" placeholder="ค่าเสื่อมราคาสะสม" class="custom" name="accumulatedDepreciation" id="accumulatedDepreciation"
+                readonly [(ngModel)]="assetBalance.accumulatedDepreciation">
+            </div>
+            <div class="two wide field ">
+              <label class="text-right full-width">มูลค่าสุทธิ</label>
+            </div>
+            <div class="two wide field ">
+              <input type="number" placeholder="มูลค่าสุทธิ" class="custom" name="netValue" id="netValue" [(ngModel)]="assetBalance.netValue">
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="two wide field "></div>
+            <div class="two wide field ">
+              <label class="text-right full-width">หมายเหตุ</label>
+            </div>
+            <div class="ten wide field ">
+
+              <textarea type="text" placeholder="หมายเหตุ" class="custom" name="assetNote" id="assetNote" [(ngModel)]="assetBalance.assetNote"></textarea>
+            </div>
+
+          </div>
+          <div class="inline fields"></div>
+          <div class="inline field ui grid">
+            <div class="sixteen wide center aligned column">
+              <app-button-save (click)="addAction()"></app-button-save>
+              <app-button-cancel (click)="cancel()"></app-button-cancel>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="inline fields"></div>
+
+
+
+  </div>
+</segment>

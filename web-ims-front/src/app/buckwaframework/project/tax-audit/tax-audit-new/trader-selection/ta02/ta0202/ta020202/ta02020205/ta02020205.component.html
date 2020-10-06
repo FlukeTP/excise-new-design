@@ -1,0 +1,39 @@
+<segment header="การวิเคราะห์การยื่นชำระภาษีสรรพสามิต" [loading]="false">
+  <table id="dataTable" class="ui small celled table striped selectable nowrap" style="width:100%">
+    <thead class="text-center">
+      <tr>
+        <th style="text-align: center !important" rowspan="2">ลำดับ</th>
+        <th style="text-align: center !important" rowspan="2">รายการ</th>
+        <th style="text-align: center !important" rowspan="2">วันที่ยื่นชำระภาษี</th>
+        <th style="text-align: center !important" colspan="3">ภาษีจากการคำนวน</th>
+        <th style="text-align: center !important" colspan="3">ภาษีจากแบบรายการภาษีสรรพสามิต</th>
+        <th style="text-align: center !important" colspan="3">ผลต่าง</th>
+      </tr>
+      <tr style="text-align: center !important">
+        <th style="text-align: center !important">ตามมูลค่า</th>
+        <th style="text-align: center !important">ตามปริมาณ</th>
+        <th style="text-align: center !important">รวม</th>
+        <th style="text-align: center !important">ตามมูลค่า</th>
+        <th style="text-align: center !important">ตามปริมาณ</th>
+        <th style="text-align: center !important">รวม</th>
+        <th style="text-align: center !important">ตามมูลค่า</th>
+        <th style="text-align: center !important">ตามปริมาณ</th>
+        <th style="text-align: center !important">รวม</th>
+      </tr>
+    </thead>
+
+  </table>
+  <br>
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="five wide field">
+        <label class="text-left full-width">บันทึกการวิเคราะห์ข้อมูลเบื้องต้น</label>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="sixteen wide field">
+        <textarea [(ngModel)]="note" (change)="onChangeNote()"></textarea>
+      </div>
+    </div>
+  </div>
+</segment>

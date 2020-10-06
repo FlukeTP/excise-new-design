@@ -1,0 +1,137 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+
+<segment header="รายการคัดเลือกรายตามเงื่อนไข" [loading]="loading" [right]="true">
+  <div headRight>
+    <app-button-custom icon="sort" color="grey" [text]="toggleButtonTxt" (click)="toggleBody()"></app-button-custom>
+  </div>
+
+  <form class="ui form" [formGroup]="formSearch">
+    <div class="inline fields">
+      <div class="four wide field">
+        <label class="text-right full-width">ระยะเวลาที่ตรวจสอบ</label>
+      </div>
+      <div class="five wide field">
+        <input class="custom-readonly" id="before" value="มกราคม 2561" placeholder="ดด/ปปปป" readonly="" type="text"
+          value="{{objMonth.yearMonthStart}}">
+        -&nbsp;&nbsp;&nbsp;
+        <input class="custom-readonly" id="last" value="มกราคม 2563" placeholder="ดด/ปปปป" readonly="" type="text"
+          value="{{objMonth.yearMonthEnd}}">
+      </div>
+      <div class="two wide field">
+        <label class="text-right full-width">เลขที่วิเคราะห์ข้อมูล</label>
+      </div>
+      <div class="five wide field">
+        <select class="ui fluid search dropdown full-width" (change)="analysisChange($event)" id="analysisNumber"
+          formControlName="analysisNumber">
+          <option *ngFor="let item of analysisList" value="{{item}}">{{item}}</option>
+        </select>
+      </div>
+    </div>
+    <div *ngIf="showBody">
+      <div *ngFor="let item of condGroupDtl;let i = index;let last = last">
+        <ng-container *ngIf="!last; else elseTemplate">
+          <div class="inline fields" style="margin: 0;">
+            <div class="three wide field">
+              <label>เงื่อนไขที่ {{item.condGroup}}</label>
+            </div>
+            <div class="four wide field">
+              <label>จำนวนเดือนที่ชำระภาษี</label>
+            </div>
+            <div class="two wide field">
+              <input class="custom-readonly" readonly="" type="number" value="{{item.taxMonthStart}}">
+            </div>
+            <div class="one wide field">
+              <label>&nbsp;&nbsp;&nbsp;ถึง&nbsp;</label>
+            </div>
+            <div class="two wide field">
+              <input class="custom-readonly" readonly="" type="number" value="{{item.taxMonthEnd}}">
+            </div>
+            <div class="five wide field">
+              <label>ช่วงร้อยละของการชำระภาษี</label>
+            </div>
+            <div class="two wide field">
+              <input class="custom-readonly" readonly="" type="number" value="{{item.rangeStart}}">
+            </div>
+            <div class="one wide field">
+              <label>&nbsp;&nbsp;&nbsp;ถึง&nbsp;</label>
+            </div>
+            <div class="two wide field">
+              <input class="custom-readonly" readonly="" type="number" value="{{item.rangeEnd}}">
+            </div>
+          </div>
+          <div class="inline fields" style="margin: 0.25em 0 0.5em 0;">
+            <div class="seven wide field"></div>
+            <div class="fifteen wide field">
+              {{condTextUsed.month[i]}} และ{{condTextUsed.tax[i]}}
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <div class="inline fields">
+            <div class="three wide field">
+              <label>เงื่อนไขที่ {{item.condGroup}}</label>
+            </div>
+            <div class="six wide field">
+              <label>{{condMain2}}</label>
+            </div>
+            <div class="one wide field"></div>
+            <div class="two wide field"></div>
+            <div class="five wide field"></div>
+            <div class="two wide field"></div>
+            <div class="one wide field"></div>
+            <div class="two wide field"></div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </form>
+</segment>
+<segment header="" [loading]="loading">
+  <div class="ui grid">
+    <div class="eight wide column" style="padding-left: 0px !important;">
+      <button class="ui mini button custom-menu" type="button" (click)="munuHide()"><i class="bars icon"></i>เมนู</button>&nbsp;
+      <app-button-custom color="primary" icon="" text="กำหนดเงื่อนไขการวิเคราะห์ข้อมูล"></app-button-custom>
+      <app-button-custom color="primary" icon="" text="ค้นหาข้อมูลผู้ปรกอบการที่เสียภาษีสรรพสามิต"></app-button-custom>
+    </div>
+    <div class="eight wide column text-right">
+      <app-button-custom routerLink="/tax-audit-new/ta0106">รายชื่อผู้ประกอบการที่เลือก</app-button-custom>
+      <app-button-custom (click)="onSave()" [disabled]="disabledButton">บันทึกรายที่เลือก</app-button-custom>
+    </div>
+  </div>
+  <div class="ui grid">
+    <div class="three wide column" [ngClass]="{'menu-hide': menuhide}">
+      <div class="ui vertical menu" style="width: auto">
+        <div class="item">
+          <div class="header">แยกข้อมูลตามกลุ่มของการชำระภาษี</div>
+        </div>
+        <div class="item">
+          <div class="menu">
+            <a class="item hover" [ngClass]="{'active': condLinkActive[0]}" (click)="onCondclick('all')">-
+              เงื่อนไขทั้งหมด
+            </a>
+          </div>
+          <div class="menu" *ngFor="let cond of condGroupDtl;let i = index">
+            <a *ngIf="cond!=0" class="item hover false" [ngClass]="{'active': condLinkActive[i+1]}"
+              (click)="onCondclick(cond.condGroup)" routerLinkActive="active">- เงื่อนไขที่ {{cond.condGroup}}</a>
+          </div>
+          <div class="menu">
+            <a class="item hover false" [ngClass]="{'active': condLinkActive[condLinkActive.length-1]}"
+              (click)="onCondclick(0)">-
+              รายที่ไม่อยู่ในเงื่อนไข</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div [ngClass]="{'thirteen ': !menuhide, 'sixteen': menuhide, 'wide column' : true}">
+      <!-- <div class="sixteen wide column"> -->
+      <!-- table -->
+      <app-table-custom [datas]="datas" [recordTotal]="recordTotal" [objMonth]="objMonth" [checkbox]="true"
+        [datasChecked]="datasChecked" [disabledCheckbox]="disabledButton" (pageChangeOutput)="pageChangeOutput($event)"
+        [budgetYear]="budgetYearNumber"
+        (checkboxOutput)="checkboxOutput($event)">
+      </app-table-custom>
+      <br>
+    </div>
+  </div>
+</segment>

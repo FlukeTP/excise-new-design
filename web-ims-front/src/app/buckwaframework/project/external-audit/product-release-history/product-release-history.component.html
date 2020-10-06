@@ -1,0 +1,118 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+
+<div class="ui grid">
+     <!-- <div class="sixteen wide column">
+          <h2 class="ui header">ประวัติการตรวจปล่อยสินค้า</h2>
+     </div> -->
+
+     <div class="ui sixteen wide column form">
+          <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+               <span>ประวัติการตรวจปล่อยสินค้า</span>
+          </div>
+          <div class="ui segment" style="margin-top: 0px;">
+               <div class="ui centered grid">
+                    <div class="ten wide column">
+                         <div class="inline fields">
+                              <div class="eight wide field">
+                                   <label class="custom-label-w-25 text-right">สำนักงานสรรพสามิตภาค</label>
+                                   <div class="ui input">
+                                        <select id="selectZone" class="ui dropdown ai" [(ngModel)]="selectZone">
+                                             <option value="">กรุณาเลือก</option>
+                                             <option value="1">สำนักงานสรรพสามิตภาคที่ 1</option>
+                                             <option value="2">สำนักงานสรรพสามิตภาคที่ 2</option>
+                                             <option value="3">สำนักงานสรรพสามิตภาคที่ 3</option>
+                                             <option value="4">สำนักงานสรรพสามิตภาคที่ 4</option>
+                                        </select>
+                                   </div>
+                              </div>
+                              <div class="eight wide field">
+                                   <label class="custom-label-w-20 text-right">สำนักงานสรรพสามิตพื้นที่</label>
+                                   <div class="ui input">
+                                        <select id="area" class="ui dropdown ai" [(ngModel)]="area">
+                                             <option value="">กรุณาเลือก</option>
+                                             <option value="a1">สิงห์บุรี</option>
+                                             <option value="a2">อ่างทอง</option>
+                                             <option value="a3">ปทุมธานี 1</option>
+                                        </select>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="inline fields">
+                              <div class="eight wide field">
+                                   <label class="custom-label-w-25 text-right">สำนักงานสรรพสามิตพื้นที่สาขา</label>
+                                   <div class="ui input">
+                                        <select id="selectZone2" class="ui dropdown ai" [(ngModel)]="selectZone2">
+                                             <option value="">กรุณาเลือก</option>
+                                             <option value="1">สำนักงานสรรพสามิตพื้นที่สาขาเมืองเชียงราย</option>
+                                             <option value="2">สำนักงานสรรพสามิตพื้นที่สาขาเมืองเชียงใหม่</option>
+                                             <option value="3">สำนักงานสรรพสามิตพื้นที่สาขาเมืองลำพูน</option>
+                                             <option value="4">สำนักงานสรรพสามิตพื้นที่สาขาเมืองลำปาง</option>
+                                        </select>
+                                   </div>
+                              </div>
+                              <div class="eight wide field">
+
+                              </div>
+                         </div>
+                         <div class="inline fields">
+                              <div class="eight wide field">
+                                   <label class="custom-label-w-25 text-right">ผู้ส่งออก</label>
+                                   <div class="ui input">
+                                        <input type="text" style="width: 100%" placeholder="กรุณากรอกรหัสผู้ส่งออก">
+                                   </div>
+                              </div>
+                              <div class="eight wide field">
+                                   <label class="custom-label-w-20 text-right">สินค้า</label>
+                                   <div class="ui input">
+                                        <input type="text" style="width: 100%" placeholder="กรุณากรอกรหัสสินค้า">
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="inline fields">
+                              <div class="eight wide field">
+                                   <label class="custom-label-w-25 text-right">วันที่ส่งออกตั้งแต่</label>
+                                   <div class="ui calendar" style="width:100%" id="date1">
+                                        <div class="ui input left icon">
+                                             <i class="calendar alternate outline icon"></i>
+                                             <input type="text" placeholder="วัน เดือน ปี">
+                                        </div>
+                                   </div>
+                              </div>
+                              <div class="eight wide field">
+                                   <label class="custom-label-w-20 text-right">ถึง</label>
+                                   <div class="ui calendar" style="width:100%" id="date2">
+                                        <div class="ui input left icon">
+                                             <i class="calendar alternate outline icon"></i>
+                                             <input type="text" placeholder="วัน เดือน ปี">
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <!-- ui segment -->
+               </div>
+               <div class="ui one column centered grid">
+                    <div class="column aligned center">
+                         <button class="ui mini primary button" type="submit">
+                              <i class="search icon"></i>ค้นหา
+                         </button>
+                         <button class="ui mini  button" type="submit">
+                              <i class="close icon"></i>ล้างข้อมูล
+                         </button>
+                    </div>
+               </div>
+               <!-- ui-grit -->
+               <table id="dataTable" class="ui small celled table striped selectable nowrap" style="width: 100%">
+                    <thead>
+                         <tr style="text-align: center;">
+                              <th class="one wide">ลำดับ <i class="sort icon"></i></th>
+                              <th class="two wide">หมายเลขใบขนส่ง <i class="sort icon"></i></th>
+                              <th class="two wide">ผู้ส่งออก <i class="sort icon"></i></th>
+                              <th class="two wide">พิกัดสินค้า <i class="sort icon"></i></th>
+                              <th class="two wide">วันที่ขน <i class="sort icon"></i></th>
+                              <th class="two wide">สถานะ <i class="sort icon"></i></th>
+                              <th class="three wide">รายละเอียด <i class="sort icon"></i></th>
+                         </tr>
+                    </thead>
+               </table>
+          </div>

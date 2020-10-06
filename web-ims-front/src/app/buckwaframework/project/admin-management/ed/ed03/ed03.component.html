@@ -1,0 +1,91 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="สินค้าและบริการ" [loading]="false">
+    <form class="ui form" [formGroup]="searchProSer">
+      <!-- row 1 -->
+      <div class="inline fields ui grid">
+        <div class="four wide field ">
+        </div>
+        <div class="two wide field ">
+          <label class="text-right full-width">ชื่อสินค้าและบริการ</label>
+        </div>
+        <div class="four wide field ">
+          <input class="custom ng-untouched ng-pristine ng-valid" id="position" name="position" type="text"
+            formControlName="dutyGroupName">
+        </div>
+        <div class="four wide field ">
+          <app-button-search (click)="onSearch()"></app-button-search>
+          <app-button-add (click)="viewdetail2()"></app-button-add>
+        </div>
+      </div>
+    </form>
+    <table id="dataTable" class="ui small celled table striped selectable" style="width: 100%;">
+      <thead>
+        <tr>
+          <th style="text-align: center !important;">ลำดับที่</th>
+          <th style="text-align: center !important;">รหัสพิกัดสินค้า</th>
+          <th style="text-align: center !important;">ชื่อพิกัดสินค้า</th>
+          <th style="text-align: center !important;">หน่วยงานที่รับผิดชอบ</th>
+          <th style="text-align: center !important;">จัดการ</th>
+        </tr>
+      </thead>
+    </table>
+  </segment>
+</with-breadcrumb>
+
+<!-- modal2  detail -->
+<ui-modal [id]="'detail2'" [type]="'custom'" [size]="'large'">
+  <div class="ui header">
+    เพิ่มสินค้าและบริการ
+  </div>
+  <div class="content">
+    <form class="ui form" [formGroup]="saveProSer">
+      <div class="inline fields  ui grid">
+        <div class="three wide field ">
+          <label class="text-right full-width">รหัสพิกัดสินค้า</label>
+        </div>
+        <div class="four wide field ">
+          <div class="field" [ngClass]="{ 'error': invalidControlConfig('dutyGroupCode') }">
+            <input name="dutyGroupCode " id="dutyGroupCode" formControlName="dutyGroupCode" numberOnly maxlength="4">
+          </div>
+        </div>
+        <div class="three wide field ">
+          <label class="text-right full-width">ชื่อพิกัดสินค้า</label>
+        </div>
+        <div class="four wide field ">
+          <div class="field" [ngClass]="{ 'error': invalidControlConfig('dutyGroupName') }">
+            <input type="text" name="dutyGroupName" id="dutyGroupName" formControlName="dutyGroupName">
+          </div>
+        </div>
+      </div>
+      <div class="inline fields  ui grid">
+        <div class="three wide field ">
+          <label class="text-right full-width">หน่วยงานที่รับผิดชอบ</label>
+        </div>
+        <div class="seven wide field " [ngClass]="{ 'error': invalidControlConfig('resOffcode') }">
+
+          <select name="resOffcode" id="resOffcode" class="ui dropdown ai search full-width"
+            formControlName="resOffcode">
+            <option value="">กรุณาเลือก</option>
+            <option *ngFor="let data of datasDepartment00" value="{{data.offCode}}">{{data.offName}}
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="four wide field ">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-save (click)="onSaveModal()" *ngIf="!isEdit"></app-button-save>
+        <!-- *ngIf="!isEdit" -->
+        <app-button-edit (click)="onEditModal()" *ngIf="isEdit"></app-button-edit>
+        <app-button-cancel class="positive"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>

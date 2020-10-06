@@ -1,0 +1,571 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="ตรวจสอบการรับเงินและนำส่งเงินรายได้" [loading]="loading">
+    <form [formGroup]="formSearch">
+      <div class="ui form">
+        <ng-container *ngIf="!flagExport">
+          <div inline>
+            <div field [col]="2" class="required">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div field [col]="3" [ngClass]="{'error': validateField('sector')}">
+              <select class="ui dropdown full-width" id="sector" (change)="dropdownChange($event, 'SECTOR')"
+                formControlName="sector">
+                <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+                <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+              </select>
+            </div>
+            <div field [col]="2" class="required">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div field [col]="3" [ngClass]="{'error': validateField('area')}">
+              <select class="ui dropdown full-width" id="area" (change)="dropdownChange($event, 'AREA')"
+                formControlName="area">
+                <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+                <!-- <option value="0">ทั้งหมด</option> -->
+                <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+              </select>
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">สำนักงานสรรพสามิตสาขา</label>
+            </div>
+            <div field [col]="4">
+              <select class="ui dropdown full-width" id="branch" formControlName="branch"
+                (change)="dropdownChange($event, 'BRANCH')">
+                <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+                <option value="0">ทั้งหมด</option>
+                <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptName}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div inline>
+            <div field [col]="2" class="required">
+              <label class="text-right full-width">ประจำเดือน</label>
+            </div>
+            <div field [col]="2" [ngClass]="{'error': validateField('periodMonth')}">
+              <div class="ui calendar" id="periodMonthCld">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" formControlName="periodMonth" autocomplete="off" placeholder="เดือน" readonly>
+                </div>
+              </div>
+            </div>
+
+            <div field [col]="3">
+              <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+            </div>
+            <div field [col]="3">
+              <select class="ui search dropdown full-width" formControlName="incsendNo" id="incsendNo"
+                (change)="incSendNoChange($event)">
+                <option value="">เลขกระดาษทำการ</option>
+                <option *ngFor="let item of incSendNoList" value="{{ item.incsendNo }}">{{ item.incsendNo }}</option>
+              </select>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="flagExport">
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div field [col]="3">
+              <input type="text" class="custom-readonly" formControlName="sector" readonly>
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div field [col]="3">
+              <input type="text" class="custom-readonly" formControlName="area" readonly>
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">สำนักงานสรรพสามิตสาขา</label>
+            </div>
+            <div field [col]="4">
+              <input type="text" class="custom-readonly" formControlName="branch" readonly>
+            </div>
+          </div>
+
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right full-width">ประจำเดือน</label>
+            </div>
+            <div field [col]="2">
+              <input type="text" class="custom-readonly" formControlName="periodMonth" readonly>
+            </div>
+
+            <div field [col]="3">
+              <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+            </div>
+            <div field [col]="3">
+              <select class="ui search dropdown full-width" formControlName="incsendNo" id="incsendNo"
+                (change)="incSendNoChange($event)">
+                <option value="">เลขกระดาษทำการ</option>
+                <option *ngFor="let item of incSendNoList" value="{{ item.incsendNo }}">{{ item.incsendNo  }}</option>
+              </select>
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="ui center aligned grid">
+          <div class="column">
+            <app-button-search *ngIf="flagExport" [disabled]="true"></app-button-search>
+            <app-button-search *ngIf="!flagExport" (click)="search()"></app-button-search>
+            <app-button-clear (click)="clearData()"></app-button-clear>
+            <app-button-save *ngIf="table.length > 0 && !flagExport" (click)="save($event)"></app-button-save>
+            <app-button-save *ngIf="table.length == 0 || flagExport" disabled="true"></app-button-save>
+            <app-button-export *ngIf="flagExport"></app-button-export>
+            <app-button-export *ngIf="!flagExport" [disabled]="true"></app-button-export>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <br>
+    <!-- old table not fix header -->
+<!-- 
+    <table id="dataTable" class="ui small celled scrollX nowrap table" style="width: 100%;">
+      <thead>
+        <tr class="text-center">
+          <th class="bg-blank">วันที่จัดเก็บรายได้</th>
+          <th class="bg-blank">วันที่นำเงินฝากคลัง</th>
+          <th class="bg-blank">ระยะเวลา</th>
+          <th class="bg-blank">รหัสของ <br>หน่วยงาน</th>
+          <th class="bg-blank">รหัสต้นทุน</th>
+          <th class="bg-blank">เลขอ้างอิง 16 หลัก</th>
+          <th class="bg-blank">จำนวน <br> รายการ</th>
+          <th class="bg-blank">จำนวนเงินทั้งหมด</th>
+          <th class="bg-th-I">เงินสด/เช็ค <br>(จำนวนเงิน)</th>
+          <th class="bg-th-I">EDC/โอน <br>(อิเล็กทรอนิกส์)</th>
+          <th class="bg-th-I">ใบอนุญาตผ่าน <br>Net เข้าบัญชี EDC</th>
+          <th class="bg-th-II">เงินสดเข้าบัญชีพัก pay in</th>
+          <th class="bg-th-II">เข้าบัญชี EDC pay in</th>
+          <th class="bg-blank">จำนวนเงิน <br>นำส่งคลัง</th>
+          <th class="bg-th-II">นำส่งตามรายงาน <br> KTB รายได้</th>
+          <th class="bg-th-II">หลักฐานการโอน <br> KTB+Statement</th>
+          <th class="bg-th-I">กกท.</th>
+          <th class="bg-th-I">สสส.</th>
+          <th class="bg-th-II">หลักฐานการโอน<br> กกท./สสส.</th>
+          <th class="bg-th-II">หมายเหตุ</th>
+        </tr>
+      </thead>
+
+       no data 
+      <tbody *ngIf="table.length == 0">
+        <tr>
+          <td class="text-center" colspan="19">ไม่มีข้อมูล</td>
+        </tr>
+      </tbody>
+
+       have data
+      <ng-container *ngIf="table.length > 0">
+        <tbody>
+          <tr *ngFor="let t of table; let i=index">
+            <td class="text-center">{{ t.trnDate | dateString }}</td>
+            <td class="text-center">{{ t.gfDate | dateString }}</td>
+            <td class="text-right" [ngClass]="{'bg-red': t.dateDiff > 3}" id="tootip-custom{{i}}">{{ t.dateDiff }}</td>
+            <td class="text-right">{{ t.offcode | isEmpty }}</td>
+            <td class="text-right">{{ t.actcostCent | isEmpty }}</td>
+            <td class="text-right">{{ t.gfRefNo | isEmpty }}</td>
+            <td class="text-right">{{ t.cnt | decimalFormat: '###,###' }}</td>
+            <td class="text-right">{{ t.totalAmt | decimalFormat }}</td>
+            <td class="text-right bg-td-I">{{ t.sum1Sum2 | decimalFormat }}</td>
+            <td class="text-right bg-td-I">{{ t.sum4Sum5 | decimalFormat }}</td>
+            <td class="text-right bg-td-I">{{ t.sum7 | decimalFormat }}</td>
+
+            <ng-container *ngIf="flagExport">
+              <td class="bg-td-II">
+                <div class="ui form small">
+                  <input class="custom-readonly" type="text" id="incsendAccCash{{i}}"
+                    [value]="t.incsendAccCash | isEmpty" readonly>
+                </div>
+              </td>
+              <td class="text-right bg-td-II">
+                <div class="ui form small">
+                  <input class="custom-readonly" type="text" id="incsendAccPayIn{{i}}"
+                    [value]="t.incsendAccPayIn | isEmpty" readonly>
+                </div>
+              </td>
+              <td class="text-right">{{ t.totalSendAmt | decimalFormat }}</td>
+              <td class="bg-td-II">
+                <div class="ui form small">
+                  <input class="custom-readonly" type="text" id="incsendIncKtb{{i}}"
+                    [value]="t.incsendIncKtb | decimalFormat" readonly>
+                </div>
+              </td>
+              <td class="text-center bg-td-II">
+                <div class="ui checkbox">
+                  <input type="checkbox" [checked]="t.incsendIncStm == 'Y'" disabled>
+                  <label></label>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container *ngIf="!flagExport">
+              <td class="bg-td-II">
+                <div class="ui form small">
+                  <div class="ui calendar" id="incsendAccCashCld{{i}}">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="text" id="incsendAccCash{{i}}" [value]="t.incsendAccCash" autocomplete="off"
+                        placeholder="วว/ดด/ปปปป" readonly>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="text-right bg-td-II">
+                <div class="ui form small">
+                  <div class="ui calendar" id="incsendAccPayInCld{{i}}">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="text" id="incsendAccPayIn{{i}}" [value]="t.incsendAccPayIn" autocomplete="off"
+                        placeholder="วว/ดด/ปปปป" readonly>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="text-right" (dblclick)="doubleClick(i, t.totalSendAmt)" style="cursor: pointer;">
+                {{ t.totalSendAmt | decimalFormat }}</td>
+              <td class="bg-td-II">
+                <div class="ui form small">
+                  <input *ngIf="checkIndexGfDateMuti(i)" type="text" id="incsendIncKtb{{i}}">
+                </div>
+              </td>
+              <td class="text-center bg-td-II">
+                <div class="ui checkbox">
+                  <input type="checkbox" (click)="onCheckboxChange($event, i, 'incsendIncStm')">
+                  <label></label>
+                </div>
+              </td>
+            </ng-container>
+
+            <td class="text-right bg-td-I">{{ t.sum4I | decimalFormat }}</td>
+            <td class="text-right bg-td-I">{{ t.sum4II | decimalFormat }}</td>
+            <ng-container *ngIf="flagExport">
+              <td class="text-center bg-td-II">
+                <div class="ui checkbox">
+                  <input type="checkbox" [checked]="t.incTransfer115010_116010 == 'Y'" disabled>
+                  <label></label>
+                </div>
+              </td>
+              <td class="bg-td-II">
+                <div class="field">
+                  <textarea class="custom-readonly" rows="2" cols="50" id="note{{i}}" [value]="t.incsendNote | isEmpty"
+                    readonly></textarea>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container *ngIf="!flagExport">
+              <td class="text-center bg-td-II">
+                <div class="ui checkbox">
+                  <input type="checkbox" (click)="onCheckboxChange($event, i, 'incTransfer115010_116010')">
+                  <label></label>
+                </div>
+              </td>
+              <td class="bg-td-II">
+                <div class="field">
+                  <textarea rows="2" cols="50" id="note{{i}}" [value]="t.incsendNote"></textarea>
+                </div>
+              </td>
+            </ng-container>
+
+
+          </tr>
+        </tbody>
+
+         _________ footer _________ 
+        <tfoot>
+          <tr>
+            <td colspan="6" class="text-center bg-blank">รวม</td>
+            <td class="text-right bg-blank">{{ footer.cnt | decimalFormat: '###,###' }}</td>
+            <td class="text-right bg-blank">{{ footer.totalAmt | decimalFormat }}</td>
+            <td class="text-right bg-td-I">{{ footer.sum1Sum2 | decimalFormat }}</td>
+            <td class="text-right bg-td-I">{{ footer.sum4Sum5 | decimalFormat }}</td>
+            <td class="text-right bg-td-I">{{ footer.sum7 | decimalFormat }}</td>
+            <td class="bg-td-II"></td>
+            <td class="bg-td-II"></td>
+            <td class="text-right bg-blank">{{ footer.totalSendAmt | decimalFormat }}</td>
+            <td class="text-right bg-td-II">{{ footer.incsendIncKtb | decimalFormat }}</td>
+            <td class="bg-td-II"></td>
+            <td class="text-right bg-td-I">{{ footer.sum4I | decimalFormat }}</td>
+            <td class="text-right bg-td-I">{{ footer.sum4II | decimalFormat }}</td>
+            <td class="bg-td-II"></td>
+          </tr>
+        </tfoot>
+      </ng-container>
+    </table> -->
+    <!-- </div> -->
+    
+    <!-- table auto layout -->
+    <div class="pane pane--table1 ui small table ">
+      <div class="pane-hScroll">
+
+        <table id="fixTable">
+          <thead>
+            <tr class="text-center">
+              <th class=" fixed-column  bg-blank" id="header1" style="width: 120px;" >วันที่จัดเก็บรายได้</th>
+              <th class="fixed-column bg-blank" style="width: 120px; ">วันที่นำเงินฝากคลัง</th>
+              <th class="bg-blank" style="width: 72px">ระยะเวลา</th>
+              <th class="bg-blank" style="width: 80px">รหัสของ <br>หน่วยงาน</th>
+              <th class="bg-blank" style="width: 110px">รหัสต้นทุน</th>
+              <th class="bg-blank" style="width: 140px">เลขอ้างอิง 16 หลัก</th>
+              <th class="bg-blank" style="width: 60px">จำนวน <br> รายการ</th>
+              <th class="bg-blank" style="width: 100px">จำนวนเงินทั้งหมด</th>
+              <th class="bg-th-I" style="width: 100px">เงินสด/เช็ค <br>(จำนวนเงิน)</th>
+              <th class="bg-th-I" style="width: 100px">EDC/โอน <br>(อิเล็กทรอนิกส์)</th>
+              <th class="bg-th-I" style="width: 120px">ใบอนุญาตผ่าน <br>Net เข้าบัญชี EDC</th>
+              <th class="bg-th-II" style="width: 150px">เงินสดเข้าบัญชีพัก pay in</th>
+              <th class="bg-th-II" style="width: 130px">เข้าบัญชี EDC pay in</th>
+              <th class="bg-blank" style="width: 100px">จำนวนเงิน <br>นำส่งคลัง</th>
+              <th class="bg-th-II" style="width: 120px">นำส่งตามรายงาน <br> KTB รายได้</th>
+              <th class="bg-th-II" style="width: 110px">หลักฐานการโอน <br> KTB+Statement</th>
+              <th class="bg-th-I" style="width: 85px">กกท.</th>
+              <th class="bg-th-I" style="width: 85px">สสส.</th>
+              <th class="bg-th-II" style="width: 110px">หลักฐานการโอน<br> กกท./สสส.</th>
+              <th class="bg-th-II" style="width: 280px">หมายเหตุ</th>
+            </tr>
+          </thead>
+        </table>
+
+        <div class="pane-vScroll" id="vScroll" [style.height.px]="tbCssHight">
+          <table id="fixTable2">
+            <tbody>
+              <ng-container *ngIf="table.length == 0">
+                <tr>
+                  <td class="text-center" colspan="19">ไม่มีข้อมูล</td>
+                </tr>
+              </ng-container>
+
+              <ng-container *ngIf="table.length > 0">
+                <tr *ngFor="let t of table; let i=index">
+                  <td class="fixed-column text-center " id="col1" style="width: 120px">{{ t.trnDate | dateString }}</td>
+                  <td class="fixed-column text-center" style="width: 120px">{{ t.gfDate | dateString }}</td>
+                  <td class="text-right" style="width: 72px" [ngClass]="{'bg-red': t.dateDiff > 3}" id="tootip-custom{{i}}">{{ t.dateDiff }}
+                  </td>
+                  <td class="text-right" style="width: 80px">{{ t.offcode | isEmpty }}</td>
+                  <td class="text-right" style="width: 110px">{{ t.actcostCent | isEmpty }}</td>
+                  <td class="text-right" style="width: 140px">{{ t.gfRefNo | isEmpty }}</td>
+                  <td class="text-right" style="width: 60px">{{ t.cnt | decimalFormat: '###,###' }}</td>
+                  <td class="text-right" style="width: 100px">{{ t.totalAmt | decimalFormat }}</td>
+                  <td class="text-right bg-td-I" style="width: 100px">{{ t.sum1Sum2 | decimalFormat }}</td>
+                  <td class="text-right bg-td-I" style="width: 100px">{{ t.sum4Sum5 | decimalFormat }}</td>
+                  <td class="text-right bg-td-I" style="width: 120px">{{ t.sum7 | decimalFormat }}</td>
+
+                  <ng-container *ngIf="flagExport">
+                    <td class="bg-td-II">
+                      <div class="ui form small" style="width: 150px">
+                        <input class="custom-readonly" type="text" id="incsendAccCash{{i}}"
+                          [value]="t.incsendAccCash | isEmpty" readonly>
+                      </div>
+                    </td>
+                    <td class="text-right bg-td-II" style="width: 130px">
+                      <div class="ui form small">
+                        <input class="custom-readonly" type="text" id="incsendAccPayIn{{i}}"
+                          [value]="t.incsendAccPayIn | isEmpty" readonly>
+                      </div>
+                    </td>
+                    <td class="text-right" style="width: 100px">{{ t.totalSendAmt | decimalFormat }}</td>
+                    <td class="bg-td-II">
+                      <div class="ui form small" style="width: 120px">
+                        <input class="custom-readonly" type="text" id="incsendIncKtb{{i}}"
+                          [value]="t.incsendIncKtb | decimalFormat" readonly>
+                      </div>
+                    </td>
+                    <td class="text-center bg-td-II" style="width: 110px">
+                      <div class="ui checkbox">
+                        <input type="checkbox" [checked]="t.incsendIncStm == 'Y'" disabled>
+                        <label></label>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container *ngIf="!flagExport">
+                    <td class="bg-td-II" style="width: 150px">
+                      <div class="ui form small">
+                        <div class="ui calendar" id="incsendAccCashCld{{i}}">
+                          <div class="ui input left icon">
+                            <i class="calendar alter nate outline icon"></i>
+                            <input type="text" id="incsendAccCash{{i}}" [value]="t.incsendAccCash" autocomplete="off"
+                              placeholder="วว/ดด/ปปปป" readonly>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="text-right bg-td-II" style="width: 130px">
+                      <div class="ui form small">
+                        <div class="ui calendar" id="incsendAccPayInCld{{i}}">
+                          <div class="ui input left icon">
+                            <i class="calendar alter nate outline icon"></i>
+                            <input type="text" id="incsendAccPayIn{{i}}" [value]="t.incsendAccPayIn" autocomplete="off"
+                              placeholder="วว/ดด/ปปปป" readonly>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="text-right" (dblclick)="doubleClick(i, t.totalSendAmt)"
+                      style="cursor: pointer;width: 100px">
+                      {{ t.totalSendAmt | decimalFormat }}</td>
+                    <td class="bg-td-II" style="width: 120px">
+                      <div class="ui form small">
+                        <input type="text" id="incsendIncKtb{{i}}">
+                      </div>
+                    </td>
+                    <td class="text-center bg-td-II" style="width: 110px">
+                      <div class="ui checkbox">
+                        <input type="checkbox" (click)="onCheckboxChange($event, i, 'incsendIncStm')">
+                        <label></label>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <td class="text-right bg-td-I" style="width: 85px">{{ t.sum4I | decimalFormat }}</td>
+                  <td class="text-right bg-td-I" style="width: 85px">{{ t.sum4II | decimalFormat }}</td>
+                  <ng-container *ngIf="flagExport">
+                    <td class="text-center bg-td-II" style="width: 110px">
+                      <div class="ui checkbox">
+                        <input type="checkbox" [checked]="t.incTransfer115010_116010 == 'Y'" disabled>
+                        <label></label>
+                      </div>
+                    </td>
+                    <td class="bg-td-II" style="width: 280px">
+                      <div class="field">
+                        <textarea class="custom-readonly" rows="2" cols="50" id="note{{i}}"
+                          [value]="t.incsendNote | isEmpty" readonly></textarea>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container *ngIf="!flagExport">
+                    <td class="text-center bg-td-II" style="width: 110px">
+                      <div class="ui checkbox">
+                        <input type="checkbox" (click)="onCheckboxChange($event, i, 'incTransfer115010_116010')">
+                        <label></label>
+                      </div>
+                    </td>
+                    <td class="bg-td-II" style="width: 280px">
+                      <div class="field">
+                        <textarea rows="2" cols="50" id="note{{i}}" [value]="t.incsendNote"></textarea>
+                      </div>
+                    </td>
+                  </ng-container>
+
+
+                </tr>
+
+                <!-- _________ footer _________ -->
+                <!-- <tfoot> -->
+                <tr>
+                  <td colspan="6" class="text-center bg-blank">รวม</td>
+                  <td class="text-right bg-blank">{{ footer.cnt | decimalFormat: '###,###' }}</td>
+                  <td class="text-right bg-blank">{{ footer.totalAmt | decimalFormat }}</td>
+                  <td class="text-right bg-td-I">{{ footer.sum1Sum2 | decimalFormat }}</td>
+                  <td class="text-right bg-td-I">{{ footer.sum4Sum5 | decimalFormat }}</td>
+                  <td class="text-right bg-td-I">{{ footer.sum7 | decimalFormat }}</td>
+                  <td class="bg-td-II"></td>
+                  <td class="bg-td-II"></td>
+                  <td class="text-right bg-blank">{{ footer.totalSendAmt | decimalFormat }}</td>
+                  <td class="text-right bg-td-II">{{ footer.incsendIncKtb | decimalFormat }}</td>
+                  <td class="bg-td-II"></td>
+                  <td class="text-right bg-td-I">{{ footer.sum4I | decimalFormat }}</td>
+                  <td class="text-right bg-td-I">{{ footer.sum4II | decimalFormat }}</td>
+                  <td class="bg-td-II"></td>
+                </tr>
+                <!-- </tfoot> -->
+              </ng-container>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+
+    <form [formGroup]="formHeader">
+      <div class="ui centered grid">
+        <div class="ui form sixteen wide column">
+          <h4>สรุปผลการตรวจสอบการรับเงินและนำส่งเงินรายได้</h4>
+          <ng-container *ngIf="flagExport">
+            <!-- row0 -->
+            <div inline>
+              <div field [col]="3"></div>
+              <div field [col]="2">
+                <div class="ui radio checkbox">
+                  <input type="radio" formControlName="auditFlag" value="Y" disabled>
+                  <label>ถูกต้อง</label>
+                </div>
+              </div>
+              <div field [col]="2">
+                <div class="ui radio checkbox">
+                  <input type="radio" formControlName="auditFlag" value="N" disabled>
+                  <label>ไม่ถูกต้อง</label>
+                </div>
+              </div>
+            </div>
+            <!-- row1 -->
+            <div inline>
+              <div field [col]="3">
+                <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br>
+                  (ข้อเท็จจริง/Condition) :</label>
+              </div>
+              <div field [col]="12">
+                <textarea class="custom-readonly" rows="3" style="width: 100%;" formControlName="incsendConditionText"
+                  readonly></textarea>
+              </div>
+            </div>
+            <!-- row2 -->
+            <div inline>
+              <div field [col]="3">
+                <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                  :</label>
+              </div>
+              <div field [col]="12">
+                <textarea class="custom-readonly" rows="3" style="width: 100%;" formControlName="incsendCreteriaText"
+                  readonly></textarea>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="!flagExport">
+            <div inline>
+              <div field [col]="3"></div>
+              <div field [col]="2">
+                <div class="ui radio checkbox">
+                  <input type="radio" formControlName="auditFlag" value="Y">
+                  <label>ถูกต้อง</label>
+                </div>
+              </div>
+              <div field [col]="2">
+                <div class="ui radio checkbox">
+                  <input type="radio" formControlName="auditFlag" value="N">
+                  <label>ไม่ถูกต้อง</label>
+                </div>
+              </div>
+            </div>
+            <!-- row1 -->
+            <div inline>
+              <div field [col]="3">
+                <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br>
+                  (ข้อเท็จจริง/Condition) :</label>
+              </div>
+              <div field [col]="12">
+                <textarea rows="3" style="width: 100%;" formControlName="incsendConditionText"></textarea>
+              </div>
+            </div>
+            <!-- row2 -->
+            <div inline>
+              <div field [col]="3">
+                <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                  :</label>
+              </div>
+              <div field [col]="12">
+                <textarea rows="3" style="width: 100%;" formControlName="incsendCreteriaText"></textarea>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+    </form>
+  </segment>
+</with-breadcrumb>

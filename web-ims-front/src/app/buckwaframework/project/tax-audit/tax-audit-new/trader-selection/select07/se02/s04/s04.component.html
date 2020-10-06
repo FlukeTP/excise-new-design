@@ -1,0 +1,48 @@
+<app-form-search header="ตรวจหาความสัมพันธ์การเบิกใช้วัตถุดิบกับการรับสินค้าสำเร็จรูป" [formSearch]="formGroup"
+  (search)="search($event)" (uploadTemplate)="uploadTemplate($event)" (clear)="clear($event)"></app-form-search>
+<segment header="อัพโหลด Template ข้อมูลสำหรับตรวจหาความสัมพันธ์การเบิกใช้วัตถุดิบกับการรับสินค้าสำเร็จรูป" *ngIf="hideUpload">
+  <form class="ui form ng-untouched ng-pristine ng-valid" id="upload-form" ngnativevalidate="">
+
+    <div class="inline fields  ui grid">
+      <div class="three wide field">
+        <label class="text-right full-width">เลือกไฟล์ Template </label>
+      </div>
+      <div class="four wide field">
+        <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="inputfile" id="fileExel"
+          name="fileExel" required="" type="file">
+      </div>
+      <div class="four wide field">
+        <app-button-upload (click)="upload()"></app-button-upload>
+      </div>
+    </div>
+  </form>
+</segment>
+<segment header="" [loading]="false" *ngIf="hideResult">
+  <div class="inline field btn text-right">
+    <app-button-export  (click)="exportFile()"></app-button-export>
+  </div>
+  <table id="dataTable" class="ui small celled nowrap table striped selectable" style="width:100%">
+    <thead>
+      <tr style="text-align: center;">
+        <th rowspan="2" class="one wide">ลำดับ</th>
+        <th rowspan="2" class="one wide">เลขที่ใบสำคัญ</th>
+        <th rowspan="2" class="one wide text-center">รายการ</th>
+        <th rowspan="2" class="one wide bg-blue text-center">จำนวนรับ(ตามบัญชี ภส. ๐๗-๐๒)</th>
+        <th rowspan="2" class="one wide bg-blue">สูตรจากการผลิต</th>
+        <th rowspan="2" class="one wide bg-blue">เบิกตามสูตร</th>
+        <th rowspan="2" class="one wide text-center">เบิกใช้จริง</th>
+        <th rowspan="2" class="one wide text-center">ผลต่างวัตถุดิบ</th>
+        <th colspan="2" class="one wide text-center">ผลิตได้ตามสูตร</th>
+        <th rowspan="2" class="one wide text-center">ผลต่างสินค้าสำเร็จรูป</th>
+        <th colspan="2" class="one wide text-center">หักสูญเสีย</th>
+        <th rowspan="2" class="one wide text-center">คงเหลือ</th>
+      </tr>
+      <tr style="text-align: center;">
+        <th class="one wide text-center">แยกตามวัตถุดิบ</th>
+        <th class="one wide text-center">จำนวนสินค้าสำเร็จรูป</th>
+        <th class="one wide text-center">เปอร์เซ็นต์</th>
+        <th class="one wide text-center">จำนวน</th>
+      </tr>
+    </thead>
+  </table>
+</segment>

@@ -1,0 +1,363 @@
+<div grid>
+  <div [column]="16" [formGroup]="forms">
+    <segment header="สถานที่ทำสุรา" [loading]="loading">
+
+      <div class="ui form centered grid">
+        <div [column]="14" style="margin-bottom: -20px;">
+          <div class="ui secondary  segment">
+            <div class="ui form">
+
+              <div class="inline fields">
+                <div class="one wide field">
+                </div>
+                <div class="fifteen wide field">
+                  <label class="full-width">
+                    สภาพของสถานที่ทำสุรา
+                  </label>
+                </div>
+              </div>
+              <!-- line 3 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="thirteen wide field">
+                  <div class="ui checkbox">
+                    <input type="radio" name="placeStatus" formControlName="placeStatus"
+                      (change)="statusChange('placeStatusRemark')" value="Y">
+                    <label>ถูกต้องตรงตามที่ขออนุญาต</label>
+                  </div>
+                </div>
+              </div>
+              <!-- line 4 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="four wide field">
+                  <div class="ui checkbox">
+                    <input type="radio" name="placeStatus" formControlName="placeStatus"
+                      (change)="statusChange('placeStatusRemark')" value="N">
+                    <label>ไม่ถูกต้อง</label>
+                  </div>
+                </div>
+                <div class="one wide field">
+                  <label>หมายเหตุ</label>
+                </div>
+                <div class="nine wide field" [ngClass]="{'disabled': forms.get('placeStatus').value != 'N'}">
+                  <input type="text" name="placeStatusRemark" formControlName="placeStatusRemark">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui form centered grid">
+        <div [column]="14" style="margin-bottom: -20px;">
+          <div class="ui secondary segment">
+            <div class="ui form">
+              <!-- line 5 -->
+              <div class="inline fields">
+                <div class="one wide field">
+                </div>
+                <div class="fifteen wide field">
+                  <label class="full-width">
+                    เครื่องจักรอุปกรณ์ที่ใช้ทำสุรา
+                  </label>
+                </div>
+              </div>
+              <!-- line 6 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="four wide field">
+                  <div class="ui checkbox">
+                    <input type="checkbox" name="eqmTankStatus" formControlName="eqmTankStatus"
+                      (change)="eqmChange('eqmTank', 'eqmTankNum')">
+                    <label>ถังหมัก</label>
+                  </div>
+                </div>
+                <div class="one wide field">
+                  <label>ขนาด</label>
+                </div>
+                <div class="four wide field" [ngClass]="{'disabled': !forms.get('eqmTankStatus').value }">
+                  <input type="text" name="eqmTank" formControlName="eqmTank">
+                </div>
+                <div class="one wide field">
+                  <label>จำนวน</label>
+                </div>
+                <div class="four wide field" [ngClass]="{'disabled': !forms.get('eqmTankStatus').value }">
+                  <input type="text" name="eqmTankNum" formControlName="eqmTankNum" numberOnly>
+                </div>
+              </div>
+              <!-- line 7 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="four wide field">
+                  <div class="ui checkbox">
+                    <input type="checkbox" name="eqmDistilStatus" formControlName="eqmDistilStatus"
+                      (change)="eqmChange('eqmDistil', 'eqmDistilNum')">
+                    <label>เครื่องกลั่นสุรา</label>
+                  </div>
+                </div>
+                <div class="one wide field">
+                  <label>ขนาด</label>
+                </div>
+                <div class="four wide field" [ngClass]="{'disabled': !forms.get('eqmDistilStatus').value }">
+                  <input type="text" name="eqmDistil" formControlName="eqmDistil">
+                </div>
+                <div class="one wide field">
+                  <label>จำนวน</label>
+                </div>
+                <div class="four wide field" [ngClass]="{'disabled': !forms.get('eqmDistilStatus').value }">
+                  <input type="text" name="eqmDistilNum" formControlName="eqmDistilNum" numberOnly>
+                </div>
+              </div>
+              <!-- line 8 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="four wide field">
+                  <div class="ui checkbox">
+                    <input type="checkbox" name="eqmPackingStatus" formControlName="eqmPackingStatus"
+                      (change)="eqmChange('eqmPacking', 'eqmPackingNum')">
+                    <label>เครื่องบรรจุ</label>
+                  </div>
+                </div>
+                <div class="one wide field">
+                  <label>ขนาด</label>
+                </div>
+                <div class="four wide field" [ngClass]="{'disabled': !forms.get('eqmPackingStatus').value }">
+                  <input type="text" name="eqmPacking" formControlName="eqmPacking">
+                </div>
+                <div class="one wide field">
+                  <label>จำนวน</label>
+                </div>
+                <div class="four wide field" [ngClass]="{'disabled': !forms.get('eqmPackingStatus').value }">
+                  <input type="text" name="eqmPackingNum" formControlName="eqmPackingNum" numberOnly>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui form centered grid">
+        <div [column]="14" style="margin-bottom: -20px;">
+          <div class="ui secondary  segment">
+            <div class="ui form">
+              <!-- line 11 -->
+              <div class="inline fields">
+                <div class="one wide field">
+                </div>
+                <div class="fifteen wide field">
+                  <label class="full-width">
+                    การบันทึกบัญชีรับ-จ่ายวัตถุดิบ ( แบบ ภส 07-01 ) ปรากฏว่า
+                  </label>
+                </div>
+              </div>
+              <!-- line 12 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="fourteen wide field">
+                  <div class="ui checkbox">
+                    <input type="radio" name="audit0701" (change)="statusChange('audit0701Remark')"
+                      formControlName="audit0701" value="Y">
+                    <label>ลงบัญชีครบถ้วน</label>
+                  </div>
+                </div>
+              </div>
+              <!-- line 13 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="four wide field">
+                  <div class="ui checkbox">
+                    <input type="radio" name="audit0701" (change)="statusChange('audit0701Remark')"
+                      formControlName="audit0701" value="N">
+                    <label>ลงบัญชีไม่ครบถ้วน</label>
+                  </div>
+                </div>
+                <div class="one wide field">
+                  <label>หมายเหตุ</label>
+                </div>
+                <div class="nine wide field" [ngClass]="{'disabled': forms.get('audit0701').value != 'N'}">
+                  <input type="text" name="audit0701Remark" formControlName="audit0701Remark">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui form centered grid">
+        <div [column]="14" style="margin-bottom: -20px;">
+          <div class="ui secondary  segment">
+            <div class="ui form">
+              <div class="inline fields">
+                <div class="one wide field">
+                </div>
+                <div class="fifteen wide field">
+                  <label class="full-width">
+                    การบันทึกบัญชีแสดงการทำสุราประจำวัน ( แบบ ภส 07-02/1 )
+                  </label>
+                </div>
+              </div>
+              <!-- line 15 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="fourteen wide field">
+                  <div class="ui checkbox">
+                    <input type="radio" name="audit07021" (change)="statusChange('audit07021Remark')"
+                      formControlName="audit07021" value="Y">
+                    <label>ลงบัญชีครบถ้วน</label>
+                  </div>
+                </div>
+              </div>
+              <!-- line 16 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="four wide field">
+                  <div class="ui checkbox">
+                    <input type="radio" name="audit07021" (change)="statusChange('audit07021Remark')"
+                      formControlName="audit07021" value="N">
+                    <label>ลงบัญชีไม่ครบถ้วน</label>
+                  </div>
+                </div>
+                <div class="one wide field">
+                  <label>หมายเหตุ</label>
+                </div>
+                <div class="nine wide field" [ngClass]="{'disabled': forms.get('audit07021').value != 'N'}">
+                  <input type="text" name="audit07021Remark" formControlName="audit07021Remark">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui form centered grid">
+        <div [column]="14" style="margin-bottom: -20px;">
+          <div class="ui secondary  segment">
+            <div class="ui form">
+              <div class="inline fields">
+                <div class="one wide field">
+                </div>
+                <div class="fifteen wide field">
+                  <label class="full-width">
+                    การบันทึกบัญชีรับ-จ่ายสุราบรรจุภาชนะที่ปิดแสตมป์แล้ว ( แบบ ภส 07-02/1 (2) )
+                  </label>
+                </div>
+              </div>
+              <!-- line 18 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="fourteen wide field">
+                  <div class="ui checkbox">
+                    <input type="radio" name="audit07022" (change)="statusChange('audit07022Remark')"
+                      formControlName="audit07022" value="Y">
+                    <label>ลงบัญชีครบถ้วน</label>
+                  </div>
+                </div>
+              </div>
+              <!-- line 19 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="four wide field">
+                  <div class="ui checkbox">
+                    <input type="radio" name="audit07022" (change)="statusChange('audit07022Remark')"
+                      formControlName="audit07022" value="N">
+                    <label>ลงบัญชีไม่ครบถ้วน</label>
+                  </div>
+                </div>
+                <div class="one wide field">
+                  <label>หมายเหตุ</label>
+                </div>
+                <div class="nine wide field" [ngClass]="{'disabled': forms.get('audit07022').value != 'N'}">
+                  <input type="text" name="audit07022Remark" formControlName="audit07022Remark">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui form centered grid">
+        <div [column]="14" style="margin-bottom: -20px;">
+          <div class="ui secondary  segment">
+            <div class="ui form">
+              <div class="inline fields">
+                <div class="one wide field">
+                </div>
+                <div class="fifteen wide field">
+                  <label class="full-width">
+                    ใช้เครื่องจักรกำลังรวมต่ำกว่า 5 แรงม้า หรือคนงานน้อยกว่า 7 คน หรือกรณีใช้
+                    ทั้งเครื่องจักรและคนงาน
+                    เครื่องจักรกำลังรวมต่ำกว่า 5 แรงม้า และคนงานน้อย กว่า 7 คน
+                  </label>
+                </div>
+              </div>
+              <!-- line 21 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="fourteen wide field">
+                  <div class="ui checkbox">
+                    <input type="radio" name="equipmentUsed" (change)="statusChange('equipmentUsedRemark')"
+                      formControlName="equipmentUsed" value="Y">
+                    <label>ถูกต้อง</label>
+                  </div>
+                </div>
+              </div>
+              <!-- line 22 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="four wide field">
+                  <div class="ui checkbox">
+                    <input type="radio" name="equipmentUsed" (change)="statusChange('equipmentUsedRemark')"
+                      formControlName="equipmentUsed" value="N">
+                    <label>ไม่ถูกต้อง</label>
+                  </div>
+                </div>
+                <div class="one wide field">
+                  <label>หมายเหตุ</label>
+                </div>
+                <div class="nine wide field" [ngClass]="{'disabled': forms.get('equipmentUsed').value != 'N'}">
+                  <input type="text" name="equipmentUsedRemark" formControlName="equipmentUsedRemark">
+                </div>
+              </div>
+              <!-- line 23 -->
+              <div class="inline fields">
+                <div class="two wide field">
+                </div>
+                <div class="fourteen wide field">
+                  <label class="custom-label-w-15">อื่น ๆ</label>
+                  <input type="text" name="auditOther" formControlName="auditOther">
+                </div>
+              </div>
+              <!-- line 24 -->
+              <div class="inline fields">
+                <div class="two wide field"></div>
+                <div class="fourteen wide field">
+                  <label class="custom-label-w-15">ข้อเสนอแนะ</label>
+                  <textarea rows="4" name="auditSuggestion" formControlName="auditSuggestion"></textarea>
+                </div>
+              </div>
+              <!-- line 25 -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui form centered grid">
+        <div [column]="14">
+          <div class="inline field text-center">
+            <app-button-save (click)="submit()"></app-button-save>
+          </div>
+        </div>
+      </div>
+
+    </segment>
+  </div>
+</div>

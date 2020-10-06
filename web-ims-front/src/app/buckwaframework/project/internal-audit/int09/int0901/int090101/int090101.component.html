@@ -1,0 +1,258 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<!-- step -->
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <segment header="ตรวจสอบข้อมูลค่าใช้จ่าย" [loading]="loading">
+      <!-- form search -->
+      <!-- <app-int09010101></app-int09010101>
+      <app-int09010102></app-int09010102>
+      <br>
+      <div class="ui grid">
+        <div class="two wide column ">
+        </div>
+        <div class="ten wide column ">
+          <label class="text-right full-width " style="font-size:20px; font-weight: bold">ข้อมูลนำมาเปรียบเทียบ</label>
+        </div>
+      </div>
+      <br> -->
+
+
+      <form class="ui form" [formGroup]="compareForm">
+        <input type="hidden" id="searchFlag" name="searchFlag">
+        <div class="inline fields">
+          <div class="three wide field required">
+            <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+          </div>
+          <div class="four wide field" [ngClass]="{'error': validateForm('sector')}">
+            <select class="ui dropdown full-width" formControlName="sector" name="sector" id="sector"
+              (change)="changeSector($event)">
+              <option value="">กรุณาเลือก</option>
+              <option *ngFor="let item of sectorList" value="{{item.officeCode}}">{{item.deptName}}</option>
+            </select>
+          </div>
+          <div class="three wide field required">
+            <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+          </div>
+          <div class="four wide field " [ngClass]="{'error': validateForm('area')}">
+            <select class="ui dropdown full-width" formControlName="area" name="area" id="area">
+              <option value="">กรุณาเลือก</option>
+              <option *ngFor="let item of araeList" value="{{item.officeCode}}">{{item.deptName}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="inline fields">
+          <!-- <div class="three wide field required">
+            <label class="text-right full-width">ปีงบประมาณ</label>
+          </div>
+          <div class="two wide field " [ngClass]="{'error': validateForm('year')}">
+            <div class="ui calendar" style="width:100%" id="year">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" placeholder="ปปปป" autocomplete="off" readonly id="yearInput"
+                  formControlName="year">
+              </div>
+            </div>
+          </div> -->
+          <div field [col]="3" class="required">
+            <label class="text-right full-width">งวดที่</label>
+          </div>
+          <div field [col]="1" [ngClass]="{'error': validateForm('periodMonthStart')}">
+            <select class="ui dropdown rfl" formControlName="periodMonthStart" (change)="changePeraid('period')">
+              <option value="">กรุณาเลือก</option>
+              <option *ngFor="let item of periodStart" value="{{item}}">{{item}}</option>
+            </select>
+          </div>
+          <div field [col]="1">
+            <label class="text-right full-width">ปี</label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': validateForm('startYear')}">
+            <div class="ui calendar" style="width:100%" id="startYear">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" placeholder="ปปปป" autocomplete="off" readonly id="startYearInput"
+                  formControlName="startYear">
+              </div>
+            </div>
+          </div>
+          <div field [col]="1" class="required">
+            <label class="text-center full-width">ถึงงวดที่</label>
+          </div>
+          <div field [col]="1" [ngClass]="{'error': validateForm('periodMonthEnd')}">
+            <select class="ui dropdown rfl" formControlName="periodMonthEnd" (change)="changePeraid('period')">
+              <option value="">กรุณาเลือก</option>
+              <option *ngFor="let item of periodEnd" value="{{item}}">{{item}}</option>
+            </select>
+          </div>
+          <div field [col]="1">
+            <label class="text-right full-width">ปี</label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': validateForm('endYear')}">
+            <div class="ui calendar" style="width:100%" id="endYear">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" placeholder="ปปปป" autocomplete="off" readonly id="endYearInput"
+                  formControlName="endYear">
+              </div>
+            </div>
+          </div>
+          <!-- <div class="three wide field required">
+            <label class="text-right full-width">ช่วงเดือนเปรียบเทียบ</label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': validateForm('startDate')}">
+            <div class="ui calendar" style="width:100%" id="startDate">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" placeholder="ดด/ปปปป" autocomplete="off" readonly id="startDateInput"
+                  formControlName="startDate">
+              </div>
+            </div>
+          </div>
+          <div field [col]="1">
+            <label class="text-center full-width">ถึง</label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': validateForm('endDate')}">
+            <div class="ui calendar" style="width:100%" id="endDate">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" placeholder="ดด/ปปปป" autocomplete="off" readonly id="endDateInput"
+                  formControlName="endDate">
+              </div>
+            </div>
+          </div> -->
+        </div><br><br>
+        <div class="ui center aligned grid">
+          <div class="sixteen wide column">
+            <!-- <button class="ui mini green button" type="button" (click)="onCompare()"><i
+              class="clipboard check icon"></i>เปรียบเทียบ</button> -->
+            <app-button-custom color="green" icon="clipboard check icon" text="เปรียบเทียบ" (click)="onCompare()">
+            </app-button-custom>
+            <app-button-export (click)="getExportFile()"></app-button-export>
+          </div>
+        </div><br>
+      </form>
+      <!-- </segment>
+    <div class="ui segment"> -->
+      <!-- scrollX nowrap-->
+      <!-- <div class=""> -->
+      <table id="dataTable" class="ui small celled  table striped selectable scrollX" style="width: 100%">
+        <thead>
+          <tr style="text-align: center !important">
+            <th style="text-align: center !important" rowspan="2">ลำดับที่</th>
+            <th style="text-align: center !important" rowspan="2">รหัสบัญชี</th>
+            <th style="text-align: center !important; width: 250px!important" rowspan="2">
+              ชื่อบัญชี</th>
+            <!-- <th style="text-align: center !important; max-width: 280px !important;white-space: pre-wrap;" rowspan="2">
+              ชื่อบัญชี</th> -->
+            <th style="text-align: center !important" colspan="3">กิจกรรม (รับโอนจากกรมฯ)</th>
+            <th style="text-align: center !important" rowspan="2">รวมรับ</th>
+            <th style="text-align: center !important" colspan="3">การเบิกจ่ายจริงแยกตามกิจกรรมตามทะเบียนคุม</th>
+            <th style="text-align: center !important" rowspan="2">รวมรับ</th>
+            <th style="text-align: center !important" rowspan="2">งบทดลอง</th>
+            <th style="text-align: center !important; background-color: #fefbd8 " rowspan="2">ผลต่างงบทดลอง</th>
+            <th style="text-align: center !important" rowspan="2">บัญชีแยกประเภท</th>
+            <th style="text-align: center !important; background-color: #fefbd8 " rowspan="2">ผลต่างบัญชีแยกประเภท
+            </th>
+            <th style="text-align: center !important" colspan="3">คงเหลือ</th>
+            <th style="text-align: center !important" rowspan="2">คงเหลือรวม</th>
+            <th style="text-align: center !important" colspan="3">ถัวจ่าย</th>
+            <th style="text-align: center !important" colspan="2">เหลือสุทธิ</th>
+            <!-- <th style="text-align: center !important" rowspan="2">หมายเหตุ</th> -->
+          </tr>
+          <tr>
+            <th style="text-align: center !important">การบริหาร</th>
+            <th style="text-align: center !important">ปราบปราม</th>
+            <th style="text-align: center !important">เงินนอกงปม.</th>
+
+            <th style="text-align: center !important">การบริหาร</th>
+            <th style="text-align: center !important">ปราบปราม</th>
+            <th style="text-align: center !important">เงินนอกงปม.</th>
+
+            <th style="text-align: center !important">การบริหาร</th>
+            <th style="text-align: center !important">ปราบปราม</th>
+            <th style="text-align: center !important">เงินนอกงปม.</th>
+
+            <th style="text-align: center !important">ถัวเป็นเงิน</th>
+            <th style="text-align: center !important">ถัวเป็นให้</th>
+            <th style="text-align: center !important">ถัวมาเงิน</th>
+            <!-- <th style="text-align: center !important">ถัวมาจาก</th> -->
+
+            <th style="text-align: center !important">เงินงบ</th>
+            <th style="text-align: center !important">เงินนอก</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th style="background-color: #e3e3e3 !important" colspan="3"><b>รวมทั้งสิ้น</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[0]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[1]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[2]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[3]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[4]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[5]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[6]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[7]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[8]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[9]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[10]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[11]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[12]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[13]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[14]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[15]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b></b></th>
+            <th style="background-color: #e3e3e3 !important"><b></b></th>
+            <th style="background-color: #e3e3e3 !important"><b></b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[19]| decimalFormat:"###,###.00"}}</b></th>
+            <th style="background-color: #e3e3e3 !important"><b>{{summary[20]| decimalFormat:"###,###.00"}}</b></th>
+          </tr>
+        </tfoot>
+      </table>
+      <!-- </div> -->
+      <br>
+      <div class="sixteen wide column">
+        <div class="ui centered grid">
+          <div class="ui form fourteen wide column">
+            <!-- row1 -->
+            <div class="inline fields">
+              <div class="four wide field">
+                <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br> (ข้อเท็จจริง/Condition) :</label>
+              </div>
+              <div class="ten  wide field">
+                <textarea rows="3" style="width: 100%;"></textarea>
+              </div>
+            </div>
+            <!-- row2 -->
+            <div class="inline fields">
+              <div class="four wide field">
+                <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                  :</label>
+              </div>
+              <div class="ten  wide field">
+                <textarea rows="3" style="width: 100%;"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui stackable center aligned page grid">
+        <app-button-save></app-button-save>
+        <a class="ui mini gray button " href="#" routerLink="/int06/1/1"><i class="reply icon"></i>จบการทำงาน</a>
+      </div><br>
+      <!-- </div> -->
+    </segment>
+
+    <!-- modal detail -->
+    <div class="ui modal" id="detail">
+      <div class="header">
+        หมายเหตุ
+      </div>
+      <div class="content" id="des">
+
+      </div>
+      <div class="actions">
+        <div class="ui deny button">
+          ปิด
+        </div>
+      </div>
+    </div>

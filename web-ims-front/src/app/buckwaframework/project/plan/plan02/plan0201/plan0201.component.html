@@ -1,0 +1,21 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment [loading]="false">
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <div id='calendar'></div>
+      </div>
+      <div class="sixteen wide column">
+        <a style="font-size: 20px; cursor: pointer;" (click)="routeTo()">#Notes</a>
+        <div class="ui ordered list">
+          <ng-container *ngFor="let note of notes;">
+            <p style="margin: 0" class="item" *ngIf="note.children.length == 0">{{ note.name }}</p>
+            <div class="item" *ngIf="note.children.length > 0">
+              <p style="margin: 0">{{ note.name }} (<a>จำนวน {{ note.quantity }} ครั้ง</a>)</p>
+              <a class="ui grey label" *ngFor="let children of note.children">{{ children }}</a>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

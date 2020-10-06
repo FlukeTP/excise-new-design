@@ -1,0 +1,85 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+
+<div class="ui grid">
+  <div class="sixteen wide column">
+      <h2 class="ui header">ความเสี่ยงตรวจส่งออก</h2>
+      <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+          <span>ความเสี่ยงตรวจส่งออก</span>
+      </div>
+      
+
+      <form (submit)="onSubmit($event)" >
+        <div class="ui attached segment {{loading ? 'loading' : ''}} ">
+            <div class="ui grid">
+                <div class="ui twelve wide column">
+                    <div class="ui form">
+
+                        <div class="inline fields">
+                            <div class="three wide field"></div>
+                            <div class="eight wide field">
+                                <h4 class="custom-label-w-100">กำหนดความเสี่ยง</h4>
+                            </div>
+                        </div>
+
+                        <div class="inline fields">
+                            <div class="four wide field"></div>
+                            <div class="eight wide field">
+                                <label>ระยะเวลาจากโรงงาน - ออกนอกราชอาณาจักร มากกว่า :</label>
+                            </div>
+                            <div class="two wide field">
+                                <input type="text"  name="num1" [(ngModel)]="num1" (keypress)="typeNumber($event)"/>
+                            </div>
+                            <div class="two wide field">
+                              <label>วัน</label>
+                            </div>
+                        </div>
+
+                        <div class="inline fields">
+                            <div class="four wide field"></div>
+                            <div class="eight wide field">
+                                <label>ระยะเวลาจากเขตปลอดภาษี - ออกนอกราชอาณาจักร มากกว่า :</label>
+                            </div>
+                            <div class="two wide field">
+                              <input type="text"  name="num2" [(ngModel)]="num2" (keypress)="typeNumber($event)"/>
+                            </div>
+                            <div class="two wide field">
+                              <label>วัน</label>
+                            </div>
+                        </div>
+
+                        <div class="inline fields">
+                            <div class="four wide field"></div>
+                            <div class="eight wide field">
+                                <label>ส่งเอกสาร งบเดือน ช้ากว่าวันที่ :</label>
+                            </div>
+                            <div class="two wide field">
+                                <input type="text"  name="num3" [(ngModel)]="num3"  (keypress)="typeNumber($event)"/>
+                            </div>
+                            <div class="two wide field">
+                              <label>ของเดือนถัดไป</label>
+                            </div>
+                        </div>
+
+                    </div>  
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui bottom centered attached segment">
+            <div class="ui center aligned grid">
+                <div class="eight wide column">
+                    <button class="ui mini green button" type="submit">
+                      <i class="save icon"></i>
+                      บันทึก
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+      </form>
+
+  </div>  
+</div>
+
+

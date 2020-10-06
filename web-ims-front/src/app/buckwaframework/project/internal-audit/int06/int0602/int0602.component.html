@@ -1,0 +1,343 @@
+<br>
+<segment header="ตรวจสอบการใช้ใบอนุญาต">
+  <form form [formGroup]="formSearch">
+    <div inline>
+      <div field [col]="2" [ngClass]="{'required': flagHeader}">
+        <label class="text-right full-width">สำนักงานสรรพสามิตภาค :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="4" [ngClass]="{'error': invalidSearchFormControl('sector')}">
+          <select class="ui dropdown full-width" id="sector" (change)="onChangeSector($event)" formControlName="sector">
+            <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+            <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" formControlName="sector" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="2">
+        <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่ :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="3" [ngClass]="{'error': invalidSearchFormControl('area')}">
+          <select class="ui dropdown full-width" id="area" (change)="onChangeArea($event)" formControlName="area">
+            <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="3">
+          <input type="text" class="custom-readonly" formControlName="area" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="2">
+        <label class="text-right full-width">สำนักงานสรรพสามิตสาขา :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="3" [ngClass]="{'error': invalidSearchFormControl('branch')}">
+          <select class="ui dropdown full-width" id="branch" formControlName="branch">
+            <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="3">
+          <input type="text" class="custom-readonly" formControlName="branch" readonly>
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div inline>
+      <div field [col]="2" [ngClass]="{'required': flagHeader}">
+        <label class="text-right full-width">ช่วงในวันที่ :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="4"
+          [ngClass]="{'error': invalidSearchFormControl('licDateFrom') || invalidSearchFormControl('licDateTo')}">
+          <div class="ui calendar full-width" id="date1">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="inputDate1" readonly="">
+            </div>
+          </div>
+          ถึง&nbsp;&nbsp;&nbsp;
+          <div class="ui calendar full-width" id="date2">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="inputDate2" readonly="">
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" formControlName="licDateFrom" readonly>
+          ถึง&nbsp;&nbsp;&nbsp;
+          <input type="text" class="custom-readonly" formControlName="licDateTo" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="2">
+        <label class="text-right full-width">เลขที่กระดาษทำการ :</label>
+      </div>
+      <div field [col]="3">
+        <select class="ui dropdown full-width" (change)="onChangeAuditLicNo($event)" formControlName="auditLicNo"
+          id="auditLicNo">
+          <option value="">เลือกเอกสาร</option>
+          <option *ngFor="let item of auditLicNoList let i =index" value="{{item.auditLicNo}}">{{item.auditLicNo}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-search (click)="serach()" [disabled]="!flagButton"></app-button-search>
+        <app-button-save (click)="save()" [disabled]="flagButton"></app-button-save>
+        <app-button-export (click)="export()" [disabled]="!formSearch.get('auditLicNo').value">
+        </app-button-export>
+        <app-button-clear (click)="clear()"></app-button-clear>
+      </div>
+    </div>
+  </form>
+
+</segment>
+
+<segment [loading]="loading">
+
+  <div contentLeft>
+    <div class="ui mini buttons">
+      <button class="ui button" style="font-size: 12px" [ngClass]="{'positive':activate('1')}"
+        (click)="showTab('1')">ตรวจสอบการใช้ใบอนุญาต</button>
+      <button class="ui button" style="font-size: 12px" [ngClass]="{'positive': activate('2')}"
+        (click)="showTab('2')">การตรวจสอบยอดเงินค่าใบอนุญาต จำนวนรายการ
+        กับใบอนุญาตที่ใช้จริง</button>
+    </div>
+  </div>
+
+  <!-- tab1 -->
+  <form form [formGroup]="formDataT1" [hidden]="tabActivate!='1'">
+    <table class="ui small celled nowrap table striped selectable tbsticky" style="width: 100% !important">
+      <thead class="text-center">
+        <tr>
+          <th class="sticky">ลำดับ</th>
+          <th class="sticky">#</th>
+          <th class="sticky">ประเภท<br>ใบอนุญาต</th>
+          <th class="sticky">เลขที่ใบอนุญาต</th>
+          <th class="sticky">ตรวจสอบ<br>เลขที่พิมพ์</th>
+          <th class="sticky">วันที่ออกใบอนุญาต</th>
+          <th class="sticky">วันที่นำส่งเงิน<br>(ระบบรายได้)</th>
+          <th class="sticky">ใบอนุญาต<br>ป.1-ป.2</th>
+          <th class="sticky">รหัสภาษี</th>
+          <th class="sticky">จำนวนเงิน</th>
+          <th class="sticky">ค่าธรรมเนียม<br>ใบอนุญาต</th>
+          <th class="sticky">ค่าธรรมเนียม<br>มหาดไทย</th>
+          <th class="sticky">หมายเหตุ</th>
+        </tr>
+      </thead>
+      <tbody formArrayName="auditLicD1List">
+        <ng-container *ngIf="formDataT1.controls">
+          <ng-container *ngIf="formDataT1.controls.auditLicD1List.controls!=0">
+            <tr [formGroupName]="i"
+              *ngFor="let item of formDataT1.controls.auditLicD1List.controls; let i = index;let first = first;let last = last">
+              <td class=" text-center">
+                <ng-container *ngIf="item.get('actionFlag').value == 'Y' ">
+                  <app-button-custom color="" icon="plus icon" (click)="onInsertList(i)">
+                  </app-button-custom>
+                </ng-container>
+                <ng-container *ngIf="item.get('actionFlag').value != 'Y' ">
+                  <app-button-custom color="red" icon="minus icon" (click)="onRemoveList(i)"></app-button-custom>
+                </ng-container>
+              </td>
+              <td class="fixed-column text-center"> {{ i+1 }}</td>
+              <td class="fixed-column text-center">{{ item.get('licType').value | isEmpty}}</td>
+              <td class="fixed-column text-center">{{ item.get('licNo').value | isEmpty }}</td>
+              <td><input numberOnly type="text" class=" fixed-column text-right full-width"
+                  (change)="reEditRunCheck(i,$event.target.value)" formControlName="runCheck"
+                  value="{{ item.get('runCheck').value}}" maxlength="20"></td>
+              <td class="fixed-column text-center">{{ item.get('licDate').value | isEmpty }}</td>
+              <td class="fixed-column text-center">{{ item.get('sendDate').value | isEmpty }}</td>
+              <td class="fixed-column text-left">{{ item.get('licName').value | isEmpty }}</td>
+              <td class="fixed-column text-center">{{ item.get('incCode').value | isEmpty }}</td>
+              <td class="fixed-column text-right">{{ item.get('licPrice').value | decimalFormat:"###,###.00" }}</td>
+              <td class="fixed-column text-right">{{ item.get('licFee').value | decimalFormat:"###,###.00" }}</td>
+              <td class="fixed-column text-right">{{ item.get('licInterior').value | decimalFormat:"###,###.00" }}</td>
+              <td><input type="text" class=" fixed-column text-left full-width" formControlName="licRemark"
+                  maxlength="500"></td>
+            </tr>
+          </ng-container>
+
+          <ng-container *ngIf="formDataT1.controls.auditLicD1List.controls==0">
+            <tr class="text-center">
+              <td colspan="14">ไม่พบข้อมูล</td>
+            </tr>
+          </ng-container>
+        </ng-container>
+
+      </tbody>
+    </table>
+
+    <ng-container *ngIf="auditLicD1List.length > 0">
+      <div inline style="margin-left: 12px">
+        <app-button-custom color="" icon="plus icon" (click)="onInsertListNext()">
+        </app-button-custom>
+      </div>
+    </ng-container>
+    <br>
+    <div inline>
+      <div field [col]="4">
+        <label class="text-right full-width">สรุปผลการตรวจกับทะเบียนคุมใบอนุญาต :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="d1AuditFlag" id="d1AuditFlag" value="1">
+          <label>ถูกต้อง</label>
+        </div>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="d1AuditFlag" id="d1AuditFlag" value="2">
+          <label>พบประเด็น</label>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต<br>(ข้อเท็จจริง/Condition) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="d1ConditionText" id="d1ConditionText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">สิ่งที่ควรจะเป็น<br>(หลักเกณฑ์/Criteria) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="d1CriteriaText" id="d1CriteriaText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- tab2 -->
+  <form form [formGroup]="formDataT2" [hidden]="tabActivate!='2'">
+    <div class='table-cont' id='table-cont'>
+      <table class="ui small celled table selectable ">
+        <thead class="text-center" style="z-index: 4;">
+          <tr>
+            <th rowspan="2">ลำดับ</th>
+            <th rowspan="2">รหัสภาษี</th>
+            <th rowspan="2">ใบอนุญาต ป.1-ป.2</th>
+            <th rowspan="2">จำนวนเงิน</th>
+            <th rowspan="2">จำนวนราย</th>
+            <th colspan="2">ผลการตรวจกับงบสรุปยอดที่นำส่ง</th>
+            <th rowspan="2">หมายเหตุ</th>
+          </tr>
+          <tr>
+            <!-- ถูกต้อง -->
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk1Audit" id="chk1Audit" (click)="chk1AuditAll($event)">
+                <label></label>
+              </div>
+            </th>
+            <!-- ไม่ถูกต้อง -->
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk2Audit" id="chk2Audit" (click)="chk2AuditAll($event)">
+                <label></label>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody formArrayName="auditLicD2List">
+          <ng-container *ngIf="formDataT2.controls">
+            <ng-container *ngIf="formDataT2.controls.auditLicD2List.controls!=0">
+              <tr [formGroupName]="i"
+                *ngFor="let item of formDataT2.controls.auditLicD2List.controls; let i = index;let first = first;let last = last">
+                <td class=" text-center">{{ i+1 }}</td>
+                <td class=" text-center">{{ item.get('taxCode').value | isEmpty}}</td>
+                <td class=" text-left">{{ item.get('licName').value | isEmpty }}</td>
+                <td class=" text-right">{{ item.get('licPrice').value | decimalFormat:"###,###.00" }}</td>
+                <td class=" text-right">{{ item.get('licCount').value | decimalFormat:"###,###" }}</td>
+
+                <td class="text-center">
+                  <div class=" radio checkbox">
+                    <input type="radio" formControlName="auditCheck" id="auditCheck" value="1">
+                    <label>ถูกต้อง</label>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <div class=" radio checkbox">
+                    <input type="radio" formControlName="auditCheck" id="auditCheck" value="2">
+                    <label>ไม่ถูกต้อง</label>
+                  </div>
+                </td>
+                <td><input type="text" class="text-left full-width" formControlName="licT2Remark" maxlength="500"></td>
+              </tr>
+            </ng-container>
+
+            <ng-container *ngIf="formDataT2.controls.auditLicD2List.controls==0">
+              <tr class="text-center">
+                <td colspan="14">ไม่พบข้อมูล</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+    <div inline>
+      <div field [col]="4">
+        <label class="text-right full-width">สรุปผลการตรวจยอดเงินค่าใบอนุญาต :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="d2AuditFlag" id="d2AuditFlag" value="1">
+          <label>ถูกต้อง</label>
+        </div>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="d2AuditFlag" id="d2AuditFlag" value="2">
+          <label>ไม่ถูกต้อง</label>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต<br>(ข้อเท็จจริง/Condition) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="d2ConditionText" id="d2ConditionText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">สิ่งที่ควรจะเป็น<br>(หลักเกณฑ์/Criteria) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="d2CriteriaText" id="d2CriteriaText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+
+  </form>
+
+</segment>

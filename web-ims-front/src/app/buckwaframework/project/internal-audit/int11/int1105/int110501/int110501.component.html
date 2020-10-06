@@ -1,0 +1,151 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+    <segment header="รายละเอียดรายงานผลการปฏิบัติตามข้อเสนอแนะ" [loading]="false">
+        <div class="ui form" *ngIf="dataHead">
+            <div class="inline fields">
+                <div class="four wide field"></div>
+                <div class="four  wide field"></div>
+                <div class="four wide field">
+                    <label class="text-right full-width">ปีงบประมาณ</label>
+                </div>
+                <div class="four  wide field">
+                    <div class="ui input left icon">
+                        <i class="calendar alternate outline icon"></i>
+                        <input type="text" class="custom-readonly" placeholder="วว/ดดดด/ปปปป"
+                            value="{{dataHead.budgetYear}}" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="inline fields">
+                <div class="four wide field"></div>
+                <div class="four  wide field"></div>
+                <div class="four wide field">
+                    <label class="text-right full-width">รูปแบบการตรวจสอบ</label>
+                </div>
+                <div class="four  wide field">
+                    <input type="text" class="custom-readonly" value="{{dataHead.checkType}}" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="ui center aligned grid" *ngIf="dataHead">
+            <div class="sixteen wide column">
+                <p>กลุ่มตรวจสอบภายใน กรมสรรพสามิต</p>
+                <p>ผลการตรวจสอบภายในของ{{headerLineTwo}}</p>
+            </div>
+        </div>
+        <br><br>
+        <div class="ui grid" *ngIf="dataHead">
+            <div class="two wide column">
+            </div>
+            <div class="three wide column text-right">
+                <label>หน่วยรับตรวจ : </label>
+            </div>
+            <div class="three wide column">
+                {{dataHead.inspectionUnit}}
+            </div>
+            <div class="three wide column text-right">
+                <label>เลขที่รายงานผลการตรวจสอบ : </label>
+            </div>
+            <div class="three wide column">
+                {{dataHead.reportNumber}}
+            </div>
+            <div class="two wide column">
+            </div>
+        </div>
+
+        <div class="ui grid" *ngIf="dataHead">
+            <div class="two wide column">
+            </div>
+            <div class="three wide column text-right">
+                <label>วันที่ได้รับรายงานผลการตรวจสอบ : </label>
+            </div>
+            <div class="three wide column">
+                {{dateReceivingCon}}
+            </div>
+            <div class="three wide column text-right">
+                <label>ผู้รายงานผลปฏิบัติตามข้อเสนอแนะ : </label>
+            </div>
+            <div class="two wide column">
+                {{dataHead.reportingResults}}
+            </div>
+            <div class="three wide column">
+            </div>
+        </div>
+
+        <div class="ui grid" *ngIf="dataHead">
+            <div class="two wide column">
+            </div>
+            <div class="three wide column text-right">
+                <label>หัวหน้าหน่วยรับตรวจ : </label>
+            </div>
+            <div class="three wide column">
+                {{dataHead.headInspectionUnit}}
+            </div>
+            <div class="three wide column text-right">
+            </div>
+            <div class="three wide column">
+            </div>
+            <div class="two wide column">
+            </div>
+        </div>
+
+        <div class="ui grid">
+            <div class="two wide column">
+            </div>
+            <div class="three wide column text-right">
+                <label>สถานะ : </label>
+            </div>
+            <div class="three wide column">
+                ผ่าน
+            </div>
+            <div class="six wide column " style="padding-top: 0px;margin-top: 5px;height: 34px;">
+                <button class="ui mini green button" type="submit">
+                    ผ่าน
+                </button>
+                <button class="ui mini red button" type="submit">
+                    ไม่ผ่าน
+                </button>
+            </div>
+            <div class="two wide column">
+            </div>
+        </div>
+        <br>
+
+
+        <table class="ui small collapsing celled table aligned hover striped selectable" style="width: 100%;">
+            <thead>
+                <tr style="text-align: center">
+                    <th>ลำดับที่</th>
+                    <th>เรื่องที่ตรวจ / ประเด็นที่ตรวจ</th>
+                    <th>ข้อเสนอแนะของผู้ตรวจสอบภายใน</th>
+                    <th>แนวทางการพัฒนาการปฏิบัติตามข้อเสนอแนะของหน่วยตรวจสอบภายใน</th>
+                    <th>เอกสาร / หลักฐานอ้างอิง</th>
+                    <th>จัดการ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="datas.length < 1">
+                    <td [attr.colspan]="6" style="text-align: center !important">
+                        ไม่มีข้อมูล
+                    </td>
+                </tr>
+                <tr *ngFor="let t of datas; let i=index">
+                    <td class="text-center">{{ i + 1 }}</td>
+                    <td>{{ t.issues }}</td>
+                    <td>{{ t.whatShouldBe }}</td>
+                    <td>{{ t.guidelinesDeveloping }}</td>
+                    <td>{{ t.reference }}</td>
+                    <td class="text-center">
+                        <app-button-edit (click)="routeTo('/int11/05/01/01',t.id)"></app-button-edit>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui center aligned grid">
+            <div class="sixteen wide column">
+                <app-button-export></app-button-export>
+                <app-button-custom color="primary" text="ส่งหน่วยตรวจสอบภายใน"></app-button-custom>
+                <app-button-back routerLink="/int11/05"></app-button-back>
+            </div>
+        </div>
+    </segment>
+</with-breadcrumb>

@@ -1,0 +1,49 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+    <segment header="Assign Role" [loading]="false">
+        <h3>ข้อมูล  Role </h3>
+        <hr>
+        <div [formGroup]="dataForm" class="ui form grid ">
+            <div class="ui twelve wide left column">
+                <div class="inline fields">
+                    <div class="one wide field">
+                        <label class="text-right full-width">Code</label>
+                    </div>
+                    <div class="four  wide field">
+                        <input type="text" class="custom-readonly" placeholder="Role Code" formControlName="username"
+                            readonly>
+                    </div>
+                    <div class="four wide field">
+                        <label class="text-right full-width">Descriptions</label>
+                    </div>
+                    <div class="four  wide field">
+                        <input type="text" class="custom-readonly" placeholder="Role Descriptions" formControlName="enabled"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>เลือก Assign Role</h3>
+        <hr>
+        <div class="sixteen wide column">
+            <table id="dataTable" class=" ui small celled nowrap table striped selectable" style="width:100%">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th class="one wide"><input class="ui checkbox" type="checkbox" id="chkAll"  ></th>
+                        <th class="one wide">ลำดับ</th>
+                        <th class="five wide text-center">Operation Code</th>
+                        <th class="five wide text-center">Operation Descriptions</th>
+                    </tr>
+                </thead>
+            </table>
+
+
+            <div class="inline field btn text-center">
+                <app-button-save></app-button-save>
+                <app-button-back routerLink="/management/user-management"></app-button-back>
+            </div>
+
+        </div>
+    </segment>
+
+</with-breadcrumb>

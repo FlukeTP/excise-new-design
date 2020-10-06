@@ -1,0 +1,34 @@
+.column-select {
+    background: green;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.column-select:hover {
+    background: rgb(0, 121, 0);
+    color: white;
+    cursor: pointer;
+}
+
+.ui.button {
+    box-shadow: none !important;
+    width: 100%;
+}
+
+.btn-custom {
+    background-color: #c0c1c2;
+}
+
+.color-custom {
+    background-color:#004eff !important;
+    color: white !important;
+}
+
+.marginTop {
+    margin-top: 1em;
+}
+
+.marginBottom {
+    margin-bottom: 1em;
+}

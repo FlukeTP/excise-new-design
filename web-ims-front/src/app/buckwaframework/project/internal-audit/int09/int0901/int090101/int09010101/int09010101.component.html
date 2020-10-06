@@ -1,0 +1,25 @@
+<div class="ui grid">
+    <div class="sixteen wide column">
+        <div class="ui attached center {{loading ? 'loading' : ''}} ">
+            <form class="ui form" id="upload-form" (submit)="onSubmit($event)" ngNativeValidate>
+                <input type="hidden" id="searchFlag" name="searchFlag">
+                <div class="inline fields ui centered grid">
+                    <div class="three wide field required">
+                        <label class="text-right full-width">รายงานงบทดลอง</label>
+                    </div>
+                    <div class="four wide field ">
+                        <input class="inputfile" type="file" name="fileName" id="fileName" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+                            (change)="onChangeUpload($event)" required>
+                    </div>
+                    <div class="three wide field ">
+                            <button class="ui mini yellow button" type="submit"><i class="upload icon"></i> อัปโหลด</button>
+                    </div>
+                    <div class="four wide field ">
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,135 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="แผนการตรวจสอบประจำปีงบประมาณ 2562" [loading]="false">
+    <table class="ui small celled table striped selectable" id="dataTable" style="width: 100%;">
+      <thead>
+        <tr style="text-align: center">
+          <th>กิจกรรม</th>
+          <th>ความถี่</th>
+          <th>หน่วยนับ</th>
+          <th style="cursor: pointer;"><a (click)="route(10, 2561)">ต.ค. 61</a></th>
+          <th style="cursor: pointer;"><a (click)="route(11, 2561)">พ.ย. 61</a></th>
+          <th style="cursor: pointer;"><a (click)="route(12, 2561)">ธ.ค. 61</a></th>
+          <th style="cursor: pointer;"><a (click)="route(01, 2562)">ม.ค. 62</a></th>
+          <th style="cursor: pointer;"><a (click)="route(02, 2562)">ก.พ. 62</a></th>
+          <th style="cursor: pointer;"><a (click)="route(03, 2562)">มี.ค. 62</a></th>
+          <th style="cursor: pointer;"><a (click)="route(04, 2562)">เม.ย. 62</a></th>
+          <th style="cursor: pointer;"><a (click)="route(05, 2562)">พ.ค. 62</a></th>
+          <th style="cursor: pointer;"><a (click)="route(06, 2562)">มิ.ย. 62</a></th>
+          <th style="cursor: pointer;"><a (click)="route(07, 2562)">ก.ค. 62</a></th>
+          <th style="cursor: pointer;"><a (click)="route(08, 2562)">ส.ค. 62</a></th>
+          <th style="cursor: pointer;"><a (click)="route(09, 2562)">ก.ย. 62</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row1 -->
+        <tr>
+          <td>1. ตรวจสอบภาษี</td>
+          <td class="text-center">24</td>
+          <td class="text-center">ครั้ง</td>
+          <td class="text-center">3</td>
+          <td class="text-center">2</td>
+          <td class="text-center">3</td>
+          <td class="text-center">-</td>
+          <td class="text-center">3</td>
+          <td class="text-center">2</td>
+          <td class="text-center">3</td>
+          <td class="text-center">4</td>
+          <td class="text-center">2</td>
+          <td class="text-center">3</td>
+          <td class="text-center">2</td>
+          <td class="text-center">3</td>
+        </tr>
+        <!-- row2 -->
+        <tr>
+          <td>2. ตรวจสอบปฏิบัติการ</td>
+          <td class="text-center">20</td>
+          <td class="text-center">ครั้ง</td>
+          <td class="text-center"></td>
+          <td class="text-center">4</td>
+          <td class="text-center">3</td>
+          <td class="text-center">-</td>
+          <td class="text-center">3</td>
+          <td class="text-center">-</td>
+          <td class="text-center">2</td>
+          <td class="text-center">-</td>
+          <td class="text-center">3</td>
+          <td class="text-center">-</td>
+          <td class="text-center">2</td>
+          <td class="text-center">2</td>
+        </tr>
+        <!-- row3 -->
+        <tr>
+          <td style="cursor: pointer"><a [routerLink]="['/plan02/02']">3. ตรวจสอบภายใน</a></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <!-- row4 -->
+        <tr>
+          <td>3.1 ตรวจสอบภายใน</td>
+          <td class="text-center">1</td>
+          <td class="text-center">โครงการ</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">1</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+        </tr>
+        <!-- row5 -->
+        <tr>
+          <td>3.2 งานตรวจสอบระบบงานสารสนเทศหลักของกรมสรรพสามิต</td>
+          <td class="text-center">1</td>
+          <td class="text-center">ระบบ</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">1</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+        </tr>
+        <!-- row6 -->
+        <tr>
+          <td>3.3 งานตรวจสอบสรรพสามิตภาคและสรรพสามิตพื้นที่</td>
+          <td class="text-center">8</td>
+          <td class="text-center">หน่วยงาน</td>
+          <td class="text-center">-</td>
+          <td class="text-center">2</td>
+          <td class="text-center"></td>
+          <td class="text-center">1</td>
+          <td class="text-center">1</td>
+          <td class="text-center">1</td>
+          <td class="text-center">1</td>
+          <td class="text-center">-</td>
+          <td class="text-center">2</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+          <td class="text-center">-</td>
+        </tr>
+      </tbody>
+    </table>
+  </segment>
+</with-breadcrumb>

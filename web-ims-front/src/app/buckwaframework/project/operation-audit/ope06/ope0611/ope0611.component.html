@@ -1,0 +1,86 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="แผนงานการออกตรวจประจำเดือน" [loading]="false">
+    <div class="ui centered grid">
+      <div class="ui column form">
+        <div class="inline fields">
+          <div class="four wide field"></div>
+          <div class="three wide field">
+            <label class="text-right full-width">ประจำเดือน</label>
+          </div>
+          <div class="four wide field">
+            <div class="ui input">
+              <select id="selectYear" class="ui dropdown ai full-width" [(ngModel)]="yearSelect">
+                <option value="ต.ค. 2561">ต.ค. 2561</option>
+                <option value="พ.ย. 2561">พ.ย. 2561</option>
+                <option value="ธ.ค. 2561">ธ.ค. 2561</option>
+                <option value="ม.ค. 2562">ม.ค. 2562</option>
+                <option value="ก.พ. 2562">ก.พ. 2562</option>
+                <option value="มี.ค. 2562">มี.ค. 2562</option>
+                <option value="เม.ย. 2562">เม.ย. 2562</option>
+                <option value="พ.ค. 2562">พ.ค. 2562</option>
+                <option value="มิ.ย. 2562">มิ.ย. 2562</option>
+                <option value="ก.ค. 2562">ก.ค. 2562</option>
+                <option value="ส.ค. 2562">ส.ค. 2562</option>
+                <option value="ก.ย. 2562">ก.ย. 2562</option>
+              </select>
+            </div>
+            <app-button-search class="full-width"></app-button-search>
+          </div>
+          <div class="three wide field">
+          </div>
+          <div class="two wide field text-right">
+            <app-button-custom color="primary" text="สร้างแผน" class="full-width" routerLink="/ope06/12"></app-button-custom>
+          </div>
+        </div>
+        <br>
+        <div class="sixteen wide column">
+          <table id="dataTable" class="ui small celled table striped selectable nowrap" style="width: 100%">
+            <thead class="text-center">
+              <tr>
+                <th>ชื่อแผน</th>
+                <th>หน่วยงาน</th>
+                <th>วันที่ออกตรวจ</th>
+                <th>สถานะ</th>
+                <th>จำนวนผู้ออกตรวจ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>แผนอยุธยา 1</td>
+                <td>สำนักงานสรรพสามิตพื้นที่อยุธยา 1</td>
+                <td class="text-center">16 ตุลาคม 2561</td>
+                <td class="text-center">อนุมัติ</td>
+                <td class="text-center">2</td>
+              </tr>
+              <tr>
+                <td>แผนชัยนาท</td>
+                <td>สำนักงานสรรพสามิตพื้นที่ชัยนาท</td>
+                <td class="text-center">7 ธันวาคม 2561</td>
+                <td class="text-center">อนุมัติ</td>
+                <td class="text-center">3</td>
+              </tr>
+              <tr>
+                <td><a routerLink="/ope06/13">แผนปราจีนบุรี </a></td>
+                <td>สำนักงานสรรพสามิตพื้นที่ปราจีนบุรี</td>
+                <td class="text-center">22 ธันวาคม 2561</td>
+                <td class="text-center"><a routerLink="/ope06/13">รออนุมัติ</a></td>
+                <td class="text-center">5</td>
+              </tr>
+              <tr>
+                <td>แผนนครราชสีมา</td>
+                <td>สำนักงานสรรพสามิตพื้นที่นครราชสีมา</td>
+                <td class="text-center">5 มกราคม 2562</td>
+                <td class="text-center">ไม่อนุมัติ</td>
+                <td class="text-center">1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <div class="sixteen wide text-center column">
+          <!-- <app-button-custom color="primary" icon="location arrow" text="ส่งอนุมัติ"></app-button-custom> -->
+        </div>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

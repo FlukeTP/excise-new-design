@@ -1,0 +1,254 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <!-- search month-->
+  <segment header="{{b.b10.label}} (TA0102)" [loading]="loading">
+    <form form [formGroup]="searchForm" (submit)="onSubmit($event)">
+      <div inline>
+        <div field [col]="2">
+        </div>
+        <div field [col]="2">
+          <label class="text-right full-width">ปีงบประมาณ</label>
+        </div>
+        <div field [col]="2">
+          <div class="ui calendar" style="width: 100%" id="budgetYear">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" formControlName="budgetYear" placeholder="ปปปป" id="budgetYear" name="budgetYear"
+                [attr.required]="true" autocomplete="off">
+            </div>
+          </div>
+        </div>
+        <div field [col]="2">
+          <label class=" text-right full-width">ช่วงการชำระภาษีปีนี้</label>
+        </div>
+        <div field [col]="2" class="ui calendar" id="calendar">
+          <div class="ui input left icon" [ngClass]="{'error': validateField('calendar')}">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="calendar" id="calendarraw" name="calendarraw" [attr.required]="true"
+              autocomplete="off" placeholder="ดด/ปปปป">
+          </div>
+        </div>
+        <div field [col]="1">
+          <label class="text-center full-width">ถึง</label>
+        </div>
+        <div field [col]="2" class="ui calendar" id="calendar1">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="calendar1" id="calendar1raw" name="calendar1raw"
+              [attr.required]="true" autocomplete="off" placeholder="ดด/ปปปป">
+            <!-- class="custom-readonly" readonly="" -->
+          </div>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="2">
+        </div>
+        <div field [col]="2">
+        </div>
+        <div field [col]="2">
+        </div>
+        <div field [col]="2">
+          <label class=" text-right full-width">เปรียบเทียบกับ ช่วงการชำระภาษีปีก่อน</label>
+        </div>
+        <div field [col]="2">
+          <input type="text" formControlName="calendar2" readonly="" class="custom-readonly">
+        </div>
+        <div field [col]="1">
+          <label class="text-center full-width">ถึง</label>
+        </div>
+        <div field [col]="2">
+          <input type="text" formControlName="calendar3" readonly="" class="custom-readonly">
+        </div>
+      </div>
+      <!-- <div inline>
+        <div field [col]="2">
+        </div>
+        <div field [col]="2">
+
+        </div>
+        <div field [col]="2">
+
+        </div>
+        <div field [col]="2">
+          <label class=" text-right full-width">เดือนภาษีเริ่มต้น</label>
+        </div>
+        <div field [col]="2" class="ui calendar" id="calendar2">
+          <div class="ui input left icon" [ngClass]="{'error': validateField('calendar')}">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="calendar2" id="calendar2raw" name="calendar2raw" [attr.required]="true"
+              autocomplete="off" placeholder="ดด/ปปปป">
+          </div>
+        </div>
+        <div field [col]="1">
+          <label class="text-center full-width">ถึง</label>
+        </div>
+        <div field [col]="2" class="ui calendar" id="calendar3">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="calendar3" id="calendar3raw"
+              name="calendar3raw" [attr.required]="true" autocomplete="off" placeholder="ดด/ปปปป">
+          </div>
+        </div>
+      </div> -->
+      <br>
+      <div inline>
+        <div field [col]="8">
+          <div field [col]="7">
+          </div>
+          <div field [col]="8">
+            <u class="text-left full-width">1. เงื่อนไขหลักในการกวาดข้อมูล</u>
+          </div>
+        </div>
+      </div>
+
+      <div inline *ngFor="let item of masCondMainHdrList;  let i = index">
+        <div field [col]="4"></div>
+        <div field [col]="12">
+          <div form>
+            <div inline>
+              <div class="ui radio checkbox">
+                <input type="radio" name="condNumber" formControlName="condNumber" value="{{item.condNumber}}"
+                  (change)="onClickCondHdr($event)" [checked]="i==0">
+                <label>{{item.condGroupDesc}} <i class="angle down icon"
+                    (click)="toggleCondDtl(conNumber == item.condNumber)"></i></label>
+              </div>
+            </div>
+            <div class="ui message" *ngIf="conNumber == item.condNumber && showCondDtl">
+              <p *ngFor="let item of masCondMainDtlList"> เงื่อนไขกลุ่มที่ 1.{{item.condGroup}} {{item.condDtlDesc}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ซ่อน ลิสที่ 2 เงื่อนไขในการคัดกรองเพิ่มเติม -->
+      <div hidden>
+        <!-- ซ่อน ลิสที่ 2 เงื่อนไขในการคัดกรองเพิ่มเติม -->
+        <div inline>
+          <div field [col]="8">
+            <div field [col]="7">
+            </div>
+            <div field [col]="8">
+              <u class="text-left full-width">2. เงื่อนไขในการคัดกรองเพิ่มเติม</u>
+            </div>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="4"></div>
+          <div field [col]="1" style="margin-left: -23px !important;"><input type="checkbox" class="ui checkbox"
+              id="condSub1" (change)="onChangeChecked($event, 'condSub1')"></div>
+          <div field [col]="11" style="margin-left: -35px !important;"> 2.1 ขนาดของทุนจดทะเบียน</div>
+        </div>
+        <div inline>
+          <div field [col]="4"></div>
+          <div field [col]="1" style="margin-left: -23px !important;"><input type="checkbox" class="ui checkbox"
+              id="condSub2" (change)="onChangeChecked($event, 'condSub2')"></div>
+          <div field [col]="11" style="margin-left: -35px !important;">2.2
+            ประเภทสินค้าและบริการที่มีความเสี่ยงในการหลีกเลี่ยงภาษี</div>
+        </div>
+        <div inline>
+          <div field [col]="4"></div>
+          <div field [col]="1" style="margin-left: -23px !important;"><input type="checkbox" class="ui checkbox"
+              id="condSub3" (change)="onChangeChecked($event, 'condSub3')"></div>
+          <div field [col]="11" style="margin-left: -35px !important;">2.3 ผู้เสียภาษีที่ไม่มีการตรวจกำกับดูแลมากกว่า 1
+            ปี</div>
+        </div>
+      </div>
+      <br><br>
+      <div class="ui center aligned grid">
+        <div class="sixteen wide column">
+          <app-button-custom color="primary" icon="search icon" text="ค้นหา" btnType="submit"></app-button-custom>
+          <app-button-clear (click)="clear()"></app-button-clear>
+          <app-button-back (click)="back()"></app-button-back>
+        </div>
+      </div>
+      <br>
+      <br>
+      <!-- <div inline>
+      <div field [col]="6"></div>
+      <div field [col]="2">
+        <label class="text-right full-width">ชุดเงื่อนไข</label>
+      </div>
+      <div field [col]="5">
+        <select class="ui fluid dropdown full-width condNumber" id="condNumber" formControlName="condNumber"
+          (change)="onChangeCondNumber($event)">
+          <option value="0" disabled selected></option>
+          <option [value]="item.condNumber" *ngFor="let item of masCondMainHdrList">{{item.condGroupDesc}}</option>
+        </select>
+      </div>
+      <div field [col]="3">
+        <app-button-custom icon="sort" color="grey" [text]="toggleButtonTxt" (click)="toggleBody()"></app-button-custom>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div *ngIf="showBody">
+      <div inline>
+        <div field [col]="2"></div>
+        <div field [col]="14">
+          <h3>จำนวนเดือนที่ชำระภาษี {{formCondHdr.monthNum}} เดือน</h3>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="2"><u class="text-right full-width">เงื่อนไขหลัก</u></div>
+      </div>
+      <div inline>
+        <div field [col]="2"></div>
+        <div field [col]="2"><label class="text-center full-width">ความถี่ในการชำระภาษี</label></div>
+        <div field [col]="3"><label class="text-center full-width">จำนวนเดือนที่ชำระภาษี</label></div>
+        <div field [col]="6"><label class="text-center full-width">อัตราการชำระภาษีในการเปรียบเทียบ</label></div>
+        <div field [col]="2"><label class="text-center full-width">ระดับความเสี่ยง</label></div>
+        <div field [col]="1"></div>
+      </div>
+      <div inline *ngFor="let item of masCondMainDtlList">
+
+        <div field [col]="2" *ngIf="'T' == item.condType"><label class="text-right full-width">เงื่อนไขที่
+            {{item.condGroup}}</label></div>
+        <div field [col]="2" *ngIf="'T' == item.condType"><input type="text" class="custom-readonly"
+            value="{{item.taxFreqTypeDesc}}" readonly=""></div>
+        <div field [col]="1" *ngIf="'T' == item.condType"><input *ngIf="item.taxFreqType != '1'" type="text"
+            class="custom-readonly" value="{{item.taxMonthStart}}" readonly=""></div>
+        <div field [col]="1" *ngIf="'T' == item.condType"><label *ngIf="item.taxFreqType != '1'"
+            class="text-center full-width">ถึง</label></div>
+        <div field [col]="1" *ngIf="'T' == item.condType"><input *ngIf="item.taxFreqType != '1'" type="text"
+            class="custom-readonly" value="{{item.taxMonthEnd}}" readonly=""></div>
+        <div field [col]="2" *ngIf="'T' == item.condType"><input type="text" class="custom-readonly"
+            value="{{item.rangeTypeStartDesc}}" readonly=""></div>
+        <div field [col]="1" *ngIf="'T' == item.condType"><input type="text" class="custom-readonly"
+            value="{{item.rangeStart}}" readonly=""></div>
+        <div field [col]="2" *ngIf="'T' == item.condType"><input
+            *ngIf="item.rangeTypeStart == '1'|| item.rangeTypeStart == '2'" type="text" class="custom-readonly"
+            value="{{item.rangeTypeEndDesc}}" readonly=""></div>
+        <div field [col]="1" *ngIf="'T' == item.condType"><input
+            *ngIf="item.rangeTypeStart == '1'|| item.rangeTypeStart == '2'" type="text" class="custom-readonly"
+            value="{{item.rangeEnd}}" readonly=""></div>
+        <div field [col]="2" *ngIf="'T' == item.condType"><input type="text" class="custom-readonly"
+            value="{{item.riskLevelDesc}}" readonly=""></div>
+        <div field [col]="1" *ngIf="'T' == item.condType"></div>
+
+        <div field [col]="2" *ngIf="'O' == item.condType"><label class="text-right full-width">เงื่อนไขที่
+            {{item.condGroup}}</label></div>
+        <div field [col]="6" *ngIf="'O' == item.condType">{{item.condTypeDesc}}</div>
+      </div>
+      <br>
+      <div inline>
+        <div field [col]="2"><u class="text-right full-width">เงื่อนไขรอง</u></div>
+      </div>
+      <div inline>
+        <div field [col]="2"></div>
+        <div field [col]="1"><input type="checkbox" class="ui checkbox"></div>
+        <div field [col]="13"> 1. ขนาดของทุน</div>
+      </div>
+      <div inline>
+        <div field [col]="2"></div>
+        <div field [col]="1"><input type="checkbox" class="ui checkbox"></div>
+        <div field [col]="13">2. สินค้าที่มีความเสี่ยงหลีกเลี่ยงภาษี</div>
+      </div>
+      <div inline>
+        <div field [col]="2"></div>
+        <div field [col]="1"><input type="checkbox" class="ui checkbox"></div>
+        <div field [col]="13">3. ผู้เสียภาษีไม่มีการตรวจกำกับดูแลมากกว่า 1 ปี</div>
+      </div>
+    </div> -->
+    </form>
+  </segment>
+</with-breadcrumb>

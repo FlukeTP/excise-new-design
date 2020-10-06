@@ -1,0 +1,74 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="แผนงานการออกตรวจ ตามปีงบประมาณ">
+    <div class="ui form">
+      <div class="six fields">
+        <div class="field"></div>
+        <div class="field"></div>
+        <div class="field">ปีงบประมาณ</div>
+        <div class="field"><input type="text" value="2561"></div>
+        <div class="field"></div>
+        <div class="field"></div>
+      </div>
+      <div class="six fields">
+        <div class="field"></div>
+        <div class="field"></div>
+        <div class="field">กิจกรรม</div>
+        <div class="field">
+          <select name="skills"  class="ui fluid dropdown">
+            <option value="">การตรวจสอบ</option>
+            <option value="angular">การตรวจสอบ</option>
+          </select>
+        </div>
+        <div class="field"></div>
+        <div class="field"></div>
+      </div>
+    </div>
+<br>
+<br>
+    <div class="ui  grid">
+      <div class="row">
+        <div class="three wide column"></div>
+        <div class="ten wide column">
+          <table class="ui small celled table striped selectable" style="margin-bottom: 0px;">
+            <thead class="text-center">
+              <th>ต.ค. 2561</th>
+              <th>พ.ย. 2561</th>
+              <th>ธ.ค. 2561</th>
+              <th>ม.ค. 2562</th>
+              <th>ก.พ. 2562</th>
+              <th>มี.ค. 2562</th>
+            </thead>
+            <tbody class="text-center">
+              <td><a href="#" routerLink="/ope06/11">4</a></td>
+              <td><a href="#" routerLink="/ope06/11">5</a></td>
+              <td><a href="#" routerLink="/ope06/11">0</a></td>
+              <td><a href="#" routerLink="/ope06/11">0</a></td>
+              <td><a href="#" routerLink="/ope06/11">0</a></td>
+              <td><a href="#" routerLink="/ope06/11">0</a></td>
+            </tbody>
+          </table>
+          <table class="ui small celled table striped selectable" id="tableDetail" style="width:100%; margin-top: 0px;" >
+            <thead class="text-center">
+              <th>เม.ย. 2562</th>
+              <th>พ.ค. 2562</th>
+              <th>มิ.ย. 2562</th>
+              <th>ก.ค. 2562</th>
+              <th>ส.ค. 2562</th>
+              <th>ก.ย. 2562</th>
+            </thead>
+            <tbody class="text-center">
+              <td><a href="#" routerLink="/ope06/11">0</a></td>
+              <td><a href="#" routerLink="/ope06/11">0</a></td>
+              <td><a href="#" routerLink="/ope06/11">0</a></td>
+              <td><a href="#" routerLink="/ope06/11">0</a></td>
+              <td><a href="#" routerLink="/ope06/11">0</a></td>
+              <td><a href="#" routerLink="/ope06/11">0</a></td>
+            </tbody>
+          </table>
+        </div>
+        <div class="three wide column"></div>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

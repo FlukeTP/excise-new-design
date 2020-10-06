@@ -1,0 +1,132 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <!-- segment1 -->
+      <segment header="สรุปผลการตรวจและติดตาม" [loading]="false">
+        <form [formGroup]="searchForm">
+          <div class="ui form">
+            <div class="inline fields">
+              <div class="one wide field">
+                <label class="text-right full-width">ปีงบประมาณ</label>
+              </div>
+              <div class="two wide centered field" [ngClass]="{ 'error': validateField('budgetYear') }">
+                <div class="ui calendar" id="budgetyearCld" style="width:100%">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" name="budgetYear" placeholder="ปปปป" readonly value="2561">
+                  </div>
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="custom-label-w-20">รูปแบบการตรวจสอบ</label>
+              </div>
+              <div class="five wide field" [ngClass]="{ 'error': validateField('riskType') }">
+                <select class="ui dropdown ai" id="risk" name="riskType" formControlName="riskType" (change)="search()">
+                  <option *ngFor="let item of dropdownInspection" [value]="item.paramInfoId">{{item.value1}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </form>
+        <table class="ui small collapsing celled table aligned hover striped selectable" style="width:100%"
+          *ngIf="table">
+          <thead>
+            <tr style="text-align: center">
+              <th>ลำดับที่</th>
+              <th>โครงการ</th>
+              <th>วันที่เริ่มต้น</th>
+              <th>วันที่สิ้นสุด</th>
+              <th>สถานะการดำเนินการ</th>
+              <th>จัดการ</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="dataFilter.length == 0">
+            <tr>
+              <td class="text-center" colspan="6" style="padding: 10px 0"><b>ไม่มีข้อมูล</b></td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="dataFilter.length > 0">
+            <tr *ngFor="let d of dataFilter; let i=index">
+              <td class="text-center">{{ i+1 }}</td>
+              <td>{{ d.project }}</td>
+              <td class="text-center">-</td>
+              <td class="text-center">-</td>
+              <td class="text-center">{{d.status==null?'-': d.status}}</td>
+              <td class="text-center">
+                <app-button-custom color="primary" icon="eye icon" text="รายละเอียด" (click)="routeTo(d.id)">
+                </app-button-custom>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="ui small collapsing celled table aligned hover striped selectable" style="width:100%"
+          *ngIf="table2">
+          <thead>
+            <tr style="text-align: center">
+              <th>ลำดับที่</th>
+              <th rowspan="3">ระบบสารสนเทศฯ ของกรมสรรพสามิต</th>
+              <th>วันที่เริ่มต้น</th>
+              <th>วันที่สิ้นสุด</th>
+              <th>สถานะการดำเนินการ</th>
+              <th>จัดการ</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="dataFilter.length == 0">
+            <tr>
+              <td class="text-center" colspan="7" style="padding: 10px 0"><b>ไม่มีข้อมูล</b></td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="dataFilter.length > 0">
+            <tr *ngFor="let d of dataFilter; let i=index">
+              <td class="text-center">{{ i+1 }}</td>
+              <td>{{ d["systemName"] | isEmpty }}</td>
+              <td class="text-center">-</td>
+              <td class="text-center">-</td>
+              <td class="text-center">{{d.status==null?'-': d.status}}</td>
+              <td class="text-center">
+                <app-button-custom color="primary" icon="eye icon" text="รายละเอียด" (click)="routeTo(d.id)">
+                </app-button-custom>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="ui small collapsing celled table aligned hover striped selectable " style="width:100%"
+          *ngIf="table3">
+          <thead>
+            <tr style="text-align: center">
+              <th>ลำดับที่</th>
+              <th>สำนัก / สำนักงานสรรพสามิตภาค</th>
+              <th>ฝ่าย / ส่วน / สำนักงานสรรพสามิตพื้นที่</th>
+              <th>วันที่เริ่มต้น</th>
+              <th>วันที่สิ้นสุด</th>
+              <th>สถานะการดำเนินการ</th>
+              <th>จัดการ</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="dataFilter.length == 0">
+            <tr>
+              <td class="text-center" colspan="7" style="padding: 10px 0"><b>ไม่มีข้อมูล</b></td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="dataFilter.length > 0">
+            <tr *ngFor="let d of dataFilter; let i=index">
+              <td class="text-center">{{ i+1 }}</td>
+              <td>{{ d["exciseDepartmentVo"]?.sector | isEmpty }}</td>
+              <td>{{ d["exciseDepartmentVo"]?.area | isEmpty }}</td>
+              <td class="text-center">-</td>
+              <td class="text-center">-</td>
+              <td class="text-center">{{d.status==null?'-': d.status}}</td>
+              <td class="text-center">
+                <app-button-custom color="primary" icon="eye icon" text="รายละเอียด" (click)="routeTo(d.id)">
+                </app-button-custom>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>

@@ -1,0 +1,7 @@
+.checkbox-center {
+     justify-content: center !important;
+ }
+ .radio > label, .checkbox > label {
+    font-weight: 600 !important;
+    font-size: .9em !important;
+}

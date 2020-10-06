@@ -1,0 +1,283 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายงานไปตรวจราชการของเจ้าพนักงานสรรพสามิต (ส.ส. ๒/๑ )" [loading]="loading">
+    <form class="ui form" [formGroup]="empWorkingHdrForm">
+      <div class="inline fields">
+        <div class="two wide field">
+          <label class="full-width text-right">ชื่อผู้ปฏิบัติงาน</label>
+        </div>
+        <div class="three wide field">
+          <input type="text" value="{{userProfile.userThaiName}} {{userProfile.userThaiSurname}}"
+            class="custom-readonly">
+        </div>
+        <div class="one wide field">
+          <label class="full-width text-right">ตำแหน่ง</label>
+        </div>
+        <div class="three wide field">
+          <input type="text" class="custom-readonly" value="{{userProfile.title}}">
+        </div>
+        <div class="two wide field">
+          <label class="full-width text-right">สำนักงานสรรพสามิตพื้นที่</label>
+        </div>
+        <div class="three wide field">
+          <input type="text" class="custom-readonly" value="{{userProfile.departmentName}}">
+        </div>
+      </div>
+      <br>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="twelve wide field">
+          <div id='calendar'></div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="twelve wide field">
+          <sub>* <span style="color: red">ตัวเลขสีแดง</span> คือ วันหยุด</sub>
+        </div>
+      </div>
+      <br>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="twelve wide field">
+          <div class="two wide field"><label class="full-width text-center">ประเภทคดี</label></div>
+          <div class="two wide field"><label class="full-width text-center">เป็นผู้จับคดี</label></div>
+          <div class="two wide field"><label class="full-width text-center">เป็นผู้ช่วยจับคดี</label></div>
+          <div class="two wide field"><label class="full-width text-center">เป็นผู้จับคดี</label></div>
+          <div class="two wide field"><label class="full-width text-center">เป็นผู้ช่วยจับคดี</label></div>
+          <div class="three wide field"><label class="full-width">หมายเหตุ</label></div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="twelve wide field">
+          <div class="two wide field">
+            <label class="full-width">๑. สุรา</label>
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="ownerCaseSpirits" (change)="autoAddVal('ownerCaseSpirits')"
+              class="text-right">
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="asstCaseSpirits" (change)="autoAddVal('asstCaseSpirits')"
+              class="text-right">
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="ownerCaseSpiritsFw" class="custom-readonly"
+              class="text-right custom-readonly" disabled>
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="asstCaseSpiritsFw" class="custom-readonly"
+              class="text-right custom-readonly" disabled>
+          </div>
+          <div class="three wide field">
+            <textarea rows="1" formControlName="remarkCaseSpirits"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="twelve wide field">
+          <div class="two wide field">
+            <label class="full-width">๒. ยาสูบ</label>
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="ownerCaseTobacco" (change)="autoAddVal('ownerCaseTobacco')"
+              class="text-right">
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="asstCaseTobacco" (change)="autoAddVal('asstCaseTobacco')"
+              class="text-right">
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="ownerCaseTobaccoFw" class="text-right custom-readonly" disabled>
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="asstCaseTobaccoFw" class="text-right custom-readonly" disabled>
+          </div>
+          <div class="three wide field">
+            <textarea rows="1" formControlName="remarkCaseTobacco"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="twelve wide field">
+          <div class="two wide field">
+            <label class="full-width">๓. ไพ่</label>
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="ownerCaseCard" (change)="autoAddVal('ownerCaseCard')"
+              class="text-right">
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="asstCaseCard" (change)="autoAddVal('asstCaseCard')"
+              class="text-right">
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="ownerCaseCardFw" class="text-right custom-readonly" disabled>
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="asstCaseCardFw" class="text-right custom-readonly" disabled>
+          </div>
+          <div class="three wide field">
+            <textarea rows="1" formControlName="remarkCaseCard"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="twelve wide field">
+          <div class="two wide field">
+            <label class="full-width">๔. ภาษีสรรพสามิต</label>
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="ownerCaseEdtax" (change)="autoAddVal('ownerCaseEdtax')"
+              class="text-right">
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="asstCaseEdtax" (change)="autoAddVal('asstCaseEdtax')"
+              class="text-right">
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="ownerCaseEdtaxFw" class="text-right custom-readonly" disabled>
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="asstCaseEdtaxFw" class="text-right custom-readonly" disabled>
+          </div>
+          <div class="three wide field">
+            <textarea rows="1" formControlName="remarkCaseEdtax"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="twelve wide field">
+          <div class="two wide field">
+            <label class="full-width text-center">รวม</label>
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="ownerTotal" class="text-right custom-readonly" disabled>
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="asstTotal" class="text-right custom-readonly" disabled>
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="ownerEdtaxTotal" class="text-right custom-readonly" disabled>
+          </div>
+          <div class="two wide field">
+            <input type="number" formControlName="asstEdtaxTotal" class="text-right custom-readonly" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="twelve wide field">
+          <div class="text-center full-width">
+            <app-button-save (click)="saveEmpWorkingHdr()"></app-button-save>
+            <app-button-export (click)="export($event)"></app-button-export>
+          </div>
+        </div>
+      </div>
+      <br>
+    </form>
+  </segment>
+</with-breadcrumb>
+
+<ui-modal [id]="'calModalEvent'" type="custom" size="large">
+  <div class="ui header">
+    บันทึกรายงานไปตรวจราชการ
+  </div>
+  <div class="content">
+    <form class="ui form" [formGroup]="calModalForm">
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="full-width text-right">วันที่เดินทาง</label>
+        </div>
+        <div class="four wide field">
+          <div class="ui calendar" style="width: 100%" id="workingDate">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" class="custom-readonly" readonly="" formControlName="workingDate" (blur)="onBlurModalDate()" placeholder="วว/ดด/ปปปป"
+                [attr.required]="true" autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field"></div>
+        <div class="six wide field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="workingFlag" id="workingFlag1" (change)="setType(1)" value="1">
+            <label>ลงเวลาปฏิบัติงานนอกเวลาราชการ <i class="large clock icon"></i></label>
+          </div>
+        </div>
+        <div class="six wide field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="workingFlag" id="workingFlag4" (change)="setType(4)" value="4">
+            <label>อยู่เวร รักษาการณ์ <i class="large clipboard icon"></i></label>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field"></div>
+        <div class="six wide field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="workingFlag" id="workingFlag2" (change)="setType(2)" value="2">
+            <label>ปฏิบัติราชการนอกสถานที่ <i class="large car icon"></i></label>
+          </div>
+        </div>
+        <div class="six wide field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="workingFlag" id="workingFlag5" (change)="setType(5)" value="5">
+            <label>ไปราชการ <i class="large building icon"></i></label>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field"></div>
+        <div class="six wide field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="workingFlag" id="workingFlag3" (change)="setType(3)" value="3">
+            <label>ลาป่วย ลาพักร้อน <i class="large bed icon"></i></label>
+          </div>
+        </div>
+        <div class="six wide field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="workingFlag" id="workingFlag6" (change)="setType(6)" value="6">
+            <label>ประจำสำนักงาน <i class="large address card icon"></i></label>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="full-width text-right">รายงาย(โดยย่อ)ได้ไปตรวจ<br>หรือทำการอย่างไร ที่ใด</label>
+        </div>
+        <div class="ten wide field">
+          <textarea rows="2" id='workingDesc' formControlName="workingDesc"></textarea>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="full-width text-right">หมายเหตุ</label>
+        </div>
+        <div class="ten wide field">
+          <textarea rows="1" formControlName="workingRemark"></textarea>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field"></div>
+        <div class="six wide field">
+          <div class="ui checkbox">
+            <input type="checkbox" id="reimburseExpFlag" formControlName="reimburseExpFlag">
+            <label>เบิกค่าใช่จ่าย</label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <app-button-save (click)="addEvent()"></app-button-save>
+    <app-button-delete (click)="modalDelete()"></app-button-delete>
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

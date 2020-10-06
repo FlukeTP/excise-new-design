@@ -1,0 +1,105 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายชื่อพนักงานที่ไม่มีรหัสเข้าใช้ระบบ" [loading]="false">
+    <table id="dataTable" class="ui small celled table striped selectable" style="width: 100%;">
+      <thead>
+        <tr>
+          <th style="text-align: center !important;">ลำดับที่</th>
+          <th style="text-align: center !important;">เลขบัตรประชาชน</th>
+          <th style="text-align: center !important;">ชื่อ-นามสกุล</th>
+          <th style="text-align: center !important;">ตำแหน่ง</th>
+          <th style="text-align: center !important;">หน่วยงาน</th>
+        </tr>
+      </thead>
+    </table>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-custom color="gray" text="เพิ่มรายการใหม่" (click)="showform()">
+        </app-button-custom>
+      </div>
+    </div>
+    <br>
+    <div *ngIf="showFormDown">
+      <div form [formGroup]="addUser">
+        <div class="inline fields  ui grid">
+          <div class="three wide field ">
+            <label class="text-right full-width">ชื่อ-นามสกุล</label>
+          </div>
+          <div class="four wide field " [ngClass]="{ 'error': invalidControlConfig('name') }">
+              <input class="custom ng-untouched ng-pristine ng-valid" id="name" name="name" type="text"
+                formControlName="name">
+          </div>
+          <div class="three wide field ">
+            <label class="text-right full-width">ตำแหน่ง</label>
+          </div>
+          <div class="four wide field " [ngClass]="{ 'error': invalidControlConfig('position') }">
+            <!-- <select class="ui dropdown ia search selection " style="width: 100%;" id="exciseOffice" formControlName="position">
+              <option *ngFor="let data of datasPosition" value="{{data.edPersonSeq}}">{{data.edPositionName}}</option>
+            </select> -->
+
+            <select class="ui search dropdown" formControlName="position" name="position" id="position">
+              <option value="">กรุณาเลือก</option>
+              <option *ngFor="let data of datasPosition" value="{{data.edPersonSeq}}|{{data.edPositionName}}">
+                {{data.edPositionName}}
+              </option>
+            </select>
+
+            <!-- <input class="custom ng-untouched ng-pristine ng-valid" id="exciseOffice" name="exciseOffice" type="text"
+              formControlName="position"> -->
+          </div>
+        </div>
+        <div class="inline fields  ui grid">
+          <div class="three wide field">
+          </div>
+          <div class="four wide field">
+
+            <div class="ui radio checkbox">
+              <input type="radio" name="toDepartment" value="00" formControlName="toDepartment"
+                (change)="RaDepartment($event)">
+              <label>หน่วยงานภายใน</label>
+            </div>
+
+            <div class="ui radio checkbox">
+              <input type="radio" name="toDepartment" value="01" formControlName="toDepartment"
+                (change)="RaDepartment($event)">
+              <label>สรรพสามิตภาค/พื้นที่</label>
+            </div>
+
+          </div>
+          <div class="three wide field ">
+            <label class="text-right full-width">หน่วยงาน</label>
+          </div>
+          <div class="four wide field " [ngClass]="{ 'error': invalidControlConfig('officeCode') }">
+            <select class="ui search dropdown" formControlName="officeCode" name="officeCode" id="officeCode">
+              <option value="">กรุณาเลือก</option>
+              <option *ngFor="let data of datasDepartment00" value="{{data.offCode}}">{{data.offName}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="inline fields  ui grid">
+          <div class="three wide field ">
+            <!-- <label class="text-right full-width">หน่วยงาน</label> -->
+          </div>
+          <div class="four wide field ">
+            <!-- <input class="custom ng-untouched ng-pristine ng-valid" id="exciseOffice" name="exciseOffice" type="text"
+            formControlName="department"> -->
+          </div>
+          <div class="three wide field " >
+            <label class="text-right full-width">เลขบัตรประชาชน</label>
+          </div>
+          <div class="four wide field "  [ngClass]="{ 'error': invalidControlConfig('idCardNumber') }">
+            <input class="custom ng-untouched ng-pristine ng-valid" id="idCardNumber" name="idCardNumber" type="text"
+              formControlName="idCardNumber" maxlength="13" numberOnly>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-save *ngIf="showFormDown" (click)="saveAddUser()"></app-button-save>
+        <app-button-clear *ngIf="showFormDown" (click)="clearForm()"></app-button-clear>
+        <app-button-back (click)="routeTo('/management/ed/ed01')"></app-button-back>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

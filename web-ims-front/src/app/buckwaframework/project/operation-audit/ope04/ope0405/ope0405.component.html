@@ -1,0 +1,121 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายงานผู้รับอนุญาตตามภาค/พื้นที่" [loading]="false">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="text-right full-width"> สำนักงานสรรพสามิตภาค</label>
+        </div>
+        <div class="three wide field ">
+          <div class="ui selection dropdown full-width">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class=" text">สำนักงานสรรพสามิตภาคที่ 5</div>
+            <div class="menu">
+            </div>
+          </div>
+        </div>
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width"> สำนักงานสรรพสามิตพื้นที่</label>
+        </div>
+        <div class="three wide field">
+          <div class="ui selection dropdown full-width">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class=" text">ทั้งหมด</div>
+            <div class="menu">
+              <div class="item" data-value="1">ชัยนาท</div>
+              <div class="item" data-value="1">ตราด</div>
+              <div class="item" data-value="0">นครนายก</div>
+              <div class="item" data-value="0">ระยอง 2</div>
+              <div class="item" data-value="0">ฉะเชิงเทรา</div>
+              <div class="item" data-value="0">สิงห์บุรี</div>
+              <div class="item" data-value="0">ชลบุรี 1</div>
+              <div class="item" data-value="0">ระยอง 1</div>
+              <div class="item" data-value="0">ปทุมธานี 1</div>
+            </div>
+          </div>
+        </div>
+        <div class="one wide field">
+        </div>
+      </div>
+    </div>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-search></app-button-search>
+        <app-button-clear></app-button-clear>
+      </div>
+    </div>
+    <table id="dataTable" class="ui small celled table striped selectable nowrap" style="width: 100%">
+      <thead>
+        <tr style="text-align: center;">
+          <th>สำนักงานสรรพสามิตภาค <i class="sort icon"></i></th>
+          <th>สำนักงานสรรพสามิตพื้นที่<i class="sort icon"></i></th>
+          <th>ชื่อโรงงาน<i class="sort icon"></i></th>
+          <th>วัตถุดิบ<i class="sort icon"></i></th>
+          <th>ผลิตภันท์<i class="sort icon"></i></th>
+          <th>ที่ตั้ง<i class="sort icon"></i></th>
+        </tr>
+      <tbody>
+        <tr>
+          <td rowspan="12" style="text-align: center">สำนักงานสรรพสามิตภาคที่ 5 </td>
+          <td style="text-align: center">สำนักงานสรรพสามิตพื้นที่เชียงราย</td>
+          <td>หจก.เวียงกาหลงทอดดี้</td>
+          <td></td>
+          <td></td>
+          <td>5 ม.1 ต.ป่างิ้ว อ.เวียงป่าเป้า จ.เชียงราย</td>
+        </tr>
+        <tr>
+          <td rowspan="2" style="text-align: center">สำนักงานสรรพสามิตพื้นที่พะเยา</td>
+          <td>สหกรณ์แปรรูปผลิตผลการเกษตรป่าแดง
+            จำกัด สาขา อ.เมืองพะเยา กลุ่มที่ 7</td>
+          <td></td>
+          <td></td>
+          <td>91 ม.1 ต.บ้านสาง อ.เมือง จ.พะเยา</td>
+        </tr>
+        <tr>
+          <td>สหกรณ์แปรรูปผลิตผลการเกษตรป่าแดง
+            จำกัด สาขา อ.เมืองพะเยา กลุ่มที่ 11</td>
+          <td></td>
+          <td></td>
+          <td>85 ม.8 บ้านสันกว้าน อ.เมือง จ.พะเยา</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">สำนักงานสรรพสามิตพื้นที่ลำปาง</td>
+          <td>หจก.ประเทืองบริบูรณ์สุราไทย</td>
+          <td></td>
+          <td></td>
+          <td>633 ม.9 ถ.เวียงสวรรค์ ต.แม่เมาะ อ.แม่เมาะ
+            จ.ลำปาง</td>
+        </tr>
+        <tr>
+          <td rowspan="2" style="text-align: center">สำนักงานสรรพสามิตพื้นที่แพร่</td>
+          <td> หจก.ดวงจันทร์การสุรา</td>
+          <td></td>
+          <td></td>
+          <td>87/1 ม.6 ต.ห้วยหม้าย อ.สอง จ.แพร่</td>
+        </tr>
+        <tr>
+          <td>กลุ่มองค์กรเกษตรกร</td>
+          <td></td>
+          <td></td>
+          <td>96 ม.6 ต.แม่หล่าย อ.เมือง จ.แพร่</td>
+        </tr>
+        <tr>
+          <td rowspan="2" style="text-align: center">สำนักงานสรรพสามิตพื้นที่เชียงใหม่</td>
+          <td>หจก.สาโทลำไยทอง</td>
+          <td></td>
+          <td></td>
+          <td>111/2 ม.3 ต.หนองตอง อ.หางดง จ.เชียงใหม่</td>
+        </tr>
+        <tr>
+          <td> หจก.หนองแฝกการสุรา</td>
+          <td></td>
+          <td></td>
+          <td>81 ม.5 ต.หนองแฝก อ.สารภี จ.เชียงใหม่</td>
+        </tr>
+      </tbody>
+    </table>
+  </segment>
+
+</with-breadcrumb>

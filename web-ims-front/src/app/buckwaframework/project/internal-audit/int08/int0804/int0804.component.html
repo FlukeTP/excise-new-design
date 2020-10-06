@@ -1,0 +1,170 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="กระดาษทำการตรวจสอบการจัดเก็บเงินนำส่งองค์กรส่วนท้องถิ่น" [loading]="loading">
+    <form [formGroup]="formSearch">
+      <div class="ui form">
+        <div inline>
+          <div field [col]="2">
+            <!-- something -->
+          </div>
+          <div field [col]="2" class="required">
+            <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+          </div>
+          <div field [col]="4" [ngClass]="{'error': validateField('sector')}">
+            <select class="ui dropdown full-width" id="sector" (change)="dropdownChange($event, 'SECTOR')"
+              formControlName="sector">
+              <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+              <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+            </select>
+          </div>
+          <div field [col]="2" class="required">
+            <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+          </div>
+          <div field [col]="3" [ngClass]="{'error': validateField('area')}">
+            <select class="ui dropdown full-width" id="area" (change)="dropdownChange($event, 'AREA')"
+              formControlName="area">
+              <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+              <option value="0">ทั้งหมด</option>
+              <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div inline>
+          <div field [col]="2">
+            <!-- something -->
+          </div>
+          <div field [col]="2" class="required">
+            <label class="text-right full-width">เลขบัญชีเงินฝาก</label>
+          </div>
+          <div field [col]="9" [ngClass]="{'error': validateField('gfDepositCode')}">
+            <select class="ui search dropdown full-width" formControlName="gfDepositCode">
+              <option value="">เลขบัญชีเงินฝาก</option>
+              <option *ngFor="let item of depaccMasList" value="{{item.gfDepositCode}}">
+                {{ item.gfDepositCode }} - {{ item.gfDepositName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div inline>
+          <div field [col]="2">
+            <!-- something -->
+          </div>
+          <div field [col]="2" class="required">
+            <label class="text-right full-width">ช่วงวันที่</label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': validateField('dateFrom')}">
+            <div class="ui calendar" id="dateFromCld">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" formControlName="dateFrom" autocomplete="off" placeholder="ดด/ปปปป" readonly>
+              </div>
+            </div>
+          </div>
+          <div field [col]="1" class="required">
+            <label class="text-center full-width">ถึง</label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': validateField('dateTo')}">
+            <div class="ui calendar" id="dateToCld">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" formControlName="dateTo" autocomplete="off" placeholder="ปปปป" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui center aligned grid">
+          <div class="column">
+            <app-button-search (click)="search()"></app-button-search>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <table id="dataTable" class="ui small celled nowrap table" style="width: 100%;">
+      <thead>
+        <tr class="text-center">
+          <th [attr.colspan]="cols.length + 1">บัญชีแยกประเภทเจ้าหนี้ อปท. GFMIS</th>
+          <th colspan="4">ระบบงานรายได้ (97%)</th>
+        </tr>
+        <tr class="text-center">
+          <th>วันที่</th>
+          <ng-container *ngIf="cols.length > 0">
+            <th *ngFor="let item of cols">{{ item.area }}</th>
+          </ng-container>
+          <th>พื้นที่(ศูนย์ต้นทุน)</th>
+          <th>พื้นที่</th>
+          <th>พื้นที่</th>
+          <th>พื้นที่</th>
+        </tr>
+      </thead>
+
+      <!-- no data -->
+      <tbody *ngIf="table.length == 0">
+        <tr>
+          <td class="text-center" [attr.colspan]="cols.length + 1">ไม่มีข้อมูล</td>
+        </tr>
+      </tbody>
+
+      <!-- have data -->
+      <tbody *ngIf="table.length > 0">
+        <tr *ngFor="let t of table; let i = index">
+          <ng-container *ngFor="let d of t.day; let j = index">
+            <ng-container *ngIf="d.dateDefault">
+              <td *ngIf="j == 0" class="text-center">{{ d.dateDefault }}</td>
+              <td class="text-right" [ngClass]="{'bg-td': !d.sumCarryForward}">
+                {{ d.sumCarryForward | decimalFormat }}
+              </td>
+
+              <!-- ______________ mock up fix td __________________ -->
+              <ng-container *ngIf="j == t.day.length - 1">
+                <td class="bg-td"></td>
+                <td class="bg-td"></td>
+                <td class="bg-td"></td>
+                <td class="bg-td"></td>
+              </ng-container>
+
+            </ng-container>
+
+            <ng-container *ngIf="!d.dateDefault">
+              <!-- ________________ sum total of month ________________ -->
+              <ng-container *ngIf="i < table.length - 1">
+                <td *ngIf="j == 0" class="text-center bg-sum-month">{{ d.dateDefault }}</td>
+                <td class="text-right bg-sum-month">
+                  {{ d.sumCarryForward | decimalFormat }}
+                </td>
+
+                <!-- ______________ mock up fix td __________________ -->
+                <ng-container *ngIf="j == t.day.length - 1">
+                  <td class="bg-sum-month"></td>
+                  <td class="bg-sum-month"></td>
+                  <td class="bg-sum-month"></td>
+                  <td class="bg-sum-month"></td>
+                </ng-container>
+              </ng-container>
+
+              <!-- ________________ sum total ________________ -->
+              <ng-container *ngIf="i == table.length - 1">
+                <td *ngIf="j == 0" class="text-center bg-sum-total">{{ d.dateDefault }}</td>
+                <td class="text-right bg-sum-total">
+                  {{ d.sumCarryForward | decimalFormat }}
+                </td>
+
+                <!-- ______________ mock up fix td __________________ -->
+                <ng-container *ngIf="j == t.day.length - 1">
+                  <td class="bg-sum-total"></td>
+                  <td class="bg-sum-total"></td>
+                  <td class="bg-sum-total"></td>
+                  <td class="bg-sum-total"></td>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+
+        </tr>
+      </tbody>
+    </table>
+  </segment>
+</with-breadcrumb>

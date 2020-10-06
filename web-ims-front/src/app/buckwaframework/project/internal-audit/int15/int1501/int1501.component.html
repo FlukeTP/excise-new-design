@@ -1,0 +1,221 @@
+<with-breadcrumb [breadcrumb]="breadcrumb"></with-breadcrumb>
+<segment header="อัพโหลดข้อมูลบัญชีและระบบบัญชี" [loading]="loading">
+  <form id="upload-form" class="ui" form [formGroup]="dataSave">
+    <div class="inline fields">
+      <div field [col]="4" class="required">
+        <label class="full-width text-right">ประเภทข้อมูล</label>
+      </div>
+      <div field [col]="4" [ngClass]="{'error': invalidControl('typeData')}">
+        <select id="typeData" name="typeData" class="ui fluid dropdown ia-dropdown" formControlName="typeData"
+          (change)="changeType()">
+          <option value="">กรุณาเลือก</option>
+          <option *ngFor="let item of typeData" [value]="item.paramCode">{{item.value1}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div field [col]="4" class="required">
+        <label class="full-width text-right">หน่วยเบิกจ่าย</label>
+      </div>
+      <div field [col]="8" [ngClass]="{'error': invalidControl('disburseMoney')}">
+        <!-- <input type="text" name="disburseMoney" formControlName="disburseMoney"> -->
+        <select id="typeData" name="typeData" class="ui fluid dropdown ia-dropdown search "
+          formControlName="disburseMoney" (change)="onDisbusMoney($event.target.value)">
+          <option *ngFor="let item of disburseunit" [value]="item.gfDisburseUnit">
+            {{item.gfDisburseUnit}}-{{item.gfExciseName}}</option>
+        </select>
+      </div>
+      <!-- <div field [col]="5">
+        <input type="text" name="descroption" class="custom-readonly" readonly formControlName="des">
+      </div> -->
+    </div>
+    <!-- <div class="inline fields">
+      <div field [col]="6" class="required">
+        <label class="full-width text-right">ประจำเดือน/งวด</label>
+      </div>
+      <div field [col]="4" [ngClass]="{'error': invalidControl('monthly')}">
+        <input type="text" name="monthly" formControlName="monthly">
+      </div>
+    </div> -->
+    <ng-container *ngIf="dataSave.value.typeData === 'IA_TYPE_DATA3' || dataSave.value.typeData === 'IA_TYPE_DATA2'">
+      <form class="ui" form [formGroup]="type1_2">
+        <div class="inline fields">
+          <div field [col]="4" class="required">
+            <label class="full-width text-right">งวดที่</label>
+          </div>
+          <div field [col]="1" [ngClass]="{'error': invalid1_2('period')}">
+            <!-- <input type="number" formControlName="period"> -->
+            <select id="typeData" name="typeData" class="ui fluid dropdown ia-dropdown" formControlName="period">
+              <!-- <option value="">กรุณาเลือก</option> -->
+              <option *ngFor="let item of periodData" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <div field [col]="1">
+            <label class="full-width text-center">ปี</label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': invalid1_2('year')}">
+            <!-- <input type="text" formControlName="year"> -->
+            <div class="ui calendar" id="budgetYearCld">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" formControlName="year" autocomplete="off" placeholder="ปปปป" readonly
+                  id="budgetYearCldInput">
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+
+    <ng-container *ngIf="dataSave.value.typeData === 'IA_TYPE_DATA1' || dataSave.value.typeData === 'IA_TYPE_DATA4'">
+      <form class="ui" form [formGroup]="type3_4">
+        <div class="inline fields">
+          <div field [col]="4" class="required">
+            <label class="full-width text-right">ช่วงวันที่</label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': invalid3_4('startDate')}">
+            <!-- <input type="text" formControlName="startDate"> -->
+            <div class="ui calendar" style="width:100%" id="startDate">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" placeholder="วว/ดด/ปปปป" autocomplete="off" readonly id="startDateInput"
+                  formControlName="startDate">
+              </div>
+            </div>
+          </div>
+          <div field [col]="1">
+            <label class="full-width text-center">ถึง</label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': invalid3_4('endDate')}">
+            <!-- <input type="text" formControlName="endDate"> -->
+            <div class="ui calendar" style="width:100%" id="endDate">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="calendar" placeholder="วว/ดด/ปปปป" autocomplete="off" readonly id="endDateInput"
+                  formControlName="endDate">
+              </div>
+            </div>
+          </div>
+          <!-- <div field [col]="1">
+            <label class="full-width text-center">ปี</label>
+          </div>
+          <div field [col]="2" [ngClass]="{'error': invalid1_2('year')}">
+            <div class="ui calendar" id="budgetYearCld">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" formControlName="year" autocomplete="off" placeholder="ปปปป" readonly
+                  id="budgetYearCldInput">
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </form>
+    </ng-container>
+
+    <div class="inline fields">
+      <div field [col]="4" class="required">
+        <label class="full-width text-right">เลือกไฟล์</label>
+      </div>
+      <div field [col]="8">
+        <!-- <input id="file" type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" (change)="onChangeUpload($event)" required> -->
+        <input id="file" type="file" name="file"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+          (change)="onChangeUpload($event)" [disabled]="disableUpload()">
+      </div>
+    </div>
+  </form>
+  <div class="ui center aligned grid">
+    <div class="eight wide column">
+      <app-button-custom color="primary" icon="save icon" text="บันทึกการนำเข้า" (click)="onSubmit()">
+      </app-button-custom>
+    </div>
+  </div>
+  <div id="dataTableC1">
+    <table id="dataTable1" class="ui small celled table striped selectable" style="width: 100%;">
+      <thead class="text-center">
+        <tr>
+          <th>ลำดับ</th>
+          <th style="text-align: center !important">วันบันทึก</th>
+          <th style="text-align: center !important">วันผ่านรายการ</th>
+          <th style="text-align: center !important">ประเภท</th>
+          <th style="text-align: center !important">เลขเอกสาร</th>
+          <th style="text-align: center !important">ผู้ขาย</th>
+          <th style="text-align: center !important">บัญชีธนาคารที่รับเงิน</th>
+          <th style="text-align: center !important">การอ้างอิง</th>
+          <th style="text-align: center !important">รหัสงบประมาณ</th>
+          <th style="text-align: center !important">จำนวนเงินขอเบิก</th>
+          <th style="text-align: center !important">ภาษีหักณที่จ่าย</th>
+          <th style="text-align: center !important">ค่าปรับ</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div id="dataTableC2">
+    <table id="dataTable2" class="ui small celled table striped selectable" style="width: 100%;">
+      <thead class="text-center">
+        <tr>
+          <th>ลำดับ</th>
+          <th style="text-align: center !important">บัญชีแยกประเภท</th>
+          <th style="text-align: center !important"></th>
+          <th style="text-align: center !important">ยอดยกมา</th>
+          <th style="text-align: center !important">เดบิต</th>
+          <th style="text-align: center !important">เครดิต</th>
+          <th style="text-align: center !important">ยอดยกไป</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div id="dataTableC3">
+    <table id="dataTable3" class="ui small celled table striped selectable" style="width: 100%;">
+      <thead class="text-center">
+        <tr>
+          <th>ลำดับ</th>
+          <th style="text-align: center !important">ประเภท</th>
+          <th style="text-align: center !important">งวด</th>
+          <th style="text-align: center !important">ว/ทเอกสาร</th>
+          <th style="text-align: center !important">Postg Date</th>
+          <th style="text-align: center !important">เลขเอกสาร</th>
+          <th style="text-align: center !important;min-width: 112px !important;">การอ้างอิง</th>
+          <th style="text-align: center !important;min-width: 70px !important;">จำนวนเงินในสกุลในปท.</th>
+          <th style="text-align: center !important">PK</th>
+          <th style="text-align: center !important">รก.</th>
+          <th style="text-align: center !important">การกำหนด</th>
+          <th style="text-align: center !important; min-width: 200px !important;">ข้อความ</th>
+          <th style="text-align: center !important;min-width: 125px !important;">คีย์การอ้างอิง 3</th>
+          <th style="text-align: center !important">คีย์อ้างอิง1</th>
+          <th style="text-align: center !important">คีย์อ้างอิง2</th>
+          <th style="text-align: center !important">จน.ภาษีหัก ณ ที่จ่าย</th>
+          <th style="text-align: center !important">บ/ช เงินฝาก</th>
+          <th style="text-align: center !important">AccTy</th>
+          <th style="text-align: center !important">ศ.ต้นทุน</th>
+          <th style="text-align: center !important">หน่วยเบิกจ่าย</th>
+          <th style="text-align: center !important">Clrng doc.</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div id="dataTableC4">
+    <table id="dataTable4" class="ui small celled table striped selectable" style="width: 100%;">
+      <thead class="text-center">
+        <tr>
+          <th>ลำดับ</th>
+          <th style="text-align: center !important">วันที่ลงรายการ</th>
+          <th style="text-align: center !important">เลขที่เอกสาร</th>
+          <th style="text-align: center !important">ประเภทเอกสาร </th>
+          <th style="text-align: center !important">เอกสารอ้างอิง</th>
+          <th style="text-align: center !important">ผู้ทำแทน</th>
+          <th style="text-align: center !important">การกำหนด</th>
+          <th style="text-align: center !important">หน่วยเบิกจ่าย</th>
+          <th style="text-align: center !important">เดบิต</th>
+          <th style="text-align: center !important">เครดิต</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</segment>
+
+
+<!-- form-data-excel -->
+<form id="form-data-excel" method="POST">
+  <input type="hidden" name="dataJson" id="dataJson">
+</form>

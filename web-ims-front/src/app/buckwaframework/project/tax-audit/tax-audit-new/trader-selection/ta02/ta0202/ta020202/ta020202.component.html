@@ -1,0 +1,216 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="วิเคราะห์ข้อมูลเบื้องต้น (TA020202)" [loading]="loading">
+
+    <div class="ui form" [formGroup]="formGroup">
+
+      <div class="ui grid" style="margin-bottom: -41px;">
+        <div class="one wide field"></div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">เลขทะเบียนสรรพสามิต</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="newRegId" readonly>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">พิกัดสินค้า/บริการ</label>
+            </div>
+            <div class="ten wide field">
+              <select class="ui fluid search dropdown full-width dutyGroupId" id="dutyGroupId" name="dutyGroupId"
+                formControlName="dutyGroupId">
+                <option [value]="duty.groupId" *ngFor="let duty of regDutyList">{{duty.groupName}}</option>
+              </select>
+              <!-- <input type="text" class="custom-readonly full-width" formControlName="dutyDesc" readonly> -->
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">รอบระยะเวลาการตรวจสอบ</label>
+            </div>
+            <div class="ten wide field">
+              <div class="eight wide field" [ngClass]="{'error': invalidSearchFormControl('startDate')}"
+                style="padding-right: 0;">
+                <div class="ui calendar full-width" id="date1">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" placeholder="ดด/ปปปป" formControlName="startDate" autocomplete="off"
+                      id="inputDate1">
+                  </div>
+                </div>
+              </div>
+              <label style="padding-right: 12px;">ถึง</label>
+              <div class="eight wide field" [ngClass]="{'error': invalidSearchFormControl('endDate')}"
+                style="padding-right: 0;">
+                <div class="ui calendar full-width" id="date2">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" placeholder="ดด/ปปปป" formControlName="endDate" autocomplete="off"
+                      id="inputDate2">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="five wide field">
+              <label class="text-right full-width">ชื่อโรงอุตสาหกรรม/สถานบริการ</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="facFullname" readonly>
+            </div>
+            <div class="one wide field">
+              <app-button-custom icon="info" (click)="detailModal()"></app-button-custom>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="five wide field">
+              <label class="text-right full-width">ชื่อผู้ปฏิบัติงาน</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="jobResp" readonly>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="five wide field">
+              <label class="text-right full-width">เลขวิเคราะห์ข้อมูล</label>
+            </div>
+            <div class="ten wide field">
+              <select class="ui fluid search dropdown full-width paperBaNumber" id="paperBaNumber" name="paperBaNumber"
+                formControlName="paperBaNumber">
+                <option value="default" disabled>เลือกเลขวิเคราะห์ข้อมูล</option>
+                <option [value]="baNumber" *ngFor="let baNumber of baNumberList">{{baNumber}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="full-width text-center">
+          <app-button-search (click)="onSearch()"></app-button-search>
+          <app-button-save (click)="onSave()" [disabled]="disableBtn"></app-button-save>
+          <app-button-export (click)="exportPDF($event)" [disabled]="disableBtn"></app-button-export>
+          <app-button-clear (click)="reset()"></app-button-clear>
+          <app-button-back (click)="onBackPages()"></app-button-back>
+        </div>
+      </div>
+      <br><br>
+    </div>
+    <br>
+    <!-- contents -->
+    <!--  -->
+    <div *ngIf="hideResult">
+      <div class="grid ui">
+        <div class="row">
+          <div class="three wide column">
+            <div class="ui vertical menu">
+              <a class=" item active" style="background-color:rgb(139, 139, 139);font-weight: 700">
+                เรื่องที่วิเคราะห์
+              </a>
+              <a class="blue item" [ngClass]="{'atv': actived[0]}" href="javascript:void(0)"
+                (click)="goTo('/tax-audit-new/ta02/02/02/01', 0)" routerLinkActive="active">
+                การวิเคราะห์ปริมาณสินค้าที่เสียภาษี
+              </a>
+              <a class="blue item" [ngClass]="{'atv': actived[1]}" href="javascript:void(0)"
+                (click)="goTo('/tax-audit-new/ta02/02/02/02', 1)" routerLinkActive="active">
+                การวิเคราะห์ราคาขายปลีกแนะนำตามแบบแจ้งฯ
+              </a>
+              <a class="blue item" [ngClass]="{'atv': actived[2]}" href="javascript:void(0)"
+                (click)="goTo('/tax-audit-new/ta02/02/02/03', 2)" routerLinkActive="active">
+                การวิเคราะห์มูลค่าที่เสียภาษี
+              </a>
+              <a class="blue item" [ngClass]="{'atv': actived[3]}" href="javascript:void(0)"
+                (click)="goTo('/tax-audit-new/ta02/02/02/04', 3)" routerLinkActive="active">
+                การวิเคราะห์อัตราภาษี
+              </a>
+              <a class="blue item" [ngClass]="{'atv': actived[4]}" href="javascript:void(0)"
+                (click)="goTo('/tax-audit-new/ta02/02/02/05', 4)" routerLinkActive="active">
+                การวิเคราะห์การยื่นชำระภาษีสรรพสามิต
+              </a>
+              <a class="blue item" [ngClass]="{'atv': actived[5]}" href="javascript:void(0)"
+                (click)="goTo('/tax-audit-new/ta02/02/02/06', 5)" routerLinkActive="active">
+                การวิเคราะห์การยื่นชำระภาษีภายในเวลาที่กำหนด
+              </a>
+              <a class="blue item" [ngClass]="{'atv': actived[6]}" href="javascript:void(0)"
+                (click)="goTo('/tax-audit-new/ta02/02/02/07', 6)" routerLinkActive="active">
+                การวิเคราะห์รายได้ เปรียบเทียบเดือนก่อนหน้า
+              </a>
+              <a class="blue item" [ngClass]="{'atv': actived[7]}" href="javascript:void(0)"
+                (click)="goTo('/tax-audit-new/ta02/02/02/08', 7)" routerLinkActive="active">
+                การวิเคราะห์รายได้ เปรียบเทียบเดือนเดียวกันกับปีก่อนหน้า
+              </a>
+            </div>
+          </div>
+          <div class="thirteen wide column">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </segment>
+</with-breadcrumb>
+
+<ui-modal [id]="'detailModal'" type="custom" size="large">
+  <div class="ui header">
+    ข้อมูลผู้ประกอบการ
+  </div>
+  <div class="content">
+    <div class="ui form" [formGroup]="formGroup">
+      <div class="ui grid" style="margin-bottom: -41px;">
+        <div class="one wide column"></div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">ชื่อผู้ประกอบการ</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="cusFullname" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="secDesc" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui grid">
+        <div class="one wide column"></div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="areaDesc" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">ที่อยู่โรงอุตสาหกรรม/<br>สถานบริการ</label>
+            </div>
+            <div class="ten wide field">
+              <textarea class="custom-readonly full-width" cols="30" rows="3" formControlName="facAddress"
+                readonly></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

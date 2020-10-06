@@ -1,0 +1,152 @@
+<segment [right]="true" header="งบเดือนการทำสุรา">
+  <div headRight>
+    <p>ภส.๐๗-๐๔/๑</p>
+  </div>
+  <div class="ui form">
+    <!-- line 1 -->
+    <div class="inline fields">
+      <div class="two wide field">
+        <label class="full-width text-left">ชื่อโรงงานอุตสาหกรรม</label>
+      </div>
+      <div class="four wide field">
+        <div class="ui input">
+          <input type="text" value="" class="custom-readonly" readonly>
+        </div>
+      </div>
+      <div class="two wide field">
+        <label class="full-width text-center">ทะเบียนสรรพสามิตเลขที่</label>
+      </div>
+      <div class="four wide field">
+        <div class="ui input">
+          <input type="text" value="" class="custom-readonly" readonly>
+        </div>
+      </div>
+      <div class="two wide field">
+        <label class="full-width text-center">ประจำเดือน</label>
+      </div>
+      <div class="two wide field">
+        <div class="ui input">
+          <input type="text" value="" class="custom-readonly" readonly>
+        </div>
+      </div>
+    </div>
+    <!-- line 2 -->
+    <div class="inline field">
+      <table class="ui small celled compact table striped selectable">
+        <thead>
+          <tr class="text-center">
+            <th>#</th>
+            <th>ประเภทวัตถุดิบ (หน่วย)</th>
+            <th>คงเหลือยกมา</th>
+            <th>รับเดือนนี้</th>
+            <th>รวม</th>
+            <th>ผลิตสินค้าตามพิกัดฯ</th>
+            <th>ผลิตสินค้าอื่น</th>
+            <th>เสียหาย</th>
+            <th>อื่นๆ</th>
+            <th>คงเหลือยกไป</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bean of beans; let i = index">
+            <td style="text-align: center">
+              {{i+1}}
+            </td>
+            <td>{{ bean.col1 }}</td>
+            <td>{{ bean.col2 }}</td>
+            <td>{{ bean.col3 }}</td>
+            <td>{{ bean.col4 }}</td>
+            <td>{{ bean.col5 }}</td>
+            <td>{{ bean.col6 }}</td>
+            <td>{{ bean.col7 }}</td>
+            <td>{{ bean.col8 }}</td>
+            <td>{{ bean.col9 }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- line 3 -->
+    <div class="inline field">
+      <div class="ui accordion">
+        <div class="title">
+          <i class="dropdown icon"></i>
+          คำอธิบายงบวัตถุดิบ
+        </div>
+        <div class="content">
+          <table class="ui small celled compact table striped selectable">
+            <thead>
+              <tr>
+                <th>ชื่อช่องรายการ</th>
+                <th>คำอธิบาย</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let description of descriptions1;let i = index">
+                <td class="text-left">({{ i+1 }}) {{ description.name }}</td>
+                <td class="text-left">{{ description.content }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- line 4 -->
+    <div class="inline field">
+      <table class="ui small celled compact table striped selectable">
+        <thead>
+          <tr class="text-center">
+            <th>#</th>
+            <th>ชนิดสุรา ชื่อสุรา แรงแอลกอฮอล์ ขนาดบรรจุ (หน่วยนับ)</th>
+            <th>คงเหลือยกมา</th>
+            <th>รับจากการผลิตและปิดแสตมป์แล้ว</th>
+            <th>รวม</th>
+            <th>จำหน่ายในประเทศ</th>
+            <th>เสียหาย</th>
+            <th>อื่นๆ</th>
+            <th>คงเหลือยกไป</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bean of beans; let i = index">
+            <td style="text-align: center">
+              {{i+1}}
+            </td>
+            <td>{{ bean.col1 }}</td>
+            <td>{{ bean.col2 }}</td>
+            <td>{{ bean.col3 }}</td>
+            <td>{{ bean.col4 }}</td>
+            <td>{{ bean.col5 }}</td>
+            <td>{{ bean.col6 }}</td>
+            <td>{{ bean.col7 }}</td>
+            <td>{{ bean.col8 }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- line 5 -->
+    <div class="inline field">
+      <div class="ui accordion">
+        <div class="title">
+          <i class="dropdown icon"></i>
+          คำอธิบายงบการผลิต
+        </div>
+        <div class="content">
+          <table class="ui small celled compact table striped selectable">
+            <thead>
+              <tr>
+                <th>ชื่อช่องรายการ</th>
+                <th>คำอธิบาย</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let description of descriptions2;let i = index">
+                <td class="text-left">({{ i+1 }}) {{ description.name }}</td>
+                <td class="text-left">{{ description.content }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</segment>

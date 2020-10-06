@@ -1,0 +1,237 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+    <segment header="แผนรายเดือน" [loading]="false">
+      <div class="ui centered grid">
+        <div class="fourteen wide column">
+          <div id='calendar'></div>
+        </div>
+        <div class="sixteen wide text-center column btn-space">
+          <app-button-save></app-button-save>
+          <app-button-back (click)="back()"></app-button-back>
+        </div>
+      </div>
+    </segment>
+  </with-breadcrumb>
+  
+  <!-- modal -->
+  <ui-modal [id]="'ope0401'" [size]="'large'" [type]="'custom'">
+    <div class="ui header" id="alert-header">
+      รายละเอียดผู้ประกอบการ
+    </div>
+    <div class="content" id="alert-content">
+      <div class="ui form">
+        <div class="ui centered inline fields grid">
+          <div class="sixteen wide field">
+            <label class="custom-label-w-15">ชื่อผู้ประกอบการ : </label>
+            <div class="ui input">
+              <input type="text" readonly class="text-center custom-readonly" value="{{ objSelect?.title }}">
+            </div>
+          </div>
+        </div>
+        <div class="ui centered inline fields grid">
+          <div class="eight wide field">
+            <label class="custom-label-w-20">วันที่ออกตรวจตั้งแต่ : </label>
+            <div class="ui input">
+              <input type="text" readonly class="text-center custom-readonly" value="{{ objSelect?.start._i }}">
+            </div>
+          </div>
+          <div class="eight wide field">
+            <label class="custom-label-w-15">ถึงวันที่ : </label>
+            <div class="ui input">
+              <input type="text" readonly class="text-center custom-readonly" value="{{ objSelect?.end._i }}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="actions" style="justify-content: center;display: flex;">
+      <div class="ui mini positive button" *ngIf="objSelect&&objSelect.status=='WAITING'"
+        style="background: #2185d0; outline: none" (click)="prepare()">
+        เตรียมออกตรวจ
+      </div>
+      <div class="ui mini positive button" *ngIf="objSelect&&objSelect.status=='APPROVE'"
+        style="background: green; outline: none" (click)="checkout()">
+        ออกตรวจ
+      </div>
+      <div class="ui mini negative button" *ngIf="objSelect&&objSelect.status=='NEW'"
+        style="background: red; outline: none" (click)="remove()">
+        ลบ
+      </div>
+      <div class="ui mini negative button" style="background: #e0e1e2 none; color: black">
+        ยกเลิก
+      </div>
+    </div>
+  </ui-modal>
+  
+  <ui-modal [id]="'ope0401-select'" [size]="'fullscreen'" [type]="'custom'">
+    <div class="ui header" id="alert-header">
+      เลือกจากการคัดกรอง
+    </div>
+    <div class="scrolling content" id="alert-content">
+      <div class="ui form">
+        <div class="inline fields">
+          <div class="field">
+            <div class="ui form">
+              <div class="ui inline fields centered grid">
+                <div class="field">
+                  <label class="full-width right-label">
+                    ช่วงห่างการออกตรวจ
+                  </label>
+                </div>
+                <div class="field">
+                  <div class="ui right labeled input">
+                    <input type="number" class="text-right" value="3" placeholder="จำนวนปี">
+                    <div class="ui basic label">ปี</div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="full-width right-label">
+                    ความต่อเนื่องงบเดือน
+                  </label>
+                </div>
+                <div class="field">
+                  <div class="ui right labeled input">
+                    <input type="number" class="text-right" value="3" placeholder="จำนวนเดือน">
+                    <div class="ui basic label">เดือน</div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui inline fields centered grid">
+                <div class="btn field">
+                  <app-button-custom color="primary" icon="check icon" text="คัดกรอง" icon="filter"></app-button-custom>
+                </div>
+              </div>
+              <div class="inline field">
+                <div class="ui divider"></div>
+              </div>
+              <div class="ui fields centered grid">
+                <div class="eight wide field">
+                  <div class="ui grid" style="width: 100%">
+                    <div class="sixteen wide column">
+                      <h3 class="ui header">ช่วงห่างการออกตรวจ</h3>
+                    </div>
+                    <div class="sixteen wide column">
+                      <div class="scrollX scrollY custom">
+                        <table id="dataTable1" class="ui small celled table striped nowrap selectable unstackable"
+                          style="width: 100%;">
+                          <thead>
+                            <tr class="text-center">
+                              <th style="width: 108px"></th>
+                              <th style="width: 62px">#</th>
+                              <th>ภาค</th>
+                              <th>พื้นที่</th>
+                              <th>ชื่อผู้ประกอบการ</th>
+                              <th>วันที่ออกตรวจล่าสุด</th>
+                              <th>ช่วงห่างการออกตรวจ(ปี)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let table of dataTables1; let i = index">
+                              <td class="text-center">
+                                <div class="field">
+                                  <app-button-custom color="primary" icon="check icon" text="เลือก"></app-button-custom>
+                                </div>
+                              </td>
+                              <td class="text-center">{{ i+1 }}</td>
+                              <td>{{ table.area }}</td>
+                              <td>{{ table.subArea }}</td>
+                              <td>{{ table.name }}</td>
+                              <td>{{ table.dateCk }}</td>
+                              <td>{{ table.lengthCk }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="eight wide field">
+                  <div class="ui grid" style="width: 100%">
+                    <div class="sixteen wide column">
+                      <h3 class="ui header">ความต่อเนื่องงบเดือน</h3>
+                    </div>
+                    <div class="sixteen wide column">
+                      <div class="scrollX scrollY custom">
+                        <table id="dataTable2" class="ui small celled table striped nowrap selectable unstackable"
+                          style="width: 100%;">
+                          <thead>
+                            <tr class="text-center">
+                              <th style="width: 108px"></th>
+                              <th style="width: 62px">#</th>
+                              <th>ภาค</th>
+                              <th>พื้นที่</th>
+                              <th>ชื่อผู้ประกอบการ</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let table of dataTables2; let i = index">
+                              <td class="text-center">
+                                <div class="field">
+                                  <app-button-custom color="primary" icon="check icon" text="เลือก"></app-button-custom>
+                                </div>
+                              </td>
+                              <td class="text-center">{{ i+1 }}</td>
+                              <td>{{ table.area }}</td>
+                              <td>{{ table.subArea }}</td>
+                              <td>{{ table.name }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="actions" style="justify-content: center;display: flex;">
+      <div class="ui mini positive button" style="background: #2185d0; outline: none" (click)="addSelect()">
+        ยืนยัน
+      </div>
+      <div class="ui mini negative button" style="background: #e0e1e2 none; color: black" (click)="cancelSelect()">
+        ยกเลิก
+      </div>
+    </div>
+  </ui-modal>
+  
+  <ui-modal [id]="'ope0401-list'" [size]="'fullscreen'" [type]="'custom'">
+    <div class="ui header" id="alert-header">
+      เลือกจากรายชื่อ
+    </div>
+    <div class="scrolling content" id="alert-content">
+      <table id="dataTable1" class="ui small celled table striped nowrap selectable" style="width: 100%;">
+        <thead>
+          <tr style="text-align: center">
+            <th style="width: 108px"></th>
+            <th style="width: 62px">#</th>
+            <th>ภาค</th>
+            <th>พื้นที่</th>
+            <th>ชื่อผู้ประกอบการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let table of dataTables1; let i = index">
+            <td class="text-center">
+              <div class="field">
+                <app-button-custom color="primary" icon="check icon" text="เลือก"></app-button-custom>
+              </div>
+            </td>
+            <td class="text-center">{{ i+1 }}</td>
+            <td>{{ table.area }}</td>
+            <td>{{ table.subArea }}</td>
+            <td>{{ table.name }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="actions" style="justify-content: center;display: flex;">
+      <div class="ui mini positive button" style="background: #2185d0; outline: none" (click)="addList()">
+        ยืนยัน
+      </div>
+      <div class="ui mini negative button" style="background: #e0e1e2 none; color: black" (click)="cancelList()">
+        ยกเลิก
+      </div>
+    </div>
+  </ui-modal>

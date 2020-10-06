@@ -1,0 +1,141 @@
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <segment header="การรับ-จ่ายน้ำมันหล่อลื่นประเภทไฮโดรคาร์บอน" [loading]="false">
+      <div class="ui form">
+        <div class="inline fields">
+          <div class="two wide field">
+          </div>
+
+          <div class="two wide field">
+            <label class="text-right full-width">ในรอบ</label>
+          </div>
+
+          <div class="two wide field">
+            <input type="text">
+          </div>
+
+          <div class="one wide field">
+            <label class="text-left full-width">เดือน</label>
+          </div>
+
+          <div class="one wide field">
+            <label class="text-right full-width">ตั้งแต่เดือน</label>
+          </div>
+
+          <div class="two wide field">
+            <div class="ui calendar" id="startCld" style="width:100%">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" placeholder="เดือน" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div class="one wide field">
+            <label class="text-center full-width">ถึง</label>
+          </div>
+
+          <div class="two wide field">
+            <div class="ui calendar" id="endCld" style="width:100%">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" placeholder="เดือน" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="inline fields">
+          <div class="one wide field">
+          </div>
+          <div class="fourteen  wide field">
+            <table class="ui small celled table striped selectable" width="100%">
+              <thead>
+                <tr class="text-center">
+                  <th rowspan="2">ชนิดน้ำมันหล่อลื่น</th>
+                  <th colspan="4">เดือน กุมภาพันธ์</th>
+                  <th colspan="4">เดือน มีนาคม</th>
+                  <th colspan="4">เดือน เมษายน</th>
+                  <th rowspan="2">จัดการ</th>
+                </tr>
+                <tr class="text-center">
+                  <th>ยอดยกมา</th>
+                  <th>รับ</th>
+                  <th>จ่าย</th>
+                  <th>คงเหลือ</th>
+                  <th>ยอดยกมา</th>
+                  <th>รับ</th>
+                  <th>จ่าย</th>
+                  <th>คงเหลือ</th>
+                  <th>ยอดยกมา</th>
+                  <th>รับ</th>
+                  <th>จ่าย</th>
+                  <th>คงเหลือ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border: 1px solid#cacbcd">&nbsp;</td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td class="text-center" style="border: 1px solid#cacbcd">
+                    <app-button-delete></app-button-delete>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td class="text-right" style="border: 1px solid#CACBCD">รวม</td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td style="border: 1px solid#cacbcd"></td>
+                  <td class="text-center" style="border: 1px solid#CACBCD">
+                    <app-button-add></app-button-add>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <br>
+        <div class="inline fields">
+          <div class="two wide field">
+          </div>
+
+          <div class="two wide field">
+            <label class="text-right full-width">ผลการตรวจ</label>
+          </div>
+          <div class="eight wide field">
+            <textarea></textarea>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ui center aligned grid">
+        <div class="sixteen wide column">
+          <app-button-save></app-button-save>
+        </div>
+      </div>
+    </segment>
+  </div>
+</div>

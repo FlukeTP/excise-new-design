@@ -1,0 +1,311 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="ข้อมูลรายละเอียดพนักงาน" [loading]="load">
+    <form [formGroup]="formsave">
+      <div class="ui form">
+        <div class="ui grid">
+          <div class="sixteen wide column">
+            <div inline>
+              <div field [col]="2">
+                <label class="text-right full-width">ชื่อสกุล-พนักงาน</label>
+              </div>
+              <div field [col]="2">
+                <select class="ui dropdown full-width" id="personThTitle" formControlName="personThTitle">
+                  <option value="">คำนำหน้าชื่อ</option>
+                  <option *ngFor="let list of listTitle" value="{{list.titleCode}}">{{list.titleName}}</option>
+                </select>
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="personThName" placeholder="ชื่อ">
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="personThSurname" placeholder="นามสกุล">
+              </div>
+              <div field [col]="1">
+                <label class="text-right full-width">ตำแหน่ง</label>
+              </div>
+              <div field [col]="3">
+                <input type="text" formControlName="linePosition">
+              </div>
+              <div field [col]="1">
+                <label class="text-right full-width">หน่วยงานที่ปฎิบัติงาน</label>
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="workOffname">
+              </div>
+              <div field [col]="1">
+              </div>
+            </div>
+            <div inline>
+              <div field [col]="2">
+                <label class="text-right full-width">ประเภทพนักงาน</label>
+              </div>
+              <div field [col]="3">
+                <select class="ui dropdown full-width" id="personType" formControlName="personType">
+                  <option value="">กรุณาเลือก</option>
+                  <option value="0">กรุณาเลือก</option>
+                  <option *ngFor="let item of personType" value="{{item.value2}}">{{item.value1}}</option>
+                </select>
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">เลขบัตรประจำตัวประชาชน</label>
+              </div>
+              <div field [col]="3">
+                <input type="text" id="personId" formControlName="personId" (change)="validateThaiCitizenID($event)">
+              </div>
+              <div field [col]="6">
+                <app-button-custom color="yellow" text="เชื่อมต่อข้อมูล" icon="linkify">
+                </app-button-custom>
+              </div>
+            </div>
+            <div inline>
+              <div field [col]="2">
+                <label class="text-right full-width">ที่อยู่</label>
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="personAddrno">
+              </div>
+              <div field [col]="1">
+                <label class="text-right full-width">หมู่ที่</label>
+              </div>
+              <div field [col]="1">
+                <input type="text" formControlName="personMoono">
+              </div>
+              <div field [col]="1">
+                <label class="text-right full-width">หมู่บ้าน/อาคาร</label>
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="personVillagename">
+              </div>
+              <div field [col]="1">
+                <label class="text-right full-width">ตรอก/ซอย</label>
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="personSoiname">
+              </div>
+              <div field [col]="1">
+                <label class="text-right full-width">ถนน</label>
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="personRoadname">
+              </div>
+              <div field [col]="1">
+              </div>
+            </div>
+            <div inline>
+              <div field [col]="2">
+                <label class="text-right full-width">ตำบล/แขวง</label>
+              </div>
+              <div field [col]="3">
+                <div class="ui search full-width personTabbolName">
+                  <div class="ui icon input">
+                    <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="personTabbolName"
+                      maxlength="100">
+                  </div>
+                  <div class="results"></div>
+                </div>
+              </div>
+
+              <div field [col]="1">
+                <label class="text-right full-width">อำเภอ/เขต</label>
+              </div>
+              <div field [col]="3">
+                <div class="ui search full-width personAmphurName">
+                  <div class="ui icon input">
+                    <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="personAmphurName"
+                      maxlength="100">
+                  </div>
+                  <div class="results"></div>
+                </div>
+              </div>
+              <div field [col]="1">
+                <label class="text-right full-width">จังหวัด</label>
+              </div>
+              <div field [col]="2">
+                <div class="ui search full-width personProvinceName">
+                  <div class="ui icon input">
+                    <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="personProvinceName"
+                      maxlength="100">
+                  </div>
+                  <div class="results"></div>
+                </div>
+              </div>
+              <div field [col]="1">
+                <label class="text-right full-width">รหัสไปรษณีย์</label>
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="zipCode">
+              </div>
+              <div field [col]="1">
+              </div>
+            </div>
+            <div inline>
+
+              <div field [col]="2">
+                <label class="text-right full-width">ชื่อสกุล-คู่สมรส</label>
+              </div>
+              <div field [col]="2">
+                <select class="ui dropdown full-width" id="coupleThTitle" formControlName="coupleThTitle">
+                  <option value="">คำนำหน้าชื่อ</option>
+                  <option *ngFor="let list of listTitle" value="{{list.titleCode}}">{{list.titleName}}</option>
+                </select>
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="coupleName" placeholder="ชื่อ">
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="coupleSurnameName" placeholder="นามสกุล">
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">เลขบัตรประจำตัวประชาชน</label>
+              </div>
+              <div field [col]="3">
+                <input type="text" id="couplePid" formControlName="couplePid" (change)="validateThaiCitizenID($event)">
+              </div>
+              <div field [col]="3">
+              </div>
+            </div>
+            <div inline>
+              <div field [col]="2">
+                <label class="text-right full-width">ชื่อสกุล-บิดา</label>
+              </div>
+              <div field [col]="2">
+                <select class="ui dropdown full-width" id="fatherThTitle" formControlName="fatherThTitle">
+                  <option value="">คำนำหน้าชื่อ</option>
+                  <option *ngFor="let list of listTitle" value="{{list.titleCode}}">{{list.titleName}}</option>
+                </select>
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="fatherName" placeholder="ชื่อ">
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="fatherSurnameName" placeholder="นามสกุล">
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">เลขบัตรประจำตัวประชาชน</label>
+              </div>
+              <div field [col]="3">
+                <input type="text" id="fatherPid" formControlName="fatherPid" (change)="validateThaiCitizenID($event)">
+              </div>
+              <div field [col]="3">
+              </div>
+            </div>
+            <div inline>
+              <div field [col]="2">
+                <label class="text-right full-width">ชื่อสกุล-มารดา</label>
+              </div>
+              <div field [col]="2">
+                <select class="ui dropdown full-width" id="motherThTitle" formControlName="motherThTitle">
+                  <option value="">คำนำหน้าชื่อ</option>
+                  <option *ngFor="let list of listTitle" value="{{list.titleCode}}">{{list.titleName}}</option>
+                </select>
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="motherName" placeholder="ชื่อ">
+              </div>
+              <div field [col]="2">
+                <input type="text" formControlName="motherSurnameName" placeholder="นามสกุล">
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">เลขบัตรประจำตัวประชาชน</label>
+              </div>
+              <div field [col]="3">
+                <input type="text" id="motherPid" formControlName="motherPid" (change)="validateThaiCitizenID($event)">
+              </div>
+              <div field [col]="3">
+              </div>
+            </div>
+
+            <div inline>
+              <div field [col]="2">
+                <label class="text-right full-width">เพิ่มข้อมูลบุตร</label>
+              </div>
+              <div field [col]="3">
+                <app-button-custom color="green" icon="plus icon" (click)="addCreds()"></app-button-custom>
+              </div>
+              <div field [col]="11">
+              </div>
+            </div>
+
+            <div formArrayName="excisePersonInfo1" *ngFor="let creds of excisePersonInfo1.controls; let i = index">
+              <div  id="colore" >
+                  <ng-container [formGroupName]="i" >
+                      <div inline>
+                        <div field [col]="2">
+                          <label class="text-right full-width">คนที่ {{i+1}}</label>
+                        </div>
+                        <div field [col]="2">
+                          <select class="ui dropdown full-width" id="childThTitle" formControlName="childThTitle">
+                            <option value="">คำนำหน้าชื่อ</option>
+                            <option *ngFor="let list of listTitle" value="{{list.titleCode}}">{{list.titleName}}</option>
+                          </select>
+                        </div>
+                        <div field [col]="2">
+                          <input type="text" formControlName="childName" placeholder="ชื่อ">
+                        </div>
+                        <div field [col]="2">
+                          <input type="text" formControlName="childSurnameName" placeholder="นามสกุล">
+                        </div>
+                        <div field [col]="2">
+                          <label class="text-right full-width">เลขบัตรประจำตัวประชาชน</label>
+                        </div>
+                        <div field [col]="2">
+                          <input type="text" id="childPid{{i}}" placeholder="เลขบัตรประจำตัวประชาชน" formControlName="childPid"
+                            (change)="validateThaiCitizenID($event)">
+                        </div>
+                        <div field [col]="1">
+                          <label class="text-right full-width">เกิดเมื่อ</label>
+                        </div>
+                        <div field [col]="2">
+                          <!-- <input type="text" placeholder="วันเดือนปีเกิด" formControlName="childBirthDate" > -->
+                          <div class="ui calendar" style="width:100%" id="dateCalendar{{i}}">
+                            <div class="ui input left icon">
+                              <i class="calendar alter nate outline icon"></i>
+                              <input type="calendar" placeholder="วว/ดด/ปปปป" id="dateTo{{i}}" name="dateTo"
+                                formControlName="childBirthDate" autocomplete="off">
+                            </div>
+                          </div>
+                        </div>
+                        <div field [col]="1">
+                        </div>
+                      </div>
+                      <div inline>
+                        <div field [col]="2">
+                          <label class="text-right full-width">สถานศึกษา</label>
+                        </div>
+                        <div field [col]="3">
+                          <input type="text" placeholder="สถานศึกษา" formControlName="instituteDesc">
+                        </div>
+                        <div field [col]="1">
+                          <label class="text-right full-width">อำเภอ</label>
+                        </div>
+                        <div field [col]="3">
+                          <input type="text" placeholder="อำเภอ" formControlName="instituteAmphurCode">
+                        </div>
+                        <div field [col]="1">
+                          <label class="text-right full-width">จังหวัด</label>
+                        </div>
+                        <div field [col]="3">
+                          <input type="text" placeholder="จังหวัด" formControlName="instituteProvinceCode">
+                        </div>
+                        <div field [col]="2">
+                        </div>
+                        <div field [col]="1">
+                          <app-button-custom color="red" icon="delete icon" (click)="deleteCreds(i)"
+                            class="text-left full-width"></app-button-custom>
+                        </div>
+                      </div>
+                    </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="ui center aligned grid">
+      <div class="column">
+        <app-button-save *ngIf="!checkButton" (click)="saveTwoData()"></app-button-save>
+        <app-button-edit *ngIf="checkButton" (click)="editToData()"></app-button-edit>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

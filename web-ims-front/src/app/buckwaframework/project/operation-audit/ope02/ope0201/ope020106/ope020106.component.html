@@ -1,0 +1,67 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <!-- tab -->
+  <segment header="การตรวจปฏิบัติน้ำมันหล่อลื่น" [loading]="false">
+    <div form>
+      <div inline>
+        <div field [col]="3"></div>
+        <div field [col]="6">
+          <span>ชื่อผู้ประกอบอุตสาหกรรม: {{ data && (data.companyName | isEmpty) }}</span>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="3"></div>
+        <div field [col]="4">
+          <span>ทะเบียนสรรพสามิตเลขที่: {{ data && (data.identifyNo | isEmpty) }}</span>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="3"></div>
+        <div field [col]="8"><span>ที่อยู่: {{ data && (data.address | isEmpty) }}</span>
+        </div>
+      </div>
+      <div class="ui divider"></div>
+    </div>
+    <div form>
+      <div inline>
+
+        <button class="ui large button btn-custom" [ngClass]="{'primary': urlActivate('/ope02/01/06/03')}"
+          (click)="routeTo('/ope02/01/06/03', buttons.oaCuslicenseId, 'oaCuslicenseId')">รายละเอียด</button>
+
+        <button class="ui large button btn-custom" [ngClass]="{'primary': urlActivate('/ope02/01/06/02')}"
+          (click)="routeTo('/ope02/01/06/02', buttons.oaLubricantsDtlId, 'oaLubricantsDtlId')">ข้อมูลภาพรวม</button>
+
+        <button *ngIf="identifyTypeOld" class="ui large button btn-custom"
+          [ngClass]="{'primary': urlActivate('/ope02/01/06/04')}"
+          (click)="routeTo('/ope02/01/06/04', buttons.oaLubricantsDtlId, 'oaLubricantsDtlId')">การเปรียบเทียบ</button>
+
+        <button *ngIf="identifyTypeOld" class="ui large button btn-custom"
+          [ngClass]="{'primary': urlActivate('/ope02/01/06/06')}"
+          (click)="routeTo('/ope02/01/06/06', buttons.oaLubricantsDtlId, 'oaLubricantsDtlId')">บัญชี -
+          งบเดือน</button>
+
+        <button *ngIf="licenseTypeAgentAndIdentifyTypeOld" class="ui large button btn-custom"
+          [ngClass]="{'primary': urlActivate('/ope02/01/06/07')}"
+          (click)="routeTo('/ope02/01/06/07', buttons.oaLubricantsDtlId, 'oaLubricantsDtlId')">สุ่มตรวจ
+          (ตัวแทน)</button>
+
+        <button *ngIf="licenseTypeUser" class="ui large button btn-custom"
+          [ngClass]="{'primary': urlActivate('/ope02/01/06/08')}"
+          (click)="routeTo('/ope02/01/06/08', buttons.oaLubricantsDtlId, 'oaLubricantsDtlId')">กรรมวิธีในการผลิต</button>
+
+        <button *ngIf="licenseTypeUserAndIdentifyTypeOld" class="ui large button btn-custom"
+          [ngClass]="{'primary': urlActivate('/ope02/01/06/09')}"
+          (click)="routeTo('/ope02/01/06/09', buttons.oaLubricantsDtlId, 'oaLubricantsDtlId')">สุ่มตรวจ
+          (ผู้ใช้)</button>
+
+        <button class="ui large button btn-custom" [ngClass]="{'primary': urlActivate('/ope02/01/06/10')}"
+          (click)="routeTo('/ope02/01/06/10', buttons.oaLubricantsDtlId, 'oaLubricantsDtlId')">สรุปผลการออกตรวจ</button>
+
+      </div>
+    </div>
+  </segment>
+
+  <!-- contents -->
+  <router-outlet></router-outlet>
+
+</with-breadcrumb>

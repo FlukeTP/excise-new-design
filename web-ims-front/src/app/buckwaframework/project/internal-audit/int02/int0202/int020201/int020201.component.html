@@ -1,0 +1,229 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <segment header="แบบสอบถาม{{qtnHdrName}} ปีงบประมาณ {{_budgetYear}}" [loading]="loadingInit">
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="three wide field">
+              <button class="ui button custom-menu" type="button" (click)="munuHide()"><i
+                  class="bars icon"></i>ด้านแบบสอบถาม</button>
+            </div>
+            <div class="eight wide field" style="padding: 0 0 0 14px">
+              <app-button-save style="margin-right: 0px" (click)="handleSave($event)"
+                [hidden]=" status === '3' || status === '4' || details == 0 "></app-button-save>
+              <app-button-custom *ngIf="details > 0 && statusCount == 0 && status === '1' || status === '2' "
+                text="ยืนยันการตอบแบบสอบถาม" icon="check" color="green" (click)="sendQtnCheck($event)">
+              </app-button-custom>
+              <app-button-custom *ngIf=" (details == 0 || statusCount > 0) && (status === '1' || status === '2') "
+                text="ยืนยันการตอบแบบสอบถาม" icon="check" color="green" disabled="true">
+              </app-button-custom>
+              <app-button-custom *ngIf=" status !== '3' " text="ยกเลิกการตอบแบบสอบถาม" color="red" icon="close"
+                disabled="true">
+              </app-button-custom>
+              <app-button-custom *ngIf="!countCheckQtn && status === '3' " text="ยกเลิกการตอบแบบสอบถาม" color="red"
+                icon="close" (click)="cancelReplyQtn($event)">
+              </app-button-custom>
+              <app-button-back (click)="back()"></app-button-back>
+            </div>
+
+            <div class="five wide field">
+              <label class="custom-label-w-10">แก้ไขล่าสุดวันที่ : {{_updatedDateStr | dateString:true}}</label>
+              <label class="custom-label-w-10">แก้ไขโดย : {{_updatedBy}}</label>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="ui grid">
+          <div class="three wide column" [ngClass]="{'menu-hide': menuhide}">
+            <div class="ui vertical pointing menu" style="width: auto">
+              <div class="item">
+                <div class="header text-center">ด้านแบบสอบถาม</div>
+              </div>
+              <a class="item" routerLinkActive="active" (click)="showDtl('ALL')">ทั้งหมด</a>
+              <a class="item" routerLinkActive="active" *ngFor="let qtn of defaultDetail; let i = index"
+                (click)="showDtl(i)">{{qtn.sideName}}
+                &nbsp;&nbsp;&nbsp;
+                <i class="fa fa-check-circle-o" style="color: green" *ngIf="qtn.statusSides">
+                  ทำเสร็จแล้ว
+                </i>
+                <i class="fa fa-times-circle-o" style="color: red" *ngIf="!qtn.statusSides">
+                  ทำยังไม่เสร็จ
+                </i>
+              </a>
+            </div>
+          </div>
+
+          <div [ngClass]="{'thirteen ': !menuhide, 'sixteen': menuhide, 'wide column' : true}">
+            <div class="ui form" *ngIf="details.length > 0">
+              <div class="ui" *ngFor="let qtn of details; let i = index">
+                <segment header="{{ qtn.sideName }}">
+                  <!-- <segment header="{{ checkIndex? sides: defaultSides[i].sideName }}"> -->
+                  <table class="ui celled table nowrap selectable">
+                    <thead class="text-center">
+                      <tr>
+                        <th rowspan="2" colspan="3" style="width: 6%">ที่</th>
+                        <th rowspan="2" style="width: 44%">รายการ</th>
+                        <th style="width: 10%">มี / ใช่</th>
+                        <th style="width: 10%">ไม่มี / ไม่ใช่</th>
+                        <th rowspan="2" style="width: 30%">หมายเหตุ</th>
+                      </tr>
+                      <tr>
+                        <th class="border">สมบูรณ์</th>
+                        <th>ไม่สมบูรณ์</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="qtn.sides.length == 0">
+                      <tr>
+                        <td class="text-center" colspan="6">ไม่พบแบบสอบถาม</td>
+                      </tr>
+                    </tbody>
+                    <tbody *ngIf="qtn.sides.length > 0">
+                      <!-- start loop hdr -->
+                      <ng-container *ngFor="let hdr of qtn.sides; let j = index">
+                        <tr style="background-color: #cccc; height: 55px;">
+                          <td class="text-center" style="width: 40px !important;">{{hdr.seq}}</td>
+
+                          <!-- hdr have children  -->
+                          <td colspan="6" *ngIf="hdr.children.length > 0">{{hdr.sideDtl}}</td>
+
+                          <!-- hdr not children  -->
+                          <ng-container *ngIf="hdr.children.length == 0">
+                            <td colspan="3">{{hdr.sideDtl}}</td>
+                            <td class="text-center">
+                              <div class="field">
+                                <div class="ui checkbox">
+                                  <input type="radio" name="header{{hdr.id}}" id="header{{hdr.id}}" value="T"
+                                    (click)=" clickRadios(1, hdr.id, 'T', i, j)" [checked]="hdr.checkFlag == 'T'">
+                                  <label></label>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="text-center">
+                              <div class="field">
+                                <div class="ui checkbox">
+                                  <input type="radio" name="header{{hdr.id}}" id="header{{hdr.id}}" value="F"
+                                    (click)="clickRadios(1, hdr.id, 'F',i, j)" [checked]="hdr.checkFlag == 'F'">
+                                  <label></label>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="text-center">
+                              <div class="fields">
+                                <label></label>
+                                <textarea id="noteHeader{{hdr.id}}" rows="1" [(ngModel)]="details[i].sides[j].note"
+                                  (blur)="keyupComment(1, hdr.id, i, j)"></textarea>
+                              </div>
+                            </td>
+                          </ng-container>
+                        </tr>
+
+                        <!-- start loop dtl -->
+                        <ng-container *ngFor="let dtl of hdr.children; let k = index">
+                          <tr style="height: 50px;">
+                            <td></td>
+                            <td class="text-center">{{dtl.seq}}.{{dtl.seqDtl}}</td>
+                            <td colspan="2">{{dtl.sideDtl}}</td>
+
+                            <!-- dtl not children  -->
+                            <ng-container *ngIf="dtl.children.length == 0">
+                              <td class="text-center">
+                                <div class="field">
+                                  <div class="ui checkbox">
+                                    <input type="radio" name="detail{{dtl.id}}" id="detail{{dtl.id}}" value="T"
+                                      [checked]="dtl.checkFlag == 'T'" (click)="clickRadios(2, dtl.id, 'T', i, j, k)">
+                                    <label></label>
+                                  </div>
+                                </div>
+                              </td>
+                              <td class="text-center">
+                                <div class="field">
+                                  <div class="ui checkbox">
+                                    <input type="radio" name="detail{{dtl.id}}" id="detail{{dtl.id}}" value="F"
+                                      [checked]="dtl.checkFlag == 'F'" (click)="clickRadios(2, dtl.id, 'F', i, j, k)">
+                                    <label></label>
+                                  </div>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="fields">
+                                  <label></label>
+                                  <textarea id="noteDtl{{dtl.id}}" rows="1"
+                                    [(ngModel)]="details[i].sides[j].children[k].note"
+                                    (blur)="keyupComment(2, dtl.id, i, j, k)"></textarea>
+                                </div>
+                              </td>
+                            </ng-container>
+
+                            <!-- dtl have children  -->
+                            <ng-container *ngIf="dtl.children.length > 0">
+                              <td class="text-center">
+                              </td>
+                              <td class="text-center">
+                              </td>
+                              <td class="text-center">
+                              </td>
+                            </ng-container>
+                          </tr>
+
+                          <!-- start loop dtls -->
+                          <ng-container *ngFor="let dtls of dtl.children; let l = index">
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td class="text-center">{{dtl.seq}}.{{dtls.seq}}.{{dtls.seqDtl}}</td>
+                              <td>{{dtls.sideDtl}}</td>
+                              <td class="text-center">
+                                <div class="field">
+                                  <div class="ui checkbox">
+                                    <input type="radio" name="details{{dtls.id}}" id="details{{dtls.id}}" value="T"
+                                      [checked]="dtls.checkFlag == 'T'"
+                                      (click)="clickRadios(3, dtls.id, 'T', i, j, k, l)">
+                                    <label></label>
+                                  </div>
+                                </div>
+                              </td>
+                              <td class="text-center">
+                                <div class="field">
+                                  <div class="ui checkbox">
+                                    <input type="radio" name="details{{dtls.id}}" id="details{{dtls.id}}" value="F"
+                                      [checked]="dtls.checkFlag == 'F'"
+                                      (click)="clickRadios(3, dtls.id, 'F', i, j, k, l)">
+                                    <label></label>
+                                  </div>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="fields">
+                                  <label></label>
+                                  <textarea id="noteDtls{{dtls.id}}" rows="1"
+                                    [(ngModel)]="details[i].sides[j].children[k].children[l].note"
+                                    (blur)="keyupComment(3, dtls.id, i, j, k, l)"></textarea>
+                                </div>
+                              </td>
+                            </tr>
+                          </ng-container>
+                          <!-- end loop dtls -->
+
+                        </ng-container>
+                        <!-- end loop dtl -->
+
+                      </ng-container>
+                      <!-- end loop hdr -->
+                    </tbody>
+                  </table>
+                </segment>
+              </div>
+              <div class="ui form">
+                <div class="field">
+                  <label>สรุปแบบสอบถาม</label>
+                  <textarea rows="5" [formControl]="conclude"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>

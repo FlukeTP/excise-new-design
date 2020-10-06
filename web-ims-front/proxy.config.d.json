@@ -1,0 +1,12 @@
+{
+    "/ims-webapp": {
+        "target": "http://150.95.24.42:8080",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/excise-backend": {
+        "target": "http://localhost:8080",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

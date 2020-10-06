@@ -1,0 +1,109 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <segment header="ตรวจการเบิกค่าสาธารณูปโภค" [loading]="false">
+      <div class="ui form">
+        <div class="inline fields">
+          <div class="three wide field">
+            <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+          </div>
+          <div class="five wide field">
+            <select class="ui search dropdown ai search" style="width: 100% !important" name="combo1" id="combo1"
+              (change)="dropdown($event, 'comboBox2')">
+              <option value="">กรุณาเลือก</option>
+              <option *ngFor="let data of comboBox1 | async" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+            </select>
+          </div>
+          <div class="two wide field">
+            <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+          </div>
+          <div class="five wide field">
+            <select class="ui search dropdown ai search" style="width: 100% !important" name="combo2" id="combo2"
+              (change)="dropdown($event, 'comboBox3')">
+              <option value="">กรุณาเลือก</option>
+              <option *ngFor="let data of comboBox2 | async" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="three wide field">
+            <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่สาขา</label>
+          </div>
+          <div class="five wide field">
+            <select class="ui search dropdown ai search" style="width: 100% !important" name="combo3" id="combo3">
+              <option value="">กรุณาเลือก</option>
+              <option *ngFor="let data of comboBox3 | async" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+            </select>
+          </div>
+          <div class="two wide field ">
+            <label class="text-right full-width">ปีงบประมาณ
+            </label>
+          </div>
+          <div class="five wide field">
+            <div class="ui calendar" id="budgetYearCal">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" readonly="" name="budgetYear" id="budgetYear">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui center aligned grid" style="margin-top: 20px;">
+        <div class="sixteen wide column">
+          <app-button-search (click)="onFilter()"></app-button-search>
+          <app-button-clear (click)="clearFile()"></app-button-clear>
+          <app-button-custom color="primary" icon="fa-clock-o icon" text="กำหนดเวลาเปิด/ปิด"></app-button-custom>
+        </div>
+      </div>
+      <br>
+      <div id="showData">
+        <table id="dataTable" class="ui small celled table striped selectable" style="width: 100%;">
+          <thead>
+            <tr style="text-align: center">
+              <th>ลำดับที่</th>
+              <th>ประเภทค่าสาธารณูปโภค</th>
+              <th>ใบแจ้งหนี้เดือน</th>
+              <th>เลขที่ใบแจ้งหนี้</th>
+              <th>วันที่ในใบแจ้งหนี้</th>
+              <th>เลขที่ ขบ.</th>
+              <th>วดป. ที่เบิก</th>
+              <th>จำนวนเงิน</th>
+            </tr>
+          </thead>
+        </table>
+        <br>
+        <div class="ui centered grid">
+          <div class="ui form fourteen wide column">
+            <!-- row1 -->
+            <div class="inline fields">
+              <div class="four wide field">
+                <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br>
+                  (ข้อเท็จจริง/Condition) :</label>
+              </div>
+              <div class="ten  wide field">
+                <textarea rows="3" style="width: 100%;"></textarea>
+              </div>
+            </div>
+            <!-- row2 -->
+            <div class="inline fields">
+              <div class="four wide field">
+                <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                  :</label>
+              </div>
+              <div class="ten  wide field">
+                <textarea rows="3" style="width: 100%;"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui center aligned grid" style="margin-top: 20px;">
+          <div class="sixteen wide column">
+            <app-button-save></app-button-save>
+            <app-button-export ></app-button-export>
+          </div>
+        </div>
+      </div>
+    </segment>
+  </div>
+</div>

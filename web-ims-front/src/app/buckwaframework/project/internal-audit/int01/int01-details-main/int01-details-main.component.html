@@ -1,0 +1,210 @@
+<div class="ui form">
+    <div class="inline fields">
+        <app-breadcrumb style="width: 100%;" [route]="breadcrumb"></app-breadcrumb>
+    </div>
+</div>
+<div class="ui grid">
+    <div class="sixteen wide column">
+        <segment header="กำหนดรายละเอียดการออกตรวจ" [loading]="false">
+            <div class="ui grid">
+                <div class="sixteen wide column  ">
+                    <form [formGroup]="setDetail">
+                        <div class="ui centered grid">
+                            <div class="sixteen wide column">
+                                <div class="ui form">
+                                    <div class="inline fields">
+                                        <div class="four wide field">
+
+                                        </div>
+                                        <div class="two wide field">
+                                            <label class="text-right full-width">ผู้รับผิดชอบหลัก</label>
+                                        </div>
+                                        <div class="two wide field"
+                                            [ngClass]="{ 'error': validateField('responsiblePerson') }">
+                                            <input type="text" formControlName="responsiblePerson">
+                                        </div>
+                                        <div class="two wide  field">
+                                            <label class="text-right full-width">ตำแหน่ง</label>
+                                        </div>
+                                        <div class="two wide  field" [ngClass]="{ 'error': validateField('position') }">
+                                            <input type="text" formControlName="position">
+                                        </div>
+                                        <div class="four wide field">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="ui centered grid">
+                            <div class="sixteen wide column">
+                                <div class="ui form">
+                                    <div class="inline fields">
+                                        <div class="four wide field">
+
+                                            <label class="text-right full-width"> กำหนดวันที่ Engagement</label>
+                                        </div>
+                                        <div class="two wide field">
+                                            <label class="text-right full-width">วันที่เริ่มต้น</label>
+                                        </div>
+                                        <div class="two wide field"
+                                            [ngClass]="{ 'error': validateField('EngagementFrom') }">
+                                            <div class="ui calendar" style="width:100%" id="dateCalendarFrom">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar alter nate outline icon"></i>
+                                                    <input type="calendar" placeholder="วว/ดด/ปปปป"
+                                                        formControlName="EngagementFrom" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="two wide  field">
+                                            <label class="text-right full-width">วันที่สิ้นสุด</label>
+                                        </div>
+                                        <div class="two wide  field"
+                                            [ngClass]="{ 'error': validateField('EngagementTo') }">
+                                            <div class="ui calendar" style="width:100%" id="dateCalendarTo">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar alter nate outline icon"></i>
+                                                    <input type="calendar" placeholder="วว/ดด/ปปปป" id="dateTo"
+                                                        formControlName="EngagementTo" name="dateTo" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="four wide field">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ui centered grid">
+                            <div class="sixteen wide column">
+                                <div class="ui form">
+                                    <div class="inline fields">
+                                        <div class="four wide field">
+                                            <label class="text-right full-width"> กำหนดวันที่ Audit</label>
+                                        </div>
+                                        <div class="two wide field">
+                                            <label class="text-right full-width">วันที่เริ่มต้น</label>
+                                        </div>
+                                        <div class="two wide field" [ngClass]="{ 'error': validateField('AuditFrom') }">
+                                            <div class="ui calendar" style="width:100%" id="dateCalendarFrom1">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar alter nate outline icon"></i>
+                                                    <input type="calendar" placeholder="วว/ดด/ปปปป"
+                                                        formControlName="AuditFrom" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="two wide  field">
+                                            <label class="text-right full-width">วันที่สิ้นสุด</label>
+                                        </div>
+                                        <div class="two wide field" [ngClass]="{ 'error': validateField('AuditTo') }">
+                                            <div class="ui calendar" style="width:100%" id="dateCalendarTo2">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar alter nate outline icon"></i>
+                                                    <input type="calendar" placeholder="วว/ดด/ปปปป"
+                                                        formControlName="AuditTo" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="four wide field">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ui centered grid">
+                            <div class="sixteen wide column">
+                                <div class="ui form">
+                                    <div class="inline fields">
+                                        <div class="four wide field">
+                                            <label class="text-right full-width"> กำหนดวันที่ Report</label>
+                                        </div>
+                                        <div class="two wide field">
+                                            <label class="text-right full-width">วันที่เริ่มต้น</label>
+                                        </div>
+                                        <div class="two wide field"
+                                            [ngClass]="{ 'error': validateField('ReportFrom') }">
+                                            <div class="ui calendar" style="width:100%" id="dateCalendarFrom3">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar alter nate outline icon"></i>
+                                                    <input type="calendar" placeholder="วว/ดด/ปปปป"
+                                                        formControlName="ReportFrom" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="two wide  field">
+                                            <label class="text-right full-width">วันที่สิ้นสุด</label>
+                                        </div>
+                                        <div class="two wide  field" [ngClass]="{ 'error': validateField('ReportTo') }">
+                                            <div class="ui calendar" style="width:100%" id="dateCalendarTo4">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar alter nate outline icon"></i>
+                                                    <input type="calendar" placeholder="วว/ดด/ปปปป"
+                                                        formControlName="ReportTo" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="four wide field">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="ui centered grid">
+                            <div class="sixteen wide column">
+                                <div class="ui form">
+                                    <div class="inline fields">
+                                        <div class="four wide field">
+                                            <label class="text-right full-width"> กำหนดวันที่ Monitoring</label>
+                                        </div>
+                                        <div class="two wide field">
+                                            <label class="text-right full-width">วันที่เริ่มต้น</label>
+                                        </div>
+                                        <div class="two wide field"
+                                            [ngClass]="{ 'error': validateField('MonitoringFrom') }">
+                                            <div class="ui calendar" style="width:100%" id="dateCalendarFrom5">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar alter nate outline icon"></i>
+                                                    <input type="calendar" placeholder="วว/ดด/ปปปป"
+                                                        formControlName="MonitoringFrom" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="two wide  field">
+                                            <label class="text-right full-width">วันที่สิ้นสุด</label>
+                                        </div>
+                                        <div class="two wide  field"
+                                            [ngClass]="{ 'error': validateField('MonitoringFrom') }">
+                                            <div class="ui calendar" style="width:100%" id="dateCalendarTo6">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar alter nate outline icon"></i>
+                                                    <input type="calendar" placeholder="วว/ดด/ปปปป"
+                                                        formControlName="MonitoringFrom" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="four wide field">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ui one column centered grid">
+                            <div class="column aligned center">
+                                <app-button-save btnType="submit" (click)="save($event)"></app-button-save>
+                                <app-button-back (click)="goBack()"></app-button-back>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </segment>
+    </div>
+</div>

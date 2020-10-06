@@ -1,0 +1,43 @@
+tr:hover {
+    cursor: pointer;
+}
+
+.red-color {
+    color: #ff0000
+}
+
+.blue-color {
+    color: #0345ff
+}
+
+.brown-color {
+    color: #946e04
+}
+
+.table1 thead tr th {
+    background-color: #a8e8fb;
+}
+
+.table2 thead tr th {
+    background-color: #fdb1b1;
+}
+
+.table3 thead tr th {
+    background-color: #f7e7b8;
+}
+
+.ui.active.button {
+    color: black;
+}
+
+.ui.active.button.btn1 {
+    background-color: #afe6e8;
+}
+
+.ui.active.button.btn2 {
+    background-color: #ffb9ed;
+}
+
+.ui.active.button.btn3 {
+    background-color: #f5f3a9;
+}

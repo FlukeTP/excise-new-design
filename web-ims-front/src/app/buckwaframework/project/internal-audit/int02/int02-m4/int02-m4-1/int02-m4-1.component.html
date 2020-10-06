@@ -1,0 +1,47 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<div class="ui grid" style="margin: 2%">
+    <div class="sixteen wide column segments">
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>สรุปผลแบบสอบถามระบบการควบคุมภายใน</span>
+        </div>
+
+        <div class="ui attached segment">
+            <div class="ui centered grid row">
+                <div class="ui centered sixteen wide column">
+                    <div class="ui centered row grid">
+                        <div class="ui centered six wide column" style="padding: 14px 0 0 0 !important;">
+                            <div class="ui form">
+                                <div class="inline aligned center fields">
+                                    <div class="six wide field">
+                                        <label class="text-right">ปีงบประมาณ: </label>
+                                    </div>
+                                    <div class="six wide field">
+                                        <div class="ui input">
+                                            <div class="ui calendar" id="calendar">
+                                                <div class="ui input">
+                                                    <input type="calendar" readonly="" placeholder="ปี" id="calendar_data" name="calendar_data" [attr.required]="true" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui centered two wide column" style="padding: 0;">
+                    <div class="ui form">
+                        <div class="inline fields">
+                            <div class="sixteen aligned center wide field">
+                                <button class="fluid ui primary mini button" (click)="search()" type="button">
+                                <i class="search icon"></i>
+                                    ค้นหา
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

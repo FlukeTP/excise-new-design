@@ -1,0 +1,176 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="{{header}}" [loading]="false">
+    <div class="ui form grid">
+      <div class="two wide column"></div>
+      <div class="twelve wide column">
+        <div class="inline fields">
+
+          <div class="two wide field ">
+            <label class="text-right full-width">วันที่ออกตรวจ</label>
+          </div>
+          <div class="three wide field ">
+            <div class="ui calendar full-width" id="date1">
+              <div class="ui input left icon">
+                <i class="calendar alternate outline icon"></i>
+                <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="inputDate1">
+              </div>
+            </div>
+          </div>
+
+          <div class="two wide field ">
+            <label class="text-right full-width">ถึง</label>
+          </div>
+          <div class="three wide field ">
+            <div class="ui calendar full-width" id="date2">
+              <div class="ui input left icon">
+                <i class="calendar alternate outline icon"></i>
+                <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="inputDate2">
+              </div>
+            </div>
+          </div>
+          <div class="three wide field ">
+            <label class="text-right full-width">ประจำปีงบประมาณ</label>
+          </div>
+          <div class="three wide field ">
+            <label>{{year}}</label>
+          </div>
+
+        </div>
+        <div class="inline fields">
+          <div class="four wide field ">
+            <h3 style="color: #000;">รายชื่อผู้ประกอบการ</h3>
+          </div>
+          <div class="seven wide field "></div>
+          <div class="three wide field text-center">
+            <app-button-custom *ngIf="planStatus=='CREATE' || planStatus=='DETAIL'" color="primary" text="เลือกจากการคัดกรอง" routerLink="/ope04/01/01"></app-button-custom>
+          </div>
+          <div class="two wide field text-center">
+            <div class="field btn text-center">
+
+              <app-button-custom *ngIf="planStatus=='CREATE' || planStatus=='DETAIL'" color="primary"
+                text="เลือกจากรายชื่อ" (click)="gotoFindCustomer()">
+              </app-button-custom>
+
+            </div>
+          </div>
+        </div>
+
+        <table class="ui small celled table striped selectable" id="dataTable" style="width: 100%;">
+          <thead>
+            <tr style="text-align: center">
+
+              <th>สำนักงานสรรพสามิตภาค</th>
+              <th>สำนักงานสรรพสามิตพื้นที่</th>
+              <th>ชื่อผู้ประกอบการ</th>
+              <!-- <th>ประเภทใบอนุญาต</th> -->
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let company of ope020102" [hidden]="!resultCompany">
+              <td>{{company.officeName1}}</td>
+              <td>{{company.officeName2}}</td>
+              <td>{{company.companyName}}</td>
+              <!-- <td style="text-align: center"  >{{company.licenseType=='A'?'ตัวแทน':'ผู้ใช้'}}</td> -->
+              <td style="text-align: center">
+                <div *ngIf="planStatus=='CREATE' || planStatus=='DETAIL'">
+                  <app-button-custom color="red" (click)="removeCompany(company)">ลบ</app-button-custom>
+                </div>
+                <div *ngIf="!(planStatus=='CREATE' || planStatus=='DETAIL')">
+                  -
+                </div>
+
+
+              </td>
+            </tr>
+
+            <tr [hidden]="ope020102.length > 0">
+              <td style="text-align: center" colspan="5">กรุณาเลือกผู้ประกอบการ</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <div class="inline fields">
+          <div class="four wide field ">
+            <h3 style="color: #000;">รายชื่อผู้ออกตรวจ</h3>
+          </div>
+          <div class="nine wide field "></div>
+          <div class="three wide field ">
+            <div class="field btn text-center">
+              <app-button-custom *ngIf="planStatus=='CREATE' || planStatus=='DETAIL'" color="primary"
+                text="เลือกผู้ออกตรวจ" (click)="gotoFindUserAudit()">
+              </app-button-custom>
+            </div>
+          </div>
+        </div>
+
+
+
+        <table class="ui small celled table striped selectable" id="dataTable">
+          <thead>
+            <tr style="text-align: center">
+              <th>ชื่อ-สกุล</th>
+              <th>ตำแหน่ง</th>
+              <th></th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <ng-template #auditer [hidden]="resultAuditer"> -->
+            <tr *ngFor="let user of auditer" [hidden]="!resultAuditer">
+              <td>{{user.userThaiName}}</td>
+              <td>{{user.title}}</td>
+
+              <td style="text-align: center">
+                <div *ngIf="planStatus=='CREATE' || planStatus=='DETAIL'">
+                  <app-button-custom color="red" (click)="removeAuditUser(user)">ลบ</app-button-custom>
+                </div>
+                <div *ngIf="!(planStatus=='CREATE' || planStatus=='DETAIL')">
+                  -
+                </div>
+
+              </td>
+
+
+            </tr>
+            <!-- </ng-template> -->
+
+            <tr [hidden]="auditer.length > 0">
+              <td style="text-align: center" colspan="3">กรุณาเลือกรายชื่อผู้ออกตรวจ</td>
+            </tr>
+
+          </tbody>
+        </table>
+        <br>
+        <div class="inline fields">
+          <div class="field">
+            <h3>ผู้มีอำนาจอนุมัติ</h3>
+          </div>
+        </div>
+        <div class="inline fields" *ngFor="let item of approver; let i = index">
+          <div class="one wide field text-right"></div>
+          <div class="fifteen wide field">
+            <a class="item">{{i+1}}.&nbsp;&nbsp;{{item.userThaiName}}</a>
+          </div>
+        </div>
+
+        <div class="inline field btn text-center">
+          <app-button-save *ngIf="planStatus=='CREATE' || planStatus=='DETAIL'" (click)="onSavePlan()">
+          </app-button-save>
+          <app-button-custom *ngIf="planStatus=='CREATE'" text="ยื่นแผนอนุมัติ" (click)="onSendApprove()">
+          </app-button-custom>
+          <app-button-custom color="green" *ngIf="onApprove" text="อนุมัติ" (click)="onSendApprove()">
+          </app-button-custom>
+          <!-- <app-button-cancel [routerLink]="['/ope02']"></app-button-cancel> -->
+          <app-button-cancel (click)="onCancel()"></app-button-cancel>
+        </div>
+
+        <div class="two wide column"></div>
+      </div>
+    </div>
+
+
+
+  </segment>
+</with-breadcrumb>

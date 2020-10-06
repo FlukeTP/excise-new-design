@@ -1,0 +1,411 @@
+<segment header="หนังสือนำตัวออกตรวจการเสียภาษีสรรพสามิต (ตส. ๐๑-๐๗)" [loading]="loading" [right]="true">
+  <div headRight>
+    {{formTS0107.get('formTsNumber').value}}
+  </div>
+
+  <form form [formGroup]="formTS0107">
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="bookNumber1" id="bookNumber1" maxlength="20">
+        <label class="text-center" style=" width:20%">/</label>
+        <input type="text" formControlName="bookNumber2" id="bookNumber2" maxlength="20">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">สำนัก :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="officeName1" id="officeName1" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">วันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar full-width" id="calendarDocDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="text" placeholder="วว ดดดด ปปปป" autocomplete="off" formControlName="docDate" id="docDate">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">โดยหนังสือนี้แสดงให้ทราบว่า สำนัก :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officeName2" id="officeName2" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ได้ให้ :</label>
+      </div>
+      <div field [col]="5">
+        <select class="ui dropdown ai selection full-width " id="headOfficerFullName"
+          formControlName="headOfficerFullName" (change)="onNameChange($event)">
+          <option *ngFor="let data of personList"
+            value="{{data.edLogin}},{{data.edPersonName}},{{data.edPositionName}}">{{data.edPersonName}}</option>
+        </select>
+        <!-- <input type="text" formControlName="headOfficerFullName" id="headOfficerFullName" maxlength="100"> -->
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ตำแหน่ง :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" class="custom-readonly" readonly formControlName="headOfficerPosition"
+          id="headOfficerPosition" maxlength="100">
+      </div>
+    </div>
+
+    <div formArrayName="taFormTS0107DtlVoList">
+      <ng-container *ngIf="formTS0107.controls">
+        <div inline *ngIf="formTS0107.controls.taFormTS0107DtlVoList.length == 0">
+          <div field [col]=" 2">
+            <label class="text-right full-width">
+              <span>
+                พร้อมด้วย
+              </span>
+              (1) :
+            </label>
+          </div>
+          <div field [col]="5">
+            <input type="text" class="custom-readonly" readonly>
+          </div>
+          <div field [col]="2">
+            <label class="text-right full-width">ตำแหน่ง :</label>
+          </div>
+          <div field [col]="5">
+            <input type="text" class="custom-readonly" readonly>
+          </div>
+          <div field [col]="1">
+            <a href="javascript:void(0)" (click)="onOfficerModalShow()"><i class="plus icon" style="color:green;">
+              </i>เพิ่ม</a>
+          </div>
+        </div>
+        <div [formGroupName]="i"
+          *ngFor="let item of formTS0107.controls.taFormTS0107DtlVoList.controls; let i = index;let first = first;let last = last">
+          <div inline>
+            <div field [col]=" 2">
+              <label class="text-right full-width">
+                <span *ngIf="first">
+                  พร้อมด้วย
+                </span>
+                ({{i+1}}) :
+              </label>
+            </div>
+            <div field [col]="5">
+              <input type="text" class="custom-readonly" readonly formControlName="officerFullName" id="officerFullName"
+                maxlength="100">
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width">ตำแหน่ง :</label>
+            </div>
+            <div field [col]="5">
+              <input type="text" class="custom-readonly" readonly formControlName="officerPosition" id="officerPosition"
+                maxlength="100">
+            </div>
+            <div field [col]="1" *ngIf="first">
+              <a href="javascript:void(0)" (click)="onOfficerModalShow()"><i class="plus icon" style="color:green;">
+                </i>เพิ่ม</a>
+            </div>
+            <div field [col]="1">
+              <i (click)="removeTaFormTS0107DtlVoList(i)" class="minus icon" style="color:red;cursor: pointer"></i>
+            </div>
+          </div>
+
+        </div>
+      </ng-container>
+    </div>
+    <!-- <div inline>
+      <div field [col]=" 2">
+        <label class="text-right full-width">
+          <a href="javascript:void(0)" (click)="onOfficerModalShow()"><i class="plus icon" style="color:green;">
+            </i>เลือก</a>
+        </label>
+      </div>
+    </div> -->
+
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">ทำการตรวจสอบ ณ สถานประกอบการของ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="companyName" id="companyName" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">เลขทะเบียนสรรพสามิต :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="newRegId" id="newRegId" maxlength="17">
+      </div>
+      <div field [col]="1">
+        <app-button-custom [icon]="'search'" (click)="searchNewRegId()"></app-button-custom>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ชื่อโรงอุตสาหกรรม/<br>สถานบริการ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="factoryName" id="factoryName" maxlength="200">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ประเภทกิจการ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" name="factoryType" formControlName="factoryType" id="factoryType" value="1">
+          <label>โรงอุตสาหกรรม</label>
+        </div>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" name="factoryType" formControlName="factoryType" id="factoryType" value="2">
+          <label>สถานบริการ </label>
+        </div>
+      </div>
+      <div field [col]="3">
+        <div class="ui radio checkbox">
+          <input type="radio" name="factoryType" formControlName="factoryType" id="factoryType" value="3">
+          <label> สถานประกอบการผู้นำเข้า</label>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ตั้งอยู่เลขที่ :</label>
+      </div>
+      <div field [col]="3">
+        <input type="text" formControlName="facAddrNo" id="facAddrNo" maxlength="35">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">หมู่ที่ :</label>
+      </div>
+      <div field [col]="2">
+        <input type="text" formControlName="facMooNo" id="facMooNo" maxlength="2">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ตรอก/ซอย :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facSoiName" id="facSoiName" maxlength="50">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ถนน :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facThnName" id="facThnName" maxlength="50">
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">ตำบล/<br>แขวง :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facTambolSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facTambolName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" formControlName="facTambolName" id="facTambolName" maxlength="100"> -->
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">อำเภอ/เขต :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facAmphurSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facAmphurName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" formControlName="facAmphurName" id="facAmphurName" maxlength="100"> -->
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">จังหวัด :</label>
+      </div>
+      <div field [col]="4">
+        <div class="ui search full-width facProvinceSearch">
+          <div class="ui icon input">
+            <input class="prompt" style=" margin-left: 0px;" type="text" formControlName="facProvinceName"
+              maxlength="100">
+          </div>
+          <div class="results"></div>
+        </div>
+        <!-- <input type="text" formControlName="facProvinceName" id="facProvinceName" maxlength="100"> -->
+      </div>
+      <div field [col]="1">
+        <label class="text-right full-width">รหัสไปรษณีย์ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="facZipCode" id="facZipCode" maxlength="5">
+      </div>
+    </div>
+
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ในวันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar full-width" id="calendarAuditDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="text" placeholder="วว ดดดด ปปปป" autocomplete="off" formControlName="auditDate" id="auditDate">
+          </div>
+        </div>
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width">ตามบัญญัติไว้ในมาตรา :</label>
+      </div>
+      <div field [col]="2">
+        <input type="text" formControlName="lawSection" id="lawSection" maxlength="5">
+      </div>
+      <div field [col]="4">
+        <label class="text-left full-width">แห่งพระราชบัญญัติภาษีสรรพสามิต พ.ศ. ๒๔๖๐</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <p>อนึ่ง เพื่อป้องกันมิให้บุคคลภายนอกแอบอ้างเป็นพนักงานเจ้าหน้าที่กรมสรรพสามิตเข้าทำการตรวจสอบภาษี
+          จึงขอให้ท่านขอดูบัตรประจำตัวพนักงานเจ้าหน้าที่ผู้ทำการตรวจสอบด้วย
+          และถ้ามีเหตุสงสัยก็ให้สอบถามไปยังผู้บังคับบัญชา
+        </p>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="text-right full-width">ตามหมายเลขโทรศัพท์ :</label>
+      </div>
+      <div field [col]="2">
+        <input type="text" formControlName="headOfficerPhone" id="headOfficerPhone" maxlength="20">
+      </div>
+      <div field [col]="4">
+        <label class="text-left full-width">และขอให้ท่านอำนวยความสะดวกแก่พนักงานเจ้าหน้าที่ด้วย</label>
+      </div>
+    </div>
+    <div inline>
+    </div>
+    <!-- ui grid -->
+    <div class="ui grid">
+      <!-- Left Column -->
+      <div field [col]="8">
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">ชื่อ :</label>
+          </div>
+          <div field [col]="12">
+            <div class="ui action input">
+              <input type="text" formControlName="signOfficerFullName" id="signOfficerFullName" maxlength="100">
+              <button class="ui button" (click)="searchModalOpen(1)">ค้นหา</button>
+            </div>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">ตำแหน่ง :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="signOfficerPosition" id="signOfficerPosition" maxlength="100">
+          </div>
+        </div>
+      </div>
+      <!-- Right Column -->
+      <div field [col]="8">
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">หมายเหตุ :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="otherText" id="otherText" maxlength="100">
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">โทร :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="otherPhone" id="otherPhone" maxlength="20">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <app-button-footer-report (save2)="save2($event)" (save)="save($event)" (clear)="clear($event)"
+      (export)="export($event)" [saveActive]="saveActive"></app-button-footer-report>
+  </form>
+</segment>
+
+<ui-modal [id]="'officerModalForm'" type="custom" size="large">
+  <div class="header">
+  </div>
+  <div class="content scrollX" style="max-height: 450px !important;">
+    <form form>
+      <div inline>
+        <div field [col]="16">
+          <table class="ui small celled nowrap table striped selectable" style="width:100%">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="text-center">ชื่อ</th>
+                <th class="text-center">ตำแหน่ง</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of officerModalForm; let i = index;let first = first;let last = last">
+                <td class="text-center">
+                  <input class="ui checkbox isSelect" type="checkbox" name="isSelect{{i}}" [(ngModel)]="item.isSelect"
+                    id="isSelect{{i}}" (change)="isSelectChecker(item)">
+                </td>
+                <td>{{item.edPersonName}}</td>
+                <td>{{item.edPositionName}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <app-button-confirm (click)="onConfirmSelectModal()"></app-button-confirm>
+    <app-button-custom (click)="onCancelModal()" text="ปิด" class="deny"></app-button-custom>
+  </div>
+</ui-modal>
+
+<ui-modal [id]="'searchModal'" type="custom" size="large">
+  <div class="ui header">
+    ค้นหารายชื่อ
+  </div>
+  <br>
+  <!-- <form form [formGroup]="formSearchModal">
+        </form> -->
+
+  <div grid>
+    <div [column]="16">
+      <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableModal">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">ลำดับ</th>
+            <th class="text-center">ชื่อ-นามสกุล</th>
+            <th class="text-center">ตำแหน่ง</th>
+          </tr>
+        </thead>
+      </table>
+      <br>
+    </div>
+  </div>
+
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

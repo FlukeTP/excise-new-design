@@ -1,0 +1,42 @@
+<segment header="การวิเคราะห์รายได้ เปรียบเทียบเดือนก่อนหน้า" [loading]="false">
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="eight wide field">
+        <div class="ui radio checkbox" *ngFor="let incomeType of monthIncTypeList">
+          <input type="radio" name="frequency" [value]="incomeType.paramCode" [(ngModel)]="monthIncType"
+            (change)="onChangeYearIncomeType()" [disabled]="incomeDisabled">
+          <label>{{incomeType.value1}}</label>
+        </div>
+      </div>
+      <div class="six wide field"></div>
+      <!-- <div class="two wide field">
+        <app-button-search></app-button-search>
+      </div> -->
+    </div>
+  </div>
+  <table id="dataTable" class="ui small celled table striped selectable  nowrap" style="width:100%">
+    <thead>
+      <tr class="text-center">
+        <th style="text-align: center !important">ลำดับ</th>
+        <th style="text-align: center !important">เดือน</th>
+        <th style="text-align: center !important">รายได้ (บาท)</th>
+        <th style="text-align: center !important">ผลต่าง (บาท)</th>
+        <th style="text-align: center !important">ผลต่าง (ร้อยละ)</th>
+      </tr>
+    </thead>
+
+  </table>
+  <br>
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="five wide field">
+        <label class="text-left full-width">บันทึกการวิเคราะห์ข้อมูลเบื้องต้น</label>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="sixteen wide field">
+        <textarea [(ngModel)]="note" (change)="onChangeNote()"></textarea>
+      </div>
+    </div>
+  </div>
+</segment>

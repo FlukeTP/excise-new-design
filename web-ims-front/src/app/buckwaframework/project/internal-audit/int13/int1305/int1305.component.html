@@ -1,0 +1,178 @@
+<br>
+<segment header="กระดาษทำการตรวจคำสั่งแต่งตั้งคณะทำงานควบคุมภายใน">
+
+  <form form [formGroup]="formSearch">
+
+    <div inline>
+      <div field [col]="2" [ngClass]="{'required': flagHeader}">
+        <label class="text-right full-width">สำนักงานสรรพสามิตภาค :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="4" [ngClass]="{'error': invalidSearchFormControl('sector')}">
+          <select class="ui dropdown full-width" id="sector" (change)="onChangeSector($event)" formControlName="sector">
+            <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+            <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" formControlName="sector" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="2">
+        <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่ :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="3" [ngClass]="{'error': invalidSearchFormControl('area')}">
+          <select class="ui dropdown full-width" id="area" (change)="onChangeArea($event)" formControlName="area">
+            <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="3">
+          <input type="text" class="custom-readonly" formControlName="area" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="2">
+        <label class="text-right full-width">สำนักงานสรรพสามิตสาขา :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="3" [ngClass]="{'error': invalidSearchFormControl('branch')}">
+          <select class="ui dropdown full-width" id="branch" formControlName="branch">
+            <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="3">
+          <input type="text" class="custom-readonly" formControlName="branch" readonly>
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div inline>
+      <div field [col]="2" [ngClass]="{'required': flagHeader}">
+        <label class="text-right full-width">ประจำปีงบประมาณ :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="2" [ngClass]="{'error': invalidSearchFormControl('budgetYear')}">
+          <div class="ui calendar full-width" id="year">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" autocomplete="off" placeholder="ปปปป" id="inputYear" readonly="">
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="2">
+          <input type="text" class="custom-readonly" formControlName="budgetYear" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="9">
+        <label class="text-right full-width">เลขที่กระดาษทำการ :</label>
+      </div>
+      <div field [col]="3">
+        <select class="ui dropdown full-width" (change)="onChangeauditPmcommitNo($event)"
+          formControlName="auditPmcommitNo" id="auditPmcommitNo">
+          <option value="">เลือกเอกสาร</option>
+          <option *ngFor="let item of auditPmcommitNoList let i =index" value="{{item.auditPmcommitNo}}">
+            {{item.auditPmcommitNo}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+
+    <br>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-custom color="primary" icon="" text="เชื่อมโยงข้อมูล" (click)="serach()" [disabled]="!flagButton">
+        </app-button-custom>
+        <app-button-save (click)="save()" [disabled]="flagButton"></app-button-save>
+        <app-button-clear (click)="clear()"></app-button-clear>
+      </div>
+    </div>
+  </form>
+
+</segment>
+
+
+<segment [loading]="loading">
+  <form form [formGroup]="formDataR">
+
+    <iframe [hidden]="!flagData" class="thumbnail" width="100%" height="500px" frameborder="1" s webkitallowfullscreen mozallowfullscreen
+      allowfullscreen>
+    </iframe>
+
+
+    <iframe [hidden]="flagData" class="thumbnail" [src]="safeSrc" width="100%" height="500px" frameborder="1" s webkitallowfullscreen
+      mozallowfullscreen allowfullscreen></iframe>
+
+    <div inline>
+      <div field [col]="6">
+        <label class="text-right full-width">ผลการตรวจคำสั่งแต่งตั้งคณะทำงานควบคุมภายใน (กลุ่มการตรวจสอบภายใน) :</label>
+      </div>
+    </div>
+
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="auditFlag" id="auditFlag" value="Y">
+          <label>มี/ร่วมการประเมิน</label>
+        </div>
+      </div>
+      <div field [col]="4">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="auditFlag" id="auditFlag" value="N">
+          <label>ไม่มี/ไม่ร่วมการประเมิน</label>
+        </div>
+      </div>
+    </div>
+
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="2">
+        <label class="text-left full-width">ข้อตรวจพบ :</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="conditionText" id="conditionText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="2">
+        <label class="text-left full-width">ข้อเสนอแนะ :</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="criteriaText" id="criteriaText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+
+  </form>
+</segment>

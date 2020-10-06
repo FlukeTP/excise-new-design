@@ -1,0 +1,70 @@
+#tableData tr td:nth-child(1), #tableData tr td:nth-child(11),
+#tableData tr td:nth-child(12) {
+    text-align: right;
+}
+#tableData tr td:nth-child(2), #tableData tr td:nth-child(13) {
+    text-align: left;
+}
+
+#tableData tr td:nth-child(3), #tableData tr  td:nth-child(4),
+#tableData tr  td:nth-child(5), #tableData tr  td:nth-child(6),
+#tableData tr  td:nth-child(7), #tableData tr  td:nth-child(8),
+#tableData tr  td:nth-child(9), #tableData tr  td:nth-child(10) {
+    text-align: center;
+}
+
+#tableSetting {
+    z-index: 1001;
+}
+
+#tableSetting tr td:nth-child(1), #tableSetting tr td:nth-child(2), 
+#tableSetting tr td:nth-child(4), #tableSetting tr td:nth-child(8),
+#tableSetting tr td:nth-child(9) {
+    text-align: center;
+}
+
+#tableSetting tr td:nth-child(3), #tableSetting tr td:nth-child(5), 
+#tableSetting tr td:nth-child(6) {
+    text-align: right;
+}
+
+.ui.center.aligned.grid.btn {
+    width: 100%;
+}
+.latest-inline {
+    margin: 0 !important;
+}
+
+.text-right{
+    justify-content : flex-end;
+}
+
+.table3 thead tr th {
+    background-color: #afe6e8;
+}
+
+.table4 thead tr th {
+    background-color: #ffb9ed;
+}
+
+.table5 thead tr th {
+    background-color: #f5f3a9;
+}
+
+.ui.active.button {
+    color: black;
+}
+
+.ui.active.button.btn3 {
+    background-color: #a0d1d3;
+}
+
+.ui.active.button.btn4 {
+    background-color: #e6a8d6;
+}
+
+.ui.active.button.btn5 {
+    background-color: #dedc97;
+}
+
+

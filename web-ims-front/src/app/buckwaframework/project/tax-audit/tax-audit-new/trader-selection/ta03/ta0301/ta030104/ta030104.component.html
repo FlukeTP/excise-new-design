@@ -1,0 +1,207 @@
+<segment header="หนังสือเชิญเกี่ยวกับภาษีสรรพสามิต (ตส. ๐๑-๐๔)" [loading]="loading" [right]="true">
+  <div headRight>
+    {{formTS0104.get('formTsNumber').value}}
+  </div>
+  <!-- [loading]="loading" -->
+  <form form [formGroup]="formTS0104">
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ที่ :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="bookNumber1" id="bookNumber1" maxlength="20">
+        <label style="margin-right: 1em;"> / </label>
+        <input type="text" formControlName="bookNumber2" id="bookNumber2" maxlength="20">
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">สำนัก :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="subject1" id="subject1" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">วันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDocDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="docDate" id="docDate" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">เรื่อง :</label>
+      </div>
+      <div field [col]="14">
+        <input type="text" formControlName="docTopic" id="docTopic" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">เรียน :</label>
+      </div>
+      <div field [col]="14">
+        <input type="text" formControlName="docDear" id="docDear" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">อ้างถึง :</label>
+      </div>
+      <div field [col]="14">
+        <input type="text" formControlName="docReference" id="docReference" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <label
+          class="full-width text-left">ด้วยทางราชการมีความประสงค์จะทราบข้อเท็จจริงหรือข้อความบางอย่างอันเกี่ยวกับภาษีสรรพสามิต</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <textarea style="resize: none" cols="30" rows="4" formControlName="docRequire" id="docRequire"
+          maxlength="300"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="5">
+        <label class="full-width text-right">ฉะนั้น เพื่อประโยชน์แก่ทางราชการและตัวท่าน จึงขอให้ท่านไป ณ ที่ :</label>
+      </div>
+      <div field [col]="11">
+        <input type="text" formControlName="destText" id="destText" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">วันที่ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDestDate">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="destDate" id="destDate" placeholder="วว ดดดด ปปปป"
+              [attr.required]="true" autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-right">เวลา :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui calendar" style="width: 100%" id="calendarDestTime">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="destTime" id="destTime" placeholder="00:00" [attr.required]="true"
+              autocomplete="off">
+          </div>
+        </div>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="8">
+        <label class="full-width text-left">และขอได้โปรดนำหนังสือนี้ และ :</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <textarea style="resize: none" formControlName="docPaper" id="docPaper" rows="4" maxlength="200"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <label class="full-width text-left">ไปประกอบการพิจารณาด้วย</label>
+      </div>
+    </div>
+    <div inline>
+    </div>
+    <!-- ui grid -->
+    <div class="ui grid">
+      <!-- Left Column -->
+      <div field [col]="8">
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">ชื่อผู้ปฎิบัติงาน :</label>
+          </div>
+          <div field [col]="12">
+            <div class="ui action input">
+              <input type="text" formControlName="signOfficerFullName" id="signOfficerFullName" maxlength="100">
+              <button class="ui button" (click)="searchModalOpen(1)">ค้นหา</button>
+            </div>
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">ตำแหน่งผู้ปฎิบัติงาน :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="signOfficerPosition" id="signOfficerPosition" maxlength="100">
+          </div>
+        </div>
+      </div>
+      <!-- Right Column -->
+      <div field [col]="8">
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">หมายเหตุ :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="otherText" id="otherText" maxlength="100">
+          </div>
+        </div>
+        <div inline>
+          <div field [col]="4">
+            <label class="full-width text-right">โทร :</label>
+          </div>
+          <div field [col]="12">
+            <input type="text" formControlName="otherPhone" id="otherPhone" maxlength="20">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <app-button-footer-report (save)="save($event)" (clear)="clear($event)" (export)="export($event)">
+    </app-button-footer-report>
+  </form>
+</segment>
+
+<ui-modal [id]="'searchModal'" type="custom" size="large">
+  <div class="ui header">
+    ค้นหารายชื่อ
+  </div>
+  <br>
+  <!-- <form form [formGroup]="formSearchModal">
+        </form> -->
+
+  <div grid>
+    <div [column]="16">
+      <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableModal">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">ลำดับ</th>
+            <th class="text-center">ชื่อ-นามสกุล</th>
+            <th class="text-center">ตำแหน่ง</th>
+          </tr>
+        </thead>
+      </table>
+      <br>
+    </div>
+  </div>
+
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

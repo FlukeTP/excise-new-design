@@ -1,0 +1,273 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="ตรวจสอบใบอนุญาต" [loading]="false">
+    <form class="ui form" [formGroup]="dataFillter" (ngSubmit)="onSubmit()">
+      <div class="inline fields" *ngIf="datas">
+        <div class="three wide field">
+          <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+        </div>
+        <div class="five wide field">
+          {{datas.sector}}
+        </div>
+        <div class="two wide field">
+          <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+        </div>
+        <div class="five wide field">
+          {{datas.area}}
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="three wide field">
+          <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่สาขา</label>
+        </div>
+        <div class="five wide field">
+          -
+        </div>
+        <div class="two wide field ">
+          <label class="text-right full-width">วันที่
+          </label>
+        </div>
+        <div class="two wide field">
+          <div class="ui calendar width100" id="dateF">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input name="dateForm" type="text" style="width: 100%;" id="dateForm" autocomplete="off"
+                [attr.readonly]="null" placeholder="วว/ดด/ปปปป" [attr.required]="true" formControlName="startDate">
+            </div>
+          </div>
+        </div>
+        <div class="one wide field">
+          <label class="text-center full-width">ถึง</label>
+        </div>
+        <div class="two wide field">
+          <div class="ui calendar width100" id="dateT">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input name="dateTo" type="text" style="width: 100%;" id="dateTo" autocomplete="off"
+                [attr.readonly]="null" placeholder="วว/ดด/ปปปป" [attr.required]="true" formControlName="endDate">
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="ui center aligned grid">
+        <div class="eight wide column">
+          <button class="ui mini primary button width-100" type="submit">
+            <i class="search icon"></i>
+            ค้นหา
+          </button>
+          <!-- <button class="ui mini button" type="reset" (click)="reset()">
+            <i class="refresh icon"></i>
+            ล้างข้อมูล
+          </button> -->
+        </div>
+      </div>
+    </form>
+    <!-- <div class="ui centered grid">
+      <div class="fourteen wide column">
+        <form class="ui form" (submit)="addPrint($event)" #f="ngForm">
+          <div class="inline fields">
+            <div class="two wide  field">
+              <label class="text-right full-width">เลขที่ใบอนุญาต : </label>
+            </div>
+            <div class="three wide  field">
+              <input type="text" [(ngModel)]="lic.licNo" name="licNo">
+            </div>
+            <div class="two wide  field">
+              <label class="text-right full-width">เลขที่แบบพิมพ์ : </label>
+            </div>
+            <div class="three wide  field">
+              <input type="text" [(ngModel)]="lic.printCode" name="printCode">
+            </div>
+            <div class="two wide  field">
+              <label class="text-right full-width">จำนวนเงิน : </label>
+            </div>
+            <div class="three wide  field">
+              <input type="number" [(ngModel)]="lic.licAmount" name="licAmount">
+            </div>
+            <div class="one wide  field">
+              <button class="ui mini primary button width-100" (click)="editDataInlist()">
+                <i class="add icon"></i>
+                เพิ่ม
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div> -->
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <table id="dataTable" class="ui small celled table striped selectable" style="width: 100%;">
+          <thead>
+            <tr class="center aligned">
+              <th style="text-align: center;">ลำดับที่</th>
+              <th style="text-align: center;">วันที่ออกใบอนุญาต</th>
+              <th style="text-align: center;">วันที่นำส่งเงิน
+                <br>(ระบบรายได้)</th>
+              <th style="text-align: center;">ประเภทใบอนุญาต</th>
+              <th style="text-align: center;">เลขที่แบบพิมพ์</th>
+              <th style="text-align: center;">เลขที่ใบอนุญาต</th>
+              <th style="text-align: center;">จำนวนเงินจากระบบ</th>
+              <th style="text-align: center;">จำนวนเงินจากสำเนาใบอนุญาต</th>
+              <th style="text-align: center;">จำนวนเงินค่าธรรมเนียม
+                <br>อปท. 10%</th>
+              <th style="text-align: center;">จำนวนเงินค่ามหาดไทย
+                <br>10%</th>
+              <th style="text-align: center;">รวม</th>
+              <th style="text-align: center;">วันที่ใบอนุญาตมีผล</th>
+              <th style="text-align: center;">วันที่หมดอายุใบอนุญาต</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div class="sixteen wide column">
+        <div class="ui centered grid">
+          <div class="ui form fourteen wide column">
+            <!-- row1 -->
+            <form [formGroup]="dataConCri">
+              <div class="inline fields">
+                <div class="four wide field">
+                  <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br> (ข้อเท็จจริง/Condition) :</label>
+                </div>
+                <div class="ten  wide field">
+                  <textarea rows="3" style="width: 100%;" formControlName="detectedObserved"></textarea>
+                </div>
+              </div>
+              <!-- row2 -->
+              <div class="inline fields">
+                <div class="four wide field">
+                  <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                    :</label>
+                </div>
+                <div class="ten  wide field">
+                  <textarea rows="3" style="width: 100%;" formControlName="whatShouldBe"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="sixteen wide center aligned column">
+        <a id="btnSave" class="ui mini primary button widtd-100" (click)="saveAllData()">
+          <i class="save icon"></i>
+          บันทึก
+        </a>
+        <a class="ui mini yellow button widtd-100">
+          <i class="print icon"></i>
+          ส่งออก
+        </a>
+        <app-button-back routerLink="/int01/02/02"></app-button-back>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>
+
+<div id="modalInt062" class="ui modal hidden transition">
+  <i class="close icon"></i>
+  <div class="header">
+    แก้ไขข้อมูลใบเสร็จรับเงิน
+  </div>
+  <br>
+
+  <div class="content">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="eight wide field">
+          <label class="custom-label-w-15">วันที่รับเงิน</label>
+          <input type="text" value="02/10/60" />
+        </div>
+        <div class="eight wide field">
+          <label class="custom-label-w-15">เลขที่ใบอนุญาต</label>
+          <input type="text" value="" />
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="eight wide field">
+        </div>
+        <div class="eight wide field">
+          <label class="custom-label-w-15">เลขที่ใบอนุญาต</label>
+          <input type="text" value="" />
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="eight wide field">
+          <label class="custom-label-w-15">วันที่นำฝากบัญชี</label>
+          <input type="text" value="02/10/60" />
+        </div>
+        <div class="eight wide field">
+          <label class="custom-label-w-15">จำนวนเงิน</label>
+          <input type="text" value="" />
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="eight wide field ">
+          <label class="custom-label-w-15">ประเภทใบอนุญาต</label>
+          <select id="idint" class="ui dropdown ai">
+            <option value="0">สุราป4</option>
+            <option value="1">สุราป3</option>
+          </select>
+        </div>
+        <div class="eight wide field">
+          <label class="custom-label-w-15">10%</label>
+          <input type="text" value="" readonly="" />
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="eight wide field">
+          <label class="custom-label-w-15">แบบพิมพ์สรรพสามิต
+          </label>
+          <input type="text" value="" readonly="" class="custom-readonly" />
+        </div>
+        <div class="eight wide field">
+          <label class="custom-label-w-15">97%
+          </label>
+          <input type="text" value="" />
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="eight wide field ">
+          <label class="custom-label-w-15">เขต</label>
+          <select id="id" class="ui dropdown ai">
+            <option value="0">นอก</option>
+            <option value="1">ใน</option>
+          </select>
+        </div>
+        <div class="eight wide field">
+          <label class="custom-label-w-15">3%</label>
+          <input type="text" value="" />
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="eight wide field">
+          <label class="custom-label-w-15">เลขแบบพิมพ์</label>
+          <input type="text" value="" />
+        </div>
+        <div class="eight wide field">
+          <label class="custom-label-w-15">รวม</label>
+          <input type="text" value="200.00" readonly="" class="custom-readonly" />
+        </div>
+      </div>
+
+      <br>
+
+    </div>
+    <div class="actions">
+      <div class="ui center aligned grid">
+        <div class="six wide column">
+          <button class="ui mini primary button " (click)="saveAllData()">
+            <i class="save icon"></i>
+            บันทึก
+          </button>
+          <button class="ui mini button " (click)="closePopupEdit()">
+            <i class="close icon"></i>
+            ยกเลิก
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,391 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <segment header="ตรวจสอบใบเสร็จรับเงินภาษีสรรพสามิต" [loading]="false">
+      <div class="ui grid">
+
+        <div class="sixteen wide center aligned  column">
+          <div *ngIf="!showDetail">
+            <form class="ui" form [formGroup]="dateFillter">
+              <div inline>
+                <div field [col]="3">
+                  <label class="text-right full-width">วันที่</label>
+                </div>
+                <div field [col]="2">
+                  <div class="ui calendar width100" id="dateF">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input name="dateForm" type="text" style="width: 100%;" id="dateForm" autocomplete="off"
+                        [attr.readonly]="null" placeholder="วว/ดด/ปปปป" [attr.required]="true"
+                        formControlName="startDate">
+                    </div>
+                  </div>
+                </div>
+                <div field [col]="1">
+                  <label class="text-center full-width">ถึง</label>
+                </div>
+                <div field [col]="2">
+                  <div class="ui calendar width100" id="dateT">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input name="dateTo" type="text" style="width: 100%;" id="dateTo" autocomplete="off"
+                        [attr.readonly]="null" placeholder="วว/ดด/ปปปป" [attr.required]="true"
+                        formControlName="endDate">
+                    </div>
+                  </div>
+                </div>
+                <div field [col]="2">
+                  <app-button-search (click)=" dateSearch()"></app-button-search>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div *ngIf="showDetail">
+            <form [formGroup]="dataFillter" (ngSubmit)="onSubmit()">
+              <div class="ui" form>
+                <div inline>
+                  <div field [col]="3">
+                    <label class="full-width text-right">
+                      เลขที่ใบเสร็จ C :
+                    </label>
+                  </div>
+                  <div field [col]="3" [ngClass]="{'error': invalidDataFillterControl('texC')}">
+                    <input type="text" class="full-width" formControlName="texC">
+                  </div>
+                  <div field [col]="2">
+                    <label class="full-width text-right">
+                      เลขที่แบบพิมพ์
+                    </label>
+                  </div>
+                  <div field [col]="3" [ngClass]="{'error': invalidDataFillterControl('printNo')}">
+                    <input type="text" class="full-width" formControlName="printNo">
+                  </div>
+                  <div field [col]="1">
+                    <label class="full-width text-right">
+                      จำนวนเงิน
+                    </label>
+                  </div>
+                  <div field [col]="3" [ngClass]="{'error': invalidDataFillterControl('NettaxAmount')}">
+                    <input type="number" name="amount" class="full-width" formControlName="NettaxAmount">
+                  </div>
+                </div>
+                <div inline>
+                  <div field [col]="3">
+                    <label class="full-width text-right">
+                      N :
+                    </label>
+                  </div>
+                  <div field [col]="3" [ngClass]="{'error': invalidDataFillterControl('texN')}">
+
+                    <input type="text" class="full-width" formControlName="texN">
+
+                  </div>
+                </div>
+              </div>
+              <app-button-custom color="green" icon="clipboard check icon" text="ตรวจสอบ" (click)="dataSearch()">
+              </app-button-custom>
+              <!-- <app-button-check ></app-button-check> -->
+            </form>
+
+            <table id="table" class="ui small celled table nowrap striped selectable dataTable no-footer" style="width: 100%;">
+              <thead>
+                <tr class="center aligned">
+                  <th style="text-align: center !important">ลำดับที่</th>
+                  <th style="text-align: center !important">วันที่จัดเก็บรายได้</th>
+                  <th style="text-align: center !important">วันที่นำฝากบัญชีพัก</th>
+                  <th style="text-align: center !important">วันที่นำเงินฝากคลัง</th>
+                  <th style="text-align: center !important">สินค้า/บริการ</th>
+                  <th style="text-align: center !important">เลขแบบพิมพ์</th>
+                  <th style="text-align: center !important">เลขใบเสร็จ </th>
+                  <th style="text-align: center !important">จำนวนเงินจากระบบ</th>
+                  <th style="text-align: center !important">จำนวนเงินจากสำเนาใบเสร็จ</th>
+                  <th style="text-align: center !important">มหาดไทย 10%</th>
+                  <th style="text-align: center !important">มหาดไทย 95%</th>
+                  <th style="text-align: center !important">เงินฝาก/ค่าใช้จ่าย 5%</th>
+                  <th style="text-align: center !important">ผู้สูงอายุ 1%</th>
+                  <th style="text-align: center !important">รวม</th>
+                  <th style="text-align: center !important">จำนวนเงินนำส่งคลัง</th>
+                  <th style="text-align: center !important">ชดเชยกรมศุลฯ 0.75%</th>
+                  <th style="text-align: center !important">ค่าพิมพ์แสตมป์ 1%</th>
+                </tr>
+
+              </thead>
+              <tbody>
+                <!-- <tr class="text-center" *ngFor="let data of taxReceipt | async; let i=index">
+                <td class="text-center">{{ i + 1}}</td>
+                <td class="text-center">{{ data.receiptDate ? dateFormat(data.receiptDate) : '-' }}</td>
+                <td class="text-center">{{ data.depositDate ? dateFormat(data.depositDate) : '-' }}</td>
+                <td class="text-center">{{ data.sendDate ? data.sendDate : '-' }}</td>
+                <td class="text-left">{{ data.incomeName ? data.incomeName : '-' }}</td>
+                <td class="text-center">{{ data.taxPrintNo && data.taxPrintNo != null ? data.taxPrintNo
+                  : '-' }}</td>
+                <td class="text-center {{ data.portal != '' ? 'red' : '' }}" data-position="left center">{{
+                  data.receiptNo ? data.receiptNo : '-' }}</td>
+
+                <td class="text-right {{ data.status == 'diff' ? 'red' : '' }}">{{round(data.netTaxAmount
+                  || 0.0) }}</td>
+                <td class="text-right {{ data.status == 'diff' ? 'red' : '' }}">{{round(data.checkedAmount
+                  || 0.0) }}</td>
+                <td class="text-right">{{ round(data.netLocAmount || 0.0) }}</td>
+                <td class="text-right">{{ round(data.locOthAmount || 0.0) }}</td>
+                <td class="text-right">{{ round(data.locExpAmount || 0.0) }}</td>
+                <td class="text-right">{{ round(data.olderFundAmount || 0.0) }}</td>
+                <td class="text-right">{{ round(data.sumAmount || 0.0) }}</td>
+                <td class="text-right">{{ round(data.sendAmount || 0.0) }}</td>
+                <td class="text-right">{{ round(data.customAmount || 0.0) }}</td>
+                <td class="text-right">{{ round(data.stampAmount || 0.0) }}</td>
+              </tr> -->
+                <tr>
+                  <td class="text-center">1</td>
+                  <td class="text-center">1/10/2018 </td>
+                  <td class="text-center"></td>
+                  <td class="text-center"> </td>
+                  <td class="text-left">ภาษีสุรา</td>
+                  <td class="text-center"></td>
+                  <td class="text-center">N00000061/0000001</td>
+                  <td class="text-right">92,919.00</td>
+                  <td class="text-right"> </td>
+                  <td class="text-right">8,491.90 </td>
+                  <td class="text-right">8,067.30 </td>
+                  <td class="text-right">424.60 </td>
+                  <td class="text-right">0.00 </td>
+                  <td class="text-right">109,902.80</td>
+                  <td class="text-right">101,410.90</td>
+                  <td class="text-right">464.60</td>
+                  <td class="text-right">92,909.71</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">2</td>
+                  <td class="text-center">1/10/2018 </td>
+                  <td class="text-center"></td>
+                  <td class="text-center"> </td>
+                  <td class="text-left">เงินบำรุง กกท. (สุรา)</td>
+                  <td class="text-center"></td>
+                  <td class="text-center">N00000061/0000002</td>
+                  <td class="text-right">11.76</td>
+                  <td class="text-right"> </td>
+                  <td class="text-right">0.00</td>
+                  <td class="text-right">0.00</td>
+                  <td class="text-right">0.00 </td>
+                  <td class="text-right">0.00 </td>
+                  <td class="text-right">11.76</td>
+                  <td class="text-right">11.76</td>
+                  <td class="text-right">0.00</td>
+                  <td class="text-right">0.00</td>
+                </tr>
+
+
+                <tr>
+                  <td class="text-center">3</td>
+                  <td class="text-center">1/10/2018 </td>
+                  <td class="text-center"></td>
+                  <td class="text-center"> </td>
+                  <td class="text-left"> เงินบำรุงองค์การกระจายเสียงฯ สุรา </td>
+                  <td class="text-center"></td>
+                  <td class="text-center">N00000061/0000003</td>
+                  <td class="text-right">8.82</td>
+                  <td class="text-right"> </td>
+                  <td class="text-right">0.00</td>
+                  <td class="text-right">8.69</td>
+                  <td class="text-right">0.13 </td>
+                  <td class="text-right">0.00 </td>
+                  <td class="text-right">17.64</td>
+                  <td class="text-right">8.82</td>
+                  <td class="text-right">0.00</td>
+                  <td class="text-right">0.00</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">4</td>
+                  <td class="text-center">1/10/2018 </td>
+                  <td class="text-center"></td>
+                  <td class="text-center"> </td>
+                  <td class="text-left"> เงินบำรุง สสส. (สุรา) </td>
+                  <td class="text-center"></td>
+                  <td class="text-center bg-c-red">N00000061/0000004</td>
+                  <td class="text-right">11.76</td>
+                  <td class="text-right"> </td>
+                  <td class="text-right">0.00</td>
+                  <td class="text-right"> 0.00</td>
+                  <td class="text-right"> 0.00 </td>
+                  <td class="text-right">0.00 </td>
+                  <td class="text-right"> 11.76</td>
+                  <td class="text-right">11.76</td>
+                  <td class="text-right">0.00</td>
+                  <td class="text-right">0.00</td>
+                </tr>
+
+                <tr>
+                  <td class="text-center">5</td>
+                  <td class="text-center">1/10/2018 </td>
+                  <td class="text-center"></td>
+                  <td class="text-center"> </td>
+                  <td class="text-left"> เงินกองทุนน้ำมันเชื้อเพลิง</td>
+                  <td class="text-center"></td>
+                  <td class="text-center bg-c-red">N00000061/0000007</td>
+                  <td class="text-right">350,000.00</td>
+                  <td class="text-right"> </td>
+                  <td class="text-right">0.00</td>
+                  <td class="text-right"> 0.00</td>
+                  <td class="text-right"> 0.00 </td>
+                  <td class="text-right">0.00 </td>
+                  <td class="text-right">350,000.00 </td>
+                  <td class="text-right">350,000.00</td>
+                  <td class="text-right">0.00</td>
+                  <td class="text-right">0.00</td>
+                </tr>
+
+
+                <tr>
+                  <td class="text-center">6</td>
+                  <td class="text-center">1/10/2018 </td>
+                  <td class="text-center"></td>
+                  <td class="text-center"> </td>
+                  <td class="text-left"> เงินกองทุนเพื่อส่งเสริมการอนุรักษ์พลังงาน </td>
+                  <td class="text-center"></td>
+                  <td class="text-center">N00000061/0000008</td>
+                  <td class="text-right">2,500.00</td>
+                  <td class="text-right"> </td>
+                  <td class="text-right">0.00</td>
+                  <td class="text-right"> 0.00</td>
+                  <td class="text-right"> 0.00 </td>
+                  <td class="text-right">0.00 </td>
+                  <td class="text-right">2,500.00 </td>
+                  <td class="text-right">2,500.00 </td>
+                  <td class="text-right">0.00</td>
+                  <td class="text-right">0.00</td>
+                </tr>
+              </tbody>
+              <tfoot>
+
+
+                <!-- <tr class="text-right">
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>รวม</th>
+                <th>{{ round(totalReceipt.netTaxAmount || 0.0) }}</th>
+                <th>{{ round(totalReceipt.checkedAmount || 0.0) }}</th>
+                <th>{{ round(totalReceipt.netLocAmount || 0.0) }}</th>
+                <th>{{ round(totalReceipt.locOthAmount || 0.0) }}</th>
+                <th>{{ round(totalReceipt.locExpAmount || 0.0) }}</th>
+                <th>&nbsp;</th>
+                <th>{{ round(totalReceipt.sum || 0.0) }}</th>
+                <th>{{ round(totalReceipt.sendAmount || 0.0) }}</th>
+                <th>{{ round(totalReceipt.customAmount || 0.0) }}</th>
+                <th>{{ round(totalReceipt.stampAmount || 0.0) }}</th>
+              </tr> -->
+
+                <tr class="text-right">
+                  <th>&nbsp;</th>
+                  <th>&nbsp;</th>
+                  <th>&nbsp;</th>
+                  <th>&nbsp;</th>
+                  <th>&nbsp;</th>
+                  <th>&nbsp;</th>
+                  <th>รวม</th>
+                  <th>445,451.34</th>
+                  <th>&nbsp;</th>
+                  <th>8,491.90</th>
+                  <th>8,075.99 </th>
+                  <th>424.73</th>
+                  <th>0.00</th>
+                  <th>462,443.96 </th>
+                  <th>453,943.24</th>
+                  <th>464.60 </th>
+                  <th>92,909.71 </th>
+                </tr>
+              </tfoot>
+            </table>
+
+            <div class="ui centered grid">
+              <div class="ui form fourteen wide column">
+                <!-- row1 -->
+                <div inline>
+                  <div class="four wide field">
+                    <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br>
+                      (ข้อเท็จจริง/Condition) :</label>
+                  </div>
+                  <div class="ten  wide field">
+                    <textarea rows="3" style="width: 100%;"></textarea>
+                  </div>
+                </div>
+                <!-- row2 -->
+                <div inline>
+                  <div class="four wide field">
+                    <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                      :</label>
+                  </div>
+                  <div class="ten  wide field">
+                    <textarea rows="3" style="width: 100%;"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sixteen wide center aligned column">
+              <app-button-save></app-button-save>
+              <app-button-custom routerLink='/int06/05/02'>สรุปการใช้ใบเสร็จ</app-button-custom>
+              <!-- <app-button-check (click)="addPrint($event)" icon="file alternate outline icon"></app-button-check> -->
+              <app-button-export></app-button-export>
+              <app-button-cancel routerLink='/int01/02/02'></app-button-cancel>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </segment>
+  </div>
+</div>
+
+<!-- modal -->
+<ui-modal [id]="'edit'" [size]="'large'" [type]="'custom'">
+  <div class="header">แก้ไขข้อมูล</div>
+  <div class="content">
+    <form class="ui form" #fe="ngForm">
+      <div inline>
+        <div field [col]="2">
+          <label class="full-width text-right">
+            เลขที่ใบอนุญาต
+          </label>
+        </div>
+        <div class="three wide field {{fe.submitted && fe.controls.permit_no.invalid ? 'error' : ''}}">
+          <div class="ui input">
+            <input type="text" name="permit_no" class="full-width" ngModel required>
+          </div>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-right">
+            เลขที่แบบพิมพ์
+          </label>
+        </div>
+        <div class="three wide field {{fe.submitted && fe.controls.print_no.invalid ? 'error' : ''}}">
+          <div class="ui input">
+            <input type="text" name="print_no" class="full-width" ngModel required>
+          </div>
+        </div>
+        <div field [col]="2">
+          <label class="full-width text-right">
+            จำนวนเงิน
+          </label>
+        </div>
+        <div class="three wide field {{fe.submitted && fe.controls.amount.invalid ? 'error' : ''}}">
+          <div class="ui input">
+            <input type="text" name="amount" class="full-width" ngModel required>
+          </div>
+        </div>
+        <div field [col]="1">
+          <button class="ui mini primary button" type="submit">
+            แก้ไข
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ui-modal>
+<!-- modal -->

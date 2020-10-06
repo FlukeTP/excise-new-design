@@ -1,0 +1,75 @@
+<br>
+<div class="ui form grid">
+    <div class="two wide column"></div>
+    <div class="fourteen wide column">
+        <div class="inline fields">
+            <div class="two wide field"></div>
+            <div class="one wide field">
+            </div>
+            <div class="five wide field">
+                <label class="text-left full-width">ตรวจเสร็จภายใน 1 วัน</label>
+            </div>
+            <div class="three wide field">
+                <div class="inline fields">
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="docType" id="docType1" (change)="onShowForm(0)" value="1">
+                            <label>ใช่</label>
+                        </div>
+                    </div>&nbsp;&nbsp;
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="docType" id="docType2" (change)="onShowForm(1)" value="2">
+                            <label>ไม่ใช่</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="showForm[0]">
+            <div class="inline fields">
+                <div class="two wide field"></div>
+                <div class="one wide field">
+                    <i class="small circular inverted yellow sticky note icon" style="font-size: 1em;"></i>
+                </div>
+                <div class="five wide field">
+                    <label class="text-left full-width">ใบรับมอบและส่งมอบบัญชี และเอกสาร (ตส. ๐๑-๑๑)</label>
+                </div>
+                <div class="four wide field">
+                    <app-button-detail></app-button-detail>
+                    <!-- <div class="ui label" *ngIf="auditStepList[0].formTsNumber != ''">{{auditStepList[0].formTsNumber}}
+                    </div> -->
+                </div>
+            </div>
+            <div class="inline fields">
+                <div class="two wide field"></div>
+                <div class="one wide field">
+                    <i class="small circular inverted yellow sticky note icon" style="font-size: 1em;"></i>
+                </div>
+                <div class="five wide field">
+                    <label class="text-left full-width">คำให้การ (ตส. ๐๑-๑๐, ตส. ๐๑-๑๐/๑)</label>
+                </div>
+                <div class="four wide field">
+                    <app-button-detail></app-button-detail>
+                    <!-- <div class="ui label" *ngIf="auditStepList[0].formTsNumber != ''">{{auditStepList[0].formTsNumber}}
+                        </div> -->
+                </div>
+            </div>
+            <div class="inline fields">
+                <div class="two wide field"></div>
+                <div class="one wide field">
+                    <i class="small circular inverted yellow sticky note icon" style="font-size: 1em;"></i>
+                </div>
+                <div class="five wide field">
+                    <label class="text-left full-width">บันทึกผลการตรวจการเสียภาษีสรรพสามิต (ตส. ๐๑-๑๓)</label>
+                </div>
+                <div class="four wide field">
+                    <app-button-detail></app-button-detail>
+                    <!-- <div class="ui label" *ngIf="auditStepList[0].formTsNumber != ''">{{auditStepList[0].formTsNumber}}
+                            </div> -->
+                </div>
+            </div>
+        </ng-container>
+        <br>
+    </div>
+</div>

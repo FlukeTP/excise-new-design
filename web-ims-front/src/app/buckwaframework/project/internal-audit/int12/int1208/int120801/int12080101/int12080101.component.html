@@ -1,0 +1,97 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+        <segment header="{{(utilityId) ? 'แก้ไขข้อมูลค่าสาธารณูปโภค' : 'เพิ่มข้อมูลค่าสาธารณูปโภค'}}" [loading]="false">
+          <div class="ui form" [formGroup]="formSave">
+            <div class="inline fields ui centered grid ">
+              <div class="one wide field "></div>
+              <div class="three wide field required">
+                <label class="text-right full-width">ประเภทค่าสาธารณูปโภค</label>
+              </div>
+              <div class="four wide field" [ngClass]="{'error': invalidSaveControl('utilityType')}">
+                <select class="ui dropdown ai search full-width" id="utilityType" name="utilityType" formControlName="utilityType">
+                    <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let data of utilityTypeList" value="{{data.paramCode}}">{{data.value1}}</option>
+                </select>
+              </div>
+              <div class="two wide field required ">
+                <label class="text-right full-width">เลขที่ใบแจ้งหนี้</label>
+              </div>
+              <div class="four wide field" [ngClass]="{'error': invalidSaveControl('invoiceNum')}">
+                <input type="text" placeholder="เลขที่ใบแจ้งหนี้" class="custom" formControlName="invoiceNum" name="invoiceNum" id="invoiceNum">
+              </div>
+              <div class="two wide field "></div>
+            </div>
+            <!-- row 2 -->
+            <div class="inline fields ui centered grid ">
+              <div class="one wide field "></div>
+              <div class="three wide field">
+                <label class="text-right full-width">ใบแจ้งหนี้เดือน</label>
+              </div>
+              <div class="four wide field" [ngClass]="{'error': invalidSaveControl('invoiceMonth')}">
+                <div class="ui calendar" id="month" style="width:100%">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" autocomplete="off" id="month" name="month" placeholder="ดด" formControlName="invoiceMonth">
+                  </div>
+                </div>
+              </div>
+              <div class="two wide field">
+                <label class="text-right full-width">วันที่ในใบแจ้งหนี้</label>
+              </div>
+              <div class="four wide field" [ngClass]="{'error': invalidSaveControl('invoiceDate')}">
+                <div class="ui calendar" id="date" style="width:100%">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" autocomplete="off" id="date" name="date" formControlName="invoiceDate" placeholder="วว/ดด/ปปปป">
+                  </div>
+                </div>
+              </div>
+              <div class="two wide field "></div>
+            </div>
+            <!-- row 3 -->
+            <div class="inline fields ui centered grid ">
+              <div class="one wide field "></div>
+              <div class="three wide field">
+                <label class="text-right full-width">เลขที่ ขบ.</label>
+              </div>
+              <div class="four wide field" [ngClass]="{'error': invalidSaveControl('requestNum')}">
+                <input type="text" placeholder="เลขที่ใบขอเบิก" class="custom" formControlName="requestNum" name="invoiceNum" id="invoiceNum">
+              </div>
+              <div class="two wide field ">
+                <label class="text-right full-width">วันที่เบิก</label>
+              </div>
+              <div class="four wide field" [ngClass]="{'error': invalidSaveControl('requestDate')}">
+              <div class="ui calendar" id="requestDate" style="width:100%">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" autocomplete="off" id="requestDate" formControlName="requestDate" name="requestDate" placeholder="วว/ดด/ปปปป">
+                </div>
+              </div>
+              </div>
+              <div class="two wide field "></div>
+            </div>
+            <!-- row 4 -->
+            <div class="inline fields ui centered grid ">
+              <div class="one wide field "></div>
+              <div class="three wide field">
+                <label class="text-right full-width">จำนวนเงิน</label>
+              </div>
+              <div class="four wide field" [ngClass]="{'error': invalidSaveControl('amount')}">
+                <input type="number" class="custom" formControlName="amount" name="amount" id="amount">
+              </div>
+              <div class="two wide field ">
+              </div>
+              <div class="four wide field">
+              </div>
+              <div class="two wide field "></div>
+            </div>
+
+            <br><br>
+            <div class="ui center aligned grid">
+              <div class="sixteen wide column">
+                <app-button-save (click)="onSave()"></app-button-save>
+                <app-button-back routerLink="/int12/08/01"></app-button-back>
+              </div>
+            </div>
+          </div>
+        </segment>
+      </with-breadcrumb>

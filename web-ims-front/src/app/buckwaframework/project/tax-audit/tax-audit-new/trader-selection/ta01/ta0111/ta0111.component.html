@@ -1,0 +1,84 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="รายนอกแผน/เปลี่ยนแปลงรายในแผน (TA0111)" [loading]="loading" [right]="true">
+
+     <div class="ui form">
+
+        <form form [formGroup]="formsearch">
+          <div inline>
+            <div field [col]="3">
+              <label class="text-right full-width">ปีงบประมาณ</label>
+            </div>
+            <div field [col]="2">
+              <!-- <div class="ui calendar full-width" id="date1">
+                <div class="ui input left icon">
+                  <i class="calendar alternate outline icon"></i>
+                  <input type="text" autocomplete="off" placeholder="ปปปป" id="inputDate1" >
+                </div>
+              </div> -->
+              <select class="ui fluid dropdown full-width" (change)="budgerYearChange($event)" id="budgetYear">
+                <option *ngFor="let item of budgetYearList" value="{{item}}">{{item}}</option>
+              </select>
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width"> สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div field [col]="3" [ngClass]="{'disabled': isArea || isSector}">
+              <select class="ui dropdown full-width" id="sector" (change)="onChangeSector($event)"
+                formControlName="sector">
+                <option value="">ทั้งหมด</option>
+                <option value="0">ทั้งหมด</option>
+                <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+              </select>
+            </div>
+            <div field [col]="2">
+              <label class="text-right full-width"> สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div field [col]="3"  [ngClass]="{'disabled': isArea}">
+              <select class="ui dropdown full-width" id="area" formControlName="area">
+                <option value="">ทั้งหมด</option>
+                <option value="0">ทั้งหมด</option>
+                <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+              </select>
+            </div>
+          </div>
+
+           <div class="ui center aligned grid">
+              <div class="eight wide column">
+                 
+                 <app-button-custom (click)="gotoCreatePage()">เพิ่มรายนอกแผน/เปลี่ยนรายในแผน</app-button-custom>
+                 <!-- <app-button-custom >ค้นหารายชื่อผู้ประกอบการ</app-button-custom> -->
+              </div>
+           </div>
+        </form>
+     </div>
+  </segment>
+
+  <segment header="" [loading]="loading">
+    <div class="ui grid">
+       <div class="sixteen wide column">
+          <div class="ui grid">
+             <div class="sixteen wide column">
+                <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tablePlan">
+                   <thead class="text-center">
+                      <tr>
+                         <th class="text-center">ลำดับ</th>
+                         <th class="text-center">สถานะ</th>
+                         <th class="text-center">เลขทะเบียนสรรพสามิต</th>
+                         <th class="text-center">ชื่อผู้ประกอบการ</th>
+                         <th class="text-center">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+                         <th class="text-center">ภาค/พื้นที่</th>
+                         <th class="text-center">ทุนจดทะเบียน</th>
+                         <th class="text-center">พิกัดสินค้า/บริการ</th>
+                         <th class="text-center">หน่วยงานที่คัดเลือก</th>
+                         <th class="text-center">เหตุผล</th>
+                      </tr>
+                   </thead>
+                </table>
+                <br>
+             </div>
+          </div>
+       </div>
+    </div>
+ </segment>
+</with-breadcrumb>

@@ -1,0 +1,233 @@
+<segment header="บันทึกมอบหมายสำนวนการตรวจสอบภาษีสรรพสามิต (ตส. ๐๑-๒๑)" [right]="true">
+  <div headRight>
+    {{taFormTS0121.get('formTsNumber').value}}
+  </div>
+
+  <form form [formGroup]="taFormTS0121">
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ราย :</label>
+      </div>
+      <div field [col]="6" >
+        <input type="text" formControlName="factoryName" maxlength="50">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ชื่อผู้ส่งมอบ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officerSendFullName1" maxlength="30">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ตำแหน่งผู้ส่งมอบ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officerSendPosition1" maxlength="30">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ชื่อผู้รับมอบ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officerReceiveFullName1" maxlength="30">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ตำแหน่งผู้รับมอบ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officerReceivePosition1" maxlength="30">
+      </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">สำนัก :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officeName" maxlength="50">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">วันที่ :</label>
+      </div>
+      <div field [col]="2" class="ui calendar" id="docDate">
+        <div class="ui input left icon">
+          <i class="calendar alter nate outline icon"></i>
+          <input type="calendar" id="docDate" name="docDate" formControlName="docDate">
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ตามที่ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="comdDesc" maxlength="30">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ได้มีคำสั่งเมื่อวันที่ :</label>
+      </div>
+      <div field [col]="2" class="ui calendar" id="comdDate">
+        <div class="ui input left icon">
+          <i class="calendar alter nate outline icon"></i>
+          <input type="calendar" id="comdDate" name="comdDate" formControlName="comdDate">
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ข้าพเจ้า :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officerSendFullName2" maxlength="30">
+      </div>
+      <div field [col]="8">
+        <label class="full-width">จึงขอโอนสำนวนเรื่องการตรวจสอบภาษีสรรพสามิตที่ยังค้างดำเนินการ</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ราย :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="factoryName2" maxlength="50">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ให้แก่ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officerReceiveFullName2" maxlength="30">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ชื่อผู้ส่งมอบ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officerSendFullName3" maxlength="30">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ชื่อผู้รับมอบ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="officerReceiveFullName3" maxlength="30">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="8">
+        <label class="full-width text-right">ได้ดำเนินการส่งมอบและรับมอบสำนวนเรื่องการตรวจสอบภาษี
+          บัญชีหลักฐานเอกสารต่างๆ ของ ราย :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="factoryName3" maxlength="50">
+      </div>
+      <div field [col]="2">
+        <label class="full-width">ไว้ระหว่างกัน ดังนี้</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">๑.</label>
+      </div>
+      <div field [col]="3">
+        <label class="full-width text-left">เอกสารในสำนวนการตรวจสอบรวมทั้งสิ้น :</label>
+      </div>
+      <div field [col]="1">
+        <input type="text" class="text-right" formControlName="doc1Num" maxlength="2" numberOnly>
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-left">ฉบับ</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">๒.</label>
+      </div>
+      <div field [col]="6">
+        <label class="full-width text-left">บัญชีหลักฐานเอกสารต่างๆ ตามที่ระบุไว้ในใบรับมอบและส่งมอบบัญชี
+          เอกสารจำนวน :</label>
+      </div>
+      <div field [col]="1">
+        <input type="text" class="text-right" formControlName="docAcct1Num" maxlength="2" numberOnly>
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-left">ฉบับ</label>
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">เอกสารหมายเลข :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="docAcct1No" maxlength="10">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="8">
+        <label class="full-width text-right">เว้นแต่หลักฐานเอกสารบัญชี ที่ผู้เสียภาษี
+          ได้รับคืนไปก่อนตามหลักฐานใบรับมอบและส่งมอบบัญชี เอกสาร จำนวน :</label>
+      </div>
+      <div field [col]="1">
+        <input type="text" class="text-right" formControlName="docAcct2Num" maxlength="2" numberOnly>
+      </div>
+      <div field [col]="1">
+        <label class="full-width text-left">ฉบับ</label>
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">เอกสารหมายเลข :</label>
+      </div>
+      <div field [col]="4">
+        <input type="text" formControlName="docAcct2No" maxlength="10">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">๓. หลักฐานเอกสารอื่นๆ<br>ได้แก่ :</label>
+      </div>
+      <div field [col]="14">
+        <textarea name="" id="" cols="30" rows="2" formControlName="docOther"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="14">
+        <label class="full-width text-left">ผู้ส่งมอบและผู้รับมอบได้ตรวจสอบหลักฐานเอกสารดังกล่าวข้างต้นแล้ว
+          ปรากฏว่าถูกต้อง จึงลงลายมือชื่อไว้ต่อหน้าพยาน</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ชื่อผู้ส่งมอบ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="signOfficerFullName1" maxlength="30">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">พยาน :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="signWitnessFullName1" maxlength="30">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ชื่อผู้รับมอบ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="signOfficerFullName2" maxlength="30">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">พยาน :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="signWitnessFullName2" maxlength="30">
+      </div>
+    </div>
+    <br>
+    <br>
+    <app-button-footer-report (save)="save($event)" (clear)="clear($event)" (export)="export($event)">
+    </app-button-footer-report>
+  </form>
+</segment>

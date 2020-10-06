@@ -1,0 +1,150 @@
+<!-- <app-breadcrumb [route]="breadcrumb"></app-breadcrumb> -->
+<br>
+<segment header="บันทึกคำขอเบิก" [loading]="false">
+  <div class="ui form">
+    <div class="ui attached">
+      <div class="inline fields">
+        <!-- <div class="two wide field">
+          <label class="full-width text-right">เลือกแบบขอเบิก</label>
+        </div>
+        <div class="four wide field" [ngClass]=" { 'error': bills === null ||  bills === ''} ">
+          <select id="bill" name="bill" class="ui fluid dropdown" [(ngModel)]="bills">
+            <option value="">กรุณาเลือก</option>
+            <option value="1">แบบขอเบิกเงินค่าเช่าบ้าน (แบบ 6006)</option>
+            <option value="2">ใบเบิกเงินสวัสดิการเกี่ยวกับการรักษาพยาบาล (แบบ 7131)</option>
+          </select>
+        </div> -->
+        <div class="five wide field ">
+          <label class="text-right full-width">ตั้งแต่วันที่
+          </label>
+        </div>
+        <div class="two wide field">
+          <div class="ui calendar" id="calendar1" style="width:100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" placeholder="วว/ดด/ปปปป" name="endDate" id="endDate" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="one wide field">
+          <label class="text-center full-width">ถึงวันที่</label>
+        </div>
+        <div class="two wide field">
+          <div class="ui calendar" id="calendar2" style="width:100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" placeholder="วว/ดด/ปปปป" name="endDate" id="endDate" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="six wide field"></div>
+        <div class="three wide field">
+          <app-button-search (click)="searchFilter()"></app-button-search>
+          <button class="ui primary mini button" (click)="createbill()">
+            <i class="plus icon"></i>
+            ทำรายการ
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="inline filds">
+        <div class="sixteen wide field"> -->
+  <div contentLeft>
+    <div class="ui mini buttons">
+      <button class="ui button btn1" style="border-radius: 0px" [ngClass]="{'positive active': tab === 1 }"
+        (click)="changeTab(1)"><i class="large home icon" [ngClass]="{'blue-color': tab === 1}"></i>ค่าเช่าบ้าน
+        แบบ 6006</button>
+      <button class="ui button btn2" style="border-radius: 0px" [ngClass]="{'positive active': tab === 2}"
+        (click)="changeTab(2)"><i class="large user md icon" [ngClass]="{'red-color': tab === 2}"></i>การรักษาพยาบาล
+        แบบ 7131</button>
+      <button class="ui button btn3" style="border-radius: 0px" [ngClass]="{'positive active': tab === 3}"
+        (click)="changeTab(3)"><i class="large graduation cap icon" [ngClass]="{'brown-color': tab === 3}"></i>
+        การศึกษาบุตร แบบ 7223</button>
+    </div>
+  </div>
+  <!-- <div class="large ui buttons" id="topview">
+            <button class="large ui button" [ngClass]="{'positive active': tab === 1 }" (click)="changeTab(1)">
+              <i class="large home icon" [ngClass]="{'blue-color': tab === 1}"></i>
+              ค่าเช่าบ้าน แบบ 6006
+            </button>
+            <button class="large ui button" [ngClass]="{'positive active': tab === 2}" (click)="changeTab(2)">
+              <i class="large user md icon" [ngClass]="{'red-color': tab === 2}"></i>
+              การรักษาพยาบาล แบบ 7131
+            </button>
+            <button class="large ui button" [ngClass]="{'positive active': tab === 3}" (click)="changeTab(3)">
+              <i class="large graduation cap icon" [ngClass]="{'brown-color': tab === 3}"></i>
+              การศึกษาบุตร แบบ 7223
+            </button>
+          </div> -->
+  <div class="tabcontent" [hidden]="tab !== 1 ">
+    <table id="table1" class="ui small celled table table1 nowrap striped selectable" style="width: 100%">
+      <thead class="text-center">
+        <tr>
+          <th style="text-align: center!important">ลำดับที่</th>
+          <th style="text-align: center!important">วันที่บันทึกคำขอเบิก</th>
+          <th style="text-align: center!important">ประจำเดือน</th>
+          <th style="text-align: center!important">ชื่อผู้เบิก</th>
+          <th style="text-align: center!important">ตำแหน่ง</th>
+          <th style="text-align: center!important">สังกัด</th>
+          <th style="text-align: center!important">ประเภทการจ่ายเงิน</th>
+          <th style="text-align: center!important">จำนวนเดือน</th>
+          <th style="text-align: center!important">จำนวนใบเสร็จรับเงิน</th>
+          <th style="text-align: center!important">จำนวนเงิน (บาท)</th>
+        </tr>
+      </thead>
+      <tbody style="cursor: pointer;">
+      </tbody>
+    </table>
+  </div>
+  <div class="tabcontent" [hidden]="tab !== 2 ">
+    <table id="table2" class="ui small celled table table2 nowrap striped selectable scrollX" style="width: 100%">
+      <thead class="text-center">
+        <tr>
+          <th>ลำดับที่</th>
+          <th>วันที่บันทึกคำขอเบิก</th>
+          <!-- <th>ประจำเดือน</th> -->
+          <th>ชื่อผู้เบิก</th>
+          <th>ตำแหน่ง</th>
+          <th>สังกัด</th>
+          <th>ป่วยเป็นโรค</th>
+          <th>ได้เข้ารับการตรวจรักษาพยาบาลจาก (ชื่อสถานพยาบาล)</th>
+          <th>เป็นสถานพยาบาลของ</th>
+          <th>ตั้งแต่วันที่</th>
+          <th>ถึงวันที่</th>
+          <th>เป็นเงินรวมทั้งสิ้น</th>
+          <th>มีสิทธิได้รับเงินค่ารักษาพยาบาล</th>
+          <th>สิทธิได้รับเงินค่ารักษาพยาบาลจำนวน</th>
+          <!-- <th>จัดการ</th> -->
+        </tr>
+      </thead>
+      <tbody style="cursor: pointer;">
+      </tbody>
+    </table>
+  </div>
+  <div class="tabcontent" [hidden]="tab !== 3 ">
+    <table id="table2" class="ui small celled table table3 nowrap striped selectable scrollX" style="width: 100%">
+      <thead class="text-center">
+        <tr>
+          <th style="text-align: center!important">ลำดับที่</th>
+          <th style="text-align: center!important">วันที่บันทึกคำขอเบิก</th>
+          <th style="text-align: center!important">ประจำเดือน</th>
+          <th style="text-align: center!important">ชื่อผู้เบิก</th>
+          <th style="text-align: center!important">ตำแหน่ง</th>
+          <th style="text-align: center!important">สังกัด</th>
+          <th style="text-align: center!important">ประเภทการจ่ายเงิน</th>
+          <th style="text-align: center!important">จำนวนเดือน</th>
+          <th style="text-align: center!important">จำนวนใบเสร็จรับเงิน</th>
+          <th style="text-align: center!important">จำนวนเงิน (บาท)</th>
+        </tr>
+      </thead>
+      <tbody style="cursor: pointer;">
+      </tbody>
+    </table>
+  </div>
+
+  <!-- </div>
+  </div> -->
+</segment>

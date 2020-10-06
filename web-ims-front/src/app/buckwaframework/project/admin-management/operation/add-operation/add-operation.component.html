@@ -1,0 +1,28 @@
+<segment header="Add Operation" [loading]="false">
+  <form [formGroup]="saveForm" (submit)="handleSave($event)" class="ui form">
+    <div class="ui grid centered">
+      <div class="four column row">
+        <div class="column">
+          <div class="inline fields">
+            <label>Code</label>
+            <input type="text" formControlName="operationCode"  placeholder="Role Code">
+          </div>
+        </div>
+        <div class="column">
+          <div class="inline fields">
+            <label>Descriptions</label>
+            <input type="text" formControlName="operationDesc" placeholder="Role Descriptions">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="ui one column centered grid">
+      <div class="column aligned center">
+        <app-button-save  submit="submit" ></app-button-save>
+        <app-button-cancel routerLink="/management/role"></app-button-cancel>
+      </div>
+    </div>
+  </form>
+
+</segment>

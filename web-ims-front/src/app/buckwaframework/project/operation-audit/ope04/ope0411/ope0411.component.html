@@ -1,0 +1,112 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+    <segment header="แผนการออกตรวจควบคุมสุรากลั่นชุมชน" [loading]="false">
+      <div class="ui form">
+        <div class="center-all inline fields">
+          <div class="field">
+            <label class="full-width text-right">ปีงบประมาณ</label>
+          </div>
+          <div class="field">
+              <div class="ui selection dropdown full-width">
+                  <input type="hidden" name="gender">
+                  <i class="dropdown icon"></i>
+                  <div class=" text">2562</div>
+                  <div class="menu">
+                    <div class="item" data-value="1">2561</div>
+                    <div class="item" data-value="1">2560</div> 
+                  </div>
+                </div>
+          </div>
+          <div class="field btn ">
+            <app-button-search></app-button-search>
+            <app-button-custom (click)="createPlan()" icon="newspaper" text="สร้างแผนออกตรวจควบคุม"></app-button-custom>
+          </div>
+          <div style="text-align: right">
+              <app-button-custom routerLink="/ope04/11/05" icon="calendar alternate" text="ปฏิทิน"></app-button-custom>
+          </div>
+          
+        </div>
+        <div class="inline field">
+          <table class="ui small very compact celled table nowrap">
+            <thead class="text-center">
+              <!-- line 1 -->
+              <tr>
+                <th rowspan="2">#</th>
+                <th rowspan="2">เดือนปี</th>
+                <th rowspan="2">จำนวนการออกตรวจ</th>
+                <th colspan="3">สถานะ</th>
+                <!-- <th rowspan="2">ผลการออกตรวจ</th> -->
+              </tr>
+              <!-- line 2 -->
+              <tr>
+                <th>สร้าง</th>
+                <th>รออนุมัติออกตรวจ</th>
+                <th>ออกตรวจ</th>
+                <!-- <th>-</th> -->
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <ng-container *ngFor="let month of months; let i = index">
+                <tr>
+                  <td [attr.rowspan]="month.plans.length" class="text-top">{{ i + 1 }}</td>
+                  <td [attr.rowspan]="month.plans.length" class="text-top">{{ month.name + ' ' + month.year }}</td>
+                  <ng-container *ngIf="month.plans.length > 0">
+                    <td>
+                      {{ month.plans[0].total }}
+                    </td>
+                    <td [ngClass]="{ 'text-green': month.plans[0].status !== 'A' }">
+                      {{ month.plans[0].status == 'A' ? '': '-' }}
+                      <app-button-detail (click)="managePlan('CREATE')" *ngIf="month.plans[0].status == 'A'"></app-button-detail>
+                    </td>
+                    <td [ngClass]="{ 'text-green': month.plans[0].status !== 'B' }">
+                      {{ month.plans[0].status == 'B' ? '': '-' }}
+                      <app-button-detail (click)="managePlan('APPROVE')" *ngIf="month.plans[0].status == 'B'"></app-button-detail>
+                    </td>
+                    <td [ngClass]="{ 'text-green': month.plans[0].status !== 'C' }">
+                      {{ month.plans[0].status == 'C' ? '': '-' }}
+                      <app-button-detail (click)="managePlan('CHECKOUT')" *ngIf="month.plans[0].status == 'C'"></app-button-detail>
+                    </td>
+                    <!-- <td [ngClass]="{ 'text-green': month.plans[0].status !== 'D' }">
+                      {{ month.plans[0].status == 'D' ? '': '-' }}
+                      <app-button-detail (click)="managePlan()" *ngIf="month.plans[0].status == 'D'"></app-button-detail>
+                    </td> -->
+                    <!-- <td>
+                      {{ month.plans[0].status == 'E' ? '': '-' }}
+                      <a (click)="exportPDF($event)" *ngIf="month.plans[0].status == 'E'"><i
+                          class="big red file pdf icon"></i></a>
+                    </td> -->
+                  </ng-container>
+                </tr>
+                <ng-container *ngFor="let plan of month.plans; let j = index">
+                  <tr *ngIf="j!=0">
+                    <td>
+                      {{ plan.total }}
+                    </td>
+                    <td [ngClass]="{ 'text-green': plan.status !== 'A' }">
+                      {{ plan.status == 'A' ? '': '-' }}
+                      <app-button-detail (click)="managePlan('CREATE')" *ngIf="plan.status == 'A'"></app-button-detail>
+                    </td>
+                    <td [ngClass]="{ 'text-green': plan.status !== 'B' }">
+                      {{ plan.status == 'B' ? '': '-' }}
+                      <app-button-detail (click)="managePlan('APPROVE')" *ngIf="plan.status == 'B'"></app-button-detail>
+                    </td>
+                    <td [ngClass]="{ 'text-green': plan.status !== 'C' }">
+                      {{ plan.status == 'C' ? '': '-' }}
+                      <app-button-detail (click)="managePlan('CHECKOUT')" *ngIf="plan.status == 'C'"></app-button-detail>
+                    </td>
+                    <!-- <td [ngClass]="{ 'text-green': plan.status !== 'D' }">
+                      {{ plan.status == 'D' ? '': '-' }}
+                      <app-button-detail (click)="managePlan()" *ngIf="plan.status == 'D'"></app-button-detail>
+                    </td> -->
+                    <!-- <td>
+                      {{ plan.status == 'E' ? '': '-' }}
+                      <a (click)="exportPDF($event)" *ngIf="plan.status == 'E'"><i class="big red file pdf icon"></i></a>
+                    </td> -->
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </segment>
+  </with-breadcrumb>

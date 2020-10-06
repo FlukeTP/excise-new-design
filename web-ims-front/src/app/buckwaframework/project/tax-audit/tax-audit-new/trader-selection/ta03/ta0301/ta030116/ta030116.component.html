@@ -1,0 +1,450 @@
+<segment header="รายงานการพิจารณา ของดหรือลดเบี้ยปรับเงินเพิ่ม (ตส. ๐๑-๑๖)" [loading]="loading" [right]="true">
+  <div headRight>
+    {{taformTS0116.get('formTsNumber').value}}
+  </div>
+
+  <form form [formGroup]="taformTS0116">
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ราย :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="docText" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">เรียน :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="docDear" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="4">
+        <label class="full-width text-right">ตามที่ได้รับอนุมัติให้ประเมินเรียกเก็บภาษีสรรพสามิตราย :</label>
+      </div>
+      <div field [col]="12">
+        <input type="text" formControlName="factoryName1" maxlength="200">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">เลขทะเบียนสรรพสามิต :</label>
+      </div>
+      <div field [col]="5">
+        <input type="text" formControlName="newRegId" maxlength="17">
+      </div>
+      <div field [col]="1">
+        <app-button-custom [icon]="'search'" (click)="searchNewRegId()"></app-button-custom>
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ชื่อโรงอุตสาหกรรม/<br>สถานบริการ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="factoryName2" maxlength="200">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ประเภทกิจการ :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="factoryType" value="1">
+          <label>โรงอุตสาหกรรม</label>
+        </div>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="factoryType" value="2">
+          <label>สถานบริการ</label>
+        </div>
+      </div>
+      <div field [col]="3">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="factoryType" value="3">
+          <label>สถานประกอบการผู้นำเข้า</label>
+        </div>
+      </div>
+      <div field [col]="3">
+        <label class="full-width text-right">ผู้เสียภาษีได้ยื่นคำร้องขอเมื่อวันที่ :</label>
+      </div>
+      <div field [col]="2" class="ui calendar" id="calendarRequestDate">
+        <div class="ui input left icon">
+          <i class="calendar alter nate outline icon"></i>
+          <input type="calendar" id="requestDate" formControlName="requestDate" placeholder="วว ดดดด ปปปป">
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ประเภทคำร้อง :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui  checkbox">
+          <input type="checkbox" formControlName="requestTypeExcept"
+            (change)="onChangeCheck('requestTypeExcept',$event)"
+            [checked]="taformTS0116.get('requestTypeExcept').value == 'Y'">
+          <label>ของด</label>
+        </div>
+      </div>
+      <div field [col]="2">
+        <div class="ui  checkbox">
+          <input type="checkbox" formControlName="requestTypeReduce"
+            (change)="onChangeCheck('requestTypeReduce',$event)"
+            [checked]="taformTS0116.get('requestTypeReduce').value == 'Y'">
+          <label>ขอลด</label>
+        </div>
+      </div>
+      <div field [col]="2">
+        <div class="ui  checkbox">
+          <input type="checkbox" formControlName="requestTypeFineAmt"
+            (change)="onChangeCheck('requestTypeFineAmt',$event)"
+            [checked]="taformTS0116.get('requestTypeFineAmt').value == 'Y'">
+          <label>เบี้ยปรับ</label>
+        </div>
+      </div>
+      <div field [col]="2">
+        <div class="ui  checkbox">
+          <input type="checkbox" formControlName="requestTypeExtraAmt"
+            (change)="onChangeCheck('requestTypeExtraAmt',$event)"
+            [checked]="taformTS0116.get('requestTypeExtraAmt').value == 'Y'">
+          <label>เงินเพิ่ม</label>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">โดยมีเหตุผลว่า :</label>
+      </div>
+      <div field [col]="14">
+        <textarea name="" id="" cols="30" rows="4" formControlName="requestReason" maxlength="400"
+          style="resize: none"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">พนักงานเจ้าหน้าที่<br>ได้พิจารณาแล้ว<br>ปรากฏข้อเท็จจริงว่า :</label>
+      </div>
+      <div field [col]="14">
+        <textarea name="" id="" cols="30" rows="4" formControlName="requestDesc" maxlength="400"
+          style="resize: none"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">จึงมีความเห็นสมควรว่า :</label>
+      </div>
+      <div field [col]="1">
+        <div class="ui  checkbox">
+          <input type="checkbox" formControlName="fineNoFlag" (change)="onChangeCheck('fineNoFlag',$event)"
+            [checked]="taformTS0116.get('fineNoFlag').value == 'Y'">
+          <label>ไม่</label>
+        </div>
+      </div>
+      <div field [col]="1">
+        <div class="ui  checkbox">
+          <input type="checkbox" formControlName="fineReduceAmtFlag"
+            (change)="onChangeCheck('fineReduceAmtFlag',$event)"
+            [checked]="taformTS0116.get('fineReduceAmtFlag').value == 'Y'">
+          <label>ลด</label>
+        </div>
+      </div>
+      <div field [col]="1">
+        <div class="ui  checkbox">
+          <input type="checkbox" formControlName="fineExceptAmtFlag"
+            (change)="onChangeCheck('fineExceptAmtFlag',$event)"
+            [checked]="taformTS0116.get('fineExceptAmtFlag').value == 'Y'">
+          <label>งด</label>
+        </div>
+      </div>
+      <div field [col]="4">
+        <label class="full-width text-right">เบี้ยปรับภาษีสรรพสามิต คงเหลือเรียกเก็บร้อยละ :</label>
+      </div>
+      <div field [col]="1">
+        <input type="text" formControlName="finePercent" maxlength="5">
+      </div>
+      <div field [col]="4">
+        <label class="full-width text-left">ของเบี้ยปรับตามกฎหมาย</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+      </div>
+      <div field [col]="1">
+        <div class="ui  checkbox">
+          <input type="checkbox" formControlName="extraNoFlag" (change)="onChangeCheck('extraNoFlag',$event)"
+            [checked]="taformTS0116.get('extraNoFlag').value == 'Y'">
+          <label>ไม่</label>
+        </div>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="1">
+        <div class="ui  checkbox">
+          <input type="checkbox" formControlName="extraReduceAmtFlag"
+            (change)="onChangeCheck('extraReduceAmtFlag',$event)"
+            [checked]="taformTS0116.get('extraReduceAmtFlag').value == 'Y'">
+          <label>ลด</label>
+        </div>
+      </div>
+      <div field [col]="4">
+        <label class="full-width text-right">เงินเพิ่มภาษีสรรพสามิต คงเหลือเรียกเก็บร้อยละ :</label>
+      </div>
+      <div field [col]="1">
+        <input type="text" formControlName="extraPercent" maxlength="15">
+      </div>
+      <div field [col]="4">
+        <label class="full-width text-left">ของเงินเพิ่มตามกฎหมาย</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1"></div>
+      <div field [col]="15">
+        <label class="full-width">ก่อนการพิจารณางดหรือลดเบี้ยปรับเงินเพิ่ม อนุมัติประเมินภาษีไว้แล้วทั้งสิ้น
+          ดังนี้</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-center">จำนวนภาษี :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-center">เบี้ยปรับ <input type="text" formControlName="beforeFinePercent"
+            style="width: 50px !important;" maxlength="5"> เท่า :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-center">เงินเพิ่ม :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-center">ภาษีเพื่อราชการ<br>ส่วนท้องถิ่น :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-center">รวม :</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <input type="text" formControlName="beforeTaxAmt" maxlength="15" numberOnly
+          (focus)="onFocusMoney('beforeTaxAmt')" (blur)="onBlurMoney(1, 'beforeTaxAmt')">
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <input type="text" formControlName="beforeFineAmt" maxlength="15" numberOnly
+          (focus)="onFocusMoney('beforeFineAmt')" (blur)="onBlurMoney(1, 'beforeFineAmt')">
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <input type="text" formControlName="beforeExtraAmt" maxlength="15" numberOnly
+          (focus)="onFocusMoney('beforeExtraAmt')" (blur)="onBlurMoney(1, 'beforeExtraAmt')">
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <input class="custom-readonly" type="text" readonly formControlName="beforeMoiAmt" maxlength="15">
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <input class="custom-readonly" type="text" readonly formControlName="beforeSumAmt" maxlength="15">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1"></div>
+      <div field [col]="15">
+        <label class="full-width">หลังการพิจารณาอนุมัติงดหรือลดเบี้ยปรับเงินเพิ่มข้างต้น
+          คงเหลือจำนวนเงินภาษีที่ผู้เสียภาษีต้องรับผิดทั้งสิ้น ดังนี้</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-center">จำนวนภาษี :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-center">เบี้ยปรับร้อยละ <input type="text" formControlName="afterFinePercent"
+            style="width: 50px !important;" maxlength="5"> :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-center">จำนวนเงินเพิ่ม :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-center">ภาษีเพื่อราชการ<br>ส่วนท้องถิ่น :</label>
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-center">รวม :</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <input type="text" formControlName="afterTaxAmt" maxlength="15" numberOnly (focus)="onFocusMoney('afterTaxAmt')"
+          (blur)="onBlurMoney(2, 'afterTaxAmt')">
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <input type="text" formControlName="afterFineAmt" maxlength="15" numberOnly
+          (focus)="onFocusMoney('afterFineAmt')" (blur)="onBlurMoney(2, 'afterFineAmt')">
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <input type="text" formControlName="afterExtraAmt" maxlength="15" numberOnly
+          (focus)="onFocusMoney('afterExtraAmt')" (blur)="onBlurMoney(2, 'afterExtraAmt')">
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <input class="custom-readonly" type="text" readonly formControlName="afterMoiAmt" maxlength="15">
+      </div>
+      <div field [col]="1">
+      </div>
+      <div field [col]="2">
+        <input class="custom-readonly" type="text" readonly formControlName="afterSumAmt" maxlength="15">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1">
+      </div>
+      <div field [col]="7">
+        <label class="full-width text-left">จึงเรียนมาเพื่อโปรดพิจารณาสั่งการ</label>
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ชื่อผู้ปฏิบัติงาน :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="signOfficerFullName" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ความเห็นผู้บังคับบัญชา<br>ตามสายงาน :</label>
+      </div>
+      <div field [col]="6">
+        <textarea name="" id="" cols="30" rows="2" formControlName="headOfficerComment" maxlength="300"
+          style="resize: none"></textarea>
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">คำสั่งผู้มีอำนาจอนุมัติ :</label>
+      </div>
+      <div field [col]="6">
+        <textarea name="" id="" cols="30" rows="2" formControlName="approverComment" maxlength="300"
+          style="resize: none"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ชื่อผู้บังคับบัญชา :</label>
+      </div>
+      <div field [col]="6">
+        <div class="ui action input">
+          <input type="text" formControlName="signHeadOfficerFullName" maxlength="100">
+          <button class="ui button" (click)="searchModalOpen(1)">ค้นหา</button>
+        </div>
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ชื่อผู้อนุมัติ :</label>
+      </div>
+      <div field [col]="6">
+        <div class="ui action input">
+          <input type="text" formControlName="signApproverFullName" maxlength="100">
+          <button class="ui button" (click)="searchModalOpen(2)">ค้นหา</button>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">ตำแหน่งผู้บังคับบัญชา :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="signHeadOfficerPosition" maxlength="100">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">ตำแหน่งผู้อนุมัติ :</label>
+      </div>
+      <div field [col]="6">
+        <input type="text" formControlName="signApproverPosition" maxlength="100">
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="2">
+        <label class="full-width text-right">วันที่ :</label>
+      </div>
+      <div field [col]="2" class="ui calendar" id="calendarSignHeadOfficerDate">
+        <div class="ui input left icon">
+          <i class="calendar alter nate outline icon"></i>
+          <input type="calendar" id="signHeadOfficerDate" formControlName="signHeadOfficerDate"
+            placeholder="วว ดดดด ปปปป">
+        </div>
+      </div>
+      <div field [col]="4">
+      </div>
+      <div field [col]="2">
+        <label class="full-width text-right">วันที่ :</label>
+      </div>
+      <div field [col]="2" class="ui calendar" id="calendarSignApproverDate">
+        <div class="ui input left icon">
+          <i class="calendar alter nate outline icon"></i>
+          <input type="calendar" id="signApproverDate" name="signApproverDate" formControlName="signApproverDate"
+            placeholder="วว ดดดด ปปปป">
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <app-button-footer-report (save)="save($event)" (clear)="clear($event)" (export)="export($event)">
+    </app-button-footer-report>
+  </form>
+</segment>
+
+<ui-modal [id]="'searchModal'" type="custom" size="large">
+  <div class="ui header">
+    ค้นหารายชื่อ
+  </div>
+  <br>
+  <!-- <form form [formGroup]="formSearchModal">
+                </form> -->
+
+  <div grid>
+    <div [column]="16">
+      <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableModal">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">ลำดับ</th>
+            <th class="text-center">ชื่อ-นามสกุล</th>
+            <th class="text-center">ตำแหน่ง</th>
+          </tr>
+        </thead>
+      </table>
+      <br>
+    </div>
+  </div>
+
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

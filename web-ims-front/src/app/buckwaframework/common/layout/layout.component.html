@@ -1,0 +1,228 @@
+<!-- navbar -->
+<div class="ui borderless menu fixed " [ngStyle]="navbarStyles" [hidden]="onLoginPage&&!authService.getLogin()">
+    <img class="logo" src="assets/images/Logo3.jpg" style="width: 250px; height: 69px;">
+    <a href="javascript:void(0)" class="item" (click)="menuToggle()" *ngIf="authService.renderByPage('xxx')"
+        style="color:white;font-size: 1.1em;">
+        <i class="sidebar icon"></i>
+        แสดงเมนู
+    </a>
+    <a href="javascript:void(0)" (click)="routeClick()" [routerLink]="['/home']" class="ui header center aligned item grid"
+        style="color:White;width: calc(100% - 500px);font-size: 20px;" *ngIf="!authService.getLogin()">
+        ระบบบริหารจัดการ&nbsp;&nbsp;การตรวจปฏิบัติการแบบบูรณาการ
+    </a>
+    <a href="javascript:void(0)" (click)="routeClick()" [routerLink]="['/home']" class="header item" *ngIf="authService.getLogin()" style="font-size: 1.1em;">
+        <i class="home icon"></i>
+        {{ userdetail.systemName | translate }}
+        
+    </a>
+
+    <div class="right menu" *ngIf="authService.getLogin()">
+        <div class="item">
+            <a href="javascript:void(0)" id="versionProgram" style="text-align: right;text-decoration: none;color:white"></a>
+        </div>
+        <div class="item" style="padding-left: 0; padding-right: 0">
+            <a href="javascript:void(0)" id="userDetail" style="text-align: left; font-size: small;text-decoration: none;color:white;"></a>
+        </div>
+
+        <!-- แจ้งเตือน -->
+        <div hidden>
+        <!--<div class="item ui icon dropdown top right pointing notify" hidden>-->
+            <a href="javascript:void(0)" (click)="routeClick()" class="item" style="color:white;margin-bottom :9px;text-decoration: none">
+                <i class="bell outline icon" style="font-size: 160%;"></i>
+                <div class="floating ui red label" style="margin-left: -3em !important;
+             margin-top: 1.5em !important;">6</div>
+            </a>
+            <div class="menu" style="font-size: 15px;">
+                <div class="ui attached segment">
+                    <h5>สุราการขุมชน</h5>
+                </div>
+                <div class="header">
+                    ออกตรวจควบคุมประจำวัน &nbsp;(2)
+                </div>
+                <div class="item" [routerLink]="['/ope04/07']">
+                    <i class="bell outline icon"></i>
+                    หมัก 1
+                </div>
+                <div class="item" [routerLink]="['/ope04/07']">
+                    <i class="bell  outline icon"></i>
+                    กลั่น 0
+                </div>
+                <div class="item" [routerLink]="['/ope04/07']">
+                    <i class="bell  outline icon"></i>
+                    บรรจุ 1
+                </div>
+                <div class="item text-right" [routerLink]="['/ope04/09']">
+                    <a href="javascript:void(0)"><label>รายละเอียด</label></a>
+                </div>
+                <div class="header">
+                    แจ้งเตือนรอบการผลิต &nbsp;(5)
+                </div>
+                <div class="item">
+                    <i class="bell  outline icon"></i>
+                    หมัก 3
+                </div>
+                <div class="item">
+                    <i class="bell  outline icon"></i>
+                    กลั่น 1
+                </div>
+                <div class="item">
+                    <i class="bell  outline icon"></i>
+                    บรรจุ 1
+                </div>
+                <div class="item text-right" [routerLink]="['/ope04/07']">
+                    <a href="javascript:void(0)"><label>รายละเอียด</label></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ออกจากระบบ -->
+        <a href="javascript:void(0)" class="item icon" style="color:white" *ngIf="authService.getLogin()" (click)="logout()"><i
+                class="power off icon" style="font-size: 120%;"></i></a>
+    </div>
+</div>
+
+<!-- sidebar & content -->
+<div class="ui sixteen wide grid" [ngClass]="{'pushable': !onLoginPage,'pushabled': onLoginPage }">
+
+    <!-- sidebar -->
+    <div class="ui left push sidebar inverted vertical fixed menu" [ngStyle]="sidebarStyles">
+        <div [hidden]="!authService.renderByPage('tax-audit')">
+            <!-- dynamic menu -->
+            <div class="ui styled accordion bg-acd">
+                <ng-container *ngFor="let item of menuList">
+                    <div class="title acd-text bg-title">
+                        <!-- *ngIf="checkRole(['ROLE_TA_HEAD', 'ROLE_TA_ADM', 'ROLE_TA_SELECT', 'ROLE_TA_OPERATOR'], role)"> -->
+                        <!-- <i class="dropdown icon"></i> -->
+                        <i class="file alternate icon"  *ngIf="item.menuCode=='IA_ROOT'"></i>
+                        <i class="text height icon" *ngIf="item.menuCode=='TA_ROOT' "></i>
+                        <i class="industry icon" *ngIf="item.menuCode=='OA_ROOT'"></i>
+                        <i class="dropdown icon" *ngIf="item.menuCode=='ED_ROOT'"></i>
+                        <i class="user icon" *ngIf="item.menuCode=='REC_ROOT'"></i>
+                        {{item.menuName}}
+                    </div>
+                    <div class="content adjust-space">
+                        <!-- *ngIf="checkRole(['ROLE_TA_HEAD', 'ROLE_TA_ADM', 'ROLE_TA_SELECT', 'ROLE_TA_OPERATOR'], role)"> -->
+                        <app-menu-list [items]="item.menuVoList"></app-menu-list>
+                    </div>
+                </ng-container>
+                <div class="title acd-text bg-title" *ngIf="checkRole(['ROLE_EA_ADM'], role)">
+                    <i class="dropdown icon"></i>
+                    ตรวจส่งออก
+                </div>
+                <div class="content adjust-space" *ngIf="checkRole(['ROLE_EA_ADM'], role)">
+                    <div class="accordion">
+                        <div class="title sub empty acd-text" [routerLink]="[ '/connection-product-exporter'] "
+                            routerLinkActive="active">
+                            ความเชื่อมโยงระหว่างสินค้าและผู้ส่งออก
+                        </div>
+                        <div class="content adjust-space"></div>
+                        <div class="title sub empty acd-text" [routerLink]="[ '/exporter-search'] "
+                            routerLinkActive="active">
+                            ประวัติการตรวจปล่อยสินค้า
+                        </div>
+                        <div class="content adjust-space"></div>
+                    </div>
+                </div>
+                <div class="title acd-text bg-title" *ngIf="checkRole(['ROLE_ADMIN'], role)">
+                    <i class="dropdown icon"></i>
+                    แผนการออกตรวจ
+                </div>
+                <div class="content adjust-space" *ngIf="checkRole(['ROLE_ADMIN'], role)">
+                    <div class="accordion">
+                        <div class="title sub empty acd-text" [routerLink]="['/plan01/']" routerLinkActive="active">
+                            ปฎิทิน
+                        </div>
+                        <div class="content adjust-space"></div>
+                        <div class="title sub empty acd-text" [routerLink]="['/plan02/']" routerLinkActive="active">
+                            แผนประจำปี
+                        </div>
+                        <div class="content adjust-space"></div>
+                        <div class="title sub empty acd-text" [routerLink]="['/plan03/']" routerLinkActive="active">
+                            ผู้ประกอบการประจำปี
+                        </div>
+                        <div class="content adjust-space"></div>
+                    </div>
+                </div>
+                <div class="title acd-text bg-title"
+                    *ngIf="checkRole(['ROLE_ADMIN', 'ROLE_IA_ADM', 'ROLE_TA_ADM', 'ROLE_OA_ADM', 'ROLE_EA_ADM'], role)">
+                    <i class="dropdown icon"></i>
+                    ผู้ดูแลระบบ
+                </div>
+                <div class="content adjust-space"
+                    *ngIf="checkRole(['ROLE_ADMIN', 'ROLE_IA_ADM', 'ROLE_TA_ADM', 'ROLE_OA_ADM', 'ROLE_EA_ADM'], role)">
+                    <div class="accordion">
+                        <div class="title sub empty acd-text" [routerLink]="[ '/management/user-management/'] "
+                            routerLinkActive="active"
+                            *ngIf="checkRole(['ROLE_ADMIN', 'ROLE_IA_ADM', 'ROLE_TA_ADM', 'ROLE_OA_ADM', 'ROLE_EA_ADM'], role)">
+                            User Management
+                        </div>
+                        <div class="content adjust-space"></div>
+                        <div class="title sub empty acd-text" [routerLink]="[ '/management/role/'] "
+                            routerLinkActive="active" *ngIf="checkRole(['ROLE_ADMIN'], role)">
+                            Role Management
+                        </div>
+                        <div class="content adjust-space"></div>
+                        <div class="title sub empty acd-text" [routerLink]="[ '/management/operation/'] "
+                            routerLinkActive="active" *ngIf="checkRole(['ROLE_ADMIN'], role)">
+                            Operation Management
+                        </div>
+                        <div class="content adjust-space"></div>
+                        <div class="title sub empty acd-text" [routerLink]="[ '/management/preferences/'] "
+                            routerLinkActive="active" *ngIf="checkRole(['ROLE_ADMIN'], role)">
+                            Parameter Configure
+                        </div>
+                        <div class="content adjust-space"></div>
+                        <div class="title sub empty acd-text" [routerLink]="[ '/components/'] "
+                            routerLinkActive="active">
+                            Components
+                        </div>
+                        <div class="content adjust-space"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- content -->
+    <div class="ui sixteen wide pusher column grid pushed">
+        <div class="ui {{loading ?'blurring' :''}} fluid container">
+            <div class="ui active inverted dimmer" *ngIf="loading">
+                <div class="ui text loader">กำลังโหลด...</div>
+            </div>
+            <message-bar></message-bar>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+<!-- modals -->
+<ui-modal [id]="'alert'" [size]="'mini'" [type]="'custom'">
+    <div class="ui header" [ngStyle]="headerStyles" id="alert-header">
+        เกิดข้อผิดพลาด
+    </div>
+    <div class="content" id="alert-content">
+        <p></p>
+    </div>
+    <div class="actions" id="alert-actions" style="justify-content: center;display: flex;">
+        <div class="ui mini cancel button" style="background: #e0e1e2 none; color: black; outline: none">
+            ปิด
+        </div>
+    </div>
+</ui-modal>
+<ui-modal [id]="'confirm'" [size]="'mini'" [type]="'custom'">
+    <div class="ui header" [ngStyle]="headerStyles">
+        การยืนยัน
+    </div>
+    <div class="content">
+        <p>ต้องการลบหรือไม่?</p>
+    </div>
+    <div class="actions" style="justify-content: center;display: flex;">
+        <div class="ui mini positive button" style="background: #2185d0; outline: none">
+            ยืนยัน
+        </div>
+        <div class="ui mini negative button" style="background: #e0e1e2 none; color: black">
+            ยกเลิก
+        </div>
+    </div>
+</ui-modal>

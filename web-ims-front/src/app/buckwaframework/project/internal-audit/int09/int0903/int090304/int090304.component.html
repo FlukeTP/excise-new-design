@@ -1,0 +1,161 @@
+<br>
+<segment header="ทะเบียนคุม KTB-Corporate" [loading]="loading">
+  <!-- form search -->
+  <form form [formGroup]="formSearch">
+    <div inline>
+      <div field [col]="3" class="required">
+        <label class="text-right full-width">สำนักงานสรรพสามิตภาค :</label>
+      </div>
+      <div field [col]="4" [ngClass]="{'error': invalidSearchFormControl('sector')}">
+        <select class="ui dropdown full-width" id="sector" (change)="onChangeSector($event)" formControlName="sector">
+          <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+          <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+        </select>
+      </div>
+      <div field [col]="3">
+        <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่ :</label>
+      </div>
+      <div field [col]="4" [ngClass]="{'error': invalidSearchFormControl('area')}">
+        <select class="ui dropdown full-width" id="area" (change)="onChangeArea($event)" formControlName="area">
+          <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+          <option value="0">ทั้งหมด</option>
+          <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">สำนักงานสรรพสามิตสาขา :</label>
+      </div>
+      <div field [col]="4" [ngClass]="{'error': invalidSearchFormControl('branch')}">
+        <select class="ui dropdown full-width" id="branch" formControlName="branch">
+          <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+          <option value="0">ทั้งหมด</option>
+          <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptName}}</option>
+        </select>
+      </div>
+      <div field [col]="3">
+        <label class="text-right full-width">ประเภทงบประมาณ :</label>
+      </div>
+      <div field [col]="4">
+        <select class="ui dropdown full-width" id="budgetType" (change)="onChangeBudgetType($event)"
+          formControlName="budgetType">
+          <option value="">เลือกประเภทงบประมาณ</option>
+          <option value="0">ทั้งหมด</option>
+          <option *ngFor="let item of budgetTypeList" value="{{item.budgetType}}">{{item.budgetType}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div inline>
+      <div field [col]="3" class="required">
+        <label class="text-right full-width">วันที่เริ่มต้น :</label>
+      </div>
+      <div field [col]="4" [ngClass]="{'error':invalidSearchFormControl('startDate')}">
+        <div class="ui calendar full-width" id="date1">
+          <div class="ui input left icon">
+            <i class="calendar alternate outline icon"></i>
+            <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="inputDate1" readonly="">
+          </div>
+        </div>
+      </div>
+      <div field [col]="3" class="required">
+        <label class="text-right full-width">วันที่สิ้นสุด :</label>
+      </div>
+      <div field [col]="4" [ngClass]="{'error':invalidSearchFormControl('endDate')}">
+        <div class="ui calendar full-width" id="date2">
+          <div class="ui input left icon">
+            <i class="calendar alternate outline icon"></i>
+            <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="inputDate2" readonly="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-search (click)="serach()"></app-button-search>
+        <app-button-clear (click)="clear()"></app-button-clear>
+      </div>
+    </div>
+  </form>
+  <br>
+
+  <!-- tab menu -->
+  <div contentLeft>
+    <div class="ui mini buttons" style="margin-bottom: 1rem">
+      <button class="ui button " style="border-radius: 0px;width:17%;font-size: 12px"
+        [routerLink]="[ '/int09/03/03']">ทะเบียนคุมเช็ค</button>
+      <button class="ui button positive" style="border-radius: 0px;width:17%;font-size: 12px"
+        [routerLink]="[ '/int09/03/04']">ทะเบียนคุม
+        KTB-Corporate</button>
+      <button class="ui button " style="border-radius: 0px;width:17%;font-size: 12px"
+        [routerLink]="[ '/int09/03/05']">ทะเบียนคุมเงินนอกงบประมาณ</button>
+      <button class="ui button " style="border-radius: 0px;width:17%;font-size: 12px"
+        [routerLink]="[ '/int09/03/06']">ทะเบียนคุมเงินงบประมาณ</button>
+      <button class="ui button " style="border-radius: 0px;width:17%;font-size: 12px"
+        [routerLink]="[ '/int09/03/07']">ทะเบียนคุมเงินฝากธนาคาร</button>
+      <button class="ui button " style="border-radius: 0px;width:15%;font-size: 12px"
+        [routerLink]="[ '/int09/03/08']">ทะเบียนคุมฎีกาเบิกจ่ายเงิน</button>
+      <button class="ui button " style="border-radius: 0px;width:15%;font-size: 12px"
+        [routerLink]="[ '/int09/03/09']">ทะเบียนคุมหลักฐานขอเบิก</button>
+    </div>
+  </div>
+  <!-- tab menu -->
+
+  <!-- data -->
+
+
+  <form form>
+    <table id="dataTable" class="ui small celled table striped selectable nowrap" style="width: 100%;">
+      <thead>
+        <tr>
+          <th style="text-align: center !important">ลำดับที่</th>
+          <th style="text-align: center !important">ผู้รับเงิน</th>
+          <th style="text-align: center !important">เลขที่บัญชี</th>
+          <th style="text-align: center !important">ประเภทค่าใช้จ่าย</th>
+          <th style="text-align: center !important">รายการ</th>
+          <th style="text-align: center !important">จำนวนเงิน</th>
+          <th style="text-align: center !important">วันที่โอน</th>
+        </tr>
+      </thead>
+    </table>
+
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต<br>(ข้อเท็จจริง/Condition):</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="3" style="resize: none" maxlength="200"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">สิ่งที่ควรจะเป็น<br>(หลักเกณฑ์/Criteria) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="3" style="resize: none" maxlength="200"></textarea>
+      </div>
+    </div>
+
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-save></app-button-save>
+        <app-button-export (click)="export()" [disabled]="exportFlag"></app-button-export>
+        <app-button-back routerLink="/int10/01"></app-button-back>
+      </div>
+    </div>
+  </form>
+
+</segment>
+
+
+<!-- form-excel -->
+<form id="form-excel" method="POST">
+  <input type="hidden" name="startDate" id="startDate">
+  <input type="hidden" name="endDate" id="endDate">
+  <input type="hidden" name="budgetType" id="budgetType">
+  <input type="hidden" name="offcode" id="offcode">
+</form>

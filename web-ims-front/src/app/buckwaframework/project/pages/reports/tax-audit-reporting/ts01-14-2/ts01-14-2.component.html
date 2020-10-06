@@ -1,0 +1,215 @@
+<form (submit)="onSubmit($event)" ngNativeValidate>
+    <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+        <span>รายละเอียดแสดงผลการตรวจสอบภาษีสรรพสามิต</span>
+    </div>
+
+    <div class="ui attached segment">
+        <div class="ui grid">
+            <div class="ui two wide column">&nbsp;</div>
+            <div class="ui twelve wide column">
+                <div class="ui form">
+
+                    <div class="inline fields">
+                        <div class="three wide field">
+                            <p>ชื่อผู้มีหน้าที่เสียภาษี : </p>
+                        </div>
+                        <div class="three wide field">
+                            <input type="text" name="taxPayer" (keyup)="onKeyUp($event, 'taxPayer')" [(ngModel)]="obj.taxPayer">
+                        </div>
+                        <div class="three wide field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" name="chk1" [(ngModel)]="obj.chk1">
+                                <label>โรงอุตสาหกรรม</label>
+                            </div>
+                        </div>
+                        <div class="three wide field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" name="chk2" [(ngModel)]="obj.chk2">
+                                <label>สถานบริการ</label>
+                            </div>
+                        </div>
+                        <div class="four wide field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" name="chk3" [(ngModel)]="obj.chk3">
+                                <label>สถานประกอบการผู้นำเข้า</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inline fields">
+                        <div class="one wide field">
+                            <p>ชื่อ : </p>
+                        </div>
+                        <div class="five wide field">
+                            <input type="text" name="department" (keyup)="onKeyUp($event, 'department')" [(ngModel)]="obj.department">
+                        </div>
+                        <div class="five wide field">
+                            <p>รอบระยะเวลาที่ตรวจสอบภาษีตั้งแต่ : </p>
+                        </div>
+                        <div class="five wide field">
+                            <input type="text" name="dateFrom" (keyup)="onKeyUp($event, 'dateFrom')" [(ngModel)]="obj.dateFrom">
+                        </div>
+                    </div>
+
+                    <div class="inline fields">
+                        <div class="four wide field">
+                            <p>ประเภทสินค้า/ บริการ : </p>
+                        </div>
+                        <div class="four wide field">
+                            <input type="text" name="productType" (keyup)="onKeyUp($event, 'productType')" [(ngModel)]="obj.productType">
+                        </div>
+                        <div class="four wide field righted aligned">
+                            <p>เลขทะเบียนสรรพสามิต : </p>
+                        </div>
+                        <div class="four wide field">
+                            <input type="text" name="exciseId" (keyup)="onKeyUp($event, 'exciseId')" [(ngModel)]="obj.exciseId">
+                        </div>
+                    </div>
+
+                    <div class="inline fields">
+                        <div class="sixteen wide field">
+                            <div style="overflow-x: scroll;">
+                                <table class="ui celled small center aligned table" style="width: 250%">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2">วัน/เดือน/ปี</th>
+                                            <th rowspan="2">พิกัดประเภทที่</th>
+                                            <th rowspan="2">มูลค่าจากการตรวจสอบ</th>
+                                            <th rowspan="2">อัตราภาษี</th>
+                                            <th rowspan="2">ภาษีสรรพสามิตที่ต้องชำระตามการตรวจสอบ</th>
+                                            <th rowspan="2">ภาษีที่ชำระไว้แล้ว</th>
+                                            <th colspan="7">ภาษีที่ต้องชำระเพิ่ม</th>
+                                            <th rowspan="2">#</th>
+                                        </tr>
+                                        <tr>
+                                            <th>ภาษี</th>
+                                            <th>เบี้ยปรับ ตาม ม.๑๔๐</th>
+                                            <th>เงินเพิ่ม ตาม ม.๑๔๑ </th>
+                                            <th>รวมเงิน</th>
+                                            <th>ภาษีเพื่อราชการส่วนท้องถิ่น ตาม ม.๑๕๐</th>
+                                            <th>รวมเงินภาษทั้งหมด</th>
+                                            <th>จำนวนเงินเดือนที่คิดเงินเพิ่ม</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let bean of beans; let i = index">
+                                            <td>
+                                                <input type="text" name="date{{i}}" (keyup)="onKeyUpBean($event, 'date', i)" [(ngModel)]="beans[i].date">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="locateAt{{i}}" (keyup)="onKeyUpBean($event, 'locateAt', i)"
+                                                    [(ngModel)]="beans[i].locateAt">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="valueFromChk{{i}}" (keyup)="onKeyUpBean($event, 'valueFromChk', i)"
+                                                    [(ngModel)]="beans[i].valueFromChk">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="taxRate{{i}}" (keyup)="onKeyUpBean($event, 'taxRate', i)"
+                                                    [(ngModel)]="beans[i].taxRate">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="taxExcise{{i}}" (keyup)="onKeyUpBean($event, 'taxExcise', i)"
+                                                    [(ngModel)]="beans[i].taxExcise">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="taxPaid{{i}}" (keyup)="onKeyUpBean($event, 'taxPaid', i)"
+                                                    [(ngModel)]="beans[i].taxPaid">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="tax{{i}}" (keyup)="onKeyUpBean($event, 'tax', i)" [(ngModel)]="beans[i].tax">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="chip{{i}}" (keyup)="onKeyUpBean($event, 'chip', i)" [(ngModel)]="beans[i].chip">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="extra{{i}}" (keyup)="onKeyUpBean($event, 'extra', i)" [(ngModel)]="beans[i].extra">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="total{{i}}" (keyup)="onKeyUpBean($event, 'total', i)" [(ngModel)]="beans[i].total">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="taxLocal{{i}}" (keyup)="onKeyUpBean($event, 'taxLocal', i)"
+                                                    [(ngModel)]="beans[i].taxLocal">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="taxTotal{{i}}" (keyup)="onKeyUpBean($event, 'taxTotal', i)"
+                                                    [(ngModel)]="beans[i].taxTotal">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="month{{i}}" (keyup)="onKeyUpBean($event, 'month', i)" [(ngModel)]="beans[i].month">
+                                            </td>
+                                            <td style="cursor: pointer">
+                                                <a (click)="onDelField(i)" style="text-decoration: none;color: red" *ngIf="(i+1) > 3">ลบ</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inline fields">
+                        <div class="sixteen wide field">
+                            <a (click)="onAddField()" style="cursor: pointer">
+                                <i class="plus icon"></i> เพิ่ม</a>
+                        </div>
+                    </div>
+
+                    <div class="inline fields">
+                        <div class="five wide field">
+                            <p>หมายเหตุ เงินเพิ่มคำนวณถึงวันที่ </p>
+                        </div>
+                        <div class="three wide field">
+                            <input type="text" name="day" (keyup)="onKeyUp($event, 'day')" [(ngModel)]="obj.day">
+                        </div>
+                        <div class="two wide field">
+                            <p>เดือน : </p>
+                        </div>
+                        <div class="two wide field">
+                            <input type="text" name="month" (keyup)="onKeyUp($event, 'month')" [(ngModel)]="obj.month">
+                        </div>
+                        <div class="two wide field">
+                            <p>พ.ศ. : </p>
+                        </div>
+                        <div class="two wide field">
+                            <input type="text" name="year" (keyup)="onKeyUp($event, 'year')" [(ngModel)]="obj.year">
+                        </div>
+                    </div>
+
+                    <div class="inline fields">
+                        <div class="three wide field">
+                            <p>ผู้มีหน้าที่เสียภาษี : </p>
+                        </div>
+                        <div class="four wide field">
+                            <input type="text" name="taxPayer" (keyup)="onKeyUp($event, 'taxPayer')" [(ngModel)]="obj.taxPayer">
+                        </div>
+                        <div class="two wide field">
+                            <p>ผู้ตรวจสอบ : </p>
+                        </div>
+                        <div class="four wide field">
+                            <input type="text" name="taxChecker" (keyup)="onKeyUp($event, 'taxChecker')" [(ngModel)]="obj.taxChecker">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="ui two wide column">&nbsp;</div>
+        </div>
+    </div>
+
+    <div class="ui bottom centered attached segment">
+        <div class="ui center aligned grid">
+            <div class="eight wide column">
+                <button class="ui mini green button" type="submit">
+                    <i class="save icon"></i>
+                    พิมพ์เอกสาร
+                </button>
+                <button class="ui mini red button" type="button" (click)="onDiscard()">
+                    <i class="times icon"></i>
+                    ยกเลิก
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

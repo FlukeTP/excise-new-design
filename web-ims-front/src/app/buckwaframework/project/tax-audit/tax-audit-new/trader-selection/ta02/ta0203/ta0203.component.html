@@ -1,0 +1,227 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment [loading]="loading">
+
+    <div grid>
+      <form [column]="3" [formGroup]="searchForm">
+        <!-- ======== search Type ============== -->
+        <!-- <div  style="height: 46px;" > -->
+        <div form>
+          <div inline>
+            <div field [col]="2">
+              <label class="text-right ">ปีงบประมาณ</label>
+            </div>
+            <div field [col]="4">
+            </div>
+            <select class="ui fluid dropdown " (change)="budgerYearChange($event)" id="budgetYear">
+              <option *ngFor="let item of budgetYearList" value="{{item}}">{{item}}</option>
+            </select>
+          </div>
+        </div>
+        <!-- </div> -->
+        <!-- <div class="ui vertical menu" style="width: auto">
+          <div class="item full-width text-center" style="padding-top: 10px!important;padding-bottom :10px!important;">
+            <div class="header">ประเภทการตรวจ</div>
+          </div>
+          <div class="item" formArrayName="auditTypeFormArray" style="padding: 0 !important"> -->
+        <!-- <div class="ui checkbox"
+              *ngFor="let item of searchForm.get('auditTypeFormArray')['controls'];let i = index;let first = first;"
+              style=" padding-bottom: 0.5em; " [formGroupName]="i">
+              <label for="auditType{{i}}">{{item.get('codeDesc').value}}</label>
+              <input type="checkbox" name="type" id="auditType{{i}}" formControlName="checkbox">
+            </div> -->
+        <!-- <a class="item" *ngFor="let item of auditType"
+              style="padding-top: 11px!important;padding-bottom :11px!important;">
+              {{item.value1}}
+              <div class="ui label"> {{item.value6}}</div>
+            </a>
+          </div>
+        </div> -->
+        <!-- ======== search Status ============== -->
+        <!-- <div class="ui vertical menu" style="width: auto">
+          <div class="item full-width text-center">
+            <div class="header">ผู้ประกอบการ</div>
+          </div>
+          <div class="item" formArrayName="auditStatusFormArray" style="padding: 0 !important"> -->
+        <!-- <div class="ui checkbox"
+              *ngFor="let item of searchForm.get('auditStatusFormArray')['controls'];let i = index;let first = first;"
+              style=" padding-bottom: 0.5em; " [formGroupName]="i">
+              <label for="auditStatus{{i}}">{{item.get('codeDesc').value}}</label>
+              <input type="checkbox" name="status" id="auditStatus{{i}}" formControlName="checkbox">
+            </div> -->
+        <!-- <a class="item" *ngFor="let item of events "
+              style="padding-top: 10px!important;padding-bottom :10px!important;">
+              {{item.facFullName}}
+            </a>
+          </div>
+        </div> -->
+
+        <div class="ui styled accordion bg-acd" style="background-color: #AF7AC5!important">
+          <div class="title active">
+            <i class="dropdown icon"></i>
+            ประเภทการตรวจ
+          </div>
+          <div class="content active" style="padding: 0 !important">
+            <div class="ui vertical menu" style="width: auto;padding: 0 !important;border-radius:0px  !important ">
+              <div class="item" style="padding: 0 !important">
+                <a class="item" *ngFor="let item of auditType"
+                  style="padding-top: 11px!important;padding-bottom :11px!important;">
+                  {{item.value1}}
+                  <div class="ui label"> {{item.value6}}</div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="title" style="background-color: #C39BD3 !important">
+            <i class="dropdown icon"></i>
+            รายพื้นที่
+          </div>
+          <div class="content " style="padding: 0 !important">
+            <div class="ui vertical menu" style="width: auto;padding: 0 !important;border-radius:0 !important">
+              <div class="item" style="padding: 0 !important">
+                <a class="item" *ngFor="let item of areaList"
+                  style="padding-top: 11px!important;padding-bottom :11px!important;">
+                  {{item.areaDesc}}
+                  <div class="ui label"> {{item.title}}</div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="title" style="background-color: #D7BDE2 !important">
+            <i class="dropdown icon"></i>
+            รายเดือน
+          </div>
+          <div class="content " style="padding: 0 !important">
+            <div class="ui vertical menu" style="width: auto;padding: 0 !important;border-radius:0 !important">
+              <div class="item" style="padding: 0 !important">
+                <a class="item" *ngFor="let item of monthYearList"
+                  style="padding-top: 11px!important;padding-bottom :11px!important;">
+                  {{item.monthName}}
+                  <div class="ui label"> {{item.facNum}}</div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="title" style="background-color:  #F5EEF8  !important">
+            <i class="dropdown icon"></i>
+            สถานะ
+          </div>
+          <div class="content " style="padding: 0 !important">
+            <div class="ui vertical menu" style="width: auto;padding: 0 !important;border-radius:0 !important">
+              <div class="item" style="padding: 0 !important">
+                <a class="item" *ngFor="let item of statusList"
+                  style="padding-top: 11px!important;padding-bottom :11px!important;">
+                  {{item.value1}}
+                  <div class="ui label"> {{item.value6}}</div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="title" style="background-color:  #fff  !important">
+            <i class="dropdown icon"></i>
+            ผู้ประกอบการ
+          </div>
+          <!-- <div class="content"> -->
+          <div class="content" style="padding: 0 !important">
+            <div class="ui vertical menu" style="width: auto;padding: 0 !important;border-radius:0 !important">
+              <div class="item" style="padding: 0 !important">
+                <a class="item" *ngFor="let item of events "
+                  style="padding-top: 10px!important;padding-bottom :10px!important;">
+                  {{item.facFullName}}
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- </div> -->
+        </div>
+        <br>
+
+        <!-- <div class="text-center">
+          <app-button-search (click)="onSearchSubmit()"></app-button-search>
+        </div> -->
+      </form>
+      <div [column]="13">
+        <div id='calendar'></div>
+      </div>
+      <div [column]="3">
+      </div>
+      <!-- <div [column]="13">
+        <div class="text-center full-width">
+          <app-button-back (click)="goBack()"></app-button-back>
+        </div>
+      </div> -->
+      <br>
+    </div>
+  </segment>
+</with-breadcrumb>
+
+<ui-modal [id]="'calendarEvent'" type="custom" size="small">
+  <div class="ui header">
+    เพิ่มเหตุการณ์
+  </div>
+  <div class="content">
+    <form class="ui form" [formGroup]="calendarForm">
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="full-width text-right">ชื่อเหตุการณ์</label>
+        </div>
+        <div class="four wide field">
+          <input type="text" formControlName="title">
+        </div>
+        <div class="four wide field">
+          <label class="full-width text-right">เลขทะเบียนสรรพสามิต</label>
+        </div>
+        <div class="four wide field">
+          <input type="text">
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="full-width text-right">ชื่อโรงอุตสาหกรรม/สถานบริการ</label>
+        </div>
+        <div class="four wide field">
+          <input type="text">
+        </div>
+        <div class="four wide field">
+          <label class="full-width text-right">ประเภทการตรวจ</label>
+        </div>
+        <div class="four wide field">
+          <select class="ui fluid dropdown full-width">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="full-width text-right">วันที่ออกตรวจ</label>
+        </div>
+        <div class="eight wide field">
+          <div class="ui calendar" style="width: 100%" id="modalStartDate">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" id="modalStartDate" formControlName="modalStartDate" placeholder="วว/ดด/ปปปป"
+                [attr.required]="true" autocomplete="off">
+            </div>
+          </div>
+          <label>ถึง</label>&nbsp;&nbsp;
+          <div class="ui calendar" style="width: 100%" id="modalEndDate">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" id="modalEndDate" formControlName="modalEndDate" placeholder="วว/ดด/ปปปป"
+                [attr.required]="true" autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <app-button-custom color="primary" text="ดูเพิ่มเติม"></app-button-custom>
+    <app-button-save (click)="addEvent()"></app-button-save>
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

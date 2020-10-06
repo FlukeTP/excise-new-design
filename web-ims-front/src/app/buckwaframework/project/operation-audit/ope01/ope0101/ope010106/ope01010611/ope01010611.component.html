@@ -1,0 +1,11 @@
+<segment header="สรุปผลการออกตรวจ" [loading]="loading" [right]="true">
+     <div headRight>
+          <app-button-custom color="green" icon="check icon" text="ดำเนินการเสร็จสิ้น" (click)="onComplete()">
+          </app-button-custom>
+     </div>
+     <div [center]="true" grid>
+          <div [column]="16" class="frame-pdf">
+               <iframe name="iframe_pdf" [src]="frameUrl()" frameborder="0" class="pdf"></iframe>
+          </div>
+     </div>
+</segment>

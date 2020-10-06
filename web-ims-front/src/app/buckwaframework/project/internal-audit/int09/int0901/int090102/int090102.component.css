@@ -1,0 +1,24 @@
+.clock {
+    color: #ff0000 !important;
+}
+.clipboard {
+    color: #ffbe00 !important;
+}
+.car {
+    color: #0eff00 !important;
+}
+.building {
+    color: #00e7dd !important;
+}
+.bed { 
+    color: #0035ff !important;
+}
+.address.card {
+    color: #ff0090 !important;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

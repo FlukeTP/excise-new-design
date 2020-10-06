@@ -1,0 +1,146 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<segment header="ตรวจสอบแสตมป์" [loading]="false">
+  <form class="ui form" [formGroup]="dataFillter" (ngSubmit)="onSubmit($event)">
+    <!-- row 1 -->
+    <div class="inline fields  ui grid" *ngIf="datas">
+      <div class="three wide field ">
+        <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+      </div>
+      <div class="four wide field ">
+        {{datas.sector}}
+      </div>
+      <div class="two wide field ">
+        <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+      </div>
+      <div class="four wide field ">
+        {{datas.area}}
+      </div>
+    </div>
+    <!-- row 2 -->
+    <div class="inline fields  ui grid">
+      <div class="three wide field ">
+        <!-- <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่สาขา</label> -->
+        <label class="text-right full-width">สถานะ</label>
+      </div>
+      <div class="four wide field ">
+        <select name="status" id="status" class="ui dropdown ai search full-width" formControlName="status">
+          <option value="">กรุณาเลือก</option>
+          <option value="รับ">รับ</option>
+          <option value="จ่าย">จ่าย</option>
+          <option value="ส่งคืน">ส่งคืน</option>
+        </select>
+      </div>
+      <div class="three wide field ">
+      </div>
+      <div class="four wide field ">
+      </div>
+    </div>
+    <!-- row 3 -->
+    <div class="inline fields  ui grid">
+      <div class="three wide field ">
+        <label class="text-right full-width">วันที่ การรับ-จ่าย-ส่งคืน</label>
+      </div>
+      <div class="four wide field ">
+        <div class="ui calendar width100" id="dateF">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input name="dateForm" type="text" style="width: 100%;" id="dateForm" autocomplete="off"
+              [attr.readonly]="null" placeholder="วว/ดด/ปปปป" [attr.required]="true" formControlName="startDate">
+          </div>
+        </div>
+      </div>
+      <div class="two wide field ">
+        <label class="text-right full-width">ถึง</label>
+      </div>
+      <div class="four wide field ">
+        <div class="ui input">
+          <div class="ui calendar width100" id="dateT">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input name="dateTo" type="text" style="width: 100%;" id="dateTo" autocomplete="off"
+                [attr.readonly]="null" placeholder="วว/ดด/ปปปป" [attr.required]="true" formControlName="endDate">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="one wide field "></div>
+    </div><br>
+    <div class="ui stackable center aligned page grid">
+      <button class="ui mini primary button" type="submit" ><i class="search icon"></i>ค้นหา</button>
+      <!-- <button class="ui mini primary button" type="button" (click)="onSearch()"><i class="search icon"></i>ค้นหา</button> -->
+      <button class="ui mini button " type="button" (click)="onClear()"><i class="refresh icon"></i> ล้างข้อมูล</button>
+      <!-- <button class="ui mini green button" routerLink="/int07/01/01/01"><i class="add icon"></i>เพิ่มข้อมูล</button> -->
+    </div><br>
+  </form>
+
+  <table id="dataTable" class="ui small celled table nowrap striped selectable" style="width: 100%">
+    <thead>
+      <tr>
+        <th style="text-align: center !important" rowspan="2">ลำดับที่</th>
+        <th style="text-align: center !important" rowspan="2">วันที่ การรับ-จ่าย-ส่งคืน</th>
+        <th style="text-align: center !important" rowspan="2">สถานะ การรับ-จ่าย</th>
+        <th style="text-align: center !important" rowspan="2">หน่วยงาน/ผู้ประกอบการที่รับ-จ่ายแสตมป์</th>
+        <th style="text-align: center !important" colspan="2">หนังสือขอเบิกแสตมป์</th>
+        <th style="text-align: center !important" colspan="2">หนังสือส่งแสตมป์</th>
+        <th style="text-align: center !important" rowspan="2">เลขที่ใบ 5 ตอน</th>
+        <th style="text-align: center !important" rowspan="2">ลงวันวันที่</th>
+        <th style="text-align: center !important" rowspan="2">วันที่ตรวจนับ</th>
+        <th style="text-align: center !important" rowspan="2">ผู้ตรวจนับ (1)</th>
+        <th style="text-align: center !important" rowspan="2">ผู้ตรวจนับ (2)</th>
+        <th style="text-align: center !important" rowspan="2">ผู้ตรวจนับ (3)</th>
+        <th style="text-align: center !important" rowspan="2">ชนิดแสตมป์/ขนาดบรรจุ</th>
+        <th style="text-align: center !important" rowspan="2">จำนวน (เล่ม)</th>
+        <th style="text-align: center !important" rowspan="2">จำนวน (ดวง)</th>
+        <th style="text-align: center !important" rowspan="2">มูลค่าที่พิมพ์ (บาทต่อดวง)</th>
+        <th style="text-align: center !important" rowspan="2">รวมค่าพิมพ์ (บาท)</th>
+        <th style="text-align: center !important" rowspan="2">ค่าภาษี (บาท)</th>
+        <th style="text-align: center !important" colspan="2">รหัสแสตมป์</th>
+        <!-- <th style="text-align: center !important" rowspan="2">หมายเหตุ</th>
+        <th style="text-align: center !important" rowspan="2">จัดการ</th> -->
+      </tr>
+      <tr>
+        <th style="text-align: center !important">เลขที่หนังสือ</th>
+        <th style="text-align: center !important">ลงวันที่</th>
+        <th style="text-align: center !important">เลขที่หนังสือ</th>
+        <th style="text-align: center !important">ลงวันที่</th>
+        <th style="text-align: center !important">รหัสแสตมป์ (เริ่ม)</th>
+        <th style="text-align: center !important">รหัสแสตมป์ (ถึง)</th>
+      </tr>
+    </thead>
+  </table>
+  <div class="sixteen wide column">
+    <div class="ui centered grid">
+      <div class="ui form fourteen wide column">
+        <!-- row1 -->
+        <div class="inline fields">
+          <div class="four wide field">
+            <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br> (ข้อเท็จจริง/Condition) :</label>
+          </div>
+          <div class="ten  wide field">
+            <textarea rows="3" style="width: 100%;"></textarea>
+          </div>
+        </div>
+        <!-- row2 -->
+        <div class="inline fields">
+          <div class="four wide field">
+            <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+              :</label>
+          </div>
+          <div class="ten  wide field">
+            <textarea rows="3" style="width: 100%;"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div class="ui centered grid">
+    <app-button-save></app-button-save>
+    <a class="ui mini primary button" routerLink="/int12/01/02"><i
+        class="file alternate outline icon"></i>สรุปแสตป์รายปีงบประมาณ</a>
+    <button class="ui mini yellow button"><i class="print icon"></i> ส่งออก</button>
+    <!-- <button class="ui mini primary button"><i class="file alternate outline icon"></i>พิมพ์รายงานตัดปีแสตมป์</button> -->
+  </div>
+  <br>
+</segment>

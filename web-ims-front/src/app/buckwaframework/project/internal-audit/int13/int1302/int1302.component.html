@@ -1,0 +1,175 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายงานผลการประเมินองค์ประกอบการควบคุมภายใน (แบบ ปย.1)" [loading]="loading">
+    <div class="ui form">
+      <form [formGroup]="formHeader">
+        <div inline>
+          <div field [col]="2" class="required">
+            <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+          </div>
+          <ng-container *ngIf="!disableDepartment">
+            <div field [col]="4" [ngClass]="{'error': invalidControl('sector')}">
+              <select class="ui dropdown full-width sector" id="sector" (change)="dropdownChange($event, 'SECTOR')"
+                formControlName="sector">
+                <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+                <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+              </select>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="disableDepartment">
+            <div field [col]="4">
+              <input readonly class="custom-readonly" [value]="exciseDepartment.sector">
+            </div>
+          </ng-container>
+
+          <div field [col]="2" class="required">
+            <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+          </div>
+          <ng-container *ngIf="!disableDepartment">
+            <div field [col]="3" [ngClass]="{'error': invalidControl('area')}">
+              <select class="ui dropdown full-width area" id="area" (change)="dropdownChange($event, 'AREA')"
+                formControlName="area">
+                <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+                <!-- <option value="0">ทั้งหมด</option> -->
+                <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+              </select>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="disableDepartment">
+            <div field [col]="3">
+              <input readonly class="custom-readonly" [value]="exciseDepartment.area">
+            </div>
+          </ng-container>
+          <div field [col]="2">
+            <label class="text-right full-width">สำนักงานสรรพสามิตสาขา</label>
+          </div>
+          <ng-container *ngIf="!disableDepartment">
+            <div field [col]="3">
+              <select class="ui dropdown full-width branch" id="branch" formControlName="branch"
+                (change)="dropdownChange($event, 'BRANCH')">
+                <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+                <!-- <option value="0">ทั้งหมด</option> -->
+                <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptName}}</option>
+              </select>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="disableDepartment">
+            <div field [col]="3">
+              <input readonly class="custom-readonly" [value]="exciseDepartment.branch">
+            </div>
+          </ng-container>
+        </div>
+
+        <div inline>
+          <div field [col]="2" class="required">
+            <label class="text-right full-width" >ปีงบประมาณ</label>
+          </div>
+          <ng-container *ngIf="!disableDepartment">
+            <div field [col]="2" [ngClass]="{'error': invalidControl('budgetYear')}">
+              <div class="ui calendar" id="budgetYearCld">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" formControlName="budgetYear" autocomplete="off" placeholder="ปปปป" readonly
+                    id="budgetYearCldInput">
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="disableDepartment">
+            <div field [col]="2">
+              <input readonly class="custom-readonly" [value]="yearInput">
+            </div>
+          </ng-container>
+          <div field [col]="9">
+            <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+          </div>
+
+          <div field [col]="3">
+            <select class="ui dropdown full-width" (change)="dropdownChange($event, 'No.')"
+              formControlName="auditTxinsurNo" id="auditIncNo">
+              <option value="">เลขที่กระดาษทำการ</option>
+              <option *ngFor="let item of py1List" value="{{item.auditPy1No}}">{{item.auditPy1No}}
+              </option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="ui center aligned grid">
+          <div class="column">
+            <app-button-search (click)="onSearch()"></app-button-search>
+            <app-button-save (click)="onSave('edit')" *ngIf=(editState)></app-button-save>
+            <app-button-save (click)="onSave('save')" *ngIf=(!editState)></app-button-save>
+            <!-- <app-button-export></app-button-export> -->
+            <app-button-clear (click)="onClearData('fromButton')"></app-button-clear>
+          </div>
+        </div>
+      </form>
+    </div>
+    <table id="dataTable" class="ui small celled table striped selectable" style="width: 100%;">
+      <thead>
+        <tr class="text-center">
+          <th style="text-align: center !important;">องค์ประกอบของการควบคุมภายใน</th>
+          <th style="text-align: center !important;">ผลการประเมิน / ข้อสรุป</th>
+          <th style="width: 155px; text-align: center !important;">ผลการตรวจ<br>(กลุ่มตรวจสอบภายใน)</th>
+        </tr>
+      </thead>
+    </table>
+    <br>
+    <div class="ui form">
+      <div class="field">
+        <label>ผลประเมินโดยรวม</label>
+        <textarea rows="6" class="custom-readonly" readonly>{{formSave.value.overallResules}}
+              </textarea>
+      </div>
+    </div>
+    <form class="ui form" [formGroup]="formSave">
+      <div inline></div>
+      <div class="field">
+        <label>ผลการตรวจ (ผลการตรวจสอบภายใน)</label>
+      </div>
+      <div inline>
+        <div field [col]="1"></div>
+        <div field [col]="2">
+          <div class="ui radio checkbox">
+            <input type="radio" value="Y" formControlName="auditResult">
+            <label>เพียงพอ เหมาะสม</label>
+          </div>
+        </div>
+        <div field [col]="2">
+          <div class="ui radio checkbox">
+            <input type="radio" value="N" formControlName="auditResult">
+            <label>ไม่เหมาะสม</label>
+          </div>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="1"></div>
+        <div field [col]="2">
+          <label>ข้อตรวจพบ</label>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="1">
+        </div>
+        <div field [col]="11">
+          <textarea rows="4" style="resize: none" formControlName="conditionText" id="py1ConditionText"
+            maxlength="500"></textarea>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="1"></div>
+        <div field [col]="2">
+          <label>ข้อเสนอแนะ</label>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="1">
+        </div>
+        <div field [col]="11">
+          <textarea rows="4" style="resize: none" formControlName="criteriaText" id="py1CriteriaText"
+            maxlength="500"></textarea>
+        </div>
+      </div>
+    </form>
+  </segment>
+</with-breadcrumb>

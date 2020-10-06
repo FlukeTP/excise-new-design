@@ -1,0 +1,40 @@
+<app-form-search header="ตรวจสอบการรับสินค้าสำเร็จรูป" [formSearch]="formGroup" (search)="search($event)"
+  (uploadTemplate)="uploadTemplate($event)" (clear)="clear($event)"></app-form-search>
+<segment header="อัพโหลด Template ข้อมูลสำหรับตรวจสอบการรับสินค้าสำเร็จรูป" *ngIf="hideUpload">
+  <form class="ui form ng-untouched ng-pristine ng-valid" id="upload-form" ngnativevalidate="">
+    <div class="inline fields  ui grid">
+      <div class="three wide field">
+        <label class="text-right full-width">เลือกไฟล์ Template ข้อมูล</label>
+      </div>
+      <div class="four wide field">
+        <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="inputfile" id="fileExel"
+          name="fileExel" required="" type="file">
+      </div>
+      <div class="four wide field">
+        <app-button-upload (click)="upload()"></app-button-upload>
+      </div>
+    </div>
+  </form>
+</segment>
+<segment header="" [loading]="false" *ngIf="hideResult">
+  <div class="inline field btn text-right">
+    <app-button-export (click)="exportFile()"></app-button-export>
+  </div>
+  <table id="dataTable" class="ui small celled nowrap table striped selectable" style="width:100%">
+    <thead class="text-center">
+      <tr>
+        <th rowspan="2" class="one wide text-center">ลำดับ</th>
+        <th rowspan="2" class="six wide text-center">รายการ</th>
+        <th rowspan="2" class="one wide text-center">ใบรับสินค้าสำเร็จรูป (1)</th>
+        <th colspan="2" class="one wide bg-blue text-center">ปริมาณรับจากการผลิต</th>
+        <th rowspan="2" class="one wide text-center">ผลต่างข้อมูลคู่ที่ 1 (2) - (1)</th>
+        <th rowspan="2" class="one wide text-center">ผลต่างข้อมูลคู่ที่ 2 (2) - (3)</th>
+      </tr>
+      <tr>
+        <th class="one wide bg-blue text-center" >งบเดือน (ภส. ๐๗-๐๔) (2)</th>
+        <th class="one wide bg-blue text-center" >บัญชีประจำวัน (ภส. ๐๗-๐๒) (3)</th>
+      </tr>
+    </thead>
+  </table>
+
+</segment>

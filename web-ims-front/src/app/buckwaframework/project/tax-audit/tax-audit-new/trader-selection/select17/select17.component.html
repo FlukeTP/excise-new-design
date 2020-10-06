@@ -1,0 +1,285 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+    <ui-modal [id]="'modal-condition'" [type]="'custom'" [size]="'large'">
+        <i class="close icon"></i>
+        <div class="header">
+            <i class="add icon"></i> เพิ่มเงื่อนไข
+        </div>
+
+        <div class="ui form content">
+            <form ngNativeValidate (submit)="onSendModal($event)">
+                <div class="inline fields">
+                    <div class="three wide field">
+                        &nbsp;
+                    </div>
+
+                    <div class="two wide field">
+                        <label>เงื่อนไขที่ 1</label>
+                    </div>
+
+                    <div class="two wide field ">
+                        <label>มากกว่า</label>
+                    </div>
+
+                    <div class="four wide field">
+                        <input type="text" id="firstNumber" (keyup)="onKeyUp($event, 'firstNumber')" placeholder="1,000,000,000"
+                            [attr.required]="true">
+                    </div>
+                </div>
+
+                <div class="inline fields" *ngFor="let num of numbers; let i = index" [attr.data-index]="i">
+                    <div class="three wide field">
+                        &nbsp;
+                    </div>
+
+                    <div class="two wide field ">
+                        <label>เงื่อนไขที่ {{i+2}}</label>
+                    </div>
+
+                    <div class="four wide field ">
+                        <input type="text" placeholder="0" name="font{{i}}" id="font{{i}}" (keyup)="onKeyUp($event, 'font'+i)"
+                            [attr.required]="true" [(ngModel)]="font[i]" value="">
+                    </div>
+
+                    <div class="one wide field ">
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;ถึง</label>
+                    </div>
+
+                    <div class="four wide field ">
+                        <input type="text" name="back{{i}}" id="back{{i}}" (keyup)="onKeyUp($event, 'back'+i)"
+                            [attr.required]="true" [(ngModel)]="back[i]" value="">
+                    </div>
+
+                    <div class="two wide field">
+                        <a (click)="onDelField(i)" *ngIf="i!==0" style="cursor: pointer;color: red">
+                            <i class="minus icon"></i> ลบ
+                        </a>
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="three wide field">
+                        &nbsp;
+                    </div>
+
+                    <div class="two wide field ">
+                        <label>เงื่อนไขที่ {{numbers.length + 2}}</label>
+                    </div>
+
+                    <div class="two wide field ">
+                        <label>น้อยกว่า</label>
+                    </div>
+
+                    <div class="four wide field ">
+                        <input type="text" id="lastNumber" (keyup)="onKeyUp($event, 'lastNumber')" placeholder="10"
+                            [attr.required]="true" value="">
+                    </div>
+                </div>
+
+                <div class="inline fields" *ngIf="numbers.length!=3">
+                    <div class="three wide field">
+                        &nbsp;
+                    </div>
+                    <i class="plus icon"></i>
+                    <div class="five wide field ">
+                        <a (click)="onAddField()" style="cursor:  pointer;">เพิ่มเงื่อนไข</a>
+                    </div>
+                </div>
+
+                <hr style="margin: 10px;">
+                <div class="ui center aligned grid">
+                    <div class="sixteen wide column">
+                        <app-button-save submit="submit"></app-button-save>
+                        <app-button-clear btnType="reset"></app-button-clear>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ui-modal>
+
+    <segment header="ข้อมูลการวิเคราะห์รายได้ของผู้ประกอบการที่มีการชำระภาษีสรรพสามิต" [loading]="false">
+        <div class="ui form">
+
+            <div class="inline fields">
+                <div class="ten wide field">
+                </div>
+                <div class="six wide field">
+                    <label class="custom-label-w-25">เลขที่วิเคราะห์ข้อมูล</label>
+                    <input value="" readonly="" class="custom-readonly" />
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <div class="sixteen wide field required">
+                    <label class="custom-label-w-25">ระหว่างวันที่ </label>
+                    <div class="four ui action input">
+                        <input type="text" placeholder="ดด/ปปปป" value="{{before}}" readonly="" class="custom-readonly">
+                        <button class="ui icon button">
+                            <i class="add to calendar icon"></i>
+                        </button>
+                    </div>
+                    <div class="field">
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ถึง&nbsp;</label>
+                    </div>
+                    <div class="four ui action input">
+                        <input type="text" placeholder="ดด/ปปปป" value="{{last}}" class="custom-readonly" [readonly]="true">
+                        <button class="ui icon button">
+                            <i class="add to calendar icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <div class="two  wide field ">
+                    <label>คำค้นหา</label>
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <div class="four wide field ">
+                    <input type="text" [(ngModel)]="formSearch" name="formSearch" id="formSearch">
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="three wide field ">
+                    <app-button-search (click)="search()"></app-button-search>
+                    <app-button-custom color="primary" icon="search icon" text="ค้นหาทั้งหมด" (click)="searchAll()"></app-button-custom>
+                </div>
+                <div class="two wide field ">
+                    <app-button-custom color="primary" icon="plus icon" text="เพิ่มเงื่อนไข" id="conditonModal"></app-button-custom>
+                </div>
+                <div class="five wide field">
+                    <label style="width: 5em;">เงื่อนไข</label>
+                    <select class="ui dropdown ai" name="condition" id="condition" (change)="changeCondition($event.target.value)">
+                        <option value="">ทั้งหมด</option>
+                        <option *ngFor="let item of valueForFontList; let i = index" value="{{valueForBackEndList[i]}}">{{item}}</option>
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="ui attached segment">
+            <br>
+            <div class="ui grid">
+                <button (click)="toggleBar()" class="ui button custom-menu" type="button"><i class="bars icon"></i>เมนู</button>
+            </div>
+            <div class="ui grid">
+                <div id="divProduct" [ngClass]="{'three wide column': !toggle, 'transition-left' : toggle}" style="padding-right: 0;">
+                    <div class="ui  styled accordion">
+                        <div class="active title" (click)="clearExciseProductType()">
+                            <i class="dropdown icon"></i>
+                            พิกัดสินค้า
+                        </div>
+                        <div class="content active">
+                            <div class="ui divided selection list">
+                                <a *ngFor="let item of listMenu" class="item {{exciseProductType == item  ? 'active' : ''}} "
+                                    (click)="selectExciseProductType(item)">
+                                    {{item}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="title" (click)="clearExciseProductType()">
+                            <i class="dropdown icon"></i>
+                            พิกัดบริการ
+                        </div>
+                        <div class="content ">
+                            <div class="ui divided selection list">
+                                <a class="item {{exciseProductType == item  ? 'active' : ''}} " *ngFor="let item of listMenu1"
+                                    (click)="selectExciseProductType2(item)">
+                                    {{item}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="title" (click)="clearExciseProductType()">
+                            <i class="dropdown icon"></i>
+                            พิกัดสินค้านำเข้า
+                        </div>
+                        <div class="content">
+                            <div class="ui divided selection list">
+                                <a class="item {{exciseProductType == item  ? 'active' : ''}} " *ngFor="let item of listMenu"
+                                    (click)="selectExciseProductType3(item)">
+                                    {{item}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div id="divDataTable" [ngClass]="{'thirteen': !toggle, 'sixteen': toggle,'wide': true, 'column': true, 'transition-left-2': toggle}">
+                    <div class="ui active inverted dimmer" *ngIf="onLoading">
+                        <div class="ui medium text loader">กำลังโหลด...</div>
+                    </div>
+                    <div>
+                        <!-- <div style="overflow-x: scroll;overflow-y: hidden;padding-bottom: 14px;"> -->
+                        <table id="userManagementDt" class="ui small celled table aligned hover nowrap" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" class="text-center">ทะเบียนสรรพสามิต เดิม/ใหม่</th>
+                                    <th rowspan="2" class="text-center">ชื่อผู้ประกอบการ</th>
+                                    <th rowspan="2" class="text-center">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+                                    <th rowspan="2" class="text-center">ภาค</th>
+                                    <th rowspan="2" class="text-center">พื้นที่</th>
+                                    <th colspan="2" class="text-center">การชำระภาษีในสภาวะปกติ (บาท)</th>
+                                    <th rowspan="2" class="text-center">เปลี่ยนแปลง (ร้อยละ)</th>
+                                    <th rowspan="2" class="text-center">เปอร์เซ็นส่วนเบี่ยงเบน</th>
+                                    <th rowspan="2" class="text-center">ชำระภาษี(เดือน)</th>
+                                    <th colspan="3" class="text-center">การตรวจสอบภาษีย้อนหลัง 3
+                                        ปีงบประมาณ</th>
+                                    <th rowspan="2" class="text-center">พิกัด</th>
+                                    <th rowspan="2" class="text-center">ที่อยู่โรงอุตสาหกรรม/สถานบริการ</th>
+                                    <th rowspan="2" class="text-center">เลขทะเบียนสรรพสามิตเก่า</th>
+                                    <th rowspan="2" class="text-center">สถานะล่าสุด</th>
+                                    <th rowspan="2" class="text-center">สถานะ/วันที่</th>
+                                    <th rowspan="2" class="text-center">ค่าเฉลี่ยภาษี</th>
+                                    <th rowspan="2" class="text-center">ค่าร้อยละสูงสุด</th>
+                                    <th rowspan="2" class="text-center">ค่าร้อยละต่ำสุด</th>
+                                    <th attr.colspan="{{month/2}}" class="text-center">การชำระภาษี
+                                        {{month/2}} เดือนแรก</th>
+                                    <th attr.colspan="{{month/2}}" class="text-center">การชำระภาษี
+                                        {{month/2}} เดือนหลัง</th>
+                                    <th rowspan="2" class="text-center">พิกัดอื่นๆ</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center" style="border-left: 1px solid rgba(34,36,38,.1);">{{month/2}}
+                                        เดือนแรก</th>
+                                    <th class="text-center">{{month/2}} เดือนหลัง</th>
+                                    <th class="text-center">{{currYear - 3}}</th>
+                                    <th class="text-center">{{currYear - 2}}</th>
+                                    <th class="text-center">{{currYear - 1}}</th>
+                                    {{trHeaderColumn}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui grid">
+                <div class="three wide column"></div>
+                <div class="five wide column"><i class="circle icon"></i> ข้อมูลภาพรวมของพิกัด : <span>{{summary.taxData}}</span></div>
+                <div class="eight wide column"> - ภาษีเฉลี่ย : </div>
+            </div>
+            <div class="ui grid">
+                <div class="three wide column"></div>
+                <div class="thirteen wide column"> - จำนวนรายทั้งหมด : <span>{{summary.totalNumber}}</span> ราย</div>
+            </div>
+            <div class="ui grid">
+                <div class="three wide column"></div>
+                <div class="five wide column"> - รายที่มีการชำระภาษี : <span>{{countPay}}</span> ราย</div>
+
+            </div>
+            <div class="ui grid">
+                <div class="three wide column"></div>
+                <div class="thirteen wide column"> - รายที่ไม่ชำระภาษี : <span>{{countNonPay}}</span> ราย</div>
+            </div>
+            <div class="ui center aligned grid">
+                <div class="sixteen wide column">
+                    <app-button-custom color="primary" icon="add icon" text="สร้างกระดาษทำการคัดเลือกราย" (click)="onSend()"></app-button-custom>
+                    <app-button-clear ></app-button-clear>
+                </div>
+            </div>
+        </div>
+    </segment>
+</with-breadcrumb>

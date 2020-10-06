@@ -1,0 +1,123 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="ระบุเงื่อนไข">
+    <div class="ui form">
+      <div class="five fields">
+        <div class="field"></div>
+        <div class="field">
+          <label class="text-right">ปีงบประมาณ</label>
+        </div>
+        <div class="field ui calendar" id="calendar">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" readonly="" value="" id="calendarraw" name="calendarraw" [attr.required]="true"
+              autocomplete="off" placeholder="ปีงบประมาณ">
+          </div>
+        </div>
+        <div class="field"></div>
+        <div class="field text-right">
+          <app-button-custom icon="file alternate" routerLink="/tax-audit-new/ta02/02">ผลการคัดเลือกกระดาษทำการ</app-button-custom>
+        </div>
+      </div>
+      <br>
+      <div class="text-center">
+
+        <app-button-search></app-button-search>
+        <app-button-clear></app-button-clear>
+      </div>
+      <br>
+    </div>
+  </segment>
+  <segment header="ผลการค้นหา">
+    <table class="ui small celled table nowrap striped selectable" id="tableDetail" style="width:100%">
+      <thead>
+        <tr>
+          <th style="text-align: center !important;" rowspan="2">เดือน</th>
+          <th style="text-align: center !important;" colspan="3">ตามแผนปฏิบัติการ</th>
+          <th style="text-align: center !important;" colspan="3">นอกแผนปฏิบัติการ</th>
+          <th style="text-align: center !important; width: 130px" rowspan="2">จัดการ</th>
+        </tr>
+        <tr>
+          <th style="text-align: center !important;">จำนวน</th>
+          <th style="text-align: center !important;">รอการดำเนินการ</th>
+          <th style="text-align: center !important;">เสร็จสิ้น</th>
+          <th style="text-align: center !important;">จำนวน</th>
+          <th style="text-align: center !important;">รอการดำเนินการ</th>
+          <th style="text-align: center !important;">เสร็จสิ้น</th>
+        </tr>
+      </thead>
+      <!-- <tbody>
+        <tr *ngFor="let item of datas">
+          <td>{{item.data1}}</td>
+          <td class="text-center">{{item.data2}}</td>
+          <td class="text-center">{{item.data3}}</td>
+          <td class="text-center">{{item.data4}}</td>
+          <td class="text-center">{{item.data5}}</td>
+          <td class="text-center">{{item.data6}}</td>
+          <td class="text-center">{{item.data7}}</td>
+          <td class="text-center">
+            <app-button-edit (click)="edit()"></app-button-edit>
+            <app-button-detail routerLink="/tax-audit-new/select16/se01"></app-button-detail>
+          </td>
+        </tr>
+      </tbody> -->
+      <!-- <tfoot>
+        <tr>
+          <td class="text-center"><b>รวม</b></td>
+          <td class="text-right"><b>2</b></td>
+          <td class="text-right"><b>2</b></td>
+          <td class="text-right"><b>0</b></td>
+          <td class="text-right"><b>1</b></td>
+          <td class="text-right"><b>1</b></td>
+          <td class="text-right"><b>0</b></td>
+          <td class="text-right"></td>
+        </tr>
+      </tfoot> -->
+    </table>
+  </segment>
+</with-breadcrumb>
+
+<ui-modal [id]="'edit-modal'" [type]="'custom'">
+  <div class="ui header">
+    แก้ไขจำนวนแผนปฏิบัติการ เดือน มกราคม 2562
+  </div>
+  <div class="content">
+    <form id="addModal-form" ngnativevalidate="" class="ng-untouched ng-pristine ng-valid">
+      <div class="ui form center aligned">
+
+        <div class="inline fields">
+          <div class="three wide field"></div>
+          <div class="five wide field right aligned">
+            <label>ตามแผนปฏิบัติการ จำนวน</label>
+          </div>
+          <div class="three wide field">
+            <input id="asPlanNumber" name="asPlanNumber" numberonly="" type="text" value="2">
+          </div>
+          <div class="one wide field right aligned">
+            <label>ราย</label>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="three wide field"></div>
+          <div class="five wide field right aligned">
+            <label>นอกแผนปฏิบัติการ จำนวน</label>
+          </div>
+          <div class="three wide field">
+            <input id="outsidePlanNumber" name="outsidePlanNumber" numberonly="" type="text" value="1">
+          </div>
+          <div class="one wide field right aligned">
+            <label>ราย</label>
+          </div>
+        </div>
+        <br>
+      </div>
+    </form>
+  </div>
+  <div class="actions ">
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-save></app-button-save>
+        <app-button-cancel class="deny"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>

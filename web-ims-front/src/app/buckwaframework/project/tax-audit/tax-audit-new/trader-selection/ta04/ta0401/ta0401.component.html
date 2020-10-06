@@ -1,0 +1,257 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <!-- search month-->
+  <segment header="ค้นหาข้อมูลการชำระภาษีของผู้ประกอบการตามเงื่อนไขที่กำหนด (TA0401)" [loading]="loading">
+    <form form [formGroup]="formGroup">
+      <div inline>
+        <div field [col]="3"> <label class="text-right full-width">ช่วงเวลาตรวจสอบข้อมูล</label></div>
+        <div field [col]="1">
+          <div class="text-right full-width">
+            <b>ปีปฏิทิน</b>&nbsp;
+            <input type="radio" name="radioChecked" value="1" [checked]="true" formControlName="radioChecked"
+              (change)="radioChange($event.target.value)">
+          </div>
+          <!-- ปฏิทิน<input type="radio" name="radioChecked" value="1" [checked]="true" formControlName="radioChecked"
+          (change)="radioChange($event)"> -->
+        </div>
+        <div field [col]="2" id="calendarYear" class="ui calendar" [ngClass]="{'error': isRequired('budgetYear','1')}">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="calendar" formControlName="budgetYear" id="budgetYear" [attr.required]="true"
+              autocomplete="off" placeholder="ปปปป">
+          </div>
+        </div>
+        <div field [col]="1">
+          <div class="text-right full-width" style="min-width: 6rem !important; margin-left: -1rem !important;">
+            <b>ช่วงเดือน</b>&nbsp;
+            <input type="radio" name="radioChecked" value="2" formControlName="radioChecked"
+              (change)="radioChange($event.target.value)">
+          </div>
+        </div>
+        <div field [col]="4">
+          <div form style="min-width: 108% !important;">
+            <div inline>
+              <div field [col]="7" id="calendar" class="ui calendar" [ngClass]="{'error': isRequired('dateStart','2')}">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="calendar" formControlName="dateStart" id="dateStart" [attr.required]="true"
+                    autocomplete="off" placeholder="ดด/ปปปป">
+                </div>
+              </div>
+              <div field [col]="2">
+                <label class="text-center full-width">ถึง</label>
+              </div>
+              <div field [col]="7" class="ui calendar" id="calendar1" [ngClass]="{'error': isRequired('dateEnd','2')}">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="calendar" formControlName="dateEnd" id="dateEnd" [attr.required]="true"
+                    autocomplete="off" placeholder="ดด/ปปปป">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div field [col]="2"><label class="text-right full-width">เลขวิเคราะห์ข้อมูล</label></div>
+        <div field [col]="3">
+          <select class="ui dropdown full-width">
+            <option value=""></option>
+          </select>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="3">
+          <div class="text-right full-width">
+            <b>ไม่มีการตรวจสอบภาษี</b>&nbsp;
+            <input type="checkbox" style="margin-top: 0.3rem !important;">
+          </div>
+        </div>
+        <div field [col]="3">
+          <select class="ui dropdown full-width" name="re">
+            <option value="0"></option>
+            <option *ngFor="let item of taMainCondRange" [value]="item.paramCode">{{item.value1}}</option>
+          </select>
+        </div>
+        <div field [col]="1">
+          <label class="text-right full-width">จำนวน</label>
+        </div>
+        <div field [col]="1">
+          <input type="number" value="0">
+        </div>
+        <div field [col]="2">
+          <label class="text-left full-width">ปี</label>
+        </div>
+        <div field [col]="3">
+          <label class="text-right full-width">เลขทะเบียนสรรพสามิต</label>
+        </div>
+        <div field [col]="3">
+          <input type="text" formControlName="newRegId" id="newRegId">
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="3">
+          <div class="text-right full-width">
+            <b>การชำระภาษี</b>&nbsp;
+            <input type="checkbox" style="margin-top: 0.3rem !important;">
+          </div>
+        </div>
+        <div field [col]="3">
+          <select class="ui dropdown full-width" name="tax" formControlName="tax">
+            <option value="">ระบุ</option>
+            <option *ngFor="let item of mainCondFreqTypeList" [value]="item.paramCode">{{item.value1}}</option>
+          </select>
+        </div>
+        <div field [col]="1">
+          <label class="text-right full-width">จำนวน</label>
+        </div>
+        <div field [col]="1">
+          <input type="text" name="taxMonthStart" formControlName="taxMonthStart">
+        </div>
+        <div field [col]="1">
+          <label class="text-center full-width">ถึง</label>
+        </div>
+        <div field [col]="1">
+          <input type="text" name="taxMonthEnd" formControlName="taxMonthEnd">
+        </div>
+        <div field [col]="1">
+          <label>เดือน</label>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="3">
+          <label class="text-right full-width">อัตราการชำระภาษีครึ่งหลัง</label>
+        </div>
+        <div field [col]="3">
+          <select class="ui dropdown full-width" name="taxHalf" formControlName="taxHalf">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of taMainCondRange" [value]="item.paramCode">{{item.value1}}</option>
+          </select>
+        </div>
+        <div field [col]="1">
+          <label class="text-right full-width">ร้อยละ</label>
+        </div>
+        <div field [col]="1">
+          <input type="text" name="taxHalfPercent1" formControlName="taxHalfPercent1">
+        </div>
+        <div field [col]="1">
+          <label class="text-center full-width">และ</label>
+        </div>
+        <div field [col]="2">
+          <select class="ui dropdown full-width">
+            <option value="0">ไม่ระบุ</option>
+            <option *ngFor="let item of taMainCondRange" [value]="item.paramCode">{{item.value1}}</option>
+          </select>
+        </div>
+        <div field [col]="1">
+          <label class="text-right full-width">ร้อยละ</label>
+        </div>
+        <div field [col]="1">
+          <input type="text" name="taxHalfPercent3" formControlName="taxHalfPercent3">
+        </div>
+        <div field [col]="2">
+          <label class="text-left full-width">เทียบกับครึ่งแรก</label>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="3">
+          <div class="text-right full-width">
+            <b>ลดหย่อน คืน ยกเว้น</b>&nbsp;
+            <input type="checkbox" style="margin-top: 0.3rem !important;">
+          </div>
+        </div>
+        <div field [col]="3">
+          <select class="ui dropdown full-width" name="except" formControlName="except">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option value="0">ลดหย่อน/คืน/ยกเว้นทุกเดือน</option>
+            <option value="0">ลดหย่อน ทุกเดือน</option>
+            <option value="0">ยกเว้น ทุกเดือน</option>
+          </select>
+        </div>
+        <div field [col]="1">
+          <label class="text-right full-width">จำนวนเดือน</label>
+        </div>
+        <div field [col]="1">
+          <input type="text" name="exceptMonthStart" formControlName="exceptMonthStart">
+        </div>
+        <div field [col]="1">
+          <label class="text-center full-width">ถึง</label>
+        </div>
+        <div field [col]="1">
+          <input type="text" name="exceptMonthEnd" formControlName="exceptMonthEnd">
+        </div>
+        <div field [col]="3">
+          <label>เดือน</label>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="3">
+          <label class="text-right full-width">อัตราการขอลดหย่อน คืน ยกเว้นระหว่างเดือน</label>
+        </div>
+        <div field [col]="3">
+          <select class="ui dropdown full-width" name="exceptฺbetween" formControlName="exceptฺbetween">
+            <option value="">ทั้งหมด</option>
+            <option *ngFor="let item of taMainCondRange" [value]="item.paramCode">{{item.value1}}</option>
+          </select>
+        </div>
+        <div field [col]="1">
+          <label class="text-right full-width">ร้อยละ</label>
+        </div>
+        <div field [col]="1">
+          <input type="text" name="exceptฺbetweenPercent" formControlName="exceptฺbetweenPercent">
+        </div>
+        <div field [col]="1"></div>
+      </div>
+
+      <div inline>
+        <div field [col]="3">
+          <div class="text-right full-width">
+            <b>งบเดือน</b>&nbsp;
+            <input type="checkbox" style="margin-top: 0.3rem !important;">
+          </div>
+        </div>
+        <div field [col]="3">
+          <select class="ui dropdown full-width">
+            <option value="">ทั้งหมด</option>
+            <option value="0">ทั้งหมด</option>
+            <option value="0">ส่งครบทุกเดือน</option>
+            <option value="0">ไม่ส่งงบเดือน</option>
+            <option value="0">ไม่ส่งงบเดือนติดต่อกัน</option>
+          </select>
+        </div>
+        <div field [col]="1">
+          <label class="text-right full-width">จำนวน</label>
+        </div>
+        <div field [col]="1">
+          <input type="text" value="0">
+        </div>
+        <div field [col]="1">
+          <label class="text-left full-width">เดือน</label>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="ui center aligned grid">
+        <div class="eight wide column">
+          <app-button-search (click)="search()"></app-button-search>
+          <app-button-save></app-button-save>
+          <app-button-clear (click)="clear()"></app-button-clear>
+        </div>
+      </div><br>
+    </form>
+  </segment>
+
+  <!-- result -->
+  <segment [loading]="loading" *ngIf="submit">
+    <div grid>
+      <div [column]="16">
+        <app-button-custom [text]="'ตามเงื่อนไข'"></app-button-custom>
+        <app-button-custom [text]="'ไม่อยู่ในเงื่อนไข'"></app-button-custom>
+        <br>
+        <app-table-custom [datas]="datas" [recordTotal]="recordTotal" [objMonth]="objMonth"
+          (pageChangeOutput)="pageChangeOutput($event)">
+        </app-table-custom>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

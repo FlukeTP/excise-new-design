@@ -1,0 +1,181 @@
+<div class="ui grid">
+    <div class="sixteen wide column">
+        <h2 class="ui header">สร้างกระดาษทำการเปรียบเทียบปริมาณการจำหน่ายสินค้าสำเร็จรูปภายในประเทศ</h2>
+
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>Criteria</span>
+        </div>
+
+        <div class="ui attached segment">
+
+
+            <div class="ui form">
+                <div class="inline fields">
+                    <div class="eight wide field ">
+                        <label class="custom-label-w-25">ทะเบียนสรรพสามิต</label>
+                        <input type="text" class="custom-readonly" placeholder="ทะเบียนสรรพสามิต" readonly="" value="2560-00178-5">
+                    </div>
+                    <div class="eight wide field ">
+                        <label class="custom-label-w-20">เลขประจำตัวผู้เสียภาษี</label>
+                        <input type="text" class="custom-readonly" placeholder="เลขประจำตัวผู้เสียภาษี" readonly="" value="1-5599-00168-99-6">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="eight wide field">
+                        <label class="custom-label-w-25">ผู้ประกอบการ </label>
+                        <input type="text" class="custom-readonly" placeholder="ผู้ประกอบการ" readonly="" value="บ. ฮอนด้า มอเตอร์ ประเทศไทย">
+                    </div>
+                    <div class="eight wide field ">
+                        <label class="custom-label-w-20">เลขที่วิเคราะห์</label>
+                        <input type="text" class="custom-readonly" placeholder="เลขที่วิเคราะห์" readonly="" value="256000000001">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="eight wide field required">
+                        <label class="custom-label-w-25">รอบระยะเวลาการตรวจสอบ</label>
+                        <div class="eight wide field">
+                            <div class="ui icon input">
+                                <input type="text" class="custom-readonly" placeholder="ดด/ปปปป" value="11/2560" readonly="">
+                                <i class="add to calendar icon"></i>
+                            </div>
+                        </div>
+                        <div class="eight wide field">
+                            <label>-</label>
+                            <div class="ui icon input">
+                                <input type="text" class="custom-readonly" placeholder="ดด/ปปปป" value="12/2560" readonly="">
+                                <i class="add to calendar icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="ui segment">
+            <h3 class="ui header">สร้างกระดาษทำการเปรียบเทียบปริมาณการจำหน่ายสินค้าสำเร็จรูปภายในประเทศ</h3>
+            <div class="ui grid">
+                <div class="six wide column">
+                    <input type="file" />
+                </div>
+                <div class="four wide column">
+                    <button class="ui primary button" (click)="onClickUpload()">
+                        <i class="upload icon"></i>
+                        อัพโหลด
+                    </button>
+                    <button class="ui button" (click)="onclickDelete()">
+                        <i class="trash outline icon"></i>
+                        ลบไฟล์
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="ui segment" *ngIf="showUploadDetail">
+            <div class="ui grid center aligned">
+                <div class="sixteen wide column">
+                    บ. ฮอนด้า มอเตอร์ ประเทศไทย
+                    <br> กระดาษทำการเปรียบเทียบปริมาณจำหน่ายรถยนต์สำเร็จรูปในประเทศ
+                    <br> เดือน มีนาคม 2560
+                </div>
+            </div>
+
+            <table class="ui small celled table center aligned">
+                <thead>
+                    <tr>
+                        <th>สำดับที่.</th>
+                        <th>ชนิด/รุ่น</th>
+                        <th colspan="3">ปริมาณการจ่ายรถยนต์สำเร็จรูปในประเทศ</th>
+                        <th colspan="2">ผลต่าง</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="1"></th>
+                        <th rowspan="1"></th>
+                        <th>
+                            แบบรายการภาษี
+                            <br> ภส. 03-06
+                            <br> (1)
+                        </th>
+                        <th>
+                            CBU STOCK REPORT
+                            <br> ภส. 07-01
+                            <br> ภส. 07-04
+                            <br> (2)
+                        </th>
+                        <th>
+                            T/D , D/O
+                            <br>(3)
+                        </th>
+                        <th>
+                            (1) - (2)
+                        </th>
+                        <th>
+                            (1) - (3)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of listDatas">
+                        <td>{{item[0]}}</td>
+                        <td style="text-align: left;">{{item[1]}}</td>
+                        <td style="text-align: right;">{{item[2]}}</td>
+                        <td style="text-align: right;">{{item[3]}}</td>
+                        <td style="text-align: right;">{{item[4]}}</td>
+                        <td style="text-align: right;">{{item[5]}}</td>
+                        <td style="text-align: right;">{{item[6]}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2"> รวม</td>
+                        <td style="text-align: right;">
+                            1506
+                        </td>
+                        <td style="text-align: right;">
+                            1506
+                        </td>
+                        <td style="text-align: right;">
+                            1549
+                        </td>
+                        <td style="text-align: right;">
+                            0
+                        </td>
+                        <td style="text-align: right;">
+                            -43
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="ui grid center aligned">
+                <div class="sixteen wide column">
+                    <button class="ui primary button">
+                        <i class="print icon"></i>
+                        พิมพ์กระดาษทำการ
+                    </button>
+                    <button class="ui button">
+                        <i class="trash outline icon"></i>
+                        ลบไฟล์
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- <div class="ui segment"> -->
+        <div class="ui grid center aligned">
+            <div class="sixteen wide column">
+                <button class="ui button" routerLink="/select-form">
+                    <i class="arrow left icon"></i>
+                    ย้อนกลับ
+                </button>
+            </div>
+        </div>
+        <!-- </div> -->
+
+    </div>

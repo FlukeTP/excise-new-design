@@ -1,0 +1,60 @@
+<div class="ui grid">
+    <div class="wide column">
+        <h2 class="ui header">{{title}}</h2>
+        <div class="ui breadcrumb">
+            <a class="section">Administrator</a>
+            <i class="right angle icon divider"></i>
+            <a class="section">Message</a>
+            <i class="right angle icon divider"></i>
+            <div class="active section">{{title}}</div>
+        </div>
+
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>Search Criteria</span>
+        </div>
+        <div class="ui attached segment">
+            <div id="messageForm" class="ui form">
+                <div class="fields">
+                    <div class="six wide required field">
+                        <label>Message Code</label>
+                        <input type="text" placeholder="Message Code" name="messageCode">
+                    </div>
+                    <div class="two wide field"></div>
+                    <div class="four wide required field">
+                        <label>Message Type</label>
+                        <select name="messageType" id="messageType" class="ui fluid search dropdown">
+                            <option value="">ALL</option>
+                            <option [value]="item.value" *ngFor="let item of messageTypes" >{{item.text}}</option>                         
+                        </select>
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="eight wide required field">
+                        <label>Message Eng</label>
+                        <textarea name="messageEn"></textarea>
+                    </div>
+                    <div class="eight wide required field">
+                        <label>Message Tha</label>
+                        <textarea name="messageTh"></textarea>
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="sixteen wide field">
+                        <div class="ui grid">
+                            <div class="right aligned row">
+                                <div class="column">
+                                    <div class="ui mini button" (click)="back()">
+                                        <i class="chevron left icon"></i> Back
+                                    </div>
+                                    <div class="ui mini primary button" (click)="save()">
+                                        <i class="save icon"></i> Save
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายชื่อผู้ประกอบการตามทะเบียนสรรพสามิต" [loading]="loading">
+    <div form [formGroup]="formGroup">
+      <div inline>
+        <div field [col]="2">
+          <label class="text-right full-width"> ชื่อผู้ประกอบการ</label>
+        </div>
+        <div field [col]="3">
+          <input id="cusFullname" type="text" formControlName="cusFullname">
+        </div>
+        <div field [col]="2">
+          <label class="text-right full-width"> ชื่อโรงอุตสาหกรรม/สถานบริการ</label>
+        </div>
+        <div field [col]="3">
+          <input id="facFullname" type="text" formControlName="facFullname">
+        </div>
+        <div field [col]="2">
+          <label class="text-right full-width"> ประเภทข้อมูล</label>
+        </div>
+        <div field [col]="2">
+          <!-- <input id="facFullname" type="text" > -->
+          <select class="ui dropdown full-width" id="facType">
+          <option value="0">ทั้งหมด</option>
+          <option  value="1" >นอกกระดาษ</option>
+        </select>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="2">
+          <label class="text-right full-width">พิกัด</label>
+        </div>
+        <div field [col]="3">
+          <select class="ui dropdown full-width" id="facType" (change)="onChangeFacType($event)"
+            formControlName="facType">
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of facTypeList" value="{{item.paramCode}}">{{item.value1}}</option>
+          </select>
+        </div>
+        <div field [col]="2">
+          <label class="text-right full-width"> ประเภท</label>
+        </div>
+        <div field [col]="3">
+          <select class="ui dropdown full-width" id="dutyCode" formControlName="dutyCode">
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of dutyCodeList" value="{{item.paramCode}}">{{item.value1}}</option>
+          </select>
+        </div>
+        <div field [col]="2">
+          <label class="text-right full-width">วันที่จดทะเบียน</label>
+        </div>
+        <div field [col]="4">
+          <!-- <input class="custom" id="dateFrom" value="มกราคม 2561" placeholder="วว/ดด/ปปปป" readonly="" type="text"
+          value= ""> -->
+          <div class="ui calendar" id="dateFromCalendar" style="width:100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" autocomplete="off" id="dateFrom" name="dateFrom" placeholder="วว/ดด/ปปปป">
+            </div>
+          </div>
+        ถึง&nbsp;&nbsp;&nbsp;
+        <div class="ui calendar" id="dateToCalendar" style="width:100%">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input type="text" autocomplete="off" id="dateTo" name="dateTo" placeholder="วว/ดด/ปปปป">
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-search (click)="search()"></app-button-search>
+        <app-button-custom >บันทึกรายที่เลือก</app-button-custom>
+        <app-button-clear (click)=clear()></app-button-clear>
+        <app-button-back routerLink="/tax-audit-new/ta02/02"></app-button-back>
+      </div>
+    </div>
+  </segment>
+
+  <segment [loading]="loading">
+    <div grid>
+      <div [column]="16">
+        <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableDetails">
+          <thead class="text-center">
+            <tr>ฃ
+              <th style=" text-align: center !important"></th>
+              <th style=" text-align: center !important">ลำดับ</th>
+              <th style=" text-align: center !important">ทะเบียนสรรพสามิต เดิม/ใหม่</th>
+              <th style=" text-align: center !important">ชื่อผู้ประกอบการ</th>
+              <th style=" text-align: center !important">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+              <!-- <th style=" text-align: center !important">ที่อยู่โรงอุตสาหกรรม/สถานบริการ</th> -->
+              <th style=" text-align: center !important">ภาค</th>
+              <th style=" text-align: center !important">พื้นที่</th>
+              <th style=" text-align: center !important">พิกัด</th>
+            </tr>
+          </thead>
+        </table>
+        <br>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>
+
+
+<ui-modal [id]="'tableModal'" type="custom" size="small">
+  <div class="ui header">
+    รายละเอียดผู้ประกอบการ :{{detail.facFullname}}
+  </div>
+  <div class="content">
+    <p><b>ที่อยู่ : </b>{{detail.facAddress}}</p>
+    <p><b>สถานะ/วันที่ :</b> {{detail.regStatus}}</p>
+    <!-- <p><b>เลขทะเบียนสรรพสามิตเก่า :</b>{{detail.facAddress}}</p>
+    <p><b>พิกัด (อื่นๆ) :</b> {{detail.facAddress}}</p> -->
+  </div>
+  <div class="actions">
+    <app-button-custom class="deny" [color]="'grey'" [icon]="'remove'" text="ปิด"></app-button-custom>
+  </div>
+</ui-modal>

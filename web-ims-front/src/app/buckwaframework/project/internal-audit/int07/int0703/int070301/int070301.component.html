@@ -1,0 +1,173 @@
+<app-breadcrumb style="width: 100%;" [route]="breadcrumb"></app-breadcrumb>
+<segment header="ตรวจสอบผลการจัดซื้อจัดจ้าง" [loading]="false">
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="one wide field"></div>
+      <div class="three wide field">
+        <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+      </div>
+      <div class="four wide field">
+        <select class="ui dropdown search selection" style="width: 100%;" id="travelTo1" (change)="travelTo2Dropdown($event)">
+          <option value="">กรุณาเลือก</option>
+          <option *ngFor="let data of travelTo1List" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+        </select>
+      </div>
+      <div class="two wide field">
+        <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+      </div>
+      <div class="four wide field">
+        <select class="ui dropdown search selection" style="width: 100%;" id="travelTo2" (change)="travelTo3Dropdown($event)">
+          <option value="">กรุณาเลือก</option>
+          <option *ngFor="let data of travelTo2List" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="one wide field"></div>
+      <div class="three wide field">
+        <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่สาขา</label>
+      </div>
+      <div class="four wide field">
+        <select class="ui dropdown search selection" style="width: 100%;" id="travelTo3" (change)="setTravelTo($event)">
+          <option value="">กรุณาเลือก</option>
+          <option *ngFor="let data of travelTo3List" value="{{data.lovId}}">{{data.subTypeDescription}}</option>
+        </select>
+      </div>
+      <div class="two wide field">
+        <label class="text-right full-width">
+          ปีงบประมาณ</label>
+      </div>
+      <div class="four wide field column">
+        <div class="ui calendar" id="date3" style="width: 100%;">
+          <div class="ui input left icon">
+            <i class="calendar alter nate outline icon"></i>
+            <input id="pickyear" type="text" name="date-raw" autocomplete="off" [attr.readonly]="null" placeholder="ปปปป"
+              [attr.required]="true">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="one wide field"></div>
+      <div class="three wide field">
+        <label class="text-right full-width">วิธีการจัดซื้อจัดจ้าง</label>
+      </div>
+      <div class="four wide field">
+        <select class="ui dropdown">
+          <option value="วิธีตกลงราคา">วิธีตกลงราคา</option>
+          <option value="วิธีสอบราคา">วิธีสอบราคา</option>
+          <option value="วิธีประกวดราคา">วิธีประกวดราคา</option>
+          <option value="วิธีพิเศษ">วิธีพิเศษ</option>
+          <option value="วิธีกรณีพิเศษ">วิธีกรณีพิเศษ</option>
+          <option value="วิธีประกวดราคาทางอิเลคทรอนิกส์">วิธีประกวดราคาทางอิเลคทรอนิกส์</option>
+          <option value="การจ้างที่ปรึกษา">การจ้างที่ปรึกษา</option>
+          <option value="การจ้างออกแบบ">การจ้างออกแบบ</option>
+        </select>
+      </div>
+      <div class="two wide field">
+        <label class="text-right full-width">ประเภทงบรายจ่าย</label>
+      </div>
+      <div class="four wide field column">
+        <select class="ui dropdown">
+          <option value="งบบุคลากร">งบบุคลากร</option>
+          <option value="งบดำเนินงาน (โครงการ) (โครงการ)">งบดำเนินงาน(โครงการ)</option>
+          <option value="งบดำเนินงาน(ขั้นต่ำ/ประจำ)">งบดำเนินงาน (ขั้นต่ำ/ประจำ)</option>
+          <option value="งบลงทุน">งบลงทุน</option>
+          <option value="งบอุดหนุน">งบอุดหนุน</option>
+          <option value="งบรายจ่ายอื่น">งบรายจ่ายอื่น</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="ui grid">
+    <div class="row centered">
+      <app-button-search></app-button-search>
+      <app-button-clear></app-button-clear>
+    </div>
+  </div>
+  <br>
+  <table class="ui small celled table striped selectable display nowrap" style="width: 100%;">
+    <thead class="text-center">
+      <tr>
+        <th>ปีงบประมาณ</th>
+        <th>เลขทีหนังสืออนุมัติเบิกจ่าย</th>
+        <th>เลข EGP</th>
+        <th>ชื่อโครงการ</th>
+        <th>จำนวนเงิน ซื้อ/จ้าง/เช่า</th>
+        <th>สถานะ</th>
+        <th>อัพเดท</th>
+        <th>จัดการ</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <tr>
+        <td>2561</td>
+        <td class="text-right">4001339202</td>
+        <td class="text-right">4001229080</td>
+        <td>ครุภัณฑ์สำนักงาน</td>
+        <td class="text-right">875,000</td>
+        <td class="text-right">เสร็จสิ้นการดำเนินงาน</td>
+        <td class="text-right">04/11/2561 11:39</td>
+        <td>
+          <app-button-detail></app-button-detail>
+        </td>
+      </tr>
+      <tr>
+        <td>2561</td>
+        <td class="text-right">335630</td>
+        <td class="text-right">335630</td>
+        <td>โครงการอบรม</td>
+        <td class="text-right">180,000</td>
+        <td class="text-right">เสร็จสิ้นการดำเนินงาน</td>
+        <td class="text-right">04/11/2561 11:37</td>
+        <td>
+          <app-button-detail></app-button-detail>
+        </td>
+      </tr>
+      <tr>
+        <td>2561</td>
+        <td class="text-right">8000061925</td>
+        <td class="text-right">4001335630</td>
+        <td>โครงการก่อสร้างสถานอบรม</td>
+        <td class="text-right">700,000</td>
+        <td class="text-right">เสร็จสิ้นการดำเนินงาน</td>
+        <td class="text-right">04/11/2561 11:38</td>
+        <td>
+          <app-button-detail></app-button-detail>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <div class="sixteen wide column">
+    <div class="ui centered grid">
+      <div class="ui form fourteen wide column">
+        <div class="inline fields">
+          <div class="four wide field">
+            <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br> (ข้อเท็จจริง/Condition) :</label>
+          </div>
+          <div class="ten  wide field">
+            <textarea rows="3" style="width: 100%;"></textarea>
+          </div>
+        </div>
+        <div class="inline fields">
+          <div class="four wide field">
+            <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+              :</label>
+          </div>
+          <div class="ten  wide field">
+            <textarea rows="3" style="width: 100%;"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui grid">
+    <div class="row centered">
+      <app-button-save></app-button-save>
+      <app-button-export></app-button-export>
+      <app-button-back routerLink="/int10/01"></app-button-back>
+
+    </div>
+  </div>
+</segment>

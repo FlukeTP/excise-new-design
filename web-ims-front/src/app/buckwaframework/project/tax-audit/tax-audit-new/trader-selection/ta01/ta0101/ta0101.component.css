@@ -1,0 +1,22 @@
+.menu-hide{
+    display: none !important;
+}
+
+.headForm {
+    padding-bottom: 10px; 
+    color: rgb(0, 0, 0); 
+    font-size: 13px; 
+    border: 1px solid #f1f1f1; 
+    padding: 10px 17px ;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2) !important;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.fontWeigth600 {
+  font-weight: 600;
+}

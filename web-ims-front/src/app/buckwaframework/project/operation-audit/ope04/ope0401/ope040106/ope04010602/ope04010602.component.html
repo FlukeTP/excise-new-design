@@ -1,0 +1,301 @@
+<segment header="สถานที่ทํา">
+    <div class="ui grid">
+        <div class="sixteen wide column">
+            <div class="ui form">
+                <div class="inline field">
+                    <label>การตรวจสอบวัตถุดิบ</label>
+                </div>
+                <table class="ui small celled compact table striped selectable">
+                    <thead>
+                        <tr style="text-align: center">
+                            <th rowspan="2">ประเภทวัตถุดิบ</th>
+                            <th rowspan="2">หน่วย </th>
+                            <th rowspan="2">จำนวนคงเหลือตามบัญชี</th>
+                            <th rowspan="2">จำนวนตรวจนับได้ </th>
+                            <th colspan="2">ผลต่าง </th>
+                            <th rowspan="2">หมายเหตุ </th>
+                            <th rowspan="2" style="width: 100px"> </th>
+                        </tr>
+                        <tr style="text-align: center">
+                            <th>ขาดบัญชี</th>
+                            <th>เกินบัญชี</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let bean of beans; let i = index">
+                            <td style="text-align: center">
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <app-button-delete (click)="onDelField(i)"></app-button-delete>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="border-top : 1px solid #CACBCD">รวม</td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD;text-align: center">
+                                <app-button-add (click)="onAddField()"></app-button-add>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="inline field">
+                    <label>การทำสุรา</label>
+                </div>
+                <table class="ui small celled compact table striped selectable">
+                    <thead>
+                        <tr style="text-align: center">
+                            <th>หมักครั้งนี้</th>
+                            <th>ว.ด.ป. </th>
+                            <th>ประเภทวัตถุดิบ</th>
+                            <th>หน่วย </th>
+                            <th>จำนวนที่ใช้ </th>
+                            <th>จำนวนน้ำ<br>สุราที่ทำได้ </th>
+                            <th> สัดส่วน<br> น้ำสุรา/วัตถุดิบ</th>
+                            <th>หมายเหตุ</th>
+                            <th style="width: 100px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let bean of beans; let i = index">
+                            <td style="text-align: center">
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <app-button-delete></app-button-delete>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="border-top : 1px solid #CACBCD">รวม</td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD;text-align: center">
+                                <app-button-add></app-button-add>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="inline field">
+                    <label>การตรวจสอบสุรา</label>
+                </div>
+                <table class="ui small celled compact table striped selectable">
+                    <thead>
+                        <tr style="text-align: center">
+                            <th>ชนิดสุรา</th>
+                            <th>ชื่อ</th>
+                            <th>ดีกรี</th>
+                            <th>จำนวนตรวจนับได้ </th>
+                            <th>หมายเหตุ </th>
+                            <th style="width: 100px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let bean of beans; let i = index">
+                            <td style="text-align: center">
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <app-button-delete></app-button-delete>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="border-top : 1px solid #CACBCD">รวม</td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD;text-align: center">
+                                <app-button-add></app-button-add>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="inline field">
+                    <label>สุราที่บรรจุภาชนะแล้ว</label>
+                </div>
+                <table class="ui small celled compact table striped selectable">
+                    <thead>
+                        <tr style="text-align: center">
+                            <th rowspan="2">ชนิดสุรา</th>
+                            <th rowspan="2">ชื่อ </th>
+                            <th rowspan="2">ดีกรี</th>
+                            <th rowspan="2">จำนวนคงเหลือ<br>ตามบัญชี </th>
+                            <th rowspan="2">จำนวน<br>ตรวจนับได้ </th>
+                            <th colspan="2">ผลต่าง</th>
+                            <th rowspan="2">หมายเหตุ </th>
+                            <th rowspan="2" style="width: 100px"> </th>
+                        </tr>
+                        <tr style="text-align: center">
+                            <th>ขาดบัญชี</th>
+                            <th>เกินบัญชี</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let bean of beans; let i = index">
+                            <td style="text-align: center">
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui transparent input">
+                                    <input type="text" placeholder="กรุณากรอก">
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                <app-button-delete></app-button-delete>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="border-top : 1px solid #CACBCD">รวม</td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD"></td>
+                            <td style="border-top : 1px solid #CACBCD;text-align: center">
+                                <app-button-add></app-button-add>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="sixteen wide text-center column">
+            <app-button-save></app-button-save>
+        </div>
+    </div>
+</segment>

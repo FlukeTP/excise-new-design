@@ -1,0 +1,145 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<segment header="รายการโรงอุตสาหกรรมที่ถูกคัดเลือกทั้งหมด" [loading]="false">
+  <div class="ui form">
+    <div class="inline fields">
+      <div class="four wide field">
+        <app-button-custom color="primary" text="ปฏิทิน" routerLink="/plan01"></app-button-custom>
+      </div>
+      <div class="three wide field"></div>
+      <div class="nine wide field text-center">
+        <h3>รายการโรงอุตสาหกรรมที่ถูกคัดเลือกทั้งหมด</h3>
+      </div>
+    </div>
+  </div>
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <table class="ui small collapsing celled table aligned hover striped selectable scrollX">
+        <thead>
+          <tr class="text-center">
+            <th>พิกัดสินค้า</th>
+            <th>เลขทะเบียนสรรพสามิต</th>
+            <th>โรงอุตสาหกรรม</th>
+            <th>พื้นที่ที่โรงอุตสาหกรรมตั้งอยู่</th>
+            <th>ส่วนกลาง (สำนักตรวจสอบภาษี)</th>
+            <th>ส่วนกลาง (สำนักมาตรฐาน)</th>
+            <th style=" width: 200px;">สรรพสามิตภาค</th>
+            <th style=" width: 200px;">สรรพสามิตพื้นที่</th>
+            <th>หมายเหตุ</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr>
+            <td>น้ำมัน</td>
+            <td>2555-02487-0</td>
+            <td class="text-left">บริษัท สุโขทัย เอ็นเนอร์ยี่ จำกัด</td>
+            <td>อยุธยา 1</td>
+            <td style="background-color: rgba(255, 0, 0, 0.63)">ตรวจสอบภาษี</td>
+            <td></td>
+            <td style="background-color: rgba(255, 0, 0, 0.63)">ตรวจสอบภาษี</td>
+            <td></td>
+            <td class="text-left">มีการเลือกซ้ำในเดือนเดียวกัน</td>
+          </tr>
+          <tr>
+            <td>น้ำมัน</td>
+            <td>2551-01028-8</td>
+            <td class="text-left">บริษัท เอนเนอจี อินโนเวชั่น เทคโนโลยี จำกัด</td>
+            <td>ชลบุรี 1</td>
+            <td></td>
+            <td></td>
+            <td>ตรวจสอบภาษี</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>น้ำมัน</td>
+            <td>2552-00029-5</td>
+            <td class="text-left">บริษัท วาย.บี. แอล. ออยล์ จำกัด</td>
+            <td>ชลบุรี 1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>ตรวจปฏิบัติการ</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>น้ำมัน</td>
+            <td>2557-03725-9</td>
+            <td class="text-left">บริษัท พีทีที โกลบอล เคมิคอล จำกัด (มหาชน)</td>
+            <td>ระยอง 1 </td>
+            <td></td>
+            <td>ตรวจปฏิบัติการ</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>น้ำมัน</td>
+            <td>2545-02631-1</td>
+            <td class="text-left">บริษัท ไทย ฮาวท์ตัน 1993 จำกัด</td>
+            <td>ระยอง 2</td>
+            <td></td>
+            <td></td>
+            <td>ตรวจปฏิบัติการ</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>เครื่องดื่ม</td>
+            <td>2557-02751-5</td>
+            <td class="text-left">บริษัท ยันฮี วิตามิน วอเตอร์ จำกัด</td>
+            <td>นนทบุรี</td>
+            <td>ตรวจสอบภาษี</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>เครื่องดื่ม</td>
+            <td>2535-00159-9</td>
+            <td class="text-left">บริษัท เสริมสุข จำกัด (มหาชน)</td>
+            <td>ปทุมธานี 1</td>
+            <td>ตรวจสอบภาษี</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>เครื่องดื่ม</td>
+            <td>2544-02670-5</td>
+            <td class="text-left">บริษัท ปทุมธานี บริวเวอรี่ จำกัด</td>
+            <td>ปทุมธานี 1</td>
+            <td></td>
+            <td style="background-color: rgba(252, 227, 191, 0.733)">ตรวจปฏิบัติการ</td>
+            <td></td>
+            <td style="background-color: rgba(252, 227, 191, 0.733)">ตรวจปฏิบัติการ</td>
+            <td class="text-left">มีการเลือกซ้ำแต่คนละเดือน</td>
+          </tr>
+          <tr>
+            <td>เครื่องดื่ม</td>
+            <td>2556-07183-0</td>
+            <td>บริษัท ไทยน้ำทิพย์ แมนูแฟคเจอริ่ง จำกัด</td>
+            <td>นครราชสีมา</td>
+            <td></td>
+            <td></td>
+            <td>ตรวจสอบภาษี</td>
+            <td></td>
+            <td></td>
+          </tr>
+
+          <!-- <tr *ngFor="let item of data">
+        <td style="text-align: center !important">{{item.nums}}</td>
+        <td style="text-align: left !important">{{item.name}}</td>
+        <td style="text-align: left !important">{{item.area}}</td>
+        <td style="text-align: right !important">{{item.centerCheck}}</td>
+        <td style="text-align: right !important">{{item.center}}</td>
+        <td style="text-align: right !important">{{item.sab}}</td>
+        <td style="text-align: right !important">{{item.subarea}}</td>
+        <td style="text-align: right !important">{{item.mark}}</td>
+      </tr> -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</segment>

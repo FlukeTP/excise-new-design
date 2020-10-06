@@ -1,0 +1,45 @@
+<br>
+<segment header="เปรียบเทียบรายงานสรุปรายการขอเบิก" [loading]="loading">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <div class="scrollX">
+        <table id="tableData" class="ui small celled table striped selectable" style="width: 100%">
+          <thead>
+            <tr style="text-align: center;">
+              <th>รายการ</th>
+              <!-- <th *ngFor="let item of dataMock[0].data.dayList">{{item.dayOfMonth}}</th> -->
+              <th *ngFor="let item of dayList">{{item.dayOfMonth}}</th>
+              <th>รวมเงิน</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor="let user of dataMock[0].data.lineData"> -->
+            <tr *ngFor="let user of lineData">
+              <td>{{user.username}}</td>
+              <td *ngFor="let dtl of user.value">
+                <ng-container *ngIf="dtl.flag==='Y'"><i class="check icon" style="color: green"></i></ng-container>
+                <ng-container *ngIf="dtl.flag==='N'"></ng-container>
+              </td>
+              <td class="text-right">{{user.priceOfMonth}}</td>
+            </tr>
+            <ng-container *ngIf="lineData.length === 0">
+              <tr>
+                <td [attr.colspan]="dayList.length + 2" class="text-center">ไม่พบข้อมูล</td>
+              </tr>
+            </ng-container>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="sixteen wide column">
+      <div class="ui form">
+        <div class="ui center aligned grid">
+          <div class="eight wide column">
+            <app-button-back routerLink="/int09/12/01"></app-button-back>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</segment>

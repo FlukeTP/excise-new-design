@@ -1,0 +1,267 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<div class="ui grid">
+    <div class="sixteen wide column">
+        <h2 class="ui header">ผลการวิเคราะห์ข้อมูลเบื้องต้น</h2>
+
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>ผลการวิเคราะห์ข้อมูลเบื้องต้น</span>
+        </div>
+        <div class="ui attached segment">
+            <div id="userManagementForm" class="ui form">
+                <div class="inline fields">
+                    <div class="ten wide field">
+                        <label class="custom-label-w-25">เลขทะเบียนสรรพสามิต</label>
+                        <input [(ngModel)]="form.exciseId" name="exciseId" type="text" readonly="" class="custom-readonly" >
+                    </div>
+                    <div class="six wide field">
+                        <label class="custom-label-w-25">เลขประจำตัวผู้เสียภาษีอากร</label>
+                        <input [(ngModel)]="form.userNumber" name="userNumber" type="text" readonly="" class="custom-readonly" >
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="ten wide field">
+                        <label class="custom-label-w-25">รอบระยะเวลาการตรวจสอบ</label>
+                        <div class="eight wide field">
+                            <div class="ui icon input">
+                                <input [(ngModel)]="form.dateFrom" name="dateFrom" type="text" class="custom-readonly" placeholder="ดด/ปปปป"  readonly="">
+                                <i class="add to calendar icon"></i>
+                            </div>
+                        </div>
+                        <div class="eight wide field">
+                            <label>-</label>
+                            <div class="ui icon input">
+                                <input [(ngModel)]="form.dateTo" name="dateTo" type="text" class="custom-readonly" placeholder="ดด/ปปปป" readonly="">
+                                <i class="add to calendar icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="six wide field">
+                        <label class="custom-label-w-25">เลขที่วิเคราะห์</label>
+                        <input [(ngModel)]="form.numberAnalysis" name="numberAnalysis" type="text" readonly="" class="custom-readonly">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="ten wide field">
+                        <label class="custom-label-w-25">ผู้ประกอบการ</label>
+                        <input [(ngModel)]="form.entrepreneur" name="entrepreneur" type="text" readonly="" class="custom-readonly">
+                    </div>
+                    <div class="six wide field">
+                        <label class="custom-label-w-25">ประเภท</label>
+                        <input [(ngModel)]="form.type" name="type" type="text" readonly="" class="custom-readonly">
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="ten wide field">
+                        <label class="custom-label-w-25">โรงอุตสาหกรรม</label>
+                        <input [(ngModel)]="form.factory" name="factory" type="text" readonly="" class="custom-readonly">
+                    </div>
+                    <div class="six wide field">
+                        <label class="custom-label-w-25">พิกัด</label>
+                        <input [(ngModel)]="form.coordinates" name="coordinates" type="text" readonly="" class="custom-readonly">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="ten wide field">
+                        <label class="custom-label-w-25">ที่ตั้ง</label>
+                        <input [(ngModel)]="form.address" name="address" type="text" readonly="" class="custom-readonly">
+                    </div>
+                </div>
+
+                <div class="inline fields">
+                    <div class="ten wide field">
+                        <label class="custom-label-w-25">วิเคราะห์โดย</label>
+                        <input [(ngModel)]="form.analysisBy" name="analysisBy" type="text" readonly="" class="custom-readonly">
+                    </div>
+                </div>
+                <div class="inline fields">
+                    <div class="ten wide field">
+                        <label class="custom-label-w-25">พื้นที่ตั้ง</label>
+                        <input [(ngModel)]="form.sector" name="sector" type="text" readonly="" class="custom-readonly">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui clearing top attached header segment">
+            <div class="ui grid">
+                <div class="two column row">
+                    <div class="column">
+                        ผลการวิเคราะห์ปริมาณสินค้าที่เสียภาษี
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui attached segment">
+            <table id="table1" class="ui small celled table striped selectable nowrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th class="text-center">รายการ</th>
+                        <th class="text-center">ข้อมูลแบบภาษี ภส. 03-07</th>
+                        <th class="text-center">แบบงบเดือน ภส. 07-04</th>
+                        <th class="text-center">ผลต่าง</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th><b>รวม</b></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="ui clearing top attached header segment">
+            <div class="ui grid">
+                <div class="two column row">
+                    <div class="column">
+                        ผลการวิเคราะห์ราคาขายปลีกแนะนำตามแบบแจ้งฯ
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui attached segment">
+            <table id="table2" class="ui small celled table striped selectable  nowrap" style="width:100%">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th>รายการ</th>
+                        <th class="text-center">แบบชำระภาษี ภส. 03-07</th>
+                        <th class="text-center">แบบแจ้งฯ ภส. 02-01</th>
+                        <th class="text-center">ผลต่าง</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th><b>รวม</b></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="ui clearing top attached header segment">
+            <div class="ui grid">
+                <div class="two column row">
+                    <div class="column">
+                        ผลการวิเคราะห์มูลค่าสินค้าที่เสียภาษี
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui attached segment">
+            <table id="table3" class="ui small celled table striped selectable nowrap" style="width:100%">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th>รายการ</th>
+                        <th class="text-center">ปริมาณ ภส. 03-07</th>
+                        <th class="text-center">ราคาขายปลีกแนะนำ</th>
+                        <th class="text-center">ผลต่าง</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th><b>รวม</b></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="ui clearing top attached header segment">
+            <div class="ui grid">
+                <div class="two column row">
+                    <div class="column">
+                        ผลการวิเคราะห์อัตราภาษี
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui attached segment">
+            <table id="table4" class="ui small celled table striped selectable  nowrap" style="width:100%">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th class="text-center">รายการ</th>
+                        <th class="text-center">ภส. 03-07</th>
+                        <th class="text-center">อัตราภาษีที่อยู่ในระบบ</th>
+                        <th class="text-center">ผลต่าง</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th><b>รวม</b></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>            
+        </div>
+
+        <div class="ui clearing top attached header segment">
+            <div class="ui grid">
+                <div class="two column row">
+                    <div class="column">
+                        ผลการวิเคราะห์การยื่นชำระภาษีสรรพสามิต
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui attached segment">
+            <table id="table5" class="ui small celled table striped selectable  nowrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th class="text-center">รายการ</th>
+                        <th class="text-center">ภาษีที่ได้จากการคำนวณ</th>
+                        <th class="text-center">ภาษีที่ได้จาก ภส.03-07</th>
+                        <th class="text-center">ผลต่าง</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th><b>รวม</b></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>                                   
+
+        <div class="ui attached segment">
+            <div class="ui form">
+                <div class="fields">
+                    <div class="sixteen wide field">
+                        <div class="ui grid">
+                            <div class="center aligned row">
+                                <div class="column">
+                                    <!-- <div class="ui mini primary button" (click)="search()">
+                                        <i class="save icon"></i> บันทึกผลการวิเคราะห์ข้อมูล
+                                    </div> -->
+                                    <div class="ui mini button" routerLink="/analysis">
+                                        <!-- (click)="resetSearch()"  -->
+                                        <i class="refresh icon"></i> ล้างผลการวิเคราะห์ข้อมูล
+                                    </div>
+                                    <div class="ui mini primary button" routerLink="/select-form/บริการ/สินค้าน้ำมันและผลิตภัณฑ์น้ำมัน">
+                                         <!-- (click)="goToOpe03()" -->
+                                        <i class="file text outline icon"></i> สร้างกระดาษทำการ
+                                    </div>
+                                    <!-- <div class="ui mini button" (click)="resetSearch()">
+                                        <i class="print icon"></i> พิมพ์
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

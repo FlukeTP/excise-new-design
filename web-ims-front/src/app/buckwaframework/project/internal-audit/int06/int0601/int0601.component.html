@@ -1,0 +1,924 @@
+<br>
+<segment header="การใช้ใบเสร็จรับเงิน การงบหลังใบเส็จรับเงินรายวัน กับทะเบียนควบคุมรายรับ-จ่ายใบเสร็จรายรับ">
+  <form form [formGroup]="formSearch">
+    <div inline>
+      <div field [col]="2" [ngClass]="{'required': flagHeader}">
+        <label class="text-right full-width">สำนักงานสรรพสามิตภาค :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="4" [ngClass]="{'error': invalidSearchFormControl('sector')}">
+          <select class="ui dropdown full-width" id="sector" (change)="onChangeSector($event)" formControlName="sector">
+            <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+            <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" formControlName="sector" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="2">
+        <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่ :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="3" [ngClass]="{'error': invalidSearchFormControl('area')}">
+          <select class="ui dropdown full-width" id="area" (change)="onChangeArea($event)" formControlName="area">
+            <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="3">
+          <input type="text" class="custom-readonly" formControlName="area" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="2">
+        <label class="text-right full-width">สำนักงานสรรพสามิตสาขา :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="3" [ngClass]="{'error': invalidSearchFormControl('branch')}">
+          <select class="ui dropdown full-width" id="branch" formControlName="branch">
+            <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="3">
+          <input type="text" class="custom-readonly" formControlName="branch" readonly>
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div inline>
+      <div field [col]="2" [ngClass]="{'required': flagHeader}">
+        <label class="text-right full-width">ช่วงในวันที่ :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="4"
+          [ngClass]="{'error': invalidSearchFormControl('receiptDateFrom') || invalidSearchFormControl('receiptDateTo')}">
+          <div class="ui calendar full-width" id="date1">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="inputDate1" readonly="">
+            </div>
+          </div>
+          ถึง&nbsp;&nbsp;&nbsp;
+          <div class="ui calendar full-width" id="date2">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" autocomplete="off" placeholder="วว/ดด/ปปปป" id="inputDate2" readonly="">
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" formControlName="receiptDateFrom" readonly>
+          ถึง&nbsp;&nbsp;&nbsp;
+          <input type="text" class="custom-readonly" formControlName="receiptDateTo" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="2">
+        <label class="text-right full-width">เลขที่กระดาษทำการ :</label>
+      </div>
+      <div field [col]="3">
+        <select class="ui dropdown full-width" (change)="onChangeAuditIncNo($event)" formControlName="auditIncNo"
+          id="auditIncNo">
+          <option value="">เลือกเอกสาร</option>
+          <option *ngFor="let item of auditIncNoList let i =index" value="{{item.auditIncNo}}">{{item.auditIncNo}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-search (click)="serach()" [disabled]="!flagButton"></app-button-search>
+        <app-button-save (click)="save()" [disabled]="flagButton"></app-button-save>
+        <app-button-export (click)="export()" [disabled]="!formSearch.get('auditIncNo').value">
+        </app-button-export>
+        <app-button-clear (click)="clear()"></app-button-clear>
+      </div>
+    </div>
+  </form>
+  <!-- <br>
+  <hr>
+  <div form>
+    <div inline>
+      <button class="ui button" style="border-radius: 0px" [ngClass]="{'primary':activate('1')}"
+        (click)="showTab('1')">การใช้ใบเสร็จรับเงิน</button>
+      <button class="ui button" style="border-radius: 0px" [ngClass]="{'primary': activate('2')}"
+        (click)="showTab('2')">สรุปรายวัน</button>
+      <button class="ui button" style="border-radius: 0px" [ngClass]="{'primary': activate('3')}"
+        (click)="showTab('3' )">ตรวจสอบยอดเงินค่าภาษี</button>
+      <button class="ui button" style="border-radius: 0px" [ngClass]="{'primary': activate('4')}"
+        (click)="showTab('4' )">ตรวจสอบกับแบบรายการภาษี</button>
+    </div>
+  </div> -->
+
+</segment>
+
+<segment [loading]="loading">
+  <div contentLeft>
+    <div class="ui mini buttons">
+      <button class="ui button" style="font-size: 12px" [ngClass]="{'positive':activate('1')}"
+        (click)="showTab('1')">การใช้ใบเสร็จรับเงิน</button>
+      <button class="ui button" style="font-size: 12px" [ngClass]="{'positive': activate('2')}"
+        (click)="showTab('2')">สรุปรายวัน</button>
+      <button class="ui button" style="font-size: 12px" [ngClass]="{'positive': activate('3')}"
+        (click)="showTab('3' )">ตรวจสอบยอดเงินค่าภาษี</button>
+      <button class="ui button" style="font-size: 12px" [ngClass]="{'positive': activate('4')}"
+        (click)="showTab('4' )">ตรวจสอบกับแบบรายการภาษี</button>
+    </div>
+  </div>
+
+
+  <!-- tab1 -->
+  <form form [formGroup]="formT1" [hidden]="tabActivate!='1'">
+
+    <table class="ui small celled table tbsticky">
+      <thead class="text-center">
+        <tr>
+          <th class="sticky">#</th>
+          <th class="sticky">ลำดับ</th>
+          <th class="sticky">เลขที่ควบคุมเอกสาร</th>
+          <th class="sticky">เลขที่ใบเสร็จ</th>
+          <th class="sticky">ตรวจสอบเลขที่แบบพิมพ์</th>
+          <th class="sticky">วันเดือนปี</th>
+          <th class="sticky">รายการภาษี</th>
+          <th class="sticky">รหัสภาษี</th>
+          <th class="sticky">จำนวนเงิน</th>
+          <th class="sticky">หมายเหตุผลการตรวจ</th>
+        </tr>
+      </thead>
+      <tbody formArrayName="iaAuditIncD1List">
+        <ng-container *ngIf="formT1.controls">
+          <ng-container *ngIf="formT1.controls.iaAuditIncD1List.controls!=0">
+            <tr [formGroupName]="i"
+              *ngFor="let item of formT1.controls.iaAuditIncD1List.controls; let i = index;let first = first;let last = last">
+              <td class=" text-center">
+                <ng-container *ngIf="item.get('actionFlag').value == 'Y' ">
+                  <app-button-custom color="" icon="plus icon" (click)="onInsertList(i)">
+                  </app-button-custom>
+                </ng-container>
+                <ng-container *ngIf="item.get('actionFlag').value != 'Y' ">
+                  <app-button-custom color="red" icon="minus icon" (click)="onRemoveList(i)"></app-button-custom>
+                </ng-container>
+              </td>
+              <td class=" text-center ">
+                <ng-container *ngIf="item.get('actionFlag').value == 'Y' ">
+                  {{ i+1 }}
+                </ng-container>
+                <ng-container *ngIf="item.get('actionFlag').value != 'Y' ">
+                  <a href="javascript:void(0)" (click)="tab1Dtl(i)">
+                    {{ i+1 }}
+                  </a>
+                </ng-container>
+
+              </td>
+              <td class=" text-center">{{ item.get('docCtlNo').value | isEmpty}}</td>
+              <td class=" text-center" [ngClass]="{'red': item.get('wasteReceiptFlag').value =='Y'}">
+                {{ item.get('receiptNo').value | isEmpty }}</td>
+              <td><input numberOnly type="text" id="rubcheck{{i}}" class="text-right full-width"
+                  (change)="reEditRunCheck(i,$event.target.value)" formControlName="runCheck"
+                  value="{{ item.get('runCheck').value}}" maxlength="20"></td>
+              <td class=" text-center">{{ item.get('receiptDate').value | isEmpty }}</td>
+              <td class=" text-left">{{ item.get('taxName').value | isEmpty }}</td>
+              <td class=" text-center">{{ item.get('taxCode').value | isEmpty }}</td>
+              <td class=" text-right">{{ item.get('amount').value | decimalFormat:"###,###.00" }}</td>
+              <td><input type="text" class="text-left full-width" formControlName="remark" maxlength="500"></td>
+            </tr>
+          </ng-container>
+
+          <ng-container *ngIf="formT1.controls.iaAuditIncD1List.controls==0">
+            <tr class="text-center">
+              <td colspan="14">ไม่พบข้อมูล</td>
+            </tr>
+          </ng-container>
+        </ng-container>
+
+      </tbody>
+    </table>
+
+    <ng-container *ngIf="iaAuditIncD1List.length > 0">
+      <div inline style="margin-left: 12px">
+        <app-button-custom color="" icon="plus icon" (click)="onInsertListNext()">
+        </app-button-custom>
+      </div>
+    </ng-container>
+
+
+
+    <div inline>
+      <div field [col]="4">
+        <label class="text-right full-width">ตรวจสอบกับทะเบียนควบคุมใบเสร็จรับเงิน :</label>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="d1AuditFlag" id="d1AuditFlag" value="1">
+          <label>ถูกต้อง</label>
+        </div>
+      </div>
+      <div field [col]="2">
+        <div class="ui radio checkbox">
+          <input type="radio" formControlName="d1AuditFlag" id="d1AuditFlag" value="2">
+          <label>ไม่ถูกต้อง</label>
+        </div>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต<br>(ข้อเท็จจริง/Condition) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="d1ConditionText" id="d1ConditionText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">สิ่งที่ควรจะเป็น<br>(หลักเกณฑ์/Criteria) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="d1CriteriaText" id="d1CriteriaText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+
+  </form>
+  <!-- tab2 -->
+  <form form [formGroup]="formT2" [hidden]="tabActivate!='2'">
+    <div class='table-cont' id='table-cont'>
+      <table class="ui small celled table selectable ">
+        <thead class="text-center" style="z-index: 4;">
+          <tr>
+            <th rowspan="2">ลำดับ</th>
+            <th rowspan="2">วันที่</th>
+            <th rowspan="2">จำนวนเงิน</th>
+            <th rowspan="2">จำนวนแบบพิมพ์/วัน</th>
+            <th colspan="3">ผลการตรวจกับงบหลังสำเนาใบเสร็จ</th>
+            <th rowspan="2">หมายเหตุ</th>
+          </tr>
+          <tr>
+            <!-- ถูกต้อง -->
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk1Audit" id="chk1Audit" (click)="chk1AuditAll($event)">
+                <label></label>
+              </div>
+            </th>
+            <!-- ไม่ถูกต้อง -->
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk2Audit" id="chk2Audit" (click)="chk2AuditAll($event)">
+                <label></label>
+              </div>
+            </th>
+            <!-- ไม่ได้งบหลังใบเสร็จ -->
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk3Audit" id="chk3Audit" (click)="chk3AuditAll($event)">
+                <label></label>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody formArrayName="iaAuditIncD2List">
+          <ng-container *ngIf="formT2.controls">
+            <ng-container *ngIf="formT2.controls.iaAuditIncD2List.controls!=0">
+              <tr [formGroupName]="i"
+                *ngFor="let item of formT2.controls.iaAuditIncD2List.controls; let i = index;let first = first;let last = last">
+                <td class="fixed-column text-center"> {{ i+1 }}</td>
+                <td class="fixed-column text-center">{{ item.get('receiptDate').value | isEmpty}}</td>
+                <td class="fixed-column text-right">{{ item.get('amount').value | decimalFormat:"###,###.00" }}</td>
+                <td class="fixed-column text-right">{{ item.get('printPerDay').value | decimalFormat:"###,###" }}</td>
+
+                <td class="text-center">
+                  <!-- <div class=" radio checkbox">
+                        <input type="radio" ><label>ถูกต้อง</label>
+                    </div> -->
+
+                  <!-- <div class="ui form">
+                    <div class="inline fields">
+                      <div class="field"> -->
+                  <div class=" radio checkbox">
+                    <input type="radio" formControlName="auditCheck" id="auditCheck" value="1">
+                    <label>ถูกต้อง</label>
+                  </div>
+                  <!-- </div>
+                    </div>
+                  </div> -->
+                </td>
+
+                <td class="text-center">
+                  <!-- <div class="ui form">
+                    <div class="inline fields">
+                      <div class="field"> -->
+                  <div class=" radio checkbox">
+                    <input type="radio" formControlName="auditCheck" id="auditCheck" value="2">
+                    <label>ไม่ถูกต้อง</label>
+                  </div>
+                  <!-- </div>
+                    </div>
+                  </div> -->
+                </td>
+
+                <td class="text-center">
+                  <!-- <div class="ui form">
+                    <div class="inline fields">
+                      <div class="field"> -->
+                  <div class="radio checkbox">
+                    <input type="radio" formControlName="auditCheck" id="auditCheck" value="3">
+                    <label>ไม่ได้งบหลังใบเสร็จ</label>
+                  </div>
+                  <!-- </div>
+                    </div>
+                  </div> -->
+                </td>
+
+                <td><input type="text" class="text-left full-width" formControlName="remark" maxlength="500"></td>
+              </tr>
+            </ng-container>
+
+            <ng-container *ngIf="formT2.controls.iaAuditIncD2List.controls==0">
+              <tr class="text-center">
+                <td colspan="14">ไม่พบข้อมูล</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต<br>(ข้อเท็จจริง/Condition) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="d2ConditionText" id="d2ConditionText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">สิ่งที่ควรจะเป็น<br>(หลักเกณฑ์/Criteria) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="d2CriteriaText" id="d2CriteriaText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- tab3 -->
+  <form form [formGroup]="formT3" [hidden]="tabActivate!='3'">
+    <div class='table-cont' id='table-cont'>
+      <table class="ui small celled table selectable " [hidden]="!isShowTb">
+
+        <thead class="text-center" style="z-index: 4;">
+          <tr>
+            <th rowspan="2">ลำดับ</th>
+            <th rowspan="2">รหัสภาษี</th>
+            <th rowspan="2">รายการภาษี</th>
+            <th rowspan="2">จำนวนเงิน</th>
+            <th rowspan="2">จำนวนราย</th>
+            <th colspan="2">ผลการตรวจกับสรุปเงินค่าภาษี</th>
+            <th rowspan="2">หมายเหตุ</th>
+          </tr>
+          <tr>
+            <!-- ถูกต้อง -->
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk1Audit3" id="chk1Audit3" (click)="chk1Audit3All($event)">
+                <label></label>
+              </div>
+            </th>
+            <!-- ไม่ถูกต้อง -->
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk2Audit3" id="chk2Audit3" (click)="chk2Audit3All($event)">
+                <label></label>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody formArrayName="iaAuditIncD3List">
+          <ng-container *ngIf="formT3.controls">
+            <ng-container *ngIf="formT3.controls.iaAuditIncD3List.controls!=0">
+              <tr [formGroupName]="i"
+                *ngFor="let item of formT3.controls.iaAuditIncD3List.controls; let i = index;let first = first;let last = last">
+                <td class="text-center"> {{ i+1 }}</td>
+                <td class="text-center">
+                  <a href="javascript:void(0)" (click)="taxCodeDtlTab3(item.get('taxCode').value)">
+                    {{ item.get('taxCode').value | isEmpty }}
+                  </a>
+                </td>
+                <td class="text-left">{{ item.get('taxName').value | isEmpty }}</td>
+                <td class="text-right">{{ item.get('amount').value | decimalFormat:"###,###.00" }}</td>
+                <td class="text-right">{{ item.get('countReceipt').value | decimalFormat:"###,###" }}</td>
+                <td class="text-center">
+                  <div class=" radio checkbox">
+                    <input type="radio" formControlName="auditCheck" id="auditCheck" value="1">
+                    <label>ถูกต้อง</label>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <div class=" radio checkbox">
+                    <input type="radio" formControlName="auditCheck" id="auditCheck" value="2">
+                    <label>ไม่ถูกต้อง</label>
+                  </div>
+                </td>
+                <td>
+                  <input type="text" formControlName="remark" id="remark" class="ui large full-width" maxlength="500">
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td class="text-center">รวม</td>
+                <td class="text-right">{{ sumAmount | decimalFormat:"###,###.00" }}</td>
+                <td class="text-right">{{ sumCountReceipt | decimalFormat:"###,###" }}</td>
+                <td></td>
+                <td></td>
+                <td>
+                  <div class="ui right aligned grid">
+                    <div class=" column">
+                      <app-button-detail (click)="showAllDtlTab3()"></app-button-detail>&nbsp;&nbsp;
+                    </div>
+                  </div>
+                </td>
+            </ng-container>
+
+            <ng-container *ngIf="formT3.controls.iaAuditIncD3List.controls==0">
+              <tr class="text-center">
+                <td colspan="14">ไม่พบข้อมูล</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+
+        </tbody>
+      </table>
+    </div>
+
+    <div class='table-cont' id='table-cont'>
+      <table class="ui small celled table selectable " [hidden]="isShowTb">
+        <thead class="text-center" style="z-index: 4;">
+          <tr>
+            <th>ลำดับ</th>
+            <th>วันเดือนปี</th>
+            <th>รายการภาษี</th>
+            <th>รหัสภาษี</th>
+            <th>จำนวนเงิน</th>
+            <th style="width:120px;">#</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="dataTable2.length!=0">
+            <tr *ngFor="let item of dataTable2; let i=index">
+              <td class="text-center">{{i+1}}</td>
+              <td class="text-center">{{ item.receiptDate ? (item.receiptDate | dateString) : '-' }}</td>
+              <td class="text-left">{{ item.incomeName | isEmpty }}</td>
+              <td class="text-center">{{ item.incomeCode | isEmpty }}</td>
+              <td class="text-right">{{ item.netTaxAmt | decimalFormat:"###,###.00" }}</td>
+              <td class="text-center">#</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="text-center">รวม</td>
+              <td class="text-right">{{ sumAmountTable2 | decimalFormat:"###,###.00" }}</td>
+              <td class="text-center">
+                <app-button-back (click)="showMaster()"></app-button-back>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container *ngIf="dataTable2.length==0">
+            <tr class="text-center">
+              <td colspan="14">ไม่พบข้อมูล</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width" [hidden]="!isShowTb">ข้อตรวจพบ/ข้อสังเกต<br>(ข้อเท็จจริง/Condition)
+          :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="d3ConditionText" id="d3ConditionText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width" [hidden]="!isShowTb">สิ่งที่ควรจะเป็น<br>(หลักเกณฑ์/Criteria) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea rows="4" style="resize: none" formControlName="d3CriteriaText" id="d3CriteriaText"
+          maxlength="200"></textarea>
+      </div>
+    </div>
+
+  </form>
+
+
+  <!-- tab4 -->
+  <form form [formGroup]="formT1" [hidden]="tabActivate!='4'? true: flagTab4? false:true ">
+    <div class='table-cont' id='table-cont'>
+      <!-- <table class="ui small celled table scrollX" style="width: 100%">
+        <thead class="text-center"> -->
+      <table class="ui small celled table selectable" style="width: 120%">
+        <thead class="text-center">
+          <tr>
+            <th rowspan="2">ลำดับ</th>
+            <th rowspan="2">เลขที่ควบคุมเอกสาร</th>
+            <th rowspan="2">เลขที่ใบเสร็จ</th>
+            <th rowspan="2">วันเดือนปี</th>
+            <th rowspan="2">รายการภาษี</th>
+            <th rowspan="2">รหัสภาษี</th>
+            <th rowspan="2">จำนวนเงิน</th>
+            <th colspan="2">แบบรายการภาษี</th>
+            <th colspan="2">มีแบบคำขอรับแสตมป์ สุรา ยาสูบ เครื่องดื่ม</th>
+            <th colspan="2">งบเดือน</th>
+            <th rowspan="2">หมายเหตุ / ผลการตรวจ</th>
+          </tr>
+          <tr>
+            <!-- แบบรายการภาษี -->
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk1Tax0307" id="chk1Tax0307" (click)="chk1Tax0307All($event)">
+                <label></label>
+              </div>
+            </th>
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk2Tax0307" id="chk2Tax0307" (click)="chk2Tax0307All($event)">
+                <label></label>
+              </div>
+            </th>
+            <!-- มีแบบคำขอรับแสตมป์ สุรา ยาสูบ เครื่องดื่ม -->
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk1Stamp" id="chk1Stamp" (click)="chk1StampAll($event)">
+                <label></label>
+              </div>
+            </th>
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk2Stamp" id="chk2Stamp" (click)="chk2StampAll($event)">
+                <label></label>
+              </div>
+            </th>
+            <!-- งบเดือน -->
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk1Tax0704" id="chk1Tax0704" (click)="chk1Tax0704All($event)">
+                <label></label>
+              </div>
+            </th>
+            <th class="text-left">
+              <div class="ui checkbox">
+                <input type="checkbox" name="chk2Tax0704" id="chk2Tax0704" (click)="chk2Tax0704All($event)">
+                <label></label>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody formArrayName="iaAuditIncD1List">
+          <ng-container *ngIf="formT1.controls">
+            <ng-container *ngIf="formT1.controls.iaAuditIncD1List.controls!=0">
+              <tr [formGroupName]="i"
+                *ngFor="let item of formT1.controls.iaAuditIncD1List.controls; let i = index;let first = first;let last = last">
+                <td class="fixed-column text-center"> {{ i+1 }}</td>
+                <td class="fixed-column text-center">{{ item.get('docCtlNo').value | isEmpty}}</td>
+                <td class="fixed-column text-center" [ngClass]="{'red': item.get('wasteReceiptFlag').value =='Y'}">
+                  {{ item.get('receiptNo').value | isEmpty }}</td>
+                <td class="fixed-column text-center">{{ item.get('receiptDate').value | isEmpty }}</td>
+                <td class="fixed-column text-left">{{ item.get('taxName').value | isEmpty }}</td>
+                <td class="fixed-column text-center">{{ item.get('taxCode').value | isEmpty }}</td>
+                <td class="fixed-column text-right">{{ item.get('amount').value | decimalFormat:"###,###.00" }}</td>
+
+                <td class="text-center">
+                  <div class=" radio checkbox">
+                    <input type="radio" formControlName="checkTax0307" id="checkTax0307" value="1">
+                    <label>ถูกต้อง</label>
+                  </div>
+                </td>
+
+
+                <td class="text-center">
+                  <div class=" radio checkbox">
+                    <input type="radio" formControlName="checkTax0307" id="checkTax0307" value="2">
+                    <label>พบประเด็น</label>
+                  </div>
+                </td>
+
+                <td class="text-center">
+                  <div class=" radio checkbox">
+                    <input type="radio" formControlName="checkStamp" id="checkStamp" value="1">
+                    <label>ถูกต้อง</label>
+                  </div>
+                </td>
+
+
+                <td class="text-center">
+                  <div class=" radio checkbox">
+                    <input type="radio" formControlName="checkStamp" id="checkStamp" value="2">
+                    <label>พบประเด็น</label>
+                  </div>
+                </td>
+
+                <td class="text-center">
+                  <div class=" radio checkbox">
+                    <input type="radio" formControlName="checkTax0704" id="checkTax0704" value="1">
+                    <label>ถูกต้อง</label>
+                  </div>
+                </td>
+
+                <td class="text-center">
+                  <div class=" radio checkbox">
+                    <input type="radio" formControlName="checkTax0704" id="checkTax0704" value="2">
+                    <label>พบประเด็น</label>
+                  </div>
+                </td>
+
+                <td>
+                  <input type="text" formControlName="remarkTax" id="remarkTax" maxlength="500">
+                </td>
+
+              </tr>
+            </ng-container>
+
+            <ng-container *ngIf="formT1.controls.iaAuditIncD1List.controls==0">
+              <tr class="text-center">
+                <td colspan="14">ไม่พบข้อมูล</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+
+        </tbody>
+      </table>
+    </div>
+
+
+    <br>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">สรุปผลการตรวจกับแบบภาษี </label>
+      </div>
+    </div>
+
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต<br>(ข้อเท็จจริง/Condition) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea formControlName="d4ConditionText" rows="4" style="resize: none" maxlength="200"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">สิ่งที่ควรจะเป็น<br>(หลักเกณฑ์/Criteria) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea formControlName="d4CriteriaText" rows="4" style="resize: none" maxlength="200"></textarea>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- <form form [formGroup]="formT4" [hidden]="tabActivate!='4'? true: flagTab4? false:true ">
+    <div style="overflow-x: scroll">
+      <table class="ui small celled table selectable" style="width: 120%">
+        <thead class="text-center">
+          <tr>
+            <th>ลำดับ</th>
+            <th>เลขที่ควบคุมเอกสาร</th>
+            <th>เลขที่ใบเสร็จ</th>
+            <th>วันเดือนปี</th>
+            <th>รายการภาษี</th>
+            <th>รหัสภาษี</th>
+            <th>จำนวนเงิน</th>
+            <th>กรอกเลขที่ใบเสร็จในแบบ (ภส. 03-07)</th>
+            <th>มีแบบคำขอร้องแสตมป์ <br>สุรา ยา เครื่องดื่ม</th>
+            <th>งบเดือน</th>
+            <th>หมายเหตุ / ผลการตรวจ</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="iaAuditIncD4List">
+          <ng-container *ngIf="formT4.controls">
+            <ng-container *ngIf="formT4.controls.iaAuditIncD4List.controls!=0">
+              <tr [formGroupName]="i"
+                *ngFor="let item of formT4.controls.iaAuditIncD4List.controls; let i = index;let first = first;let last = last">
+                <td class="fixed-column text-center"> {{ i+1 }}</td>
+                <td class="fixed-column text-center">{{ item.get('docCtlNo').value | isEmpty}}</td>
+                <td class="fixed-column text-center">{{ item.get('receiptNo').value | isEmpty }}</td>
+                <td class="fixed-column text-center">{{ item.get('receiptDate').value | isEmpty }}</td>
+                <td class="fixed-column text-left">{{ item.get('taxName').value | isEmpty }}</td>
+                <td class="fixed-column text-center">{{ item.get('taxCode').value | isEmpty }}</td>
+                <td class="fixed-column text-right">{{ item.get('amount').value | decimalFormat:"###,###.00" }}</td>
+                
+                <td class="text-center">
+                  <div class="ui form">
+                    <div class="inline fields">
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" formControlName="checkTax0307" id="checkTax0307" value="1">
+                          <label>ถูกต้อง</label>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" formControlName="checkTax0307" id="checkTax0307" value="2">
+                          <label>พบประเด็น</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+
+                <td class="text-center">
+                  <div class="ui form">
+                    <div class="inline fields">
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" formControlName="checkStamp" id="checkStamp" value="1">
+                          <label>ถูกต้อง</label>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" formControlName="checkStamp" id="checkStamp" value="2">
+                          <label>พบประเด็น</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+
+                <td class="text-center">
+                  <div class="ui form">
+                    <div class="inline fields">
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" formControlName="checkTax0704" id="checkTax0704" value="1">
+                          <label>ถูกต้อง</label>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" formControlName="checkTax0704" id="checkTax0704" value="2">
+                          <label>พบประเด็น</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+
+                <td>
+                  <input type="text" formControlName="remarkTax" id="remarkTax" maxlength="500">
+                </td>
+
+              </tr>
+            </ng-container>
+
+            <ng-container *ngIf="formT4.controls.iaAuditIncD4List.controls==0">
+              <tr class="text-center">
+                <td colspan="14">ไม่พบข้อมูล</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">สรุปผลการตรวจกับแบบภาษี </label>
+      </div>
+    </div>
+
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต<br>(ข้อเท็จจริง/Condition) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea formControlName="d4ConditionText"  rows="4" style="resize: none" maxlength="200"></textarea>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">สิ่งที่ควรจะเป็น<br>(หลักเกณฑ์/Criteria) :</label>
+      </div>
+      <div field [col]="9">
+        <textarea formControlName="d4CriteriaText"  rows="4" style="resize: none" maxlength="200"></textarea>
+      </div>
+    </div>
+
+  </form> -->
+</segment>
+
+
+
+<!-- dtl tab1 -->
+<ui-modal [id]="'tab1Dtl'" type="custom" size="large">
+  <div class="ui header">
+    รายการใบเสร็จเสีย
+  </div>
+
+  <div grid>
+    <div [column]="16">
+
+      <table class="ui celled table small" id="tab1DtlTable" style="width: 100%;">
+        <thead>
+          <tr style="text-align: center !important">
+            <th>ลำดับ</th>
+            <th>วันเดือนปี</th>
+            <th>เลขที่ควบคุมเอกสาร</th>
+            <th>เลขที่ใบเสร็จเสีย</th>
+            <th>เลขที่ใบเสร็จใหม่</th>
+            <th style="text-align: center !important">หมายเหตุผลการตรวจ</th>
+          </tr>
+        </thead>
+      </table>
+
+    </div>
+  </div>
+
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>
+
+<!-- dtl tab3 -->
+<ui-modal [id]="'taxCodeDtl'" type="custom" size="large">
+  <div class="ui header">
+    ตรวจสอบยอดเงินตามรหัสภาษี
+  </div>
+
+  <div class="scrolling content ui segment {{loadingModal ? 'loading' : ''}}">
+    <div grid>
+      <div [column]="16">
+
+        <table class="ui celled table small" style="width: 100%;">
+          <thead>
+            <tr style="text-align: center !important">
+              <th>ลำดับ</th>
+              <th>วันเดือนปี</th>
+              <th>รายการภาษี</th>
+              <th>รหัสภาษี</th>
+              <th>จำนวนเงิน</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="dataTable1.length!=0">
+              <tr *ngFor="let item of dataTable1; let i=index">
+                <td class="text-center">{{i+1}}</td>
+                <td class="text-center">{{ item.receiptDate ? (item.receiptDate | dateString) : '-' }}</td>
+                <td class="text-left">{{ item.incomeName | isEmpty }}</td>
+                <td class="text-center">{{ item.incomeCode | isEmpty }}</td>
+                <td class="text-right">{{ item.netTaxAmt | decimalFormat:"###,###.00" }}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td class="text-center">รวม</td>
+                <td></td>
+                <td class="text-right">{{ sumAmountTable1 | decimalFormat:"###,###.00" }}</td>
+              </tr>
+            </ng-container>
+            <ng-container *ngIf="dataTable1.length==0">
+              <tr class="text-center">
+                <td colspan="14">ไม่พบข้อมูล</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

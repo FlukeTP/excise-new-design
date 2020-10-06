@@ -1,0 +1,1046 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+     <segment header="{{ breadcrumb[3].label }}" [loading]="loading">
+          <div [center]="true" grid>
+               <!-- View -->
+               <div [column]="15" *ngIf="stateView">
+                    <div form [formGroup]="form">
+                         <!-- 1 -->
+                         <div class="ui secondary segment">
+                              <div inline>
+                                   <h3 class="ui header">{{ name_license }}</h3>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">เลขขอรับที่</label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input fluid">
+                                             <input type="text" formControlName="receiveNo" readonly>
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">วันที่ขอรับ</label>
+                                   </div>
+                                   <div field [col]="6" class="disabled">
+                                        <div class="ui calendar" style="width:100%" id="receiveDate">
+                                             <div class="ui input left icon">
+                                                  <i class="calendar alter nate outline icon"></i>
+                                                  <input type="calendar" placeholder="วว/ดด/ปปปป" autocomplete="off"
+                                                       readonly>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">วันที่ได้รับอนุญาต</label>
+                                   </div>
+                                   <div field [col]="6" class="disabled">
+                                        <div class="ui calendar" style="width:100%" id="startDate">
+                                             <div class="ui input left icon">
+                                                  <i class="calendar alter nate outline icon"></i>
+                                                  <input type="calendar" placeholder="วว/ดด/ปปปป" autocomplete="off"
+                                                       readonly>
+                                             </div>
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">วันที่ใบอนุญาตหมดอายุ</label>
+                                   </div>
+                                   <div field [col]="6" class="disabled">
+                                        <div class="ui calendar" style="width:100%" id="endDate">
+                                             <div class="ui input left icon">
+                                                  <i class="calendar alter nate outline icon"></i>
+                                                  <input type="calendar" placeholder="วว/ดด/ปปปป" autocomplete="off"
+                                                       readonly>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2"></div>
+                                   <div field [col]="3" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="bankGuarantee" formControlName="bankGuarantee"
+                                                  value="Y" [attr.disabled]="true">
+                                             <label class="text-right">มีหนังสือค้ำประกันธนาคาร</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="3">
+                                        <div class="ui input">
+                                             <input type="text" name="bankGuaranteeTxt"
+                                                  formControlName="bankGuaranteeTxt" readonly>
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">เลขที่</label>
+                                   </div>
+                                   <div field [col]="3">
+                                        <div class="ui input">
+                                             <input type="text" name="bankGuaranteeNo" formControlName="bankGuaranteeNo"
+                                                  readonly>
+                                        </div>
+                                   </div>
+                                   <div field [col]="1">
+                                        <label class="full-width text-right">วันที่</label>
+                                   </div>
+                                   <div field [col]="2" class="disabled">
+                                        <div class="ui calendar" style="width:100%" id="date">
+                                             <div class="ui input left icon">
+                                                  <i class="calendar alter nate outline icon"></i>
+                                                  <input type="calendar" placeholder="วว/ดด/ปปปป" autocomplete="off"
+                                                       readonly>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2"></div>
+                                   <div field [col]="2" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="bankGuarantee" formControlName="bankGuarantee"
+                                                  value="N" [attr.disabled]="true">
+                                             <label class="text-left">ไม่มี</label>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="ui divider"></div>
+                         <!-- 2 -->
+                         <div class="ui secondary segment">
+                              <div inline>
+                                   <h3 class="ui header">{{ name_approve }}</h3>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             ผู้ประกอบการ
+                                        </label>
+                                   </div>
+                                   <div field [col]="0" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="oldCustomer" formControlName="oldCustomer"
+                                                  value="N" [attr.disabled]="true">
+                                             <label>รายใหม่</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="0" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="oldCustomer" formControlName="oldCustomer"
+                                                  value="Y" [attr.disabled]="true">
+                                             <label>รายเก่า</label>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             ประเภทผู้ประกอบการ
+                                        </label>
+                                   </div>
+                                   <div field [col]="0" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="identifyType" formControlName="identifyType"
+                                                  value="P" [attr.disabled]="true">
+                                             <label>บุคคลธรรมดา</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="0" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="identifyType" formControlName="identifyType"
+                                                  value="C" [attr.disabled]="true">
+                                             <label>นิติบุคคล</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="0" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="identifyType" formControlName="identifyType"
+                                                  value="O" [attr.disabled]="true">
+                                             <label>กิจการร่วมทุน/กิจการร่วมค้า</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="0" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="identifyType" formControlName="identifyType"
+                                                  value="O2" [attr.disabled]="true">
+                                             <label>คณะบุคคล</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="0" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="identifyType" formControlName="identifyType"
+                                                  value="O3" [attr.disabled]="true">
+                                             <label>หน่วยงานราชการ/อื่นๆ</label>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">ชื่อ</label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input">
+                                             <input type="text" name="name" formControlName="name"
+                                                  autocomplete="new-password" readonly>
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">ชื่อผู้ประกอบการ</label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input">
+                                             <input type="text" name="companyName" formControlName="companyName"
+                                                  autocomplete="new-password" readonly>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label
+                                             class="full-width text-right">เลขที่บัตรประจำตัวประชาชน/ทะเบียนนิติบุคคล</label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input">
+                                             <input type="text" name="identifyNo" formControlName="identifyNo"
+                                                  maxlength="13" autocomplete="new-password" readonly>
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">สถานที่ตั้งเลขที่</label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input">
+                                             <input type="text" name="addressNo" formControlName="addressNo"
+                                                  autocomplete="new-password" readonly>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">จังหวัด</label>
+                                   </div>
+                                   <div field [col]="6" class="disabled">
+                                        <select class="ui dropdown search ai" id="province" name="province"
+                                             (change)="provinceChange()" formControlName="province">
+                                             <option value="">จังหวัด</option>
+                                             <option value="{{ province.province_name }}"
+                                                  *ngFor="let province of provinces; let i = index">
+                                                  {{ province.province_name }}</option>
+                                        </select>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             อำเภอ/เขต
+                                        </label>
+                                   </div>
+                                   <div field [col]="6" class="disabled">
+                                        <select class="ui dropdown search ai" id="amphoe" name="amphoe"
+                                             (change)="amphoeChange()" formControlName="amphoe">
+                                             <option value="">อำเภอ/เขต</option>
+                                             <option value="{{ amphure.amphur_name }}"
+                                                  *ngFor="let amphure of amphures; let i = index">
+                                                  {{ amphure.amphur_name }}</option>
+                                        </select>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             ตำบล
+                                        </label>
+                                   </div>
+                                   <div field [col]="6" class="disabled">
+                                        <div class="ui input" *ngIf="hasStar('amphoe')">
+                                             <input type="text" (keypress)="nospace($event)" name="district"
+                                                  formControlName="district" autocomplete="new-password">
+                                        </div>
+                                        <select *ngIf="!hasStar('amphoe')" class="ui dropdown search ai district"
+                                             id="district" name="district" (change)="districtChange()"
+                                             formControlName="district">
+                                             <option value="">ตำบล</option>
+                                             <option value="{{ district.district_name }}"
+                                                  *ngFor="let district of districts; let i = index">
+                                                  {{ district.district_name }}
+                                             </option>
+                                        </select>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             รหัสไปรษณีย์
+                                        </label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input">
+                                             <input type="text" name="postcode" formControlName="postcode"
+                                                  autocomplete="new-password" placeholder="เช่น 10210" readonly>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             โทรศัพท์
+                                        </label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input">
+                                             <input type="text" numberOnly name="mobile" formControlName="mobile"
+                                                  maxlength="12" readonly>
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             อีเมลล์
+                                        </label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input">
+                                             <input type="email" name="email" formControlName="email" readonly>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             สถานที่เก็บสารละลาย
+                                        </label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input">
+                                             <input type="text" name="warehouseAddress"
+                                                  formControlName="warehouseAddress" readonly>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="ui divider"></div>
+                         <!-- 3 -->
+                         <div class="ui secondary segment">
+                              <div inline>
+                                   <h3 class="ui header">{{ info_license }}</h3>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">ใบอนุญาตเลขที่</label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input fluid">
+                                             <input type="text" formControlName="licenseNo" readonly>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">ขออนุญาตเป็น</label>
+                                   </div>
+                                   <div field [col]="14" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="licenseType" formControlName="licenseType"
+                                                  value="B" [attr.disabled]="true">
+                                             <label
+                                                  class="text-left">ผู้ประกอบการกิจการเป็นตัวแทนในการซื้อสารละลายไฮโดรคาร์บอนซึ่งเสียภาษีในอัตราศูนย์
+                                                  เพื่อจำหน่ายให้แก่ผู้ใช้ที่นำไปใช้เป็นวัตถุดิบในการผลิตสิ่งของอื่น
+                                                  โดยจะซื้อจากผู้ประกอบการอุตสาหกรรม / ผู้นำเข้า / ตัวแทน</label>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2"></div>
+                                   <div field [col]="14" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="licenseType" formControlName="licenseType"
+                                                  value="A" [attr.disabled]="true">
+                                             <label
+                                                  class="text-left">ผู้ใช้สารละลายไฮโดรคาร์บอนซึ่งเสียภาษีในอัตราศูนย์</label>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2"></div>
+                                   <div field [col]="1"></div>
+                                   <div field [col]="4" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="licenseTypeUsr" formControlName="licenseTypeUsr"
+                                                  value="A">
+                                             <label class="text-left">สำหรับใช้เป็นวัตถุดิบในอุตสาหกรรม
+                                                  (ระบุชนิดผลิตภัณฑ์)</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="4">
+                                        <div class="ui input fluid">
+                                             <input type="text" formControlName="licenseTypeUsrATxt" readonly>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2"></div>
+                                   <div field [col]="1"></div>
+                                   <div field [col]="4" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="licenseTypeUsr" formControlName="licenseTypeUsr"
+                                                  value="B">
+                                             <label class="text-left">สำหรับใช้ในกิจการอื่น (ระบุ)</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="4">
+                                        <div class="ui input fluid">
+                                             <input type="text" formControlName="licenseTypeUsrBTxt" readonly>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <table class="ui mini very compact celled table">
+                                        <thead>
+                                             <tr class="text-center">
+                                                  <th style="width: 64px">ลำดับ</th>
+                                                  <th>ชื่อจากผู้ประกอบการอุตสาหกรรม / ผู้นำเข้า / ตัวแทน (ระบุชื่อ)</th>
+                                                  <th>ชนิดสารละลายไฮโดรคาร์บอน</th>
+                                                  <th>จำนวนที่อนุญาตต่อปี (ลิตร/กิโลกรัม)</th>
+                                             </tr>
+                                        </thead>
+                                        <tbody formArrayName="details">
+                                             <tr [formGroupName]="i"
+                                                  *ngFor="let detail of form.get('details')['controls']; let i = index">
+                                                  <td class="text-center">{{ i+1 }}</td>
+                                                  <td class="text-left">
+                                                       <div field style="padding: 0">
+                                                            <div class="ui input fluid">
+                                                                 <input type="text" formControlName="name" readonly>
+                                                            </div>
+                                                       </div>
+                                                  </td>
+                                                  <td class="text-left">
+                                                       <div field style="padding: 0">
+                                                            <div class="ui input fluid">
+                                                                 <input type="text" formControlName="type" readonly>
+                                                            </div>
+                                                       </div>
+                                                  </td>
+                                                  <td class="text-right">
+                                                       <div field style="padding: 0">
+                                                            <div class="ui input fluid right labeled">
+                                                                 <input class="text-right" numberOnly type="text"
+                                                                      formControlName="amount" readonly>
+                                                                 <div class="ui basic label">ลิตร</div>
+                                                            </div>
+                                                       </div>
+                                                  </td>
+                                             </tr>
+                                        </tbody>
+                                        <tfoot>
+                                             <tr>
+                                                  <th class="text-right" colspan="2">
+                                                       รวม
+                                                  </th>
+                                                  <th></th>
+                                                  <th class="text-right">
+                                                       <div class="ui input fluid right labeled">
+                                                            <input class="text-right custom-readonly" numberOnly
+                                                                 type="text" value="{{ sumOfLitre }}" readonly>
+                                                            <div class="ui basic label">ลิตร</div>
+                                                       </div>
+                                                  </th>
+                                             </tr>
+                                        </tfoot>
+                                   </table>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2" class="text-right">
+                                        <label class="full-width text-right">
+                                             เจ้าหน้าที่
+                                        </label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input">
+                                             <input type="text" name="operateName" formControlName="operateName" readonly>
+                                        </div>
+                                   </div>
+                                   <div field [col]="2" class="text-right">
+                                        <label class="full-width text-right">
+                                             ความเห็นเจ้าหน้าที่
+                                        </label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input">
+                                             <input type="text" name="operateRemark" formControlName="operateRemark" readonly>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div *ngIf="!stateEdit && state" inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">ผู้อนุญาต</label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input">
+                                             <input type="text" name="approveName" formControlName="approveName" readonly>
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">การอนุญาต</label>
+                                   </div>
+                                   <div field [col]="0" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="approve" formControlName="approve" value="Y"
+                                                  [attr.disabled]="true">
+                                             <label>อนุญาต</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="0" class="disabled">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="approve" formControlName="approve" value="N"
+                                                  [attr.disabled]="true">
+                                             <label>ไม่อนุญาต</label>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="ui divider"></div>
+                         <div [center]="true" inline>
+                              <div class="center-all" field>
+                                   <app-button-back (click)="back()"></app-button-back>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+               <!-- View -->
+               <!-- Add & Edit -->
+               <div [column]="15" *ngIf="!stateView">
+                    <div form [formGroup]="form">
+                         <!-- 1 -->
+                         <div class="ui secondary segment">
+                              <div inline>
+                                   <h3 class="ui header">{{ name_license }}</h3>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">เลขขอรับที่</label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{'error': invalid('receiveNo')}">
+                                        <div class="ui input fluid">
+                                             <input type="text" formControlName="receiveNo">
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">วันที่ขอรับ</label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{'error': invalid('receiveDate')}">
+                                        <div class="ui calendar" style="width:100%" id="receiveDate">
+                                             <div class="ui input left icon">
+                                                  <i class="calendar alter nate outline icon"></i>
+                                                  <input type="calendar" placeholder="วว/ดด/ปปปป" autocomplete="off"
+                                                       readonly>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">วันที่ได้รับอนุญาต</label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{'error': invalid('startDate')}">
+                                        <div class="ui calendar" style="width:100%" id="startDate">
+                                             <div class="ui input left icon">
+                                                  <i class="calendar alter nate outline icon"></i>
+                                                  <input type="calendar" placeholder="วว/ดด/ปปปป" autocomplete="off"
+                                                       readonly>
+                                             </div>
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">วันที่ใบอนุญาตหมดอายุ</label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{'error': invalid('endDate')}">
+                                        <div class="ui calendar" style="width:100%" id="endDate">
+                                             <div class="ui input left icon">
+                                                  <i class="calendar alter nate outline icon"></i>
+                                                  <input type="calendar" placeholder="วว/ดด/ปปปป" autocomplete="off"
+                                                       readonly>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2"></div>
+                                   <div field [col]="3">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="bankGuarantee" (change)="changeBank()"
+                                                  formControlName="bankGuarantee" value="Y">
+                                             <label class="text-right">มีหนังสือค้ำประกันธนาคาร</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="3">
+                                        <div class="ui input"
+                                             [ngClass]="{'disabled': form.get('bankGuarantee').value == 'N'}">
+                                             <input type="text" name="bankGuaranteeTxt"
+                                                  formControlName="bankGuaranteeTxt">
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">เลขที่</label>
+                                   </div>
+                                   <div field [col]="3">
+                                        <div class="ui input"
+                                             [ngClass]="{'disabled': form.get('bankGuarantee').value == 'N'}">
+                                             <input type="text" name="bankGuaranteeNo"
+                                                  formControlName="bankGuaranteeNo">
+                                        </div>
+                                   </div>
+                                   <div field [col]="1">
+                                        <label class="full-width text-right">วันที่</label>
+                                   </div>
+                                   <div field [col]="2"
+                                        [ngClass]="{'disabled': form.get('bankGuarantee').value == 'N', 'error': invalid('bankGuaranteeDate')}">
+                                        <div class="ui calendar" style="width:100%" id="date">
+                                             <div class="ui input left icon">
+                                                  <i class="calendar alter nate outline icon"></i>
+                                                  <input type="calendar" placeholder="วว/ดด/ปปปป" autocomplete="off">
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2"></div>
+                                   <div field [col]="2">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="bankGuarantee" (change)="changeBank()"
+                                                  formControlName="bankGuarantee" value="N">
+                                             <label class="text-left">ไม่มี</label>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="ui divider"></div>
+                         <!-- 2 -->
+                         <div class="ui secondary segment">
+                              <div inline>
+                                   <h3 class="ui header">{{ name_approve }}</h3>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             ผู้ประกอบการ
+                                        </label>
+                                   </div>
+                                   <div field [col]="0" [ngClass]="{ 'error': invalid('oldCustomer') }">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="oldCustomer" formControlName="oldCustomer"
+                                                  value="N" (change)="customerChange()">
+                                             <label>รายใหม่</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="0" [ngClass]="{ 'error': invalid('oldCustomer') }">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="oldCustomer" formControlName="oldCustomer"
+                                                  value="Y" (change)="customerChange()">
+                                             <label>รายเก่า</label>
+                                        </div>
+                                   </div>
+                                   <div *ngIf="isOldCustomer && !state" field [col]="5"
+                                        [ngClass]="{ 'error': invalid('customer') }">
+                                        <select class="ui dropdown search ai" id="customer" name="customer"
+                                             (change)="onCustomerChange($event)" formControlName="customer">
+                                             <option value="">รายการผู้ได้รับอนุญาต</option>
+                                             <option value="{{ customer.identifyNo }}"
+                                                  *ngFor="let customer of customers; let i = index">
+                                                  {{ customer.identifyNo }} {{ customer.name }}</option>
+                                        </select>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             ประเภทผู้ประกอบการ
+                                        </label>
+                                   </div>
+                                   <div field [col]="0" [ngClass]="{ 'error': invalid('identifyType') }">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="identifyType" formControlName="identifyType"
+                                                  value="P">
+                                             <label>บุคคลธรรมดา</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="0" [ngClass]="{ 'error': invalid('identifyType') }">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="identifyType" formControlName="identifyType"
+                                                  value="C">
+                                             <label>นิติบุคคล</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="0" [ngClass]="{ 'error': invalid('identifyType') }">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="identifyType" formControlName="identifyType"
+                                                  value="O">
+                                             <label>กิจการร่วมทุน/กิจการร่วมค้า</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="0" [ngClass]="{ 'error': invalid('identifyType') }">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="identifyType" formControlName="identifyType"
+                                                  value="O2">
+                                             <label>คณะบุคคล</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="0" [ngClass]="{ 'error': invalid('identifyType') }">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="identifyType" formControlName="identifyType"
+                                                  value="O3">
+                                             <label>หน่วยงานราชการ/อื่นๆ</label>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">ชื่อ</label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{ 'error': invalid('name') }">
+                                        <div class="ui input">
+                                             <input type="text" name="name" formControlName="name"
+                                                  autocomplete="new-password">
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">ชื่อผู้ประกอบการ</label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{ 'error': invalid('companyName') }">
+                                        <div class="ui input">
+                                             <input type="text" name="companyName" formControlName="companyName"
+                                                  autocomplete="new-password">
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label
+                                             class="full-width text-right">เลขที่บัตรประจำตัวประชาชน/ทะเบียนนิติบุคคล</label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{ 'error': invalid('identifyNo') }">
+                                        <div class="ui input">
+                                             <input type="text" name="identifyNo" formControlName="identifyNo"
+                                                  maxlength="13" autocomplete="new-password">
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">สถานที่ตั้งเลขที่</label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{ 'error': invalid('addressNo') }">
+                                        <div class="ui input">
+                                             <input type="text" (keypress)="nospace($event)" name="addressNo"
+                                                  formControlName="addressNo" autocomplete="new-password">
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">จังหวัด</label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{ 'error': invalid('province') }">
+                                        <select class="ui dropdown search ai" id="province" name="province"
+                                             (change)="provinceChange()" formControlName="province">
+                                             <option value="">จังหวัด</option>
+                                             <option value="{{ province.province_name }}"
+                                                  *ngFor="let province of provinces; let i = index">
+                                                  {{ province.province_name }}</option>
+                                        </select>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             อำเภอ/เขต
+                                        </label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{ 'error': invalid('amphoe') }">
+                                        <select class="ui dropdown search ai" id="amphoe" name="amphoe"
+                                             (change)="amphoeChange()" formControlName="amphoe">
+                                             <option value="">อำเภอ/เขต</option>
+                                             <option value="{{ amphure.amphur_name }}"
+                                                  *ngFor="let amphure of amphures; let i = index">
+                                                  {{ amphure.amphur_name }}</option>
+                                        </select>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             ตำบล
+                                        </label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{ 'error': invalid('district') }">
+                                        <div class="ui input" *ngIf="hasStar('amphoe')">
+                                             <input type="text" (keypress)="nospace($event)" name="district"
+                                                  formControlName="district" autocomplete="new-password">
+                                        </div>
+                                        <select *ngIf="!hasStar('amphoe')" class="ui dropdown search ai district"
+                                             id="district" name="district" (change)="districtChange()"
+                                             formControlName="district">
+                                             <option value="">ตำบล</option>
+                                             <option value="{{ district.district_name }}"
+                                                  *ngFor="let district of districts; let i = index">
+                                                  {{ district.district_name }}
+                                             </option>
+                                        </select>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             รหัสไปรษณีย์
+                                        </label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{ 'error': invalid('postcode') }">
+                                        <div class="ui input">
+                                             <input type="text" (keypress)="nospace($event)" name="postcode"
+                                                  formControlName="postcode" autocomplete="new-password"
+                                                  placeholder="เช่น 10210">
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             โทรศัพท์
+                                        </label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{ 'error': invalid('mobile') }">
+                                        <div class="ui input">
+                                             <input type="text" numberOnly name="mobile" formControlName="mobile"
+                                                  maxlength="12">
+                                        </div>
+                                   </div>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             อีเมลล์
+                                        </label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{ 'error': invalid('email') }">
+                                        <div class="ui input">
+                                             <input type="email" name="email" formControlName="email" maxlength="12">
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">
+                                             สถานที่เก็บสารละลาย
+                                        </label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{ 'error': invalid('warehouseAddress') }">
+                                        <div class="ui input">
+                                             <input type="text" name="warehouseAddress"
+                                                  formControlName="warehouseAddress">
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="ui divider"></div>
+                         <!-- 3 -->
+                         <div class="ui secondary segment">
+                              <div inline>
+                                   <h3 class="ui header">{{ info_license }}</h3>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">ใบอนุญาตเลขที่</label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{'error': invalid('licenseNo')}">
+                                        <div class="ui input fluid">
+                                             <input type="text" formControlName="licenseNo">
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2">
+                                        <label class="full-width text-right">ขออนุญาตเป็น</label>
+                                   </div>
+                                   <div field [col]="14" [ngClass]="{'error': invalid('licenseType')}">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" (change)="onChangeLicenseType($event)"
+                                                  name="licenseType" formControlName="licenseType" value="B">
+                                             <label
+                                                  class="text-left">ผู้ประกอบการกิจการเป็นตัวแทนในการซื้อสารละลายไฮโดรคาร์บอนซึ่งเสียภาษีในอัตราศูนย์
+                                                  เพื่อจำหน่ายให้แก่ผู้ใช้ที่นำไปใช้เป็นวัตถุดิบในการผลิตสิ่งของอื่น
+                                                  โดยจะซื้อจากผู้ประกอบการอุตสาหกรรม / ผู้นำเข้า / ตัวแทน</label>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2"></div>
+                                   <div field [col]="14" [ngClass]="{'error': invalid('licenseType')}">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" (change)="onChangeLicenseType($event)"
+                                                  name="licenseType" formControlName="licenseType" value="A">
+                                             <label
+                                                  class="text-left">ผู้ใช้สารละลายไฮโดรคาร์บอนซึ่งเสียภาษีในอัตราศูนย์</label>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2"></div>
+                                   <div field [col]="1"></div>
+                                   <div field [col]="4"
+                                        [ngClass]="{'error': invalid('licenseTypeUsr'), 'disabled': form.get('licenseType').value != 'A'}">
+                                        <div class="ui radio checkbox"
+                                             [ngClass]="{'disabled': form.get('licenseType').value != 'A'}">
+                                             <input type="radio" (change)="onChangeLicenseTypeUsr($event)"
+                                                  name="licenseTypeUsr" formControlName="licenseTypeUsr" value="A">
+                                             <label class="text-left">สำหรับใช้เป็นวัตถุดิบในอุตสาหกรรม
+                                                  (ระบุชนิดผลิตภัณฑ์)</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="4" [ngClass]="{'error': invalid('licenseTypeUsrATxt')}">
+                                        <div class="ui input fluid"
+                                             [ngClass]="{'disabled': form.get('licenseTypeUsr').value != 'A'}">
+                                             <input type="text" formControlName="licenseTypeUsrATxt">
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2"></div>
+                                   <div field [col]="1"></div>
+                                   <div field [col]="4"
+                                        [ngClass]="{'error': invalid('licenseTypeUsr'), 'disabled': form.get('licenseType').value != 'A'}">
+                                        <div class="ui radio checkbox"
+                                             [ngClass]="{'disabled': form.get('licenseType').value != 'A'}">
+                                             <input type="radio" (change)="onChangeLicenseTypeUsr($event)"
+                                                  name="licenseTypeUsr" formControlName="licenseTypeUsr" value="B">
+                                             <label class="text-left">สำหรับใช้ในกิจการอื่น (ระบุ)</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="4" [ngClass]="{'error': invalid('licenseTypeUsrBTxt')}">
+                                        <div class="ui input fluid"
+                                             [ngClass]="{'disabled': form.get('licenseTypeUsr').value != 'B'}">
+                                             <input type="text" formControlName="licenseTypeUsrBTxt">
+                                        </div>
+                                   </div>
+                              </div>
+                              <div inline>
+                                   <table class="ui mini very compact celled table">
+                                        <thead>
+                                             <tr class="text-center">
+                                                  <th style="width: 64px">ลำดับ</th>
+                                                  <th>ชื่อจากผู้ประกอบการอุตสาหกรรม / ผู้นำเข้า / ตัวแทน (ระบุชื่อ)</th>
+                                                  <th>ชนิดสารละลายไฮโดรคาร์บอน</th>
+                                                  <th>จำนวนที่อนุญาตต่อปี (ลิตร/กิโลกรัม)</th>
+                                                  <th class="text-center" style="width: 100px">
+                                                       <app-button-add (click)="addLicenseDetail()"></app-button-add>
+                                                  </th>
+                                             </tr>
+                                        </thead>
+                                        <tbody formArrayName="details">
+                                             <tr [formGroupName]="i"
+                                                  *ngFor="let detail of form.get('details')['controls']; let i = index">
+                                                  <td class="text-center">{{ i+1 }}</td>
+                                                  <td class="text-left">
+                                                       <div field [ngClass]="{'error': invalidChildren('name', i)}"
+                                                            style="padding: 0">
+                                                            <div class="ui input fluid">
+                                                                 <input type="text" formControlName="name">
+                                                            </div>
+                                                       </div>
+                                                  </td>
+                                                  <td class="text-left">
+                                                       <div field [ngClass]="{'error': invalidChildren('type', i)}"
+                                                            style="padding: 0">
+                                                            <div class="ui input fluid">
+                                                                 <input type="text" formControlName="type">
+                                                            </div>
+                                                       </div>
+                                                  </td>
+                                                  <td class="text-right">
+                                                       <div field [ngClass]="{'error': invalidChildren('amount', i)}"
+                                                            style="padding: 0">
+                                                            <div class="ui input fluid right labeled">
+                                                                 <input class="text-right" numberOnly type="text"
+                                                                      formControlName="amount"
+                                                                      (focus)="onFocus($event, i)"
+                                                                      (blur)="onBlur($event, i)">
+                                                                 <div class="ui basic label">ลิตร</div>
+                                                            </div>
+                                                       </div>
+                                                  </td>
+                                                  <td class="text-center" style="width: 100px">
+                                                       <app-button-delete
+                                                            (click)="delLicenseDetail(detail.get('oaCuslicenseDtlId').value, i)">
+                                                       </app-button-delete>
+                                                  </td>
+                                             </tr>
+                                        </tbody>
+                                        <tfoot>
+                                             <tr>
+                                                  <th class="text-right" colspan="2">
+                                                       รวม
+                                                  </th>
+                                                  <th></th>
+                                                  <th class="text-right">
+                                                       <div class="ui input fluid right labeled">
+                                                            <input class="text-right custom-readonly" numberOnly
+                                                                 type="text" value="{{ sumOfLitre }}" readonly>
+                                                            <div class="ui basic label">ลิตร</div>
+                                                       </div>
+                                                  </th>
+                                                  <th class="text-center" style="width: 100px"></th>
+                                             </tr>
+                                        </tfoot>
+                                   </table>
+                              </div>
+                              <div inline>
+                                   <div field [col]="2" class="text-right">
+                                        <label class="full-width text-right">
+                                             เจ้าหน้าที่
+                                        </label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{'error': invalid('operateName')}">
+                                        <div class="ui input">
+                                             <input type="text" name="operateName" formControlName="operateName">
+                                        </div>
+                                   </div>
+                                   <div field [col]="2" class="text-right">
+                                        <label class="full-width text-right">
+                                             ความเห็นเจ้าหน้าที่
+                                        </label>
+                                   </div>
+                                   <div field [col]="6" [ngClass]="{'error': invalid('operateRemark')}">
+                                        <div class="ui input">
+                                             <input type="text" name="operateRemark" formControlName="operateRemark">
+                                        </div>
+                                   </div>
+                              </div>
+                              <div *ngIf="!stateEdit && state" inline>
+                                   <div field [col]="2" class="text-right">
+                                        <label class="full-width text-right">ผู้อนุญาต</label>
+                                   </div>
+                                   <div field [col]="6">
+                                        <div class="ui input">
+                                             <input type="text" name="approveName" formControlName="approveName"
+                                                  class="custom-readonly" readonly>
+                                        </div>
+                                   </div>
+                                   <!-- <div field [col]="2" class="text-right">
+                                        <label class="full-width text-right">การอนุญาต</label>
+                                   </div>
+                                   <div field [col]="0">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="approve" formControlName="approve" value="Y"
+                                                  [attr.disabled]="true">
+                                             <label>อนุญาต</label>
+                                        </div>
+                                   </div>
+                                   <div field [col]="0">
+                                        <div class="ui radio checkbox">
+                                             <input type="radio" name="approve" formControlName="approve" value="N"
+                                                  [attr.disabled]="true">
+                                             <label>ไม่อนุญาต</label>
+                                        </div>
+                                   </div> -->
+                              </div>
+                         </div>
+                         <div class="ui divider"></div>
+                         <div [center]="true" inline>
+                              <div class="center-all" field>
+                                   <app-button-save *ngIf="id" (click)="update()"></app-button-save>
+                                   <app-button-save *ngIf="!id" (click)="save()"></app-button-save>
+                                   <app-button-cancel (click)="back()"></app-button-cancel>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+               <!-- Add & Edit -->
+          </div>
+     </segment>
+</with-breadcrumb>

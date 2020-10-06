@@ -1,0 +1,123 @@
+<segment header="ดาวน์โหลดเอกสาร (TA0207)" [loading]="loading">
+  <div form>
+    <div inline>
+      <div field [col]="1"></div>
+      <div field [col]="3">
+        <label class="text-right full-width">เลขทะเบียนสรรพสามิต/ผปก. : </label>
+      </div>
+      <div field [col]="3">
+        <select class="ui dropdown full-width">
+          <option value="1">07755440001511001</option>
+          <option value="2">02055490179521001</option>
+          <option value="3">01355530057941001</option>
+        </select>
+      </div>
+      <div field [col]="1">
+        <app-button-custom icon="info"></app-button-custom>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1"></div>
+      <div field [col]="3">
+        <label class="text-right full-width"> พิกัดสินค้า/บริการ : </label>
+      </div>
+      <div field [col]="3">
+        <input type="text">
+      </div>
+      <div field [col]="2">
+        <label class="text-right full-width"> ชื่อผู้ปฏิบัติงาน : </label>
+      </div>
+      <div field [col]="3">
+        <input type="text">
+      </div>
+    </div>
+  </div>
+  <br>
+  <div form>
+    <div inline>
+      <div field [col]="1"></div>
+      <div field [col]="14">
+        <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tableDetails">
+          <thead class="text-center">
+            <tr>
+              <th style=" text-align: center !important">
+                <!-- <div class="ui fitted checkbox">
+                  <input type="checkbox">
+                </div> -->
+              </th>
+              <th style=" text-align: center !important">ลำดับ</th>
+              <th style=" text-align: center !important">ชื่อเอกสาร</th>
+              <th style=" text-align: center !important">สถานะเอกสาร</th>
+              <th style=" text-align: center !important">ช่วงเวลา</th>
+              <th style=" text-align: center !important">ดาวน์โหลด</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of tableItems; let i=index">
+              <td class="text-center">
+                <div class="ui fitted checkbox">
+                  <input type="checkbox">
+                </div>
+              </td>
+              <td class="text-center">{{i+1}}</td>
+              <td>{{item.docName}}</td>
+              <td class="text-center"></td>
+              <td class="text-center" style="width: 25%;">
+                <div inline>
+                  <div class="ui calendar" style="width:100%" id="startDate{{i}}">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="calendar" placeholder="วว/ดด/ปปปป" id="startDate{{i}}" autocomplete="off">
+                    </div>
+                  </div>
+                  <label style="margin: 0px 5px 0px 5px;">ถึง</label>
+                  <div class="ui calendar" style="width:100%" id="endDate{{i}}">
+                    <div class="ui input left icon">
+                      <i class="calendar alter nate outline icon"></i>
+                      <input type="calendar" placeholder="วว/ดด/ปปปป" id="endDate{{i}}" autocomplete="off">
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="text-center">
+                <app-button-download></app-button-download>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1"></div>
+      <div field [col]="4">
+        <label>บันทึกคำขออนุมัติ</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1"></div>
+      <div field [col]="14">
+        <textarea rows="5"></textarea>
+      </div>
+    </div>
+    <div class="inline field btn text-center">
+      <app-button-save></app-button-save>
+      <app-button-clear></app-button-clear>
+    </div>
+    <div inline>
+      <div field [col]="1"></div>
+      <div field [col]="4">
+        <label>บันทึกอนุมัติ</label>
+      </div>
+    </div>
+    <div inline>
+      <div field [col]="1"></div>
+      <div field [col]="14">
+        <textarea rows="5"></textarea>
+      </div>
+    </div>
+    <div class="inline field btn text-center">
+      <app-button-save></app-button-save>
+      <app-button-clear></app-button-clear>
+    </div>
+  </div>
+</segment>

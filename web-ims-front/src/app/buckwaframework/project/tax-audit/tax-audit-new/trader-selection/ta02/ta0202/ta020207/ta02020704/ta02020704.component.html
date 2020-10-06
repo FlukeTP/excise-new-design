@@ -1,0 +1,138 @@
+
+<!-- header -->
+<segment header="ตรวจหาความสัมพันธ์การเบิกใช้วัตถุดิบกับการรับสินค้าสำเร็จรูป">
+  <form form [formGroup]="formSearch">
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">รอบระยะเวลาการตรวจสอบ :</label>
+      </div>
+
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="2" [ngClass]="{'error': invalidSearchFormControl('startDate')}">
+          <div class="ui calendar full-width" id="date1">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" placeholder="ดด/ปปปป" autocomplete="off" id="inputDate1" readonly="">
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="2">
+          <input type="text" class="custom-readonly" formControlName="startDate" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="1">
+        <label class="text-center full-width">ถึง :</label>
+      </div>
+
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="2" [ngClass]="{'error': invalidSearchFormControl('endDate')}">
+          <div class="ui calendar full-width" id="date2">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" placeholder="ดด/ปปปป" autocomplete="off" id="inputDate2" readonly="">
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="2">
+          <input type="text" class="custom-readonly " formControlName="endDate" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="4">
+        <label class="text-right full-width">เลขกระดาษทำการ :</label>
+      </div>
+
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="4">
+          <select class="ui dropdown full-width" (change)="onChangePaperPrNumber($event)"
+            formControlName="paperPrNumber" id="paperPrNumber">
+            <option value="">เลือกเอกสาร</option>
+            <option *ngFor="let item of prNumberList let i =index" value="{{item}}">
+              {{item}}</option>
+          </select>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" formControlName="paperPrNumber" readonly>
+        </div>
+      </ng-container>
+
+    </div>
+
+
+    <div class="inline field btn text-center">
+      <app-button-search (click)="onSerach()" [disabled]="!showBtSave || !flagHeader"></app-button-search>
+      <app-button-save (click)="onSave()" [disabled]="showBtSave"></app-button-save>
+      <app-button-custom color="orange" text="อัปโหลด Template" (click)="uploadTemplate()"></app-button-custom>
+      <app-button-export (click)="exportFile()" [disabled]="showTable"></app-button-export>
+      <app-button-clear (click)="onClear()"></app-button-clear>
+      <app-button-back (click)="onBackPages()"></app-button-back>
+    </div>
+
+  </form>
+</segment>
+<!-- Upload -->
+<segment header="อัพโหลด Template ข้อมูลสำหรับตรวจหาความสัมพันธ์การเบิกใช้วัตถุดิบกับการรับสินค้าสำเร็จรูป"  [hidden]="showUpload">
+  <form class="ui form ng-untouched ng-pristine ng-valid" id="upload-form" ngnativevalidate>
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">เลือกไฟล์ Template ข้อมูล</label>
+      </div>
+      <div field [col]="4">
+        <input id="file" type="file" name="file"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+          (change)="onChangeUpload($event)" required>
+      </div>
+      <div field [col]="4">
+        <app-button-upload (click)="onUpload($event)"></app-button-upload>
+        <app-button-custom color="" text="ปิด" (click)="onClear()"></app-button-custom>
+      </div>
+    </div>
+  </form>
+</segment>
+<!-- Table main -->
+<segment [loading]="loading" [hidden]="showTable">
+  <table id="dataTable" class="ui small celled nowrap table striped selectable" style="width:100%">
+    <thead>
+      <tr >
+        <th rowspan="2" class="one wide">ลำดับ</th>
+        <th rowspan="2" class="one wide bg-key-in">เลขที่ใบสำคัญ</th>
+        <th rowspan="2" class="one wide text-center bg-key-in">รายการ</th>
+        <th rowspan="2" class="one wide  text-center bg-key-in"style="text-align: center !important">จำนวนรับ<br>(ตามบัญชี ภส. ๐๗-๐๒)</th>
+        <th rowspan="2" class="one wide bg-key-in">สูตรจากการผลิต</th>
+        <th rowspan="2" class="one wide bg-cal">เบิกตามสูตร</th>
+        <th rowspan="2" class="one wide text-center bg-key-in">เบิกใช้จริง</th>
+        <th rowspan="2" class="one wide text-center bg-cal">ผลต่างวัตถุดิบ</th>
+        <th colspan="2" class="one wide text-center">ผลิตได้ตามสูตร</th>
+        <th rowspan="2" class="one wide text-center">ผลต่างสินค้าสำเร็จรูป</th>
+        <th colspan="2" class="one wide text-center">หักสูญเสีย</th>
+        <th rowspan="2" class="one wide text-center">คงเหลือ</th>
+      </tr>
+      <tr style="text-align: center;">
+        <th class="one wide text-center">แยกตามวัตถุดิบ</th>
+        <th class="one wide text-center">จำนวนสินค้าสำเร็จรูป</th>
+        <th class="one wide text-center">เปอร์เซ็นต์</th>
+        <th class="one wide text-center">จำนวน</th>
+      </tr>
+    </thead>
+  </table>
+</segment>
+
+<!-- form-excel -->
+<form id="form-excel" method="POST"> 
+  <input type="hidden" name="auditPlanCode" id="auditPlanCode">
+  <input type="hidden" name="paperPrNumber" id="paperPrNumber">
+  <input type="hidden" name="newRegId" id="newRegId">
+  <input type="hidden" name="dutyGroupId" id="dutyGroupId">
+  <input type="hidden" name="startDate" id="startDate">
+  <input type="hidden" name="endDate" id="endDate">
+</form>

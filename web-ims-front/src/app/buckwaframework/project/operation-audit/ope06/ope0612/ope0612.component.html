@@ -1,0 +1,145 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="สร้างแผนงานการออกตรวจ" [loading]="false">
+    <form>
+      <div class="ui form ">
+        <!-- row 1 -->
+        <div class="inline fields">
+          <div class="three wide field ">
+            <label class="text-right full-width">ชื่อแผน</label>
+          </div>
+          <div class="four wide field ">
+            <input type="text">
+          </div>
+          <div class="two wide field ">
+            <label class="text-right full-width">หน่วยงาน</label>
+          </div>
+          <div class="four wide field ">
+            <select class="ui search dropdown ai search full-width">
+              <option value="สรรพสามิตภาค 1">สรรพสามิตภาค 1</option>
+            </select>
+          </div>
+        </div>
+        <!-- row 3 -->
+        <div class="inline fields">
+          <div class="three wide field ">
+            <label class="text-right full-width">ประจำเดือน</label>
+          </div>
+          <div class="four wide field ">
+            <select class="ui search dropdown ai search full-width">
+              <!-- <option value="ต.ค. 2561">ต.ค. 2561</option> -->
+              <option value="ต.ค. 2561">ต.ค. 2561</option>
+            </select>
+          </div>
+        </div>
+        <!-- row 4 -->
+        <div class="inline fields">
+
+          <div class="three wide field ">
+            <label class="text-right full-width">วันที่ออกตรวจ</label>
+          </div>
+          <div class="four wide field ">
+            <select class="ui search dropdown ai search full-width">
+              <option value="15 ต.ค. 2561">15 ต.ค. 2561</option>
+            </select>
+          </div>
+
+          <div class="two wide field ">
+            <label class="text-right full-width">ถึง</label>
+          </div>
+          <div class="four wide field ">
+            <select class="ui search dropdown ai search full-width">
+              <option value="15 ต.ค. 2561">15 ต.ค. 2561</option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="inline fields">
+          <div class="two wide field ">
+            <h3>รายชื่อผู้รับอนุมัติ</h3>
+          </div>
+          <app-button-custom color="primary" text="เลือกจากการคัดกรอง" routerLink="/ope06/12/01"></app-button-custom>
+          <app-button-custom color="primary" text="เลือกจากรายชื่อ" routerLink="/ope06/12/02"></app-button-custom>
+        </div>
+        <div class="ui grid">
+          <div class="one wide column"></div>
+          <div class="six wide column">
+            <span>1.บริษัท</span>
+            <br><span>2.บริษัท</span>
+          </div>
+        </div>
+        <br>
+        <div class="inline fields">
+          <div class="two wide field ">
+            <h3>รายชื่อผู้ออกตรวจ</h3>
+          </div>
+          <app-button-custom color="primary" text="เลือกผู้ออกตรวจ" routerLink="/ope06/12/03"></app-button-custom>
+        </div>
+        <div class="ui grid">
+          <div class="one wide column"></div>
+          <div class="six wide column">
+            <span>1.บริษัท</span>
+            <br><span>2.บริษัท</span>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <br>
+
+    <!-- <table class="ui small celled table striped selectable" id="dataTable" style="width: 100%;">
+      <thead>
+        <tr style="text-align: center">
+          <th><input class="ui checkbox" type="checkbox" (change)="clickCheckAll($event)"></th>
+          <th>ชื่อผู้ประกอบการ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-center"><input class="ui checkbox" type="checkbox"></td>
+          <td>บริษัท พรีไซซ อีเลคตริค แมนูแฟคเจอริ่ง จำกัด</td>
+        </tr>
+        <tr>
+          <td class="text-center"><input class="ui checkbox" type="checkbox"></td>
+          <td>บริษัท เฮดดิ้ง เทรดดิ้ง ไทย จำกัด</td>
+        </tr>
+        <tr>
+          <td class="text-center"><input class="ui checkbox" type="checkbox"></td>
+          <td>บริษัท ไคเนเทค เรซซิ่ง จำกัด</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="inline fields">
+      <div class="three wide field ">
+        <h3>รายชื่อผู้ออกตรวจ</h3>
+      </div>
+    </div>
+
+    <table class="ui small celled table striped selectable" id="dataTable" style="width: 30%;">
+      <thead>
+        <tr style="text-align: center">
+          <th>ชื่อ-สกุล</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>นายปวิช ตะนะทิพย์</td>
+        </tr>
+        <tr>
+          <td>นายเอกลักษณ์ อำพุธ</td>
+        </tr>
+        <tr>
+          <td>นายธนกิตน์ พานิชเจริญ</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-custom text="ยื่นแผนอนุมัติ" [routerLink]="['/ope06/11']"></app-button-custom>
+        <app-button-cancel [routerLink]="['/ope06/11']"></app-button-cancel>
+      </div>
+    </div> -->
+  </segment>
+</with-breadcrumb>

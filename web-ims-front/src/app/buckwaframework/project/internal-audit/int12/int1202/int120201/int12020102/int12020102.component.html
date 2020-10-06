@@ -1,0 +1,71 @@
+<app-breadcrumb style="width: 100%;" [route]="breadcrumb"></app-breadcrumb>
+<segment header="ประวัติการซ่อมบารุงรักษาทรัพย์สิน" [loading]="false">
+  <div class="sixteen wide column" id="assetMaintenance">
+    <div class="ui attached">
+      <div class="ui form">
+
+        <div class="inline fields">
+          <div class="two wide field "></div>
+          <div class="two wide field ">
+            <label class="text-right full-width">ครั้งที่ซ่อมบำรุงรักษา</label>
+          </div>
+          <div class="two wide field ">
+            <input type="number" placeholder="ครั้งที่ซ่อมบำรุงรักษา" class="custom" name="annualDepreciation" id="annualDepreciation"
+              disabled=true [(ngModel)]="assetMaintenance.maintenanceAmount">
+          </div>
+          <div class="two wide field ">
+            <label class="text-right full-width"> <b style="color: red">*</b> วันที่ซ่อมบำรุงรักษา</label>
+          </div>
+          <div class="two wide field ">
+
+            <div class="ui calendar" style="width:100%" id="maintenanceDate">
+              <div class="ui input left icon">
+                <i class="calendar alternate outline icon"></i>
+                <input type="calendar" placeholder="วันที่ซ่อมบำรุงรักษา" name="maintenanceDate" autocomplete="off">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="two wide field ">
+            <label class="text-right full-width"><b style="color: red">*</b> จำนวนเงินค่าซ่อมบำรุงรักษา</label>
+          </div>
+          <div class="two wide field ">
+            <input type="number" placeholder="จำนวนเงินค่าซ่อมบำรุงรักษา" class="custom" name="netValue" id="netValue"
+              [(ngModel)]="assetMaintenance.maintenancePrice">
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="two wide field "></div>
+          <div class="two wide field ">
+            <label class="text-right full-width">คำอธิบายการซ่อมบำรุงรักษา</label>
+          </div>
+          <div class="ten wide field ">
+            <input type="text" placeholder="คำอธิบายการซ่อมบำรุงรักษา" class="custom" name="assetDescription" id="assetDescription"
+              [(ngModel)]="assetMaintenance.maintenanceDescription">
+          </div>
+
+        </div>
+        <div class="inline fields">
+          <div class="two wide field "></div>
+          <div class="two wide field ">
+            <label class="text-right full-width">หมายเหตุ</label>
+          </div>
+          <div class="ten wide field ">
+            <textarea type="text" placeholder="หมายเหตุ" class="custom" name="maintenanceNote" id="maintenanceNote"
+              [(ngModel)]="assetMaintenance.maintenanceNote"></textarea>
+          </div>
+
+        </div>
+        <div class="inline fields"></div>
+        <div class="inline field ui grid">
+          <div class="sixteen wide center aligned column">
+            <app-button-save (click)="addAssetMaintenanceAction()"></app-button-save>
+            <app-button-cancel (click)="cancel()"></app-button-cancel>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</segment>

@@ -1,0 +1,23 @@
+.ui.progress {
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+.card .items {
+    background-color: rgb(25, 118, 210);
+}
+
+.card .items:hover {
+    background-color: rgb(25, 87, 148);
+}
+
+.ui.items>.item>.content>a.header {
+    color: white;
+}
+td a:hover {
+    cursor: pointer;
+}
+a i.red {
+    background: none !important;
+}
+body { line-height: 2em;}

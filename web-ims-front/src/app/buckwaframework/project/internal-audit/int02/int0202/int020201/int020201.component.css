@@ -1,0 +1,8 @@
+.menu-hide{
+    display: none !important;
+}
+
+td{
+    padding-top: 12px !important;
+    padding-bottom: 0px !important;
+}

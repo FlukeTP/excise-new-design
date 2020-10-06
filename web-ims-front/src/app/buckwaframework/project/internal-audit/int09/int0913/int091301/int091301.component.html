@@ -1,0 +1,204 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายการค่าสาธารณูปโภค" [loading]="false">
+
+    <form [formGroup]="formHeader">
+      <div class="ui form">
+        <div class="ui grid">
+          <div class="sixteen wide column">
+
+            <!-- row 1 -->
+            <div inline>
+              <div field [col]="2">
+                <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+              </div>
+              <div field [col]="4">
+                <select class="ui dropdown full-width" id="sector" (change)="dropdownChange($event, 'SECTOR')"
+                  formControlName="sector">
+                  <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+                  <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+                </select>
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+              </div>
+              <div field [col]="3">
+                <select class="ui dropdown full-width" id="area" (change)="dropdownChange($event, 'AREA')"
+                  formControlName="area">
+                  <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+                  <option value="0">ทั้งหมด</option>
+                  <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+                </select>
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">สำนักงานสรรพสามิตสาขา</label>
+              </div>
+              <div field [col]="3">
+                <select class="ui dropdown full-width" id="branch" formControlName="branch"
+                  (change)="dropdownChange($event, 'BRANCH')">
+                  <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+                  <option value="0">ทั้งหมด</option>
+                  <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptName}}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- row 2 -->
+            <div inline>
+              <div field [col]="2">
+                <label class="text-right full-width">เดือนที่เบิก</label>
+              </div>
+              <div field [col]="4">
+                <div class="ui calendar" id="monthWdPayFromCld">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" formControlName="monthWdPayFrom" autocomplete="off" placeholder="ดด/ปปปป">
+                  </div>
+                </div>
+                ถึง&nbsp;&nbsp;&nbsp;
+                <div class="ui calendar" id="monthWdPayToCld">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" formControlName="monthWdPayTo" autocomplete="off" placeholder="ดด/ปปปป">
+                  </div>
+                </div>
+              </div>
+              <div field [col]="2">
+                <label class="text-right full-width">ปีงบประมาณ</label>
+              </div>
+              <div field [col]="2">
+                <div class="ui calendar" id="budgetYearCld">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" formControlName="budgetYear" autocomplete="off" readonly placeholder="ปปปป">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="ui center aligned grid">
+        <div class="column">
+          <app-button-search (click)="search()"></app-button-search>
+          <app-button-clear (click)="clearValue()"></app-button-clear>
+          <ng-container *ngIf="!formHeader.get('officeCode').value">
+            <app-button-add disabled="true"></app-button-add>
+            <app-button-custom color="gray" text="รายไตรมาส" disabled="true"></app-button-custom>
+          </ng-container>
+
+          <ng-container *ngIf="formHeader.get('officeCode').value">
+            <app-button-add (click)="routeTo('/int09/13/02', null, formHeader.get('officeCode').value)">
+            </app-button-add>
+            <app-button-custom color="gray" text="รายไตรมาส"
+              (click)="routeTo('/int09/13/03', null, formHeader.get('officeCode').value, formHeader.get('budgetYear').value)">
+            </app-button-custom>
+          </ng-container>
+        </div>
+      </div>
+      <br>
+    </form>
+
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <div form>
+          <div inline>
+            <button class="ui medium button btn-custom" [ngClass]="{'primary': flagBtn === '1' }"
+              (click)="changeFlagBtn('1')">
+              1.ค่าไฟฟ้า
+            </button>
+
+            <button class="ui medium button btn-custom" [ngClass]="{'primary': flagBtn === '2' }"
+              (click)="changeFlagBtn('2')">
+              2.ค่าน้ำประปา
+            </button>
+
+            <button class="ui medium button btn-custom" [ngClass]="{'primary': flagBtn === '3' }"
+              (click)="changeFlagBtn('3')">
+              3.ค่าโทรศัพท์
+            </button>
+
+            <button class="ui medium button btn-custom" [ngClass]="{'primary': flagBtn === '4' }"
+              (click)="changeFlagBtn('4')">
+              4.ค่าโทรศัพท์เคลื่อนที่
+            </button>
+
+            <button class="ui medium button btn-custom" [ngClass]="{'primary': flagBtn === '5' }"
+              (click)="changeFlagBtn('5')">
+              5.ค่าบริการไปรษณีย์ฯ
+            </button>
+
+            <button class="ui medium button btn-custom" [ngClass]="{'primary': flagBtn === '6' }"
+              (click)="changeFlagBtn('6')">
+              6.ค่าบริการสื่อสาร & คมนาคม
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui divider"></div>
+
+    <div class="sixteen wide column">
+      <div id="ShowDataTable1">
+        <table id="dataTable" class="ui small celled nowrap table striped selectable" style="width:100%">
+          <thead id="thHeader">
+            <tr style="text-align: center;">
+              <th class="bg-th-left">เดือนที่เบิกจ่าย</th>
+              <th class="bg-th-left">ลำดับที่</th>
+              <th class="bg-th-left">ใบแจ้งหนี้ประจำเดือน</th>
+              <th class="bg-th-left">เลขที่ใบแจ้งหนี้</th>
+              <th class="bg-th-left">เบอร์โทรศัพท์</th>
+              <th class="bg-th-left">วันที่ตามแจ้งใบหนี้</th>
+              <th class="bg-th-left">วันที่รับแจ้งใบหนี้</th>
+              <th class="bg-th-left">จำนวนเงินตามใบแจ้งหนี้</th>
+              <th class="bg-th-right">วันที่ทำ ขบ.</th>
+              <th class="bg-th-right">เลขที่ ขบ.</th>
+              <th class="bg-th-right">จำนวนเงินตามเอกสาร ขบ./ขจ.</th>
+              <th class="bg-th-right">ภาษีหัก ณ ที่จ่าย</th>
+              <th class="bg-th-right">จำนวนเงินสุทธิ</th>
+              <th class="bg-th-right">เลขที่ ขจ.</th>
+              <th class="bg-th-right">วันที่ตามใบเสร็จรับเงิน</th>
+              <th class="bg-th-right">จำนวน (วัน)</th>
+              <th class="bg-th-right">สาเหตุที่ค้างชำระ/จ่ายล่าช้า</th>
+              <th class="bg-th-right">หมายเหตุ</th>
+              <th class="bg-blank">จัดการ</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div id="ShowDataTable2">
+        <table id="dataTable2" class="ui small celled nowrap table striped selectable" style="width:100%">
+          <thead id="thHeader">
+            <tr style="text-align: center;">
+              <th class="bg-th-left">เดือนที่เบิกจ่าย</th>
+              <th class="bg-th-left">ลำดับที่</th>
+              <th class="bg-th-left">ใบแจ้งหนี้ประจำเดือน</th>
+              <th class="bg-th-left">เลขที่ใบแจ้งหนี้</th>
+              <!-- <th *ngIf="flagBtn === '3' || flagBtn === '4'">เบอร์โทรศัพท์</th> -->
+              <th class="bg-th-left">วันที่ตามแจ้งใบหนี้</th>
+              <th class="bg-th-left">วันที่รับแจ้งใบหนี้</th>
+              <th class="bg-th-left">จำนวนเงินตามใบแจ้งหนี้</th>
+              <th class="bg-th-right">วันที่ทำ ขบ.</th>
+              <th class="bg-th-right">เลขที่ ขบ.</th>
+              <th class="bg-th-right">จำนวนเงินตามเอกสาร ขบ./ขจ.</th>
+              <th class="bg-th-right">ภาษีหัก ณ ที่จ่าย</th>
+              <th class="bg-th-right">จำนวนเงินสุทธิ</th>
+              <th class="bg-th-right">เลขที่ ขจ.</th>
+              <th class="bg-th-right">วันที่ตามใบเสร็จรับเงิน</th>
+              <th class="bg-th-right">จำนวน (วัน)</th>
+              <th class="bg-th-right">สาเหตุที่ค้างชำระ/จ่ายล่าช้า</th>
+              <th class="bg-th-right">หมายเหตุ</th>
+              <th class="bg-blank">จัดการ</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+    </div>
+
+
+  </segment>
+</with-breadcrumb>

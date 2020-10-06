@@ -1,0 +1,134 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="ดาวน์โหลดเอกสาร" [loading]="false">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="three wide field"></div>
+        <div class="five wide field">
+          <label class="full-width">1.1 ข้อมูลคำขอจดทะเบียนสรรพสามิต (ภส.๐๑-๐๑)</label>
+        </div>
+        <div class="five wide field">
+          <div class="ui calendar" style="width: 100%" id="calendar">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendar" name="calendar" [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+          <label class="text-center"> - </label>&nbsp;&nbsp;
+          <div class="ui calendar" style="width: 100%" id="calendar1">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendar" name="calendar" [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="three wide field"></div>
+        <div class="five wide field">
+          <label class="full-width">1.2 แบบรายการภาษีสรรพสามิต (ภส.๐๓-๐๗, ภส.๐๓-๐๘)</label>
+        </div>
+        <div class="five wide field">
+          <div class="ui calendar" style="width: 100%" id="calendar2">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendar" name="calendar" [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+          <label class="text-center"> - </label>&nbsp;&nbsp;
+          <div class="ui calendar" style="width: 100%" id="calendar3">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendar" name="calendar" [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="three wide field"></div>
+        <div class="five wide field">
+          <label class="full-width">1.3 ข้อมูลแบบแจ้งราคาขาย (ภส.๐๒-๐๒)</label>
+        </div>
+        <div class="five wide field">
+          <div class="ui calendar" style="width: 100%" id="calendar4">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendar" name="calendar" [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+          <label class="text-center"> - </label>&nbsp;&nbsp;
+          <div class="ui calendar" style="width: 100%" id="calendar5">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendar" name="calendar" [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="three wide field"></div>
+        <div class="five wide field">
+          <label class="full-width">1.4 ข้อมูลแบบงบเดือน (ภส.๐๗-๐๔, ภส.๐๗-๐๖)</label>
+        </div>
+        <div class="five wide field">
+          <div class="ui calendar" style="width: 100%" id="calendar6">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendar" name="calendar" [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+          <label class="text-center"> - </label>&nbsp;&nbsp;
+          <div class="ui calendar" style="width: 100%" id="calendar7">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendar" name="calendar" [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="three wide field"></div>
+        <div class="five wide field">
+          <label class="full-width">1.5 ข้อมูลบัญชีประจำเดือน (ภส.๐๗-๐๑)</label>
+        </div>
+        <div class="five wide field">
+          <div class="ui calendar" style="width: 100%" id="calendar8">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendar" name="calendar" [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+          <label class="text-center"> - </label>&nbsp;&nbsp;
+          <div class="ui calendar" style="width: 100%" id="calendar9">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="calendar" placeholder="วว/ดด/ปปปป" id="calendar" name="calendar" [attr.required]="true"
+                autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-custom color="primary" text="ขออนุมัติ"></app-button-custom>
+        <app-button-download></app-button-download>
+        <app-button-cancel routerLink="/tax-audit-new/select07"></app-button-cancel>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

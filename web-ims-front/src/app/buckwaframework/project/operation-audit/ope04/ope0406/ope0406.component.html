@@ -1,0 +1,25 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="พารามิเตอร์คอนฟิก" [loading]="false">
+    <div class="ui form grid ">
+      <div class="ui six wide centered column">
+        <div class="inline fields">
+            <div class="sixteen wide field">
+                <segment class="full-width text-center hover" header="" [loading]="false" (click)="goPage1()">
+                   <h3>สูตรคำนวณ</h3>
+                </segment>
+            </div>
+        </div>
+        <div class="inline fields">
+            <div class="sixteen wide field">
+                <segment class="full-width text-center " header="" [loading]="false"(click)="goPage2()">
+                   <h3>กำหนดการแจ้งเตือน</h3>
+                </segment>
+            </div>
+        </div>
+      </div> 
+    </div>
+
+  </segment>
+
+</with-breadcrumb>

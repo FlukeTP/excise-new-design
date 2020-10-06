@@ -1,0 +1,87 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<segment header="ตรวจสอบการเบิกและจ่ายเงิน" [loading]="false">
+    <form id="upload-form" [formGroup]="checkListOfwithdraw" (submit)="uploadData($event)">
+        <div class="ui form {{loading? 'loading': ''}}">
+            <div class="inline fields">
+                <div class="three wide field"></div>
+                <div class="eight wide field" [ngClass]="{ 'error': submitted && f.fileExcel1.errors }">
+                    <label class="custom-label-w-25">รายงานสรุปรายการขอเบิก</label>
+                    <input type="file" name="fileExcel1" formControlName="fileExcel1" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        (change)="onChangeUpload($event)">
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <div class="three wide field"></div>
+                <div class="eight wide field" [ngClass]="{ 'error': submitted && f.fileExcel2.errors }">
+                    <label class="custom-label-w-25">รายงานงบทดลอง</label>
+                    <input type="file" name="fileExcel2" formControlName="fileExcel2" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        (change)="onChangeUpload2($event)">
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <div class="three wide field"></div>
+                <div class="eight wide field" [ngClass]="{ 'error': submitted && f.sortSystem.errors }">
+                    <label class="custom-label-w-25">รูปแบบการจัดเรียงข้อมูล</label>
+                    <select class="ui dropdown ai" name="sortSystem" id="sortSystem" formControlName="sortSystem">
+                        <option value="">กรุณาเลือก</option>
+                        <option *ngFor="let data of comboBox | async" value="{{data.lovId}}">{{data.typeDescription}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="ui center aligned grid">
+                <div class="four wide column">
+
+                    <app-button-upload btnType="submit"></app-button-upload>
+                    <app-button-clear (click)="clearData()"></app-button-clear>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+
+
+    <div class="ui" id="showTable">
+        <div class="ui attached  {{loading? 'loading': ''}}">
+            <div style="overflow-x: scroll;">
+                <table id="dataTable" class="ui small celled table striped selectable" style="width: 200%">
+                    <thead id="trDataUpload">
+                        <tr style="text-align: center;">
+                            <th>วันบันทึก</th>
+                            <th>วันผ่านรายการ</th>
+                            <th>ประเภท</th>
+                            <th>เลขเอกสาร</th>
+                            <th *ngIf="comboBoxId ==1323">เลขที่ขอจ่าย</th>
+                            <th>ผู้ขาย</th>
+                            <th *ngIf="comboBoxId ==1323">รายการ</th>
+                            <th>บัญชีธนาคารที่รับเงิน</th>
+                            <th>การอ้างอิง</th>
+                            <th>รหัสงบประมาณ</th>
+                            <th>จำนวนเงินขอเบิก (GFMIS)</th>
+                            <th *ngIf="comboBoxId ==1323">จำนวนเงินขอเบิก (ระบบ)</th>
+                            <th *ngIf="comboBoxId ==1323">ผลต่างจำนวนเงินขอเบิก</th>
+                            <th>ภาษีหักณที่จ่าย</th>
+                            <th>ค่าปรับ</th>
+                            <th>ค่าธรรมเนียม</th>
+                            <th>จำนวนเงินสุทธิ</th>
+                            <th *ngIf="comboBoxId ==1323">จำนวนขอรับ</th>
+                            <th *ngIf="comboBoxId ==1323">ผลต่าง</th>
+                            <th *ngIf="comboBoxId ==1323">ข้อมูลการเงิน</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tdDataUpload">
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div class="ui center aligned grid">
+                <div class="sixteen wide column">
+                    <app-button-custom color="green" icon="clipboard check icon" text="เปรียบเทียบ TR" (click)="compareTR()"></app-button-custom>
+                    <app-button-export></app-button-export>
+                </div>
+            </div>
+        </div>
+    </div>
+</segment>

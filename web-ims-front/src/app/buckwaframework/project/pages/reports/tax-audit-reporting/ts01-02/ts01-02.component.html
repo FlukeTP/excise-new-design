@@ -1,0 +1,163 @@
+    <form (submit)="onSubmit($event)" ngNativeValidate>  
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>ขออนุมัติออกหนังสือเรียก</span>
+        </div>
+
+        <div class="ui attached segment">
+            <div class="ui grid">
+                <div class="ui one wide column">&nbsp;</div>
+                <div class="ui twelve wide column">
+                    <div class="ui form">
+                        <div class="inline fields">
+                            <div class="two wide field">
+                                <p>ที่ : </p>
+                            </div>
+
+                            <div class="fourteen wide field">
+                                <p>................ / ...............</p>
+                            </div>
+                        </div>
+
+                        <div class="inline fields">
+                            <div class="one wide field">
+                                <p>เรียน: </p>
+                            </div>
+                            <div class="four wide field" >
+                                <input type="text" name="sendTo" [(ngModel)]="obj.sendTo" required>
+                            </div>
+                            <div class="one wide field">
+                                <p>ด้วย : </p>
+                            </div>
+                            <div class="four wide field">
+                                <input type="text" name="department" [(ngModel)]="obj.department" required>
+                            </div>          
+                            <div class="one wide field"></div>  
+                            <div class="five wide field">
+                                <p>มีความประสงค์จะออกหนังสือเรียก</p>
+                            </div>
+                        </div>
+
+                        <div class="inline fields">
+                            <div class="one wide field">
+                                <p>ราย : </p>
+                            </div>
+
+                            <div class="fifteen wide field">
+                                <input type="text" name="item" [(ngModel)]="obj.item" required>
+                            </div>
+                        </div>
+
+                        <div class="inline fields">
+                            <div class="four wide field">
+                                <p>ซึ่งประกอบธุรกิจ: </p>
+                            </div>
+
+                            <div class="four wide field">
+                                <div class="ui checkbox">
+                                    <input type="radio" name="agreeBox" [(ngModel)]="obj.agreeBox" required value="factory">
+                                    <label>โรงอุตสาหกรรม</label>
+                                </div>
+                            </div>
+
+                            <div class="four wide field">
+                                <div class="ui checkbox">
+                                    <input type="radio" name="agreeBox" [(ngModel)]="obj.agreeBox" required value="service">
+                                    <label>สถานบริการ &nbsp;</label>
+                                </div>
+                            </div>
+
+                            <div class="four wide field">
+                                <div class="ui checkbox">
+                                    <input type="radio"  name="agreeBox" [(ngModel)]="obj.agreeBox" required value="company">
+                                    <label>สถานประกอบการ</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline fields">
+                            <div class="one wide field">
+                                <p>ชื่อ : </p>
+                            </div>
+                            <div class="seven wide field">
+                                <input type="text"name="name" [(ngModel)]="obj.name" required >
+                            </div>               
+                            <div class="four wide field">
+                                <p>ทะเบียนสรรพสามิตเลขที่ : </p>
+                            </div>
+                            <div class="five wide field">
+                                <!-- <input type="text" id="exciseId" name="exciseId" [(ngModel)]="obj.exciseId" (change)="optionAddress()" required > -->
+                                <input type="text" id="exciseId" name="exciseId" [(ngModel)]="obj.exciseId"  required >
+                            </div>
+                        </div> 
+
+                        <div class="inline fields">
+                            <div class="two wide field">
+                                <p>ที่อยู่ : </p>
+                            </div>
+                            <div class="fourteen wide field">
+                                <textarea   rows="2" style="resize: none" maxLength="200" type="text" name="address" [(ngModel)]="obj.address" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="inline fields">
+                            <div class="three wide field">
+                                <p>ประเภทกิจการ : </p>
+                            </div>
+                            <div class="five wide field">
+                                <input type="text" name="workType" [(ngModel)]="obj.workType" required >
+                            </div>
+                            <div class="three wide field">
+                                <p>ระยะเวลาตรวจสอบ : </p>
+                            </div>
+                            <div class="five wide field">
+                                <input type="text" name="date" [(ngModel)]="obj.date" required>
+                            </div>
+                        </div>
+
+                        <div class="inline fields">
+                            <div class="two wide field">
+                                <p>กรณี : </p>
+                            </div>
+
+                            <div class="fourteen wide field">
+                                <input   type="text" name="case" [(ngModel)]="obj.case" required>
+                            </div>
+                        </div>
+
+                        <div class="inline fields">
+                            <div class="two wide field">
+                                <p>ผู้บันทึก : </p>
+                            </div>
+                            <div class="five wide field">
+                                <input type="text" name="signature" [(ngModel)]="obj.signature" required>
+                            </div>
+                            <div class="two wide field">
+                            </div>
+                            <div class="two wide field">
+                                <p>ตำแหน่ง : </p>
+                            </div>
+                            
+                            <div class="five wide field">
+                                <input type="text" name="position" [(ngModel)]="obj.position" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui one wide column">&nbsp;</div>
+            </div>
+        </div>
+
+        <div class="ui bottom centered attached segment">
+            <div class="ui center aligned grid">
+                <div class="eight wide column">
+                    <button class="ui mini green button" type="submit">
+                        <i class="save icon"></i>
+                        พิมพ์เอกสาร
+                    </button>
+                    <button class="ui mini red button" type="button" (click)="onDiscard()">
+                        <i class="times icon"></i>
+                        ยกเลิก
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form> 

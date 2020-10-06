@@ -1,0 +1,226 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <!-- segment1 -->
+      <segment header="ระบุรายละเอียดการค้นหา" [loading]="false">
+        <form [formGroup]="searchForm">
+          <div class="ui form">
+            <div class="inline fields">
+              <div class="one wide field ">
+                <label class="text-right full-width">ปีงบประมาณ</label>
+              </div>
+              <div class="two wide field " [ngClass]="{ 'error': validateField('budgetYear') }">
+                <div class="ui calendar" id="budgetyearCld" style="width:100%">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" name="budgetYear" placeholder="ปปปป" readonly value="2561">
+                  </div>
+                </div>
+              </div>
+              <div class="two wide field ">
+                <label class="text-right full-width">รูปแบบการตรวจสอบ</label>
+              </div>
+              <div class="five wide field ">
+                <select class="ui dropdown ai" id="risk" name="riskType" formControlName="riskType" (change)="search()">
+                  <option *ngFor="let item of dropdownInspection" [value]="item.paramInfoId">{{item.value1}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <ng-container *ngIf="table">
+          <table class="ui small collapsing celled table aligned hover striped selectable"
+            [ngClass]="{'scollX': dataFilter.length > 0}" style="width: 100%;">
+            <thead>
+              <tr style="text-align: center">
+                <th>ลำดับที่</th>
+                <th>โครงการ</th>
+                <th>อธิบดีอนุมัติวันที่</th>
+                <th>แจ้งติดตามหน่วยรับตรวจครั้งที่</th>
+                <th>แจ้งติดตามหน่วยรับตรวจวันที่</th>
+                <th>หน่วยรับตรวจแจ้งผลการดำเนินงานวันที่</th>
+                <th>สถานะ</th>
+                <th>ปิดงานวันที่</th>
+                <th>หมายเหตุปิดงาน</th>
+                <th>จัดการ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="dataFilter.length == 0">
+                <tr>
+                  <td class="text-center" colspan="10">ไม่พบข้อมูล</td>
+                </tr>
+              </ng-container>
+
+              <ng-container *ngIf="dataFilter.length > 0">
+                <tr *ngFor="let d of dataFilter; let i=index">
+                  <td class="text-center">{{ i+1 }}</td>
+                  <td>{{ d.projectName | isEmpty }}</td>
+                  <td class="text-right">{{ d.approveDate | dateString }}</td>
+                  <td class="text-right">{{ d["timeNotify"] | isEmpty }}</td>
+                  <td class="text-right">{{ d["followNotifyDateStr"] | isEmpty }}</td>
+                  <td class="text-right">{{ d["resultNotifyDateStr"] | isEmpty }}</td>
+                  <td>{{ d.status | isEmpty }}</td>
+                  <td class="text-right">{{ d.dateClosedWork | dateString }}</td>
+                  <td>{{ d.noteClosedWork | isEmpty }}</td>
+                  <td>
+                    <app-button-custom color="primary" icon="check icon" text="รายละเอียดการติดตาม"
+                      (click)="routeTo(d.id)"></app-button-custom>
+                    <app-button-custom color="primary" icon="check icon" text="รายละเอียดผลการดำเนินงาน"
+                      routerLink="/int11/05"></app-button-custom>
+                    <app-button-custom color="yellow" icon="check icon" text="ปิดงาน" (click)="closejob()">
+                    </app-button-custom>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </ng-container>
+
+        <ng-container *ngIf="table2">
+          <table class="ui small collapsing celled table aligned hover striped selectable" style="width: 100%;"
+            [ngClass]="{'scollX': dataFilter.length > 0}">
+            <thead>
+              <tr style="text-align: center">
+                <th>ลำดับที่</th>
+                <th>ระบบสารสนเทศฯ ของกรมสรรพสามิต</th>
+                <th>อธิบดีอนุมัติวันที่</th>
+                <th>แจ้งติดตามหน่วยรับตรวจครั้งที่</th>
+                <th>แจ้งติดตามหน่วยรับตรวจวันที่</th>
+                <th>หน่วยรับตรวจแจ้งผลการดำเนินงานวันที่</th>
+                <th>สถานะ</th>
+                <th>ปิดงานวันที่</th>
+                <th>หมายเหตุปิดงาน</th>
+                <th>จัดการ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="dataFilter.length == 0">
+                <tr>
+                  <td class="text-center" colspan="10">ไม่พบข้อมูล</td>
+                </tr>
+              </ng-container>
+
+              <ng-container *ngIf="dataFilter.length > 0">
+                <tr *ngFor="let d of dataFilter; let i=index">
+                  <td class="text-center">{{ i+1 }}</td>
+                  <td>{{ d["systemName"] | isEmpty }}</td>
+                  <td class="text-right">{{ d["approveDate"] | dateString }}</td>
+                  <td class="text-right">{{ d["timeNotify"] | isEmpty }}</td>
+                  <td class="text-right">{{ d["followNotifyDate"] | dateString }}</td>
+                  <td class="text-right">{{ d["resultNotifyDate"] | dateString }}</td>
+                  <td>{{ d["status"] | isEmpty }}</td>
+                  <td class="text-right">{{ d.dateClosedWork | dateString }}</td>
+                  <td>{{ d["noteClosedWork"] | isEmpty }}</td>
+                  <td>
+                    <app-button-custom color="primary" icon="check icon" text="รายละเอียดการติดตาม"
+                      routerLink="/int11/04/01"></app-button-custom>
+                    <app-button-custom color="primary" icon="check icon" text="รายละเอียดผลการดำเนินงาน"
+                      routerLink="/int11/05"></app-button-custom>
+                  </td>
+                </tr>
+              </ng-container>
+
+            </tbody>
+          </table>
+        </ng-container>
+
+        <table class="ui small collapsing celled table aligned hover striped selectable scollX" style="width: 100%;"
+          *ngIf="table3">
+          <thead>
+            <tr style="text-align: center">
+              <th>ลำดับที่</th>
+              <th>สำนัก / สำนักงานสรรพสามิตภาค</th>
+              <th>ฝ่าย / ส่วน / สำนักงานสรรพสามิตพื้นที่</th>
+              <!-- <th colspan="2">รายงานผลอธิบดี</th> -->
+              <th>อธิบดีอนุมัติวันที่</th>
+              <th>แจ้งติดตามหน่วยรับตรวจครั้งที่</th>
+              <th>แจ้งติดตามหน่วยรับตรวจวันที่</th>
+              <th>หน่วยรับตรวจแจ้งผลการดำเนินงานวันที่</th>
+              <th>สถานะ</th>
+              <th>ปิดงานวันที่</th>
+              <th>หมายเหตุปิดงาน</th>
+              <th>จัดการ</th>
+            </tr>
+            <!-- <tr>
+              <th>รายงานผลวันที่</th>
+              <th>อนุมัติวันที่</th>
+            </tr> -->
+          </thead>
+          <tbody>
+            <ng-container *ngIf="dataFilter.length == 0">
+              <tr>
+                <td class="text-center" colspan="11">ไม่พบข้อมูล</td>
+              </tr>
+            </ng-container>
+
+            <ng-container *ngIf="dataFilter.length > 0">
+              <tr *ngFor="let d of dataFilter; let i=index">
+                <td class="text-center">{{ i+1 }}</td>
+                <td>{{ d["exciseDepartmentVo"]?.sector | isEmpty }}</td>
+                <td>{{ d["exciseDepartmentVo"]?.area | isEmpty }}</td>
+                <td class="text-right">{{ d.approveDate | dateString }}</td>
+                <td class="text-right">{{ d["timeNotify"] | isEmpty }}</td>
+                <td class="text-right">{{ d["followNotifyDate"] | dateString }}</td>
+                <td class="text-right">{{ d["resultNotifyDate"] | dateString }}</td>
+                <td>{{ d.status | isEmpty }}</td>
+                <td class="text-right">{{ d.dateClosedWork | dateString }}</td>
+                <td>{{ d.noteClosedWork | isEmpty }}</td>
+                <td>
+                  <app-button-custom color="primary" icon="check icon" text="รายละเอียดการติดตาม"
+                    routerLink="/int11/04/01"></app-button-custom>
+                  <app-button-custom color="primary" icon="check icon" text="รายละเอียดผลการดำเนินงาน"
+                    routerLink="/int11/05"></app-button-custom>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </segment>
+    </div>
+  </div>
+
+  <ui-modal [id]="'detail'" [type]="'custom'">
+    <div class="ui header">
+      ระบุรายละเอียดการปิดงาน
+    </div>
+    <div class="content">
+
+      <div class="ui form">
+
+        <div class="inline fields">
+          <div class="four wide field">
+            <label class="text-right full-width">ปิดงานวันที่ : </label>
+          </div>
+          <div class="ten wide field">
+            <input type="text" disabled />
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="four wide field">
+            <label class="text-right full-width">หมายเหตุปิดงาน :</label>
+          </div>
+          <div class="ten  wide field">
+            <textarea rows="3" style="width: 100%;"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="actions ">
+      <div class="ui center aligned grid">
+        <div class="sixteen wide column">
+          <div class="ui mini positive button">
+            บันทึก
+          </div>
+          <div class="ui mini negative button">
+            ยกเลิก
+          </div>
+        </div>
+      </div>
+    </div>
+  </ui-modal>
+
+</with-breadcrumb>

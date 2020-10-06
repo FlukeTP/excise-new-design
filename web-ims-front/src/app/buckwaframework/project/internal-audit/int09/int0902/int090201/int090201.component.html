@@ -1,0 +1,115 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<segment header="เปรียบเทียบรายงานสรุปรายการขอเบิก" [loading]="false">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+
+      <div class="ui attached {{loadingInit? 'loading': ''}}">
+        <form (submit)="showData($event)">
+          <div class="ui form">
+            <div class="inline fields" *ngFor="let loop of budgetCodeList; let i = index">
+              <div class="two wide field ">
+                <label class="full-width text-right">รหัสงบประมาณ</label>
+              </div>
+              <div class="four wide field ">
+                <div class="ui input">
+                  <input type="text" name="budgetCode{{i}}" value="{{loop.budgetCode}}" readonly>
+                </div>
+              </div>
+              <div class="nine wide field ">
+                <select class="ui fluid search dropdown ai" name="TR{{i}}" id="TR{{i}}" multiple="">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let data of budgetDropdown" value="{{data.cwpTblDtlId}}">{{data.ledgerAccountName}}</option>
+                </select>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="ui center aligned grid">
+            <div class="four wide column">
+              <!-- <button class="ui mini green button" type="submit">
+              <i class="clipboard check icon"></i>
+              เปรียบเทียบ
+            </button> -->
+              <app-button-custom color="green" icon="clipboard check icon" text="เปรียบเทียบ" btnType="submit"></app-button-custom>
+              <!-- <button class="ui mini button" type="button" (click)="hideData()">
+              <i class="sync icon"></i>
+              ล้างข้อมูล
+            </button> -->
+              <app-button-clear (click)="hideData()"></app-button-clear>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</segment>
+
+
+
+<div class="ui segment {{loadingTable? 'loading': ''}}" id="Int0621">
+  <div class="ui centered grid">
+    <div class="center aligned fourteen wide column">
+      <label class="text-center full-width"> ตารางแสดงผลการเปรียบเทียบสรุปรายการขอเบิกกับงบทดลอง</label>
+    </div>
+    <div class="fourteen wide column">
+      <table id="tableData" class="ui small celled table striped selectable" style="width: 100%">
+        <thead>
+          <tr style="text-align: center;">
+            <th>รหัสงบประมาณ</th>
+            <th>ชื่องบประมาณ</th>
+            <th>ผลรวมตามรหัสงบประมาณ</th>
+            <th>TR-งบทดลอง</th>
+            <th>จำนวน TR-งบทดลอง</th>
+            <th>ผลต่าง</th>
+          </tr>
+        </thead>
+        <tbody id="tdDataCompare">
+          <!-- tdDataCompare -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sixteen wide column">
+      <div class="ui centered grid">
+        <div class="ui form fourteen wide column">
+          <div class="inline fields">
+            <div class="four wide field">
+              <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต <br> (ข้อเท็จจริง/Condition) :</label>
+            </div>
+            <div class="ten  wide field">
+              <textarea rows="3" style="width: 100%;"></textarea>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field">
+              <label class="text-right full-width">สิ่งที่ควรจะเป็น <br> (หลักเกณฑ์/Criteria)
+                :</label>
+            </div>
+            <div class="ten  wide field">
+              <textarea rows="3" style="width: 100%;"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui grid">
+      <div class="row centered">
+        <app-button-save></app-button-save>
+        <app-button-export></app-button-export>
+        <app-button-back routerLink='/int09/02'></app-button-back>
+  
+      </div>
+  <div class="ui centered grid">
+    <div class="center aligned sixteen wide column">
+      <!-- <button class="ui mini yellow button">
+        <i class="print icon"></i>
+        ส่งออก
+      </button>
+      <button class="ui mini button" routerLink='/int09/02'>
+        <i class="remove icon"></i>
+        ยกเลิก
+      </button> -->
+    </div>
+  </div>
+</div>

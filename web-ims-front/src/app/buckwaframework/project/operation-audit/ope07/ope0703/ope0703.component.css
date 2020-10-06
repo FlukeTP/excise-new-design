@@ -1,0 +1,5 @@
+.scrollXTableCustom{    
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    margin-left: -1px !important;
+}

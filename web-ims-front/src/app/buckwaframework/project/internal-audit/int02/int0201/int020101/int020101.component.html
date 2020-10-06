@@ -1,0 +1,1275 @@
+<with-breadcrumb [breadcrumb]="breadcrumb" [formGroup]="form">
+  <segment [header]="header" [loading]="false">
+    <div class="ui form">
+
+      <!-- line 1 -->
+      <div class="inline center-all fields" *ngIf="!idHead">
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio" name="qtnType" (click)="toggleDropdown()" value="A" formControlName="qtnType">
+            <label>สร้างใหม่</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox" *ngIf="!hiddenChoice">
+            <input type="radio" name="qtnType" (click)="toggleDropdown()" value="B" formControlName="qtnType">
+            <label>คัดลอกแบบสอบถามเดิม</label>
+          </div>
+          <div class="ui radio checkbox disabled" *ngIf="hiddenChoice">
+            <input type="radio" name="qtnType" disabled value="B" formControlName="qtnType">
+            <label>คัดลอกแบบสอบถามเดิม</label>
+          </div>
+          <label style="color: red" *ngIf="hiddenChoice">ไม่พบข้อมูลแบบสอบถามเดิม</label>
+        </div>
+      </div>
+
+      <div class="ui divider" *ngIf="!idHead"></div>
+
+      <!-- line 2 -->
+      <div class="inline fields" *ngIf="form.get('qtnType').value=='B' && !idHead">
+        <div class="two wide field">
+          <label class="full-width text-left">
+            ปีงบประมาณ
+          </label>
+        </div>
+        <div class="two wide field">
+          <select name="qtnYear" formControlName="qtnYear" (change)="selectYear()" class="ui fluid dropdown ai">
+            <option value="">ปปปป</option>
+            <option *ngFor="let year of years; let i = index" [value]="year.year">{{year.year}}</option>
+          </select>
+        </div>
+        <div class="three wide field">
+          <select name="qtnYear" formControlName="qtnName" (change)="selectName()" class="ui fluid dropdown ai">
+            <option value="">แบบสอบถาม</option>
+            <option *ngFor="let name of names; let i = index" [value]="name.id">{{name.name}} [{{ i+1 }}]</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- line 3 -->
+      <div class="inline fields">
+        <div class="two wide field">
+          <label class="full-witdh text-left">
+            ชื่อแบบสอบถาม
+          </label>
+        </div>
+        <div class="five wide field" [ngClass]="{'error': invalidControl('qtnHeaderName')}">
+          <div class="ui input full-width" *ngIf="!idHead">
+            <input type="text" name="qtnHeaderName" formControlName="qtnHeaderName">
+          </div>
+          <div class="ui input full-width" *ngIf="idHead">
+            <input type="text" name="qtnHeaderName" class="custom-readonly" readonly formControlName="qtnHeaderName">
+          </div>
+        </div>
+        <div class="two wide field"></div>
+        <div class="one wide field">
+          <label class="full-witdh text-left">
+            หมายเหตุ
+          </label>
+        </div>
+        <div class="five wide field"
+          *ngIf="!form.get('id').value || form.get('status').value === '1' || form.get('status').value === '2' ">
+          <textarea rows="2" name="note" formControlName="note"></textarea>
+        </div>
+        <div class="five wide field"
+          *ngIf="form.get('id').value && form.get('status').value !== '1' && form.get('status').value !== '2' ">
+          <textarea rows="2" name="note" formControlName="note" class="custom-readonly" readonly></textarea>
+        </div>
+      </div>
+
+      <!-- line 4 -->
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <!-- !idHead && form.get('status').value === '1' || form.get('status').value === '2' -->
+        <div class="three wide field">
+          <div class="field">
+            <div class="ui radio checkbox"
+              [ngClass]="{'disabled': idHead && form.get('status').value !== '1' && form.get('status').value !== '2'}">
+              <input type="radio" formControlName="toDepartment" value="only-sector">
+              <label>ส่งสรรพสามิตภาค</label>
+            </div>
+          </div>
+        </div>
+        <div class="three wide field">
+          <div class="field">
+            <div class="ui radio checkbox"
+              [ngClass]="{'disabled': idHead && form.get('status').value !== '1' && form.get('status').value !== '2'}">
+              <input type="radio" formControlName="toDepartment" value="only-area">
+              <label>ส่งสรรพสามิตพื้นที่</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="one wide field">
+          <!-- empty -->
+        </div>
+        <div class="two wide field">
+          <div class="field">
+            <div class="ui radio checkbox"
+              [ngClass]="{'disabled': idHead && form.get('status').value !== '1' && form.get('status').value !== '2'}">
+              <input type="radio" formControlName="usagePatterns" value="Q" (change)="callDropdown()">
+              <label>แบบสอบถาม</label>
+            </div>
+          </div>
+        </div>
+        <div *ngIf=" form.get('usagePatterns').value === 'Q' " class="one wide field"
+          [ngClass]="{'disabled': idHead && form.get('status').value !== '1' && form.get('status').value !== '2'}">
+          <select name="factorLevel " id="factorLevel" formControlName="factorLevel"
+            class="ui dropdown ai search full-width">
+            <option value="">กรุณาเลือก</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field"></div>
+        <div class="three wide field">
+          <div class="field" style="padding-right: 0px;">
+            <div class="ui radio checkbox"
+              [ngClass]="{'disabled': idHead && form.get('status').value !== '1' && form.get('status').value !== '2'}">
+              <input type="radio" formControlName="toDepartment" value="only-main">
+              <label>ส่งหน่วยงานภายในกรมสรรพสามิต</label>
+            </div>
+          </div>
+        </div>
+        <div class="three wide field">
+          <div class="field">
+            <div class="ui radio checkbox"
+              [ngClass]="{'disabled': idHead && form.get('status').value !== '1' && form.get('status').value !== '2'}">
+              <input type="radio" formControlName="toDepartment" value="all">
+              <label>ส่งทุกหน่วยงาน</label>
+            </div>
+          </div>
+        </div>
+        <div class="one wide field">
+          <!-- empty -->
+        </div>
+        <div class="one wide field">
+          <div class="field" style="padding-right: 0px;">
+            <div class="ui radio checkbox"
+              [ngClass]="{'disabled': idHead && form.get('status').value !== '1' && form.get('status').value !== '2'}">
+              <input type="radio" formControlName="usagePatterns" value="F">
+              <label>ปัจจัย</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <div class="two wide field">
+          <!-- empty -->
+        </div>
+        <div class="three wide field">
+          <label class="full-witdh text-center" *ngIf="form.get('createdBy').value">
+            สร้างวันที่ {{ form.get('createdDate').value | dateString:true }}
+          </label>
+        </div>
+        <div class="three wide field">
+          <label class="full-witdh text-center" *ngIf="form.get('createdBy').value">
+            สร้างโดย {{ form.get('createdBy').value }}
+          </label>
+        </div>
+        <div class="one wide field">
+          <!-- empty -->
+        </div>
+        <div class="three wide field">
+          <label class="full-witdh text-center" *ngIf="form.get('updatedBy').value">
+            แก้ไขล่าสุดวันที่ {{ form.get('updatedDate').value | dateString:true }}
+          </label>
+        </div>
+        <div class="three wide field">
+          <label class="full-witdh text-center" *ngIf="form.get('updatedBy').value">
+            แก้ไขโดย {{ form.get('updatedBy').value }}
+          </label>
+        </div>
+      </div>
+
+      <!-- line 5 -->
+      <div class="inline field"
+        *ngIf="(this.form.get('qtnType').value == 'A' && this.idHead) || (this.form.get('qtnType').value == 'B' && !this.idHead) || (this.form.get('qtnType').value == 'B' && this.idHead)">
+        <table *ngIf="this.idHead" class="ui mini compact celled striped selectable table">
+          <thead>
+            <tr class="text-center">
+              <th style="width: 105px">จัดการลำดับ</th>
+              <th style="width: 64px">ลำดับ</th>
+              <th>ด้านแบบสอบถามระบบการควบคุมภายใน</th>
+              <th style="width: 400px">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody class="text-center" cdkDropList [cdkDropListData]="qtnSides" (cdkDropListDropped)="onDrop($event)">
+
+            <tr class="text-center" *ngIf="qtnSides.length == 0">
+              <td colspan="4">ไม่พบข้อมูลแบบสอบถาม</td>
+            </tr>
+
+            <tr *ngFor="let qtnSide of qtnSides; let i = index" #heading id="heading{{i}}" class="heading" cdkDrag
+              cdkDragLockAxis='y'>
+              <td style="width: 105px !important;cursor: all-scroll;vertical-align: top;padding-top: .7em;"
+                cdkDragHandle>
+                <i style="cursor: all-scroll;" class="ui icon align justify"></i>
+              </td>
+              <td>{{ i+1 }}</td>
+              <td class="text-left">{{ qtnSide.sideName }}</td>
+              <td style="width: 400px">
+                <app-button-custom text="แก้ไขชื่อด้าน" color="yellow" icon="edit"
+                  *ngIf=" qtnSide.idHead && (form.get('status').value === '1' || form.get('status').value === '2') "
+                  (click)="edit(qtnSide.id)"></app-button-custom>
+                <app-button-custom text="เพิ่มรายละเอียด" color="green" icon="plus"
+                  *ngIf=" qtnSide.idHead&&qtnSide.quantity == 0 &&  (form.get('status').value === '1' || form.get('status').value === '2') "
+                  (click)="detail(qtnSide.id)"></app-button-custom>
+                <app-button-custom text="แก้ไขรายละเอียด" color="yellow" icon="edit"
+                  *ngIf=" qtnSide.idHead&&qtnSide.quantity > 0 && (form.get('status').value === '1' || form.get('status').value === '2') "
+                  (click)="detail(qtnSide.id)"></app-button-custom>
+                <app-button-detail [hidden]=" form.get('status').value === '1' || form.get('status').value === '2' "
+                  (click)="detail(qtnSide.id, 'READ')">
+                </app-button-detail>
+                <!-- <app-button-delete *ngIf="qtnSide.idHead" (click)="delete(qtnSide.id)"></app-button-delete> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table *ngIf="!this.idHead" class="ui mini compact celled striped selectable table">
+          <thead>
+            <tr class="text-center">
+              <th style="width: 64px">
+                <div class="ui fitted checkbox">
+                  <input type="checkbox" id="chkAll" (change)="checkAll($event)" [attr.checked]="chkAll">
+                  <label></label>
+                </div>
+              </th>
+              <th style="width: 64px">ลำดับ</th>
+              <th>ด้านแบบสอบถามระบบการควบคุมภายใน</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr class="text-center" *ngIf="qtnSides.length == 0">
+              <td colspan="4">ไม่พบข้อมูลแบบสอบถาม</td>
+            </tr>
+            <tr *ngFor="let qtnSide of qtnSides; let i = index">
+              <td>
+                <div class="ui fitted checkbox">
+                  <input type="checkbox" id="checked{{i}}" (change)="checkChange($event, i)"
+                    [attr.checked]="qtnSide.checked">
+                  <label></label>
+                </div>
+              </td>
+              <td>{{ i+1 }}</td>
+              <td class="text-left" style="width: 850px">{{ qtnSide.sideName }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- line 5 -->
+      <div class="inline text-center field btn">
+        <app-button-save *ngIf="!form.get('id').value" (click)="saveAll()"></app-button-save>
+        <app-button-save *ngIf="statusBtn('UPDATE', form.get('status').value)" (click)="updateAll()"></app-button-save>
+        <app-button-custom *ngIf="statusBtn('CONFIRM', form.get('status').value)" text="ยืนยันการตรวจสอบ"
+          (click)="updateStatus($event, 'C')" color="green" icon="clipboard check">
+        </app-button-custom>
+        <app-button-custom *ngIf=" form.get('status').value === '3' " text="ยกเลิกรอส่งแบบสอบถาม"
+          (click)="updateStatus($event, 'CW')" color="red" icon="close">
+        </app-button-custom>
+        <app-button-custom *ngIf="statusBtn('ADD', form.get('status').value)" text="เพิ่มด้านแบบสอบถาม" color="green"
+          icon="plus" (click)="add()"></app-button-custom>
+        <app-button-custom text="กำหนดเงื่อนไขความเสี่ยง" (click)="viewDetail1()" color="blue" icon="cog">
+          <!-- *ngIf="statusBtn('CONFIG', form.get('status').value)" -->
+        </app-button-custom>
+        <app-button-custom *ngIf="statusBtn('CANCEL', form.get('status').value)" text="ยกเลิกแบบสอบถาม" color="red"
+          icon="close" (click)="cancelQtnModal($event)">
+        </app-button-custom>
+        <app-button-custom text="นำแบบสอบถามกลับมาใช้ใหม่" [hidden]=" form.get('status').value !== '7' "
+          (click)="updateStatus($event, 'R')">
+        </app-button-custom>
+        <!-- <app-button-clear (click)="cancel()" *ngIf="!form.get('id').value"></app-button-clear> -->
+        <app-button-back (click)="back()"></app-button-back>
+      </div>
+
+    </div>
+  </segment>
+</with-breadcrumb>
+
+<ui-modal [id]="'int020101-create'" [type]="'custom'">
+  <div class="ui header">
+    เพิ่มด้านแบบสอบถาม
+  </div>
+  <div class="content">
+    <div class="ui form" [formGroup]="formChild">
+      <div class="inline center-all fields">
+        <div class="four wide field">
+          <label class="full-width text-right">ชื่อด้านแบบสอบถาม</label>
+        </div>
+        <div class="nine wide field" [ngClass]="{'error': invalidChildControl('sideName')}">
+          <div class="ui input">
+            <input type="text" name="sideName" formControlName="sideName">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions" style="justify-content: center;display: flex;">
+    <app-button-confirm (click)="save()" [ngClass]="{'positive': !invalidChildControl('sideName')}">
+    </app-button-confirm>&nbsp;
+    <app-button-custom text="ปิด" color="gray" icon="close" class="negative"></app-button-custom>
+  </div>
+</ui-modal>
+
+<ui-modal [id]="'int020101-edit'" [type]="'custom'">
+  <div class="ui header">
+    แก้ไขด้านแบบสอบถาม
+  </div>
+  <div class="content">
+    <div class="ui form" [formGroup]="formChild">
+      <div class="inline center-all fields">
+        <div class="four wide field">
+          <label class="full-width text-right">ชื่อด้านแบบสอบถาม</label>
+        </div>
+        <div class="nine wide field" [ngClass]="{'error': invalidChildControl('sideName')}">
+          <div class="ui input">
+            <input type="text" name="sideName" formControlName="sideName">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions" style="justify-content: center;display: flex;">
+    <app-button-confirm (click)="update()" [ngClass]="{'positive': !invalidChildControl('sideName')}">
+    </app-button-confirm>
+    <app-button-delete (click)="delete()"></app-button-delete>
+    <app-button-cancel class="negative"></app-button-cancel>
+  </div>
+</ui-modal>
+
+<ui-modal [id]="'detail1'" [type]="'custom'" [size]="'fullscreen'">
+  <div class="ui header">
+    กำหนดเกณฑ์ความเสี่ยง
+  </div>
+  <div class=" content">
+    <!-- scrolling -->
+    <div class="ui form" *ngIf="form.get('usagePatterns').value == 'Q'">
+      <div class="inline field" *ngIf="form.get('factorLevel').value == '3'">
+        <table id="dataTable" class="ui small celled table">
+          <thead>
+            <tr class="text-center">
+              <th>ที่</th>
+              <th>เงื่อนไข</th>
+              <th>ไม่มี/ไม่ใช่ (%)</th>
+              <th>สัญลักษณ์</th>
+              <th>ไม่มี/ไม่ใช่ (%)</th>
+              <th>อัตราความเสี่ยง</th>
+              <th style="width: 121.4286px;">แปลค่าความเสี่ยง</th>
+              <th style="width: 121.4286px;">สี</th>
+            </tr>
+          </thead>
+          <tbody class="ui form" [ngClass]="{ 'error': configsForm.invalid }" [formGroup]="configsForm">
+            <!-- Row 1 -->
+            <tr>
+              <td class="aligned center">1</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai lowCondition3" formControlName="lowCondition"
+                  (change)="changeCondition($event.target.value,'lowCondition3')" id="lowCondition3">
+                  <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('lowStart') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('lowStart', 'lowEnd', 'mediumStart')"
+                      formControlName="lowStart" required>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai lowCondition3Con" id="lowCondition3Con" formControlName="lowConditionCon"
+                  (change)="changeConditionCon($event.target.value,'lowCondition3')">
+                  <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('lowEnd') }">
+                  <div class="ui input">
+                    <input type="text" class="lowEnd3" numberOnly formControlName="lowEnd" id="lowEnd3">
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="text" numberOnly formControlName="lowRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="low" disabled>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai lowColor3" formControlName="lowColor" required>
+                  <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+
+                </select>
+              </td>
+            </tr>
+            <!-- Row 2 -->
+            <tr>
+              <td class="aligned center">2</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai mediumCondition3" formControlName="mediumCondition"
+                  (change)="changeCondition($event.target.value,'mediumCondition3')" id="mediumCondition3">
+                  <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('mediumStart') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('mediumStart', 'lowStart', 'mediumEnd')"
+                      formControlName="mediumStart" required>
+                  </div>
+                </div>
+                <!-- <div class="ui mini error message" *ngIf="invalidControlConfig('mediumStart')">
+                  <p>กรุณากรอกให้มากกว่า {{ configsForm.get('lowStart').value }}</p>
+                </div> -->
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai mediumCondition3Con" id="mediumCondition3Con"
+                  formControlName="mediumConditionCon"
+                  (change)="changeConditionCon($event.target.value,'mediumCondition3')">
+                  <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('mediumEnd') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('mediumEnd', 'mediumStart', 'highStart')"
+                      id="mediumEnd3" class="mediumEnd3" formControlName="mediumEnd" required>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="text" numberOnly formControlName="mediumRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="medium" disabled>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai mediumColor3" formControlName="mediumColor" required>
+                  <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                </select>
+              </td>
+            </tr>
+            <!-- Row 3 -->
+            <tr>
+              <td class="aligned center">3</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai highCondition3" formControlName="highCondition"
+                  (change)="changeCondition($event.target.value,'highCondition3')" id="highCondition3">
+                  <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('highStart') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('highStart', 'mediumEnd')"
+                      formControlName="highStart" required>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai highCondition3Con" id="highCondition3Con"
+                  formControlName="highConditionCon"
+                  (change)="changeConditionCon($event.target.value,'highCondition3')">
+                  <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('highEnd') }">
+                  <div class="ui input">
+                    <input type="text" class="highEnd3" id="highEnd3" numberOnly formControlName="highEnd">
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="text" numberOnly formControlName="highRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="high" disabled>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai highColor3" formControlName="highColor" required>
+                  <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="inline field" *ngIf="form.get('factorLevel').value == '5'">
+        <table id="dataTable" class="ui small celled table">
+          <thead>
+            <tr class="text-center">
+              <th>ที่</th>
+              <th>เงื่อนไข</th>
+              <th>ไม่มี/ไม่ใช่ (%)</th>
+              <th>สัญลักษณ์</th>
+              <th>ไม่มี/ไม่ใช่ (%)</th>
+              <th>อัตราความเสี่ยง</th>
+              <th style="width: 121.4286px;">แปลค่าความเสี่ยง</th>
+              <th style="width: 121.4286px;">สี</th>
+            </tr>
+          </thead>
+          <tbody class="ui form" [ngClass]="{ 'error': configsForm.invalid }" [formGroup]="configsForm">
+            <!-- Row 1 -->
+            <tr>
+              <td class="aligned center">1</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai verylowCondition5" formControlName="verylowCondition"
+                  (change)="changeCondition($event.target.value,'verylowCondition5')" id="verylowCondition5">
+                  <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('verylowStart') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('verylowStart', 'lowEnd', 'mediumStart')"
+                      class="verylowStart5" id="verylowStart5" formControlName="verylowStart" name=required>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai verylowCondition5Con" id="verylowCondition5Con"
+                  formControlName="verylowConditionCon"
+                  (change)="changeConditionCon($event.target.value,'verylowCondition5')">
+                  <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('verylowEnd') }">
+                  <div class="ui input">
+                    <input type="text" class="verylowEnd5" id="verylowEnd5" numberOnly formControlName="verylowEnd">
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="text" numberOnly formControlName="verylowRating" required class="verylowRating5"
+                    id="verylowRating5">
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="verylow" disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai verylowColor5" formControlName="verylowColor" required id="verylowColor5">
+                  <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                </select>
+              </td>
+            </tr>
+            <!-- Row 2 -->
+            <tr>
+              <td class="aligned center">2</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai lowCondition5" formControlName="lowCondition"
+                  (change)="changeCondition($event.target.value,'lowCondition5')" id="lowCondition5">
+                  <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('lowStart') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('lowStart', 'lowEnd', 'mediumStart')"
+                      formControlName="lowStart" required>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai lowCondition5Con" id="lowCondition5Con" formControlName="lowConditionCon"
+                  (change)="changeConditionCon($event.target.value,'lowCondition5')">
+                  <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('lowEnd') }">
+                  <div class="ui input">
+                    <input type="text" class="lowEnd5" id="lowEnd5" numberOnly formControlName="lowEnd">
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="text" numberOnly formControlName="lowRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="low" disabled>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai lowColor5" formControlName="lowColor" required>
+                  <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                </select>
+              </td>
+            </tr>
+            <!-- Row 3 -->
+            <tr>
+              <td class="aligned center">3</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai mediumCondition5" formControlName="mediumCondition"
+                  (change)="changeCondition($event.target.value,'mediumCondition5')" id="mediumCondition5">
+                  <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('mediumStart') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('mediumStart', 'lowStart', 'mediumEnd')"
+                      formControlName="mediumStart" required>
+                  </div>
+                </div>
+                <!-- <div class="ui mini error message" *ngIf="invalidControlConfig('mediumStart')">
+                    <p>กรุณากรอกให้มากกว่า {{ configsForm.get('lowStart').value }}</p>
+                  </div> -->
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai mediumCondition5Con" id="mediumCondition5Con"
+                  formControlName="mediumConditionCon"
+                  (change)="changeConditionCon($event.target.value,'mediumCondition5')">
+                  <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('mediumEnd') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('mediumEnd', 'mediumStart', 'highStart')"
+                      formControlName="mediumEnd" class="mediumEnd5" id="mediumEnd5" required>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="text" numberOnly formControlName="mediumRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="medium" disabled>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai mediumColor5" formControlName="mediumColor" required>
+                  <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                </select>
+              </td>
+            </tr>
+            <!-- Row 4 -->
+            <tr>
+              <td class="aligned center">4</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai highCondition5" formControlName="highCondition"
+                  (change)="changeCondition($event.target.value,'highCondition5')" id="highCondition5">
+                  <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('highStart') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('highStart', 'mediumEnd')"
+                      formControlName="highStart" required>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai highCondition5Con" id="highCondition5Con"
+                  formControlName="highConditionCon"
+                  (change)="changeConditionCon($event.target.value,'highCondition5')">
+                  <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('highEnd') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly formControlName="highEnd" class="highEnd5" id="highEnd5">
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="text" numberOnly formControlName="highRating" required>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="high" disabled>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai highColor5" formControlName="highColor" required>
+                  <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                </select>
+              </td>
+            </tr>
+
+            <!-- Row 5 -->
+            <tr>
+              <td class="aligned center">5</td>
+              <td class="aligned center">
+                <select class="ui dropdown ai veryhighCondition5" formControlName="veryhighCondition"
+                  (change)="changeCondition($event.target.value,'veryhighCondition5')" id="veryhighCondition5">
+                  <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('veryhighStart') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly (keypress)="inputKeypress('veryhighStart', 'lowEnd', 'mediumStart')"
+                      class="veryhighStart5" id="veryhighStart5" formControlName="veryhighStart" required>
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai veryhighCondition5Con" id="veryhighCondition5Con"
+                  formControlName="veryhighConditionCon"
+                  (change)="changeConditionCon($event.target.value,'veryhighCondition5')">
+                  <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <div class="field" [ngClass]="{ 'error': invalidControlConfig('veryhighEnd') }">
+                  <div class="ui input">
+                    <input type="text" numberOnly formControlName="veryhighEnd" class="veryhighEnd5" id="veryhighEnd5">
+                  </div>
+                </div>
+              </td>
+              <td class="aligned center">
+                <div class="ui input">
+                  <input type="text" numberOnly formControlName="veryhighRating" required class="veryhighRating5"
+                    id="veryhighRating5">
+                </div>
+              </td>
+              <td class="aligned center">
+                <select class="ui fluid dropdown" formControlName="veryhigh" disabled>
+                  <option value="ต่ำมาก">ต่ำมาก</option>
+                  <option value="ต่ำ">ต่ำ</option>
+                  <option value="ปานกลาง">ปานกลาง</option>
+                  <option value="สูง">สูง</option>
+                  <option value="สูงมาก">สูงมาก</option>
+                </select>
+              </td>
+              <td class="aligned center">
+                <select class="ui dropdown ai veryhighColor5" formControlName="veryhighColor" required
+                  id="veryhighColor5">
+                  <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div *ngIf="form.get('usagePatterns').value == 'F'">
+      <ng-container *ngIf="checkUseQtn=='0'">
+        <span>ยังไม่ได้สร้างปัจจัยเสี่ยง</span>
+        <!-- {{checkUseQtn}} -->
+      </ng-container>
+      <ng-container *ngIf="checkUseQtn!='0'">
+        <div class="inline field" *ngIf="form.get('factorLevel').value == '3'">
+          <table id="dataTable" class="ui small celled table">
+            <thead>
+              <tr class="text-center">
+                <th>ที่</th>
+                <th>เงื่อนไข</th>
+                <th>ไม่มี/ไม่ใช่ (%)</th>
+                <th>สัญลักษณ์</th>
+                <th>ไม่มี/ไม่ใช่ (%)</th>
+                <th>อัตราความเสี่ยง</th>
+                <th style="width: 121.4286px;">แปลค่าความเสี่ยง</th>
+                <th style="width: 121.4286px;">สี</th>
+              </tr>
+            </thead>
+            <tbody class="ui form" [ngClass]="{ 'error': configsForm.invalid }" [formGroup]="configsForm">
+              <!-- Row 1 -->
+              <tr>
+                <td class="aligned center">1</td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="lowCondition" disabled
+                    (change)="changeCondition($event.target.value,'lowCondition3')">
+                    <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('lowStart') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly (keypress)="inputKeypress('lowStart', 'lowEnd', 'mediumStart')"
+                        formControlName="lowStart" required disabled>
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" disabled formControlName="lowConditionCon"
+                    (change)="changeConditionCon($event.target.value,'lowCondition3')">
+                    <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('lowEnd') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly formControlName="lowEnd" disabled>
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <div class="ui input">
+                    <input type="text" numberOnly formControlName="lowRating" required disabled>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="low" disabled>
+                    <option value="ต่ำ">ต่ำ</option>
+                    <option value="ปานกลาง">ปานกลาง</option>
+                    <option value="สูง">สูง</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="lowColor" required disabled>
+                    <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                  </select>
+                </td>
+              </tr>
+              <!-- Row 2 -->
+              <tr>
+                <td class="aligned center">2</td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="mediumCondition" disabled
+                    (change)="changeCondition($event.target.value,'mediumCondition3')">
+                    <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('mediumStart') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly (keypress)="inputKeypress('mediumStart', 'lowStart', 'mediumEnd')"
+                        disabled formControlName="mediumStart" required>
+                    </div>
+                  </div>
+                  <!-- <div class="ui mini error message" *ngIf="invalidControlConfig('mediumStart')">
+                  <p>กรุณากรอกให้มากกว่า {{ configsForm.get('lowStart').value }}</p>
+                </div> -->
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" disabled formControlName="mediumConditionCon"
+                    (change)="changeConditionCon($event.target.value,'mediumCondition3')">
+                    <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('mediumEnd') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly (keypress)="inputKeypress('mediumEnd', 'mediumStart', 'highStart')"
+                        disabled formControlName="mediumEnd" required>
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <div class="ui input">
+                    <input type="text" numberOnly formControlName="mediumRating" required disabled>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="medium" disabled>
+                    <option value="ต่ำ">ต่ำ</option>
+                    <option value="ปานกลาง">ปานกลาง</option>
+                    <option value="สูง">สูง</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="mediumColor" required disabled>
+                    <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                  </select>
+                </td>
+              </tr>
+              <!-- Row 3 -->
+              <tr>
+                <td class="aligned center">3</td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="highCondition" disabled
+                    (change)="changeCondition($event.target.value,'highCondition3')">
+                    <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('highStart') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly (keypress)="inputKeypress('highStart', 'mediumEnd')" disabled
+                        formControlName="highStart" required>
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" disabled formControlName="highConditionCon"
+                    (change)="changeConditionCon($event.target.value,'highCondition3')">
+                    <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('highEnd') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly formControlName="highEnd" disabled>
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <div class="ui input">
+                    <input type="text" numberOnly formControlName="highRating" required disabled>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="high" disabled>
+                    <option value="ต่ำ">ต่ำ</option>
+                    <option value="ปานกลาง">ปานกลาง</option>
+                    <option value="สูง">สูง</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="highColor" required disabled>
+                    <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="inline field" *ngIf="form.get('factorLevel').value == '5'">
+          <table id="dataTable" class="ui small celled table">
+            <thead>
+              <tr class="text-center">
+                <th>ที่</th>
+                <th>เงื่อนไข</th>
+                <th>ไม่มี/ไม่ใช่ (%)</th>
+                <th>สัญลักษณ์</th>
+                <th>ไม่มี/ไม่ใช่ (%)</th>
+                <th>อัตราความเสี่ยง</th>
+                <th style="width: 121.4286px;">แปลค่าความเสี่ยง</th>
+                <th style="width: 121.4286px;">สี</th>
+              </tr>
+            </thead>
+            <tbody class="ui form" [ngClass]="{ 'error': configsForm.invalid }" [formGroup]="configsForm">
+              <!-- Row 1 -->
+              <tr>
+                <td class="aligned center">1</td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="verylowCondition"
+                    (change)="changeCondition($event.target.value,'verylowCondition5')">
+                    <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('verylowStart') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly (keypress)="inputKeypress('verylowStart', 'lowEnd', 'mediumStart')"
+                        formControlName="verylowStart" name=required>
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="verylowConditionCon"
+                    (change)="changeConditionCon($event.target.value,'verylowCondition5')">
+                    <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('verylowEnd') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly formControlName="verylowEnd">
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <div class="ui input">
+                    <input type="text" numberOnly formControlName="verylowRating" required>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="verylow" disabled>
+                    <option value="ต่ำมาก">ต่ำมาก</option>
+                    <option value="ต่ำ">ต่ำ</option>
+                    <option value="ปานกลาง">ปานกลาง</option>
+                    <option value="สูง">สูง</option>
+                    <option value="สูงมาก">สูงมาก</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="verylowColor" required>
+                    <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                  </select>
+                </td>
+              </tr>
+              <!-- Row 2 -->
+              <tr>
+                <td class="aligned center">2</td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="lowCondition"
+                    (change)="changeCondition($event.target.value,'lowCondition5')">
+                    <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('lowStart') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly (keypress)="inputKeypress('lowStart', 'lowEnd', 'mediumStart')"
+                        formControlName="lowStart" required>
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="lowConditionCon"
+                    (change)="changeConditionCon($event.target.value,'lowCondition5')">
+                    <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('lowEnd') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly formControlName="lowEnd">
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <div class="ui input">
+                    <input type="text" numberOnly formControlName="lowRating" required>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="low" disabled>
+                    <option value="ต่ำ">ต่ำ</option>
+                    <option value="ปานกลาง">ปานกลาง</option>
+                    <option value="สูง">สูง</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai lowColor5" formControlName="lowColor" required>
+                    <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                  </select>
+                </td>
+              </tr>
+              <!-- Row 3 -->
+              <tr>
+                <td class="aligned center">3</td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="mediumCondition"
+                    (change)="changeCondition($event.target.value,'mediumCondition5')">
+                    <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('mediumStart') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly (keypress)="inputKeypress('mediumStart', 'lowStart', 'mediumEnd')"
+                        formControlName="mediumStart" required>
+                    </div>
+                  </div>
+                  <!-- <div class="ui mini error message" *ngIf="invalidControlConfig('mediumStart')">
+                    <p>กรุณากรอกให้มากกว่า {{ configsForm.get('lowStart').value }}</p>
+                  </div> -->
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="mediumConditionCon"
+                    (change)="changeConditionCon($event.target.value,'mediumCondition5')">
+                    <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('mediumEnd') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly (keypress)="inputKeypress('mediumEnd', 'mediumStart', 'highStart')"
+                        formControlName="mediumEnd" required>
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <div class="ui input">
+                    <input type="text" numberOnly formControlName="mediumRating" required>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="medium" disabled>
+                    <option value="ต่ำ">ต่ำ</option>
+                    <option value="ปานกลาง">ปานกลาง</option>
+                    <option value="สูง">สูง</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="mediumColor" required>
+                    <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                  </select>
+                </td>
+              </tr>
+              <!-- Row 4 -->
+              <tr>
+                <td class="aligned center">4</td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="highCondition"
+                    (change)="changeCondition($event.target.value,'highCondition5')">
+                    <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('highStart') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly (keypress)="inputKeypress('highStart', 'mediumEnd')"
+                        formControlName="highStart" required>
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="highConditionCon"
+                    (change)="changeConditionCon($event.target.value,'highCondition5')">
+                    <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('highEnd') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly formControlName="highEnd">
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <div class="ui input">
+                    <input type="text" numberOnly formControlName="highRating" required>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="high" disabled>
+                    <option value="ต่ำ">ต่ำ</option>
+                    <option value="ปานกลาง">ปานกลาง</option>
+                    <option value="สูง">สูง</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai highColor5" formControlName="highColor" required>
+                    <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                  </select>
+                </td>
+              </tr>
+
+              <!-- Row 5 -->
+              <tr>
+                <td class="aligned center">5</td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="veryhighCondition"
+                    (change)="changeCondition($event.target.value,'veryhighCondition5')">
+                    <option value="{{item.value2}}" *ngFor="let item of condListFrist">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('veryhighStart') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly (keypress)="inputKeypress('veryhighStart', 'lowEnd', 'mediumStart')"
+                        formControlName="veryhighStart" required>
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai " formControlName="veryhighConditionCon"
+                    (change)="changeConditionCon($event.target.value,'veryhighCondition5')">
+                    <option value="{{item.value2}}" *ngFor="let item of condList">{{item.value1}}</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <div class="field" [ngClass]="{ 'error': invalidControlConfig('veryhighEnd') }">
+                    <div class="ui input">
+                      <input type="text" numberOnly formControlName="veryhighEnd">
+                    </div>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <div class="ui input">
+                    <input type="text" numberOnly formControlName="veryhighRating" required>
+                  </div>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="veryhigh" disabled>
+                    <option value="ต่ำมาก">ต่ำมาก</option>
+                    <option value="ต่ำ">ต่ำ</option>
+                    <option value="ปานกลาง">ปานกลาง</option>
+                    <option value="สูง">สูง</option>
+                    <option value="สูงมาก">สูงมาก</option>
+                  </select>
+                </td>
+                <td class="aligned center">
+                  <select class="ui dropdown ai" formControlName="veryhighColor" required>
+                    <option value="{{item.value1}}" *ngFor="let item of colorList">{{item.value1}}</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui center aligned grid">
+      <div class="sixteen wide column">
+        <app-button-save (click)="saveConfigs()" *ngIf="form.get('usagePatterns').value == 'Q'"></app-button-save>
+        <app-button-cancel class="positive"></app-button-cancel>
+      </div>
+    </div>
+  </div>
+</ui-modal>
+
+<ui-modal [id]="'deleteQtn'" [type]="'custom'">
+  <div class="ui header">
+    ยกเลิกแบบสอบถาม
+  </div>
+  <div class="content">
+    <div class="ui form" [formGroup]="deleteQtnForm">
+      <div class="inline center-all fields">
+        <td class="text-center">
+          <div class="field" [ngClass]="{'error': invalidDeleteQtn('choices')}">
+            <div class="ui radio checkbox">
+              <input type="radio" name="choices" formControlName="choices" value="CANCEL">
+              <label>ยกเลิกแบบสอบถาม</label>
+            </div>
+            <div class="ui radio checkbox">
+              <input type="radio" name="choices" formControlName="choices" value="DELETE">
+              <label>ลบออกจากฐานข้อมูล</label>
+            </div>
+          </div>
+        </td>
+      </div>
+    </div>
+  </div>
+  <div class="actions" style="justify-content: center;display: flex;">
+    <app-button-confirm (click)="cancelQtn($event)"></app-button-confirm>&nbsp;
+    <app-button-custom text="ปิด" color="gray" icon="close" class="negative"></app-button-custom>
+  </div>
+</ui-modal>

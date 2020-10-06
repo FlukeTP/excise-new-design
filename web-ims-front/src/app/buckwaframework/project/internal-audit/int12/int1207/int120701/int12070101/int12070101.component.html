@@ -1,0 +1,345 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<form [formGroup]="rentHouseForm" (submit)="save($event)" id="upload-form">
+  <segment header="บันทึกคำขอเบิกเงินค่าเช่าบ้าน (แบบ 6006)" [loading]="false">
+    <div class="ui attached">
+      <div class="ui form">
+        <div class="ui attached ">
+          <div class="inline fields">
+            <div class="one wide field">
+              <label class="full-width text-right">ข้าพเจ้า</label>
+            </div>
+            <div class="three wide field" [ngClass]="{ 'error': validateField('name') }">
+              <input type="text" class="custom-readonly" readonly formControlName="name">
+            </div>
+            <div class="one wide field">
+              <label class="full-width text-right">ตำแหน่ง</label>
+            </div>
+            <div class="four wide field" [ngClass]="{ 'error': validateField('position') }">
+              <input type="text" class="custom-readonly" readonly formControlName="position">
+            </div>
+
+            <div class="one wide field">
+              <label class="full-width text-right">สังกัด</label>
+            </div>
+            <div class="four wide field " [ngClass]="{ 'error': validateField('affiliation') }">
+              <input type="text" class="custom-readonly" readonly formControlName="affiliation">
+            </div>
+          </div>
+          <br>
+          <div class="inline fields hd">
+
+            <div class="three wide field">
+              <h4>ขอยื่นเบิกเงินค่าเช่าบ้าน ดังนี้ </h4>
+            </div>
+            <div class="two wide field required">
+              <label>ข้าพเจ้าได้จ่ายเงิน</label>
+            </div>
+            <div class="two wide field" [ngClass]="{ 'error': validateField('paymentCost') }">
+              <div class="ui radio checkbox">
+                <input type="radio" formControlName="paymentCost" value="1">
+                <label>
+                  <b>ค่าเช่าบ้าน</b>
+                </label>
+              </div>
+            </div>
+            <div class="two wide field" [ngClass]="{ 'error': validateField('paymentCost') }">
+              <div class="ui radio checkbox">
+                <input type="radio" formControlName="paymentCost" value="2">
+                <label>
+                  <b>ค่าเช่าซื้อ</b>
+                </label>
+              </div>
+            </div>
+            <div class="two wide field" [ngClass]="{ 'error': validateField('paymentCost') }">
+              <div class="ui radio checkbox">
+                <input type="radio" formControlName="paymentCost" value="3">
+                <label>
+                  <b>ค่าผ่อนชำระเงินกู้</b>
+                </label>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="inline fields">
+            <div class="four wide field required">
+              <label class="full-width text-right">ให้แก่</label>
+            </div>
+            <div class="five wide field" [ngClass]="{ 'error': validateField('paymentFor') }">
+              <input type="text" formControlName="paymentFor">
+            </div>
+            <div class="two wide field required">
+              <label class="full-width text-right">ประจำเดือน</label>
+            </div>
+            <div class="two wide field" [ngClass]="{ 'error': validateField('period') }">
+              <div class="ui calendar" id="periodCld" style="width:100%;">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" placeholder="เดือน" formControlName="period" autocomplete="off" readonly="">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field required">
+              <label class="full-width text-right">ตามใบเสร็จรับเงิน</label>
+            </div>
+            <div class="one wide field" [ngClass]="{ 'error': validateField('refReceipts') }">
+              <input type="text" class="text-right" formControlName="refReceipts" (keypress)="typeNumber($event)">
+            </div>
+            <div class="one wide field">
+              <label class="full-width">ฉบับ</label>
+            </div>
+            <div class="one wide field required">
+              <label class="full-width text-right">เป็นจำนวน</label>
+            </div>
+            <div class="three wide field" [ngClass]="{ 'error': validateField('billAmount') }">
+              <input type="text" formControlName="billAmount" class="text-right"
+                (keyup)="typeNumber0($event.target.value)" appNumberInputFormat onclick="select()">
+            </div>
+            <div class="one wide field">
+              <label class="full-width text-center">บาท</label>
+            </div>
+            <div class="four wide field">
+              <label style="color: blue" *ngIf="text0">({{text0}})</label>
+            </div>
+            <!-- <div class="three wide field">
+                        ( หนึ่งหมื่นสองพันบาทถ้วน )
+                    </div> -->
+          </div>
+
+          <div class="inline fields">
+
+            <div class="four wide field required">
+              <label class="full-width text-right">ข้าพเจ้าได้รับเงินเดือน เดือนละ</label>
+            </div>
+            <div class="three wide field" [ngClass]="{ 'error': validateField('salary') }">
+              <input type="text" class="text-right" formControlName="salary" (keyup)="typeNumber($event.target.value)"
+                (blur)="showSalary($event.target.value)" appNumberInputFormat onclick="select()">
+            </div>
+            <div class="one wide field">
+              <label class="full-width text-center">บาท</label>
+            </div>
+            <div class="seven wide field">
+              <label style="color: blue" *ngIf="text1">({{text1}})</label>
+            </div>
+            <!-- <div class="five wide field">
+                        <label class="full-width text-center">มีสิทธิได้รับค่าเช่าบ้านตามที่ได้รับอนุมัติในแบบขอรับค่าเช่าบ้าน (แบบ 6005) เลขที่</label>
+                    </div>
+                    <div class="two wide field" [ngClass]="{ 'error': validateField('requestNo') }">
+                        <input type="text" formControlName="requestNo">
+                    </div> -->
+            <!-- <div class="three wide field">
+                        ( หนึ่งหมื่นสองพันบาทถ้วน )
+                    </div> -->
+          </div>
+          <div class="inline fields">
+            <div class="seven wide field">
+              <label class="full-width text-right">มีสิทธิได้รับค่าเช่าบ้านตามที่ได้รับอนุมัติในแบบขอรับค่าเช่าบ้าน (แบบ
+                6005) เลขที่</label>
+            </div>
+            <div class="six wide field">
+              <input type="text" formControlName="form6005no" maxlength="150">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field">
+              <label class="full-width text-right">ไม่เกินเดือนละ</label>
+            </div>
+            <div class="three wide field" [ngClass]="{ 'error': validateField('notOver') }">
+              <input type="text" class="custom-readonly text-right" readonly formControlName="notOver"
+                appNumberInputFormat>
+            </div>
+            <div class="one wide field">
+              <label class="full-width text-center">บาท</label>
+            </div>
+            <div class="seven wide field">
+              <label style="color: blue" *ngIf="text2">({{text2}})</label>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field required">
+              <label class="full-width text-right">ข้าพเจ้าขอเบิกเงินค่าเช่าบ้านประจำเดือน</label>
+            </div>
+            <div class="two wide field" [ngClass]="{ 'error': validateField('periodWithdraw') }">
+              <div class="ui calendar" id="periodWithdrawCldform" style="width:100%;">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" placeholder="เดือน" formControlName="periodWithdraw" autocomplete="off"
+                    readonly="">
+                </div>
+              </div>
+            </div>
+            <div class="one wide field">
+              <label class="full-width text-center">ถึง</label>
+            </div>
+            <div class="two wide field" [ngClass]="{ 'error': validateField('periodWithdrawTo') }">
+              <div class="ui calendar" id="periodWithdrawCldto" style="width:100%;">
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="text" placeholder="เดือน" formControlName="periodWithdrawTo" autocomplete="off"
+                    readonly="">
+                </div>
+              </div>
+            </div>
+
+            <div class="one wide field">
+              <label class="full-width text-right">รวม</label>
+            </div>
+            <div class="one wide field" [ngClass]="{ 'error': validateField('totalMonth') }">
+              <input type="text" class="custom-readonly" readonly formControlName="totalMonth">
+            </div>
+            <div class="one wide field">
+              <label class="full-width text-left">เดือน</label>
+            </div>
+            <div class="one wide field">
+              <label class="full-width text-right">เป็นเงิน</label>
+            </div>
+            <div class="two wide field" [ngClass]="{ 'error': validateField('totalWithdraw') }">
+              <input type="text" class="custom-readonly text-right" readonly formControlName="totalWithdraw"
+                [value]="rentHouseForm.get('totalWithdraw').value | decimalFormat:'###,###.00' ">
+            </div>
+            <div class="one wide field">
+              <label class="full-width text-center">บาท</label>
+            </div>
+            <!-- <div class="three wide field">( หนึ่งหมื่นสองพันบาทถ้วน )</div> -->
+          </div>
+
+          <div class="inline fields">
+            <div class="four wide field required">
+              <label class="full-width text-right">พร้อมนี้ข้าพเจ้าได้แนบใบเสร็จรับเงินจำนวน</label>
+            </div>
+            <div class="one wide field" [ngClass]="{ 'error': validateField('receipts') }">
+              <input type="text" formControlName="receipts" readonly class="custom-readonly text-right" maxlength="2"
+                numberOnly>
+            </div>
+            <div class="two wide field">
+              <label>ฉบับ</label>
+              <label>มาด้วยแล้ว</label>
+              <!-- <button class="ui icon mini green button" type="button" (click)="addReceiptRH()"><i class="plus icon"></i></button> -->
+            </div>
+            <div class="one wide field">
+              <app-button-custom color="green" icon="plus icon" (click)="addReceiptRH()"></app-button-custom>
+            </div>
+          </div>
+
+          <ng-container formArrayName="receiptsRH" *ngFor="let key of receiptsRH.controls; let i=index">
+            <div class="inline fields" [formGroupName]="i">
+              <div class="one wide field">&nbsp;</div>
+              <div class="two wide field">
+                <label class="full-width text-right">{{i+1}}. เลขที่ใบเสร็จ</label>
+              </div>
+              <div class="three wide field" [ngClass]="{'error': errorReceipt(i, 'receiptNo')}">
+                <div class="ui input">
+                  <input type="text" name="receiptNo{{i}}" id="receiptNo{{i}}" placeholder="เลขที่ใบเสร็จ"
+                    formControlName="receiptNo">
+                </div>
+              </div>
+              <div class="one wide field">
+                <label class="full-width text-right">จำนวน</label></div>
+              <div class="three wide field" [ngClass]="{'error': errorReceipt(i, 'receiptAmount')}">
+                <div class="ui input">
+                  <input type="text" numberOnly maxlength="10" id="receiptAmount{{i}}" placeholder="จำนวน"
+                    name="receiptAmount{{i}}" class="text-right" formControlName="receiptAmount" appNumberInputFormat>
+                </div>
+              </div>
+              <div class="one wide field">
+                <label class="full-width text-right">วันที่</label>
+              </div>
+              <div class="three wide field" [ngClass]="{'error': errorReceipt(i, 'receiptDate')}">
+                <div class="ui calendar full-width" id="receiptD{{i}}">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" formControlName="receiptDate" id="receiptDate{{i}}" name="receiptDate{{i}}"
+                      autocomplete="off" [readonly]="true" placeholder="วว/ดด/ปปปป">
+                  </div>
+                </div>
+              </div>
+              <div class="one wide field">
+                <app-button-custom color="red" icon="minus icon" (click)="removeReceiptRH(i)"></app-button-custom>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- <div class="three wide field">( หนึ่งหมื่นสองพันบาทถ้วน )</div> -->
+          <br>
+          <div class="inline fields">
+
+            <div field [col]="16">
+              <label><span style="color: red">*</span>ข้าพเจ้าขอรับรองว่าข้อความที่ให้ไว้ข้างต้นเป็นความจริงทุกประการ
+                และข้าพเจ้ามีสิทธิได้รับเงินค่าเช่าบ้านตามพระราชกฤษฎีกา
+                ค่าเช่าบ้านข้าราชการ พ.ศ.2547 และได้ดำเนินการถูกต้องตามระเบียบทุกประการแล้ว
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </segment>
+  <segment header="เอกสารหลักฐานประกอบคำเบิก" [loading]="false">
+    <div class="ui form">
+      <div class="ui attached" [ngClass]="{ 'loading': loadingUL }">
+        <div class="inline fields ">
+          <div class="five wide field"></div>
+          <div class="ten wide field">
+            <label style="color:red">*รับรองไฟล์นามสกุล &nbsp;&nbsp;เอกสาร xls, xlsx, doc, docx, ppt, pptx
+              &nbsp;&nbsp;รูป gif, jpeg, jpg,
+              png, bmp &nbsp;&nbsp;ขนาดไม่เกิน 25 MB</label>
+          </div>
+        </div>
+        <div class="inline fields ">
+          <div class="two wide field"></div>
+          <div class="three wide field">
+            <label class="full-width text-right">หลักฐานประกอบคำเบิก</label>
+          </div>
+          <div class="six wide field upload-panel">
+            <input type="file" name="files" id="files" accept=".pdf, image/*, text/plain, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+                      application/vnd.ms-excel,.doc,.docx" (change)="onChangeFile()">
+          </div>
+          <div class="three wide field">
+            <app-button-upload (click)="onUpload($event)" [disabled]="flgOnLoad"></app-button-upload>
+          </div>
+        </div>
+        <table id="dataTable" class="ui small celled table striped selectable" style="width: 100%;">
+          <thead class="text-center">
+            <tr>
+              <th>ลำดับที่</th>
+              <th>วันที่</th>
+              <th>ชื่อเอกสาร</th>
+              <!-- <th>ขนาด (MB)</th> -->
+              <th>จัดการ</th>
+            </tr>
+            <tr *ngIf="tableUpload.length < 1">
+              <td colspan="5" class="text-center">ไม่มีข้อมูล</td>
+            </tr>
+            <tr *ngFor="let ul of tableUpload; let i = index">
+              <td class="text-center">{{i+1}}</td>
+              <td class="text-center">{{ul.date}}</td>
+              <td class="text-left">{{ul.name}}</td>
+              <!-- <td class="text-right">{{ul.size}}</td> -->
+              <td class="text-center">
+                <!-- <button class="ui mini red button" type="button" (click)="onDel(i)">
+                  <i class="trash icon"></i>ลบ</button> -->
+                <app-button-delete (click)="onDel(i)"></app-button-delete>
+              </td>
+            </tr>
+          </thead>
+        </table>
+        <div class="ui center aligned grid">
+          <div class="sixteen wide column">
+            <!-- <button class="ui mini primary button" type="submit" [ngClass]="{ 'disabled': tableUpload.length < 1 }">
+              <i class="save icon"></i>บันทึก</button> -->
+            <app-button-export *ngIf="id" (click)="export()"></app-button-export>
+            <!-- [disabled]="tableUpload.length < 1" -->
+            <app-button-save [submit]="true" *ngIf="!id"></app-button-save>
+            <!-- <button class="ui mini yellow button" type="button">
+                          <i class="print icon"></i>ส่งออก</button> -->
+            <!-- <button class="ui mini button" type="button" routerLink='/int12/07/01'>
+              <i class="close icon"></i>ยกเลิก</button> -->
+            <app-button-back (click)="goLocation()"></app-button-back>
+          </div>
+        </div>
+      </div>
+    </div>
+  </segment>
+</form>

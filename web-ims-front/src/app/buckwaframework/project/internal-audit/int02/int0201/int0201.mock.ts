@@ -1,0 +1,93 @@
+import { Int0201ConfigVo } from './int0201vo.model';
+
+export const CONFIG: Int0201ConfigVo = {
+     verylow: "ต่ำมาก",
+     verylowStart: 5,
+     verylowEnd: null,
+     verylowRating: 1,
+     verylowColor: "เขียวเข้ม",
+     verylowCondition: "<|N",
+
+     low: "ต่ำ",
+     lowStart: 5,
+     lowEnd: 25,
+     lowRating: 2,
+     lowColor: "เขียว",
+     lowCondition: ">=|<",
+
+     medium: "ปานกลาง",
+     mediumStart: 50,
+     mediumEnd: 75,
+     mediumRating: 3,
+     mediumColor: "เหลือง",
+     mediumCondition: ">=|<",
+
+     high: "สูง",
+     highStart: 75,
+     highEnd: 85,
+     highRating: 4,
+     highColor: "ส้ม",
+     highCondition: ">=|<",
+
+     veryhigh: "สูงมาก",
+     veryhighStart: 85,
+     veryhighEnd: null,
+     veryhighRating: 5,
+     veryhighColor: 'แดง',
+     veryhighCondition: ">=|N",
+
+     id: null,
+     idQtnHdr: null,
+     createdBy: null,
+     createdDate: null,
+     updatedBy: null,
+     updatedDate: null,
+     isDeleted: 'N',
+     version: 1,
+};
+
+export const CONFIG3: Int0201ConfigVo = {
+     verylow: null,
+     verylowStart: null,
+     verylowEnd: null,
+     verylowRating: null,
+     verylowColor: null,
+     verylowCondition: null,
+
+     low: "ต่ำ",
+     lowStart: 50,
+     lowEnd: null,
+     lowRating: 1,
+     lowColor: "เขียว",
+     lowCondition: "<|N",
+
+     medium: "ปานกลาง",
+     mediumStart: 50,
+     mediumEnd: 75,
+     mediumRating: 2,
+     mediumColor: "เหลือง",
+     mediumCondition: ">=|<=",
+
+     high: "สูง",
+     highStart: 75,
+     highEnd: null,
+     highRating: 3,
+     highColor: "ส้ม",
+     highCondition: ">|N",
+
+     veryhigh: null,
+     veryhighStart: null,
+     veryhighEnd: null,
+     veryhighRating: null,
+     veryhighColor: null,
+     veryhighCondition: null,
+
+     id: null,
+     idQtnHdr: null,
+     createdBy: null,
+     createdDate: null,
+     updatedBy: null,
+     updatedDate: null,
+     isDeleted: 'N',
+     version: 1,
+}; 

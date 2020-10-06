@@ -1,0 +1,122 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="รายงานพบการกระทำความผิดแยกตามประเภทความผิด" [loading]="false">
+    <div class="ui form">
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="text-right full-width"> สำนักงานสรรพสามิตภาค</label>
+        </div>
+        <div class="three wide field ">
+          <div class="ui selection dropdown full-width">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class=" text">สำนักงานสรรพสามิตภาคที่ 5</div>
+            <div class="menu">
+            </div>
+          </div>
+        </div>
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width"> สำนักงานสรรพสามิตพื้นที่</label>
+        </div>
+        <div class="three wide field">
+          <div class="ui selection dropdown full-width">
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class=" text">ทั้งหมด</div>
+            <div class="menu">
+              <div class="item" data-value="1">ชัยนาท</div>
+              <div class="item" data-value="1">ตราด</div>
+              <div class="item" data-value="0">นครนายก</div>
+              <div class="item" data-value="0">ระยอง 2</div>
+              <div class="item" data-value="0">ฉะเชิงเทรา</div>
+              <div class="item" data-value="0">สิงห์บุรี</div>
+              <div class="item" data-value="0">ชลบุรี 1</div>
+              <div class="item" data-value="0">ระยอง 1</div>
+              <div class="item" data-value="0">ปทุมธานี 1</div>
+            </div>
+          </div>
+        </div>
+        <div class="one wide field">
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="four wide field">
+          <label class="text-right full-width">ระหว่างวันที่</label>
+        </div>
+        <div class="three wide field ">
+          <div class="ui calendar" style="width:100%" id="startDate">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" placeholder="วว/ดดดด/ปปปป" value="01/01/2561">
+            </div>
+          </div>
+        </div>
+        <div class="one wide field"></div>
+        <div class="two wide field">
+          <label class="text-right full-width">ถึง</label>
+        </div>
+        <div class="three wide field">
+          <div class="ui calendar" style="width:100%" id="stopDate">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" placeholder="วว/ดดดด/ปปปป" value="01/01/2561">
+            </div>
+          </div>
+        </div>
+        <div class="one wide field">
+        </div>
+      </div>
+    </div>
+    <div class="ui center aligned grid" style="margin-bottom: -30px;">
+      <div class="eight wide column">
+        <app-button-search></app-button-search>
+        <app-button-clear></app-button-clear>
+      </div>
+    </div>
+    <br>
+    <table id="dataTable" class="ui small celled table striped selectable nowrap" style="width: 100%">
+      <thead>
+        <tr style="text-align: center;">
+          <th class="four wide">ประเภทความผิด <i class="sort icon"></i></th>
+          <th class="four wide">จำนวนผู้กระทำผิด<i class="sort icon"></i></th>
+          <th class="four wide">รายชื่อผู้กระทำผิด<i class="sort icon"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2">ทำสุราโดยไม่ได้รับอนุญาต</td>
+          <td rowspan="2" style="text-align: center;">2</td>
+          <td style="text-align:left;"><a href="javascript:void(0)">หจก.ดอนทองสุรากลั่น</a></td>
+        </tr>
+        <tr>
+          <td style="text-align:left;"><a href="javascript:void(0)">หจก.ดวงจันทร์การสุรา</a></td>
+        </tr>
+        <tr>
+          <td>ทำสุราโดยไม่ปฏิบัติตามวิธีการและเงื่อนไขที่อธิบดีกำหนด</td>
+          <td style="text-align: center;">1</td>
+          <td style="text-align:left;"><a href="javascript:void(0)">หจก.วัดพริกสุราชุมชน</a></td>
+        </tr>
+        <tr>
+          <td>ไม่ปฏิบัติตามกฏกระทรวงเกี่ยวกับวิธีการเสียภาษีที่ออกตาม มาตรา ๗ </td>
+          <td style="text-align: center;">0</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td rowspan="2">ปิดและขีดฆ่าแสตมป์สุราไม่เป็นไปตามวิธีการและเงื่อนไขที่กำหนดไว้ใน<br>กฏกระทรวง</td>
+          <td rowspan="2" style="text-align: center;">2</td>
+          <td><a href="javascript:void(0)">หจก.ประเทืองบริบูรณ์สุราไทย</a></td>
+        </tr>
+        <tr>
+          <td style="text-align:left;"><a href="javascript:void(0)">หจก.หนองแฝกการสุรา</a></td>
+        </tr>
+        <tr>
+          <td>ใช้ใบอนุญาตในสถานที่อื่นซึ่งไม่ใช่สถานที่ที่ได้รับอนุญาต ไม่แสดงใบอนุญาตไว้ในที่เปิดเผย</td>
+          <td style="text-align: center;">1</td>
+          <td><a href="javascript:void(0)">หจก.สาโทลําไยทอง</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </segment>
+
+</with-breadcrumb>

@@ -1,0 +1,71 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รายการคัดเลือกราย (TA0106)" [loading]="loading" [right]="true">
+    <div class="ui form">
+      <div inline>
+        <div field [col]="3">
+          <label class="text-right full-width">ช่วงเดือนภาษี</label>
+        </div>
+        <div field [col]="4">
+          <input class="custom-readonly" id="before" value="มกราคม 2561" placeholder="ดด/ปปปป" readonly="" type="text"
+            value="{{objMonth.yearMonthStart}}">
+          ถึง&nbsp;&nbsp;&nbsp;
+          <input class="custom-readonly" id="last" value="มกราคม 2563" placeholder="ดด/ปปปป" readonly="" type="text"
+            value="{{objMonth.yearMonthEnd}}">
+        </div>
+        <div field [col]="2">
+          <!-- <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label> -->
+          <label class="text-right full-width">เลขที่รายการคัดเลือกราย</label>
+        </div>
+        <div field [col]="2">
+          {{anlNumber}}
+        </div>
+        <div field [col]="1">
+          <label class="text-right full-width">สำนักงาน</label>
+        </div>
+        <div field [col]="4">
+            {{sector}}
+
+        </div>
+        <!-- <div field [col]="1">
+            </div> -->
+      </div>
+      <br>
+      <div class="ui center aligned grid">
+          <div class="eight wide column">
+             <!-- <app-button-custom (click)="onSave()" [disabled]="disabledButton1">ยืนยันการคัดเลือก</app-button-custom>  -->
+              <app-button-custom (click)="onSave()" [disabled]="isChild" >{{buttonName}}</app-button-custom> 
+              <app-button-custom (click)="export()" [color]="'yellow'" [icon]="'print'" text="Export"></app-button-custom>
+              <app-button-back routerLink="/tax-audit-new/ta01/05"></app-button-back>
+          </div>
+        </div>
+
+    </div>
+
+    <div headRight>
+      <!-- <app-button-export (click)="export()"></app-button-export>
+      <app-button-custom (click)="onSave()" [disabled]="disabledButton1">ยืนยันการคัดเลือก</app-button-custom> -->
+    </div>
+
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <table class="ui small celled table nowrap striped selectable" style="width:100%" id="tablePlan">
+          <thead class="text-center">
+            <tr>
+              <th></th>
+              <th>ในแผน</th>
+              <th>ลำดับ</th>
+              <th>เลขทะเบียนสรรพสามิต</th>
+              <th>ชื่อผู้ประกอบการ</th>
+              <th>ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+              <th>ที่อยู่โรงอุตสาหกรรม/สถานบริการ</th>
+              <th>ภาค</th>
+              <th>พื้นที่</th>
+              <th>พิกัด</th>
+            </tr>
+          </thead>
+        </table>
+        <br>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

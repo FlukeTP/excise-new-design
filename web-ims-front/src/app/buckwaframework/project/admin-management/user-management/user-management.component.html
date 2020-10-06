@@ -1,0 +1,97 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="User Management" [loading]="false">
+    <form [formGroup]="searchForm" (submit)="handleSearch($event)" class="ui form">
+      <div class="ui grid">
+        <div class="four column row">
+          <div class="three wide column">
+            <div class="inline fields">
+              <label>User</label>
+              <input type="text" formControlName="username" placeholder="user">
+            </div>
+          </div>
+          <!-- role -->
+          <div class="three wide column">
+            <div class="inline fields">
+
+              <label>Enabled</label>
+              <div class="ui input">
+
+                <select class="ui  dropdown" formControlName="enabled">
+                  <option value=""> please select </option>
+                  <option value="A">ทั้งหมด </option>
+                  <option value="Y">Y</option>
+                  <option value="N">N</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- button -->
+          <div class="two wide column">
+            <div class="inline fields">
+              <app-button-search submit="submit"></app-button-search>
+              <!-- <app-button-add routerLink="/management/operation-add"></app-button-add> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </segment>
+  <segment header="Result" [loading]="false">
+
+    <div class="sixteen wide column">
+      <table id="dataTable" class="  ui small celled nowrap table striped selectable" style="width:100%">
+        <thead>
+          <tr style="text-align: center;">
+            <th class="one wide">ลำดับ</th>
+            <th class="three wide">UserName</th>
+            <th class="two wide">StatusEnabled</th>
+            <th class="one wide ">Action</th>
+            <th class="one wide ">Assign Role</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <br>
+    <div class="ui one column centered grid">
+      <div class="column aligned center">
+        <app-button-back routerLink="/management/user-management"></app-button-back>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>
+
+
+
+<ui-modal [id]="'user-edit'" [type]="'custom'">
+  <div class="ui header">
+    แก้ไขข้อมูล enabled
+  </div>
+  <div class="content">
+    <div class="ui form" [formGroup]="modalForm">
+      <div class="ui form grid ">
+        <div class="ui fourteen wide centered column">
+          <div class="inline fields">
+            <div class="two wide field">
+              <label class="text-right full-width">Enabled</label>
+            </div>
+            <div class="six  wide field">
+
+              <select class="ui  dropdown" formControlName="enabled" id="enabled">
+                <option value="Y">Y</option>
+                <option value="N">N</option>
+              </select>
+
+            </div>
+            <!-- <input type="text" formControlName="enabled" > -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions" style="justify-content: center;display: flex;">
+    <app-button-confirm (click)="update()">
+    </app-button-confirm>
+    <app-button-cancel class="negative"></app-button-cancel>
+  </div>
+</ui-modal>

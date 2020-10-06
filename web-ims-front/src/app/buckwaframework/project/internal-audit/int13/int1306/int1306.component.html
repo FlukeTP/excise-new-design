@@ -1,0 +1,338 @@
+<br>
+<segment header="สรุปผลการตรวจสอบทานการประเมินการจัดวางระบบและการควบคุมภายใน">
+  <form form [formGroup]="formSearch">
+    <div inline>
+      <div field [col]="2" [ngClass]="{'required': flagHeader}">
+        <label class="text-right full-width">สำนักงานสรรพสามิตภาค :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="4" [ngClass]="{'error': invalidSearchFormControl('sector')}">
+          <select class="ui dropdown full-width" id="sector" (change)="onChangeSector($event)" formControlName="sector">
+            <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+            <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" formControlName="sector" readonly>
+        </div>
+      </ng-container>
+      <div field [col]="2">
+        <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่ :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="3" [ngClass]="{'error': invalidSearchFormControl('area')}">
+          <select class="ui dropdown full-width" id="area" (change)="onChangeArea($event)" formControlName="area">
+            <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="3">
+          <input type="text" class="custom-readonly" formControlName="area" readonly>
+        </div>
+      </ng-container>
+      <div field [col]="2">
+        <label class="text-right full-width">สำนักงานสรรพสามิตสาขา :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="3" [ngClass]="{'error': invalidSearchFormControl('branch')}">
+          <select class="ui dropdown full-width" id="branch" formControlName="branch">
+            <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="3">
+          <input type="text" class="custom-readonly" formControlName="branch" readonly>
+        </div>
+      </ng-container>
+    </div>
+
+    <div inline>
+      <div field [col]="2" [ngClass]="{'required': flagHeader}">
+        <label class="text-right full-width">ประจำปีงบประมาณ :</label>
+      </div>
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="2" [ngClass]="{'error': invalidSearchFormControl('budgetYear')}">
+          <div class="ui calendar full-width" id="year">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" autocomplete="off" placeholder="ปปปป" id="inputYear" readonly="">
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="2">
+          <input type="text" class="custom-readonly" formControlName="budgetYear" readonly>
+        </div>
+      </ng-container>
+      <div field [col]="4">
+        <label class="text-right full-width">ช่วงวันที่ตรวจประเมิน :</label>
+      </div>
+      <div field [col]="3">
+        <input type="text" class="custom-readonly" formControlName="auditDateFrom" id="auditDateFrom" readonly>
+        ถึง&nbsp;&nbsp;&nbsp;
+        <input type="text" class="custom-readonly" formControlName="auditDateTo" id="auditDateTo" readonly>
+      </div>
+
+      <div field [col]="2">
+        <label class="text-right full-width">เลขที่กระดาษทำการ :</label>
+      </div>
+      <div field [col]="3">
+        <select class="ui dropdown full-width" (change)="onChangeauditPmresultNo($event)"
+          formControlName="auditPmresultNo" id="auditPmresultNo">
+          <option value="">เลือกเอกสาร</option>
+          <option *ngFor="let item of auditPmresultNoList let i =index" value="{{item.auditPmresultNo}}">
+            {{item.auditPmresultNo}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-search (click)="serach()" [disabled]="!flagButton"></app-button-search>
+        <app-button-save (click)="save()" [disabled]="flagButton"></app-button-save>
+        <app-button-export (click)="export()" [disabled]="!formSearch.get('auditPmresultNo').value">
+        </app-button-export>
+        <app-button-clear (click)="clear()"></app-button-clear>
+      </div>
+    </div>
+  </form>
+
+  <hr>
+  <div [ngClass]="{'ui loading segment': loading}">
+    <form form [formGroup]="formDataShow">
+      <div style="overflow-x: scroll">
+        <table class="ui small celled table selectable" style="width: 120%">
+          <thead>
+            <tr class="text-center">
+              <th style="width:5% ">ลำดับ</th>
+              <th style="width:25% ">แบบรายการ/แนวทางการประเมิน</th>
+              <th style="width:25% ">ผลการสอบทาน</th>
+              <th style="width:25% ">ข้อเสนอแนะ</th>
+              <th style="width:25% ">สรุปผลการตรวจสอบ</th>
+            </tr>
+          </thead>
+          <tbody formArrayName="dataList">
+            <ng-container *ngIf="formDataShow.controls">
+              <ng-container *ngIf="formDataShow.controls.dataList.controls!=0">
+                <tr [formGroupName]="i"
+                  *ngFor="let item of formDataShow.controls.dataList.controls; let i = index;let first = first;let last = last">
+                  <td class="text-center">{{ i+1 }}</td>
+                  <td class="text-left">{{ item.get('topic').value | isEmpty }}</td>
+                  <td class="text-left">
+                    <textarea rows="4" class="custom-readonly" style="resize: none"
+                      readonly>{{ item.get('evident').value | isEmpty }}</textarea>
+                  </td>
+                  <td class="text-left">
+                    <textarea rows="4" class="custom-readonly" style="resize: none"
+                      readonly>{{ item.get('suggestion').value | isEmpty }}</textarea>
+                  </td>
+                  <td class="text-left">
+                    <ng-container *ngIf="item.get('type').value =='PM_ASSESS'|| item.get('type').value =='PM_PY1'">
+                      <div class="ui form">
+                        <div class="grouped fields">
+                          <div class="field">
+                            <div class="ui radio checkbox">
+                              <input type="radio" formControlName="result" id="result" value="Y" >
+                              <label>เพียงพอ เหมาะสม</label>
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="ui radio checkbox">
+                              <input type="radio" formControlName="result" id="result" value="N" >
+                              <label>ไม่เพียงพอ</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="item.get('type').value =='PM_QT'">
+                      <div class="ui form">
+                        <div class="grouped fields">
+                          <div class="field">
+                            <div class="ui radio checkbox">
+                              <input type="radio" formControlName="result" id="result" value="Y" >
+                              <label>มีการดำเนินการจริง</label>
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="ui radio checkbox">
+                              <input type="radio" formControlName="result" id="result" value="N" >
+                              <label>ไม่มี/ไม่เพียงพอ</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="item.get('type').value =='PM_PY2'">
+                      <div class="ui form">
+                        <div class="grouped fields">
+                          <div class="field">
+                            <div class="ui radio checkbox">
+                              <input type="radio" formControlName="result" id="result" value="Y" >
+                              <label>กิจกรรมครบ</label>
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="ui radio checkbox">
+                              <input type="radio" formControlName="result" id="result" value="N" >
+                              <label>กิจกรรมครบไม่ครบ</label>
+                            </div>
+                          </div>
+                          <br>
+                          <div class="field">
+                            <div class="ui radio checkbox">
+                              <input type="radio" formControlName="result2" id="result2" value="Y" >
+                              <label>เพียงพอ เหมาะสม</label>
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="ui radio checkbox">
+                              <input type="radio" formControlName="result2" id="result2" value="N" >
+                              <label>ไม่เพียงพอ/ไม่บรรลุวัตถุประสงค์</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="item.get('type').value =='PM_COMMIT'">
+                      <div class="ui form">
+                        <div class="grouped fields">
+                          <div class="field">
+                            <div class="ui radio checkbox">
+                              <input type="radio" formControlName="result" id="result" value="Y" >
+                              <label>มี/ร่วมกันประเมิน</label>
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="ui radio checkbox">
+                              <input type="radio" formControlName="result" id="result" value="N" >
+                              <label>ไม่มี/ไม่ได้ร่วมกันประเมิน</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </td>
+                </tr>
+              </ng-container>
+
+              <ng-container *ngIf="formDataShow.controls.dataList.controls==0">
+                <tr class="text-center">
+                  <td colspan="14">ไม่พบข้อมูล</td>
+                </tr>
+              </ng-container>
+            </ng-container>
+
+          </tbody>
+        </table>
+      </div>
+
+      <br>
+      <div inline>
+        <div field [col]="4">
+          <label class="text-left full-width">ข้อเสนอแนะของหน่วยรับตรวจ :</label>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="14">
+          <textarea rows="4" style="resize: none" formControlName="depAuditingSuggestion" id="depAuditingSuggestion"
+            maxlength="200"></textarea>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="4">
+          <label class="text-left full-width">สรุปผลการตรวจสอบ :</label>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="14">
+          <textarea rows="4" style="resize: none" formControlName="auditSummary" id="auditSummary"
+            maxlength="200"></textarea>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="4">
+          <label class="text-left full-width">ข้อเสนอแนะ :</label>
+        </div>
+      </div>
+      <div inline>
+        <div field [col]="14">
+          <textarea rows="4" style="resize: none" formControlName="auditSuggestion" id="auditSuggestion"
+            maxlength="200"></textarea>
+        </div>
+      </div>
+
+      <br>
+
+      <!-- ui grid -->
+      <div class="ui grid">
+        <!-- Column -->
+        <div field [col]="4">
+          <div inline>
+            <div field [col]="16">
+              <label class="full-width text-left">ผู้รับการตรวจสอบทาน :</label>
+            </div>
+          </div>
+          <div inline>
+            <div field [col]="16">
+              <input type="text" maxlength="50" formControlName="personAudity" id="personAudity">
+            </div>
+          </div>
+          <div inline>
+            <div field [col]="16">
+              <input type="text" maxlength="150" formControlName="personAudityPosition" id="personAudityPosition">
+            </div>
+          </div>
+        </div>
+        <!-- Column -->
+        <div field [col]="4">
+          <div inline>
+            <div field [col]="16">
+              <label class="full-width text-left">ผู้สอบทาน :</label>
+            </div>
+          </div>
+          <div inline>
+            <div field [col]="16">
+              <input type="text" maxlength="50" formControlName="auditer1" id="auditer1">
+            </div>
+          </div>
+          <div inline>
+            <div field [col]="16">
+              <input type="text" maxlength="150" formControlName="auditer1AudityPosition" id="auditer1AudityPosition">
+            </div>
+          </div>
+        </div>
+        <!-- Column -->
+        <div field [col]="4">
+          <div inline>
+            <div field [col]="16">
+              <label class="full-width text-left">ผู้สอบทาน :</label>
+            </div>
+          </div>
+          <div inline>
+            <div field [col]="16">
+              <input type="text" maxlength="50" formControlName="auditer2" id="auditer2">
+            </div>
+          </div>
+          <div inline>
+            <div field [col]="16">
+              <input type="text" maxlength="150" formControlName="auditer2AudityPosition" id="auditer2AudityPosition">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+</segment>

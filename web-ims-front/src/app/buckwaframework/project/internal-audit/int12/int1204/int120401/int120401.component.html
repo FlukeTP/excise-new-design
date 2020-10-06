@@ -1,0 +1,139 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+
+  <segment header="ข้อมูลค่าใช้จ่าย" [loading]="false">
+    <form class="ui form">
+      <!-- row 1 -->
+      <input type="hidden" [(ngModel)]="model.searchFlag" name="searchFlag">
+      <div class="inline fields"
+        *ngIf="userProfile.officeCode.substring(0, 2) === '00' || userProfile.officeCode.substring(0, 2) === '99'">
+        <div class="four wide field">
+          <label class="text-right full-width">สรรพสามิตภาค</label>
+        </div>
+        <div class="four wide field">
+          <select class="ui dropdown full-width" [(ngModel)]="sectorSelect" name="sector" id="sector"
+            (change)="changeSector($event.target.value)">
+            <option value="">กรุณาเลือก</option>
+            <option *ngFor="let item of sectorList" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+        <div class="two wide field">
+          <label class="text-right full-width">สรรพสามิตพื้นที่
+          </label>
+        </div>
+        <div class="four wide field ">
+          <select class="ui dropdown full-width" [(ngModel)]="areaSelect" name="area" id="area">
+            <option value="">กรุณาเลือก</option>
+            <option *ngFor="let item of araeList" value="{{item.officeCode}}">{{item.deptName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="inline fields ui"
+        *ngIf="userProfile.officeCode.substring(0, 2) !== '00' && userProfile.officeCode.substring(0, 2) !== '99'">
+        <div field [col]="4">
+          <label class="text-right full-width">สรรพสามิตภาค</label>
+        </div>
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" readonly [value]="sector">
+        </div>
+        <div field [col]="2">
+          <label class="text-right full-width">สรรพสามิตพื้นที่</label>
+        </div>
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" readonly [value]="userProfile.departmentName">
+        </div>
+      </div>
+      <div class="inline fields ui centered grid " form [formGroup]="formSave">
+        <div class="one wide field "></div>
+        <div class="three wide field ">
+          <label class="text-right full-width">รหัสบัญชี</label>
+        </div>
+        <div class="four wide field">
+          <select class="ui dropdown search  ia" id="coaCode" formControlName="accountId"
+            (change)="changeChartOfAcc($event.target.value, '1')">
+            <option *ngFor="let data of chartOfAccList" value="{{data.coaCode}}">{{data.coaCode}}</option>
+          </select>
+        </div>
+        <div class="two wide field  ">
+          <label class="text-right full-width">ชื่อบัญชี</label>
+        </div>
+        <div class="four wide field">
+          <select class="ui dropdown search  ia" id="coaName" formControlName="accountName"
+            (change)="changeChartOfAcc($event.target.value, '2')">
+            <option *ngFor="let data of chartOfAccList" value="{{data.coaName}}">{{data.coaName}}</option>
+          </select>
+        </div>
+        <div class="two wide field "></div>
+      </div>
+      <div class="inline fields centered ui grid">
+        <div class="three wide field">
+          <label class="text-right full-width">ปีงบประมาณ</label>
+        </div>
+        <div class="four wide field ">
+          <div class="ui calendar" id="budgetYear" style="width:100%">
+            <div class="ui input left icon">
+              <i class="calendar alter nate outline icon"></i>
+              <input type="text" autocomplete="off" id="budgetYearInput" name="budgetYearInput" placeholder="ปปปป">
+            </div>
+          </div>
+          <!-- <select class="ui dropdown full-width" [(ngModel)]="model.year" name="year" id="year">
+            <option value="">กรุณาเลือก</option>
+            <option *ngFor="let item of yearList" value="{{item.value}}">{{item.label}}</option>
+          </select> -->
+        </div>
+        <div class="seven wide field ">
+
+        </div>
+      </div>
+      <br><br>
+      <div class="ui stackable center aligned page grid">
+        <button class="ui mini primary button" type="button" (click)="search()"><i class="search icon"></i>
+          ค้นหา</button>
+        <button class="ui mini gray button" type="button" (click)="clear()"><i class="sync icon"></i>
+          ล้างข้อมูล</button>
+        <button class="ui mini green button" type="button" (click)="goLocation()"><i class="plus icon"></i>
+          เพิ่มข้อมูล</button>
+      </div><br>
+    </form>
+    <br>
+    <table id="dataTable" class="ui small celled table nowrap striped selectable" style="width: 100%">
+      <thead>
+        <tr style="text-align: center;">
+          <th rowspan="2">ลำดับที่</th>
+          <th rowspan="2" style="text-align: center !important">รหัสบัญชี</th>
+          <th rowspan="2" style="text-align: center !important">ชื่อบัญชี</th>
+          <th colspan="3">กิจกรรม (รับโอนจากกรมฯ)</th>
+          <th rowspan="2">รวมรับ</th>
+          <th colspan="3">การเบิกจ่ายจริงแยกตามกิจกรรมตามทะเบียนคุม</th>
+          <th rowspan="2">รวมรับ</th>
+          <th colspan="3">คงเหลือ</th>
+          <th rowspan="2">คงเหลือรวม</th>
+          <th colspan="4">ถัวจ่าย</th>
+          <th colspan="2">เหลือสุทธิ</th>
+          <th rowspan="2">หมายเหตุ</th>
+          <th rowspan="2">การจัดการ</th>
+        </tr>
+        <tr>
+          <th>การบริหาร</th>
+          <th>ปราบปราม</th>
+          <th>เงินนอกงปม.</th>
+
+          <th>การบริหาร</th>
+          <th>ปราบปราม</th>
+          <th>เงินนอกงปม.</th>
+
+          <th>การบริหาร</th>
+          <th>ปราบปราม</th>
+          <th>เงินนอกงปม.</th>
+
+          <th>ถัวเป็นเงิน</th>
+          <th>ถัวเป็นให้</th>
+          <th>ถัวมาเงิน</th>
+          <th>ถัวมาจาก</th>
+
+          <th>เงินงบ</th>
+          <th>เงินนอก</th>
+        </tr>
+      </thead>
+    </table><br>
+  </segment>
+</with-breadcrumb>

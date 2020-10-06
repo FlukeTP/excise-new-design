@@ -1,0 +1,128 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <segment header="ค้นหาผู้ส่งออก">
+        <div class="ui form">
+          <div class="inline fields">
+            <div class="three wide field required">
+              <label class="text-right full-width">ชื่อผู้ส่งออก :</label>
+            </div>
+            <div class="four wide field">
+              <input type="text" placeholder="ชื่อผู้ส่งออก">
+            </div>
+            <div class="three wide field required">
+              <label class="text-right full-width">สถานะการส่งออก :</label>
+            </div>
+            <div class="four wide field">
+              <input type="text" placeholder="สถานะการส่งออก">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="three wide field required">
+              <label class="text-right full-width">เลขที่รับ :</label>
+            </div>
+            <div class="four wide field">
+              <input type="text" placeholder="เลขที่รับ">
+            </div>
+            <div class="three wide field required">
+              <label class="text-right full-width">เจ้าหน้าที่รับ :</label>
+            </div>
+            <div class="four wide field">
+              <input type="text" placeholder="เจ้าหน้าที่รับ">
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="three wide field required">
+              <label class="text-right full-width">ช่วงเวลาที่รับจาก :</label>
+            </div>
+            <div class="four wide field">
+              <div class="ui calendar" style="width:100%" id="date1">
+                <div class="ui input left icon">
+                  <i class="calendar alternate outline icon"></i>
+                  <input type="text" placeholder="วัน เดือน ปี">
+                </div>
+              </div>
+            </div>
+            <div class="three wide field required">
+              <label class="text-right full-width">ถึง :</label>
+            </div>
+            <div class="four wide field">
+              <div class="ui calendar" style="width:100%" id="date2">
+                <div class="ui input left icon">
+                  <i class="calendar alternate outline icon"></i>
+                  <input type="text" placeholder="วัน เดือน ปี">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="three wide field required">
+              <label class="text-right full-width">ชื่อผู้ส่งออก :</label>
+            </div>
+            <div class="four wide field">
+              <input type="text" placeholder="เลขที่รับ">
+            </div>
+            <div class="three wide field required">
+              <label class="text-right full-width">ประเภทผู้ส่งออก :</label>
+            </div>
+            <div class="four wide field">
+              <select id="selectZone2" class="ui dropdown ai">
+                <option value="">กรุณาเลือก</option>
+              </select>
+            </div>
+          </div>
+          <div class="ui center aligned grid">
+            <div class="sixteen wide column">
+              <button class="ui mini primary button" type="submit">
+                <i class="search icon"></i>ค้นหา
+              </button>
+              <button class="ui mini  button" type="submit">
+                <i class="close icon"></i>ล้างข้อมูล
+              </button>
+            </div>
+          </div>
+        </div>
+      </segment>
+      <segment header="ผลค้นหาผู้ส่งออก">
+        <div class="ui form">
+          <table id="dataTable" class="ui small celled table striped selectable nowrap" style="width: 100%">
+            <thead>
+              <tr style="text-align: center;">
+                <th class="one wide">ลำดับ <i class="sort icon"></i></th>
+                <th class="two wide">05 01 <i class="sort icon"></i></th>
+                <th class="two wide">ตรวจปล่อย(ต้นทาง) <i class="sort icon"></i></th>
+                <th class="two wide">ตรวจปล่อย(ปลายทาง) <i class="sort icon"></i></th>
+                <th class="three wide">สถานะการส่งเอกสารกลับไปกรมสรรพสามิต <i class="sort icon"></i></th>
+                <th class="two wide">ยืนยันการส่งออก <i class="sort icon"></i></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><button class='circular ui basic button dtl' type='button'
+                    [routerLink]="[ './app-exporter-details'] ">รายละเอียด</button></td>
+                <td><button class='circular ui basic button dtl' type='button'
+                    [routerLink]="[ '/product-release-history/step'] ">เอกสารการตรวจปล่อย</button></td>
+                <td><button class='circular ui basic button dtl' type='button'
+                    [routerLink]="[ '/product-release-history/step'] ">เอกสารการตรวจปล่อย</button></td>
+                <td>ส่งกลับแล้ว</td>
+                <td>ผ่าน<i [routerLink]="[ '/product-release-history/step'] " class="file outline icon"></i></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><button class='circular ui basic button dtl' type='button'
+                    [routerLink]="[ './app-exporter-details'] ">รายละเอียด</button></td>
+                <td><button class='circular ui basic button dtl' type='button'
+                    [routerLink]="[ '/product-release-history/step'] ">เอกสารการตรวจปล่อย</button></td>
+                <td><button class='circular ui basic button dtl' type='button'
+                    [routerLink]="[ '/product-release-history/step'] ">เอกสารการตรวจปล่อย</button></td>
+                <td>ส่งกลับแล้ว</td>
+                <td>ไม่ผ่าน<i [routerLink]="[ '/product-release-history/step'] " class="file outline icon"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>

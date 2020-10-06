@@ -1,0 +1,253 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="กระดาษทำการตรวจสอบเจ้าหนี้ อปท." [loading]="false">
+    <div class="ui form">
+      <form [formGroup]="formSearch">
+        <div inline>
+          <div field [col]="2">
+            <!-- something -->
+          </div>
+          <div field [col]="2" class="required">
+            <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+          </div>
+          <div field [col]="4" [ngClass]="{'error': validateField('sector')}">
+            <select class="ui dropdown full-width" id="sector" (change)="dropdownChange($event, 'SECTOR')"
+              formControlName="sector">
+              <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+              <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+            </select>
+          </div>
+          <div field [col]="2" class="required">
+            <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+          </div>
+          <div field [col]="3" [ngClass]="{'error': validateField('area')}">
+            <select class="ui dropdown full-width" id="area" (change)="dropdownChange($event, 'AREA')"
+              formControlName="area">
+              <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+              <option value="0">ทั้งหมด</option>
+              <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptName}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div inline>
+          <div field [col]="1">
+            <!-- something -->
+          </div>
+          <div field [col]="3" class="required">
+            <label class="text-right full-width">เลขที่บัญชีเจ้าหน้าหนี้ อปท.</label>
+          </div>
+          <div field [col]="9" [ngClass]="{'error': validateField('coaCode')}">
+            <select class="ui search dropdown full-width" formControlName="coaCode">
+              <option value="">เลขที่บัญชีเจ้าหน้าหนี้ อปท.</option>
+              <option *ngFor="let item of coaList" value="{{item.coaCode}}">
+                {{ item.coaCode }} - {{ item.coaName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div inline>
+          <div field [col]="2">
+            <!-- something -->
+          </div>
+          <div field [col]="2" class="required">
+            <label class="text-right full-width">เลขบัญชีเงินฝาก</label>
+          </div>
+          <div field [col]="9" [ngClass]="{'error': validateField('gfDepositCode')}">
+            <select class="ui search dropdown full-width" formControlName="gfDepositCode">
+              <option value="">เลขบัญชีเงินฝาก</option>
+              <option *ngFor="let item of depaccMasList" value="{{item.gfDepositCode}}">
+                {{ item.gfDepositCode }} - {{ item.gfDepositName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="2" class="required">
+            <label class="text-right full-width">ประจำงวด</label>
+          </div>
+          <div field [col]="1" [ngClass]="{'error': validateField('periodFrom')}">
+            <!-- <select class="ui dropdown full-width" formControlName="periodFrom">
+              <option *ngFor="let item of periodFromList" value="{{item.periodFrom}}">
+                {{item.periodFrom}}
+              </option>
+            </select> -->
+            <input type="text" formControlName="periodFrom" (blur)="setMinValidator($event)">
+          </div>
+
+          <div field [col]="1" class="required">
+            <label class="text-right full-width">ประจำปี</label>
+          </div>
+          <div field [col]="2">
+            <div class="ui calendar" id="fromYearCld">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" formControlName="fromYear" autocomplete="off" placeholder="ปปปป" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div field [col]="1" class="required">
+            <label class="text-center full-width">ถึงงวด</label>
+          </div>
+          <div field [col]="1" [ngClass]="{'error': validateField('periodTo')}">
+            <input type="text" formControlName="periodTo">
+          </div>
+
+          <div field [col]="1" class="required">
+            <label class="text-right full-width">ประจำปี</label>
+          </div>
+          <div field [col]="2">
+            <div class="ui calendar" id="toYearCld">
+              <div class="ui input left icon">
+                <i class="calendar alter nate outline icon"></i>
+                <input type="text" formControlName="toYear" autocomplete="off" placeholder="ปปปป" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui center aligned grid">
+          <div class="column">
+            <app-button-search (click)="search()"></app-button-search>
+            <app-button-export></app-button-export>
+          </div>
+        </div>
+      </form>
+
+      <form [formGroup]="fomrHeader">
+        <h4><b>วิเคราะห์เปรียบเทียบเจ้าหนี้ อปท.</b></h4>
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="5">
+            <label>
+              -ยอดคงเหลือบัญชีเจ้าหนี้ อปท. ตามงบทดลองในระบบ GFMIS
+            </label>
+          </div>
+          <div field [col]="3">
+            <input type="text" class="custom-readonly" readonly formControlName="sumCarryForward1">
+          </div>
+        </div>
+
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="5">
+            <label>
+              -ยอดคงเหลือเงินฝากคลัง
+            </label>
+          </div>
+          <div field [col]="3">
+            <input type="text" class="custom-readonly" readonly formControlName="sumCarryForward2">
+          </div>
+        </div>
+
+        <div inline>
+          <div field [col]="2"></div>
+          <div field [col]="5">
+            <label class="text-right full-width">
+              ผลต่าง
+            </label>
+          </div>
+          <div field [col]="3">
+            <input type="text" class="custom-readonly" readonly formControlName="difference">
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <h4><b>(1) งบทดลอง</b></h4>
+    <table class="ui small celled nowrap table" style="width: 100%;">
+      <thead>
+        <tr class="text-center">
+          <th>รหัส</th>
+          <th>พื้นที่</th>
+          <th>ยอดยกมา</th>
+          <th>เดบิต(40)</th>
+          <th>เครดิต(50)</th>
+          <th>ยอดยกไป</th>
+        </tr>
+      </thead>
+
+      <!-- no data -->
+      <tbody *ngIf="experimentalBudgetList.length == 0">
+        <tr>
+          <td class="text-center" colspan="6">ไม่มีข้อมูล</td>
+        </tr>
+      </tbody>
+
+      <!-- ____________ have data ____________ -->
+      <tbody *ngIf="experimentalBudgetList.length > 0">
+        <tr *ngFor="let e of experimentalBudgetList; let i = index">
+          <td class="text-center">{{ e.accNo }}</td>
+          <td>{{ e.officeCodeStr }}</td>
+          <td class="text-right">{{ e.bringForward | decimalFormat }}</td>
+          <td class="text-right">{{ e.debit | decimalFormat }}</td>
+          <td class="text-right">{{ e.credit | decimalFormat }}</td>
+          <td class="text-right">{{ e.carryForward | decimalFormat }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr *ngFor="let s of sumExperimentalBudget;">
+          <td class="text-center bg-sum" colspan="2">รวม</td>
+          <td class="text-right bg-sum">{{ s.sumBringForward | decimalFormat }}</td>
+          <td class="text-right bg-sum">{{ s.sumDebit | decimalFormat }}</td>
+          <td class="text-right bg-sum">{{ s.sumCredit | decimalFormat }}</td>
+          <td class="text-right bg-sum">{{ s.sumCarryForward | decimalFormat }}</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <h4><b>(2) รายงานเคลื่อนไหวเงินฝากคลัง</b></h4>
+    <table class="ui small celled nowrap table" style="width: 100%;">
+      <thead>
+        <tr class="text-center">
+          <th>รหัส</th>
+          <th>พื้นที่</th>
+          <th>ยอดยกมา</th>
+          <th>เดบิต(40)</th>
+          <th>เครดิต(50)</th>
+          <th>ยอดยกไป</th>
+        </tr>
+      </thead>
+
+      <!-- no data -->
+      <tbody *ngIf="depositsReportList.length == 0">
+        <tr>
+          <td class="text-center" colspan="6">ไม่มีข้อมูล</td>
+        </tr>
+      </tbody>
+
+      <!-- ____________ have data ____________ -->
+      <tbody *ngIf="depositsReportList.length > 0">
+        <tr *ngFor="let e of depositsReportList; let i = index">
+          <td class="text-center">{{ e.accNo }}</td>
+          <td>{{ e.officeCodeStr }}</td>
+          <td class="text-right">{{ e.bringForward | decimalFormat }}</td>
+          <td class="text-right">{{ e.debit | decimalFormat }}</td>
+          <td class="text-right">{{ e.credit | decimalFormat }}</td>
+          <td class="text-right">{{ e.carryForward | decimalFormat }}</td>
+        </tr>
+      </tbody>
+
+      <!-- ____________ footer ____________ -->
+      <tfoot>
+        <tr *ngFor="let s of sumDepositsReport;">
+          <td class="text-center bg-sum" colspan="2">รวม</td>
+          <td class="text-right bg-sum">{{ s.sumBringForward | decimalFormat }}</td>
+          <td class="text-right bg-sum">{{ s.sumDebit | decimalFormat }}</td>
+          <td class="text-right bg-sum">{{ s.sumCredit | decimalFormat }}</td>
+          <td class="text-right bg-sum">{{ s.sumCarryForward | decimalFormat }}</td>
+        </tr>
+        <tr *ngFor="let d of difference;">
+          <td class="text-center bg-sum-total" colspan="2">ผลต่าง</td>
+          <td class="text-right bg-sum-total">{{ d.diffBringForward | decimalFormat }}</td>
+          <td class="text-right bg-sum-total">{{ d.diffDebit | decimalFormat }}</td>
+          <td class="text-right bg-sum-total">{{ d.diffCredit | decimalFormat }}</td>
+          <td class="text-right bg-sum-total">{{ d.diffCarryForward | decimalFormat }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </segment>
+</with-breadcrumb>

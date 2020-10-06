@@ -1,0 +1,295 @@
+<div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+    <span>การตรวจปล่อยสินค้า</span>
+</div>
+
+<div class="ui attached segment">
+    <br>
+    <div>
+
+        <div class="ui form">
+            <div class="ui grid">
+                <!-- column 1 -->
+                <div class="eight wide field" style="text-align: center;">
+                    <label>ข้อมูลการตามแบบคำขอยกเว้นหรือคืนภาษี (แบบเลขที่ {{leftformVo.refNo}} )</label>
+                </div>
+                <!-- column 2 -->
+                <div class="eight wide field" style="text-align: center;">
+                    <label>ข้อมูลการนำสินค้าออกจากโรงอุตสาหกรรม </label>
+                </div>
+            </div>
+            <hr><br>
+
+            <div class="inline fields">
+                <!-- column 1 -->
+                <div class="three wide field">
+                    <p>ชื่อผุ้ส่งออก :  </p>
+                </div>
+                <div class="four wide field">
+                    <label> {{leftformVo.exportName}} </label>
+                </div>
+                <div class="two wide field"></div>
+                <!-- column 2 -->
+                <div class="three wide field">
+                    <p>ชื่อผุ้ส่งออก :</p>
+                </div>
+                <div class="four wide field">
+                    <input type="text" [(ngModel)]="rightformVo.exportName">
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <!-- column 1 -->
+                <div class="three wide field">
+                    <p>สำนักงานสรรพสามิตต้นทาง :</p>
+                </div>
+                <div class="four wide field">
+                    <label>{{leftformVo.exciseSrc}}</label>
+                </div>
+                <div class="two wide field"></div>
+                <!-- column 2 -->
+                <div class="three wide field">
+                    <p>สำนักงานสรรพสามิตต้นทาง :</p>
+                </div>
+                <div class="four wide field">
+                    <input type="text" [(ngModel)]="rightformVo.exciseSrc">
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <!-- column 1 -->
+                <div class="three wide field">
+                    <p>ด่านส่งออกสินค้าปลายทาง :</p>
+                </div>
+                <div class="four wide field">
+                    <label>{{leftformVo.checkPointDest}}</label>
+                </div>
+                <div class="two wide field"></div>
+                <!-- column 2 -->
+                <div class="three wide field">
+                    <p>ด่านส่งออกสินค้าปลายทาง :</p>
+                </div>
+                <div class="four wide field">
+                    <input type="text" [(ngModel)]="rightformVo.checkPointDest">
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <!-- column 1 -->
+                <div class="three wide field">
+                    <p>สำนักงานสรรพสามิตปลายทาง :</p>
+                </div>
+                <div class="four wide field">
+                    <label>{{leftformVo.exciseDest}}</label>
+                </div>
+                <div class="two wide field"></div>
+                <!-- column 2 -->
+                <div class="three wide field">
+                    <p>สำนักงานสรรพสามิตปลายทาง :</p>
+                </div>
+                <div class="four wide field">
+                    <input type="text" [(ngModel)]="rightformVo.exciseDest">
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <!-- column 1 -->
+                <div class="three wide field">
+                    <p>วันที่นำสินค้าออก :</p>
+                </div>
+                <div class="four wide field">
+                    <label>{{leftformVo.dateOut}}</label>
+                </div>
+                <div class="two wide field"></div>
+                <!-- column 2 -->
+                <div class="three wide field">
+                    <p>วันที่นำสินค้าออก :</p>
+                </div>
+                <div class="four wide field">
+                    <input type="text" [(ngModel)]="rightformVo.dateOut">
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <!-- column 1 -->
+                <div class="three wide field">
+                    <p>ชนิดของสินค้า :</p>
+                </div>
+                <div class="four wide field">
+                    <label>{{leftformVo.productName}}</label>
+                </div>
+                <div class="two wide field"></div>
+                <!-- column 2 -->
+                <div class="three wide field">
+                    <p>ชนิดของสินค้า :</p>
+                </div>
+                <div class="four wide field">
+                    <input type="text" [(ngModel)]="rightformVo.productName">
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <!-- column 1 -->
+                <div class="three wide field">
+                    <p>ปริมาณของสินค้า :</p>
+                </div>
+                <div class="four wide field">
+                    <label>{{leftformVo.goodsNum}}</label>
+                </div>
+                <div class="two wide field"></div>
+                <!-- column 2 -->
+                <div class="three wide field">
+                    <p>ปริมาณของสินค้า :</p>
+                </div>
+                <div class="four wide field">
+                    <input type="text" [(ngModel)]="rightformVo.goodsNum" >
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <!-- column 1 -->
+                <div class="three wide field">
+                    <p>ชื่อหรือเลขทะเบียนพาหนะ :</p>
+                </div>
+                <div class="four wide field">
+                    <label> {{leftformVo.transportName}}</label>
+                </div>
+                <div class="two wide field"></div>
+                <!-- column 2 -->
+                <div class="three wide field">
+                    <p>ชื่อหรือเลขทะเบียนพาหนะ :</p>
+                </div>
+                <div class="four wide field">
+                    <input type="text"  [(ngModel)]="rightformVo.transportName"  >
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <!-- column 1 -->
+                <div class="three wide field">
+                    <p>เส้นทางการขนส่ง :</p>
+                </div>
+                <div class="four wide field">
+                    <label> {{leftformVo.route}} </label>
+                </div>
+                <div class="two wide field"></div>
+                <!-- column 2 -->
+                <div class="three wide field">
+                    <p>เส้นทางการขนส่ง :</p>
+                </div>
+                <div class="four wide field">
+                    <input type="text" [(ngModel)]="rightformVo.route" >
+                </div>
+            </div>
+            <!-- <hr>
+            <br>
+
+            <div class="ui grid">
+                <div class="eight wide field" style="text-align: center;">
+                    <label>จำนวนและหมายเลขดวงตรากรมสรรพสามิต :</label>
+                </div>
+                <div class="eight wide field" style="text-align: center;">
+                    <label>จำนวนและหมายเลขดวงตรากรมสรรพสามิต :</label>
+                </div>
+            </div>
+            <br> -->
+
+            <div class="ui grid">
+                <div class="two column row">
+                    <!-- column 1 Tax Stamp -->
+                    <div class="column">
+
+                        <div class="inline fields" *ngFor="let item of taxStampNo; let i = index">
+                            <div class="two wide field">
+                                <p>ดวงที่ {{i+1}}</p>
+                            </div>
+                            <div class="eight wide field">
+                                <input type="text"
+                                    ">
+                            </div>
+                            <div class=" four
+                                    wide field">
+                                <button class="ui mini green button" (click)="addTaxField(i)">
+                                    <i class="plus icon"></i>
+                                    เพิ่ม
+                                </button>
+                                <button class="ui mini red button" (click)="delTaxField(i)">
+                                    ลบ
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- column 2 Factory Stamp -->
+                    <div class="column">
+
+                        <div class="inline fields" *ngFor="let item of factoryStampNo; let i = index">
+                            <div class="two wide field"></div>
+                            <div class="two wide field">
+                                <p>ดวงที่ {{i+1}}</p>
+                            </div>
+                            <div class="eight wide field">
+                                <input type="text">
+                            </div>
+                            <div class="four wide field">
+                                <button class="ui mini green button" (click)="addFactoryField()">
+                                    <i class="plus icon"></i>
+                                    เพิ่ม
+                                </button>
+                                <button class="ui mini red button" (click)="delFactoryField(i)">
+                                    ลบ
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <br>
+
+            <!-- Radio Box -->
+            <div class="ui grid center aligned">
+                <div class="inline fields">
+                    <label>ผลการตรวจ:</label>
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="result" value="Y" [(ngModel)]="leftformVo.checkingResult" >
+                            <label>ผ่าน</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="result" value="N"  [(ngModel)]="leftformVo.checkingResult" >
+                            <label>ไม่ผ่าน</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comment Box -->
+            <div class="ui grid center aligned">
+                <label>หมายเหตุ:</label>
+                <div class="fields">
+                    <textarea rows="5" cols="100" [(ngModel)]="leftformVo.remark"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="ui grid">
+        <div class="sixteen wide column center aligned ">
+            <div class="ui primary button" (click)="onClickSave()">
+                <i class="save icon"></i>
+                บันทึกข้อมูลการตรวจ
+            </div>
+            <div class="ui icon deny button" (click)="onback()">
+                <i class="close icon"></i>
+                ยกเลิกการบันทึกข้อมูล
+            </div>
+        </div>
+    </div>
+
+
+</div>

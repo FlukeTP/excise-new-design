@@ -1,0 +1,36 @@
+<div class="ui centered grid">
+    <div class="sixteen wide column">
+        <div class="ui form" [formGroup]="changeDetail">
+            <div class="inline fields">
+                <div class="four wide field">
+                </div>
+                <div class="two wide field">
+                    <label class="text-right full-width">วันเริ่มต้น</label>
+                </div>
+                <div class="two wide field">
+                    <div class="ui calendar" style="width:100%" id="dateCalendarFrom">
+                        <div class="ui input left icon">
+                            <i class="calendar alter nate outline icon"></i>
+                            <input type="calendar" placeholder="วว/ดด/ปปปป" id="dateFrom" formControlName="dateFrom"
+                                name="dateFrom" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="two wide  field">
+                    <label class="text-right full-width">วันที่เดินทาง</label>
+                </div>
+                <div class="two wide  field">
+                    <div class="ui calendar" style="width:100%" id="dateCalendarTo">
+                        <div class="ui input left icon">
+                            <i class="calendar alter nate outline icon"></i>
+                            <input type="calendar" placeholder="วว/ดด/ปปปป" id="dateTo" formControlName="dateTo"
+                                name="dateTo" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="four wide field">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

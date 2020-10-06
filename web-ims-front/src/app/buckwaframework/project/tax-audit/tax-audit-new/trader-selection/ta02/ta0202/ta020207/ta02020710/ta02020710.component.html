@@ -1,0 +1,124 @@
+<segment header="จ่ายสินค้าสำเร็จรูปต่างประเทศ">
+  <form form [formGroup]="formSearch">
+    <div inline>
+      <div field [col]="3">
+        <label class="text-right full-width">รอบระยะเวลาการตรวจสอบ :</label>
+      </div>
+
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="2" [ngClass]="{'error': invalidSearchFormControl('startDate')}">
+          <div class="ui calendar full-width" id="date1">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" placeholder="ดด/ปปปป" autocomplete="off" id="inputDate1" readonly="">
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="2">
+          <input type="text" class="custom-readonly" formControlName="startDate" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="1">
+        <label class="text-center full-width">ถึง :</label>
+      </div>
+
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="2" [ngClass]="{'error': invalidSearchFormControl('endDate')}">
+          <div class="ui calendar full-width" id="date2">
+            <div class="ui input left icon">
+              <i class="calendar alternate outline icon"></i>
+              <input type="text" placeholder="ดด/ปปปป" autocomplete="off" id="inputDate2" readonly="">
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="2">
+          <input type="text" class="custom-readonly " formControlName="endDate" readonly>
+        </div>
+      </ng-container>
+
+      <div field [col]="4">
+        <label class="text-right full-width">เลขกระดาษทำการ :</label>
+      </div>
+
+      <ng-container *ngIf="flagHeader">
+        <div field [col]="4">
+          <select class="ui dropdown full-width" (change)="onChangePaperPrNumber($event)"
+            formControlName="paperPrNumber" id="paperPrNumber">
+            <option value="">เลือกเอกสาร</option>
+            <option *ngFor="let item of prNumberList let i =index" value="{{item}}">
+              {{item}}</option>
+          </select>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!flagHeader">
+        <div field [col]="4">
+          <input type="text" class="custom-readonly" formControlName="paperPrNumber" readonly>
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div class="inline field btn text-center">
+      <app-button-search (click)="onSerach()" [disabled]="!showBtSave"></app-button-search>
+      <app-button-save (click)="onSave()" [disabled]="showBtSave"></app-button-save>
+      <app-button-custom color="orange" text="อัปโหลด Template" (click)="uploadTemplate()"></app-button-custom>
+      <app-button-export (click)="exportFile()" [disabled]="showTable"></app-button-export>
+      <app-button-clear (click)="onClear()"></app-button-clear>
+      <app-button-back (click)="onBackPages()"></app-button-back>
+    </div>
+
+  </form>
+</segment>
+<segment header="อัพโหลด Template จ่ายสินค้าสำเร็จรูปต่างประเทศ" [loading]="loading" [hidden]="showUpload">
+  <form class="ui form ng-untouched ng-pristine ng-valid" id="upload-form" ngnativevalidate>
+    <div class="inline fields  ui grid">
+      <div class="three wide field">
+        <label class="text-right full-width">เลือกไฟล์ Template</label>
+      </div>
+      <div class="four wide field">
+        <input id="file" type="file" name="file"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" (change)="onChangeUpload($event)"
+          required>
+      </div>
+      <div class="four wide field">
+        <app-button-upload (click)="onUpload($event)"></app-button-upload>
+        <app-button-custom color="" text="ปิด" (click)="onClear()"></app-button-custom>
+      </div>
+    </div>
+  </form>
+</segment>
+<segment [loading]="loading" [hidden]="showTable">
+  <table id="dataTable" class="ui small celled nowrap table striped selectable" style="width:100%">
+    <thead class="text-center">
+      <tr>
+        <th class="text-center ">ลำดับ</th>
+        <th class="text-center ">รายการ</th>
+        <th class="text-center bg-key-in">ใบขนสินค้า</th>
+        <th class="text-center bg-key-in">INV</th>
+        <th class="text-center ">บัญชีประจำวัน (ภส.๐๗-๐๒)</th>
+        <th class="text-center ">งบเดือน (ภส.๐๗-๐๔)</th>
+        <th class="text-center ">จากการตรวจสอบ</th>
+        <th class="text-center ">จำนวนขอยกเว้นหรือคืนภาษี(ภส.๐๕-๐๑)</th>
+        <th class="text-center bg-cal" style="text-align: center !important">ผลต่าง</th>
+      </tr>
+    </thead>
+  </table>
+</segment>
+
+<!-- form-excel -->
+<form id="form-excel" method="POST">
+  <input type="hidden" name="auditPlanCode" id="auditPlanCode">
+  <input type="hidden" name="paperPrNumber" id="paperPrNumber">
+  <input type="hidden" name="newRegId" id="newRegId">
+  <input type="hidden" name="dutyGroupId" id="dutyGroupId">
+  <input type="hidden" name="startDate" id="startDate">
+  <input type="hidden" name="endDate" id="endDate">
+</form>

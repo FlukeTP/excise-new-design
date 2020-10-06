@@ -1,0 +1,165 @@
+<!-- <app-breadcrumb [route]="breadcrumb"></app-breadcrumb> -->
+<br>
+<form class="ui grid">
+  <div class="sixteen wide column">
+    <segment header="แบบฟอร์มการตรวจสอบภาษีสรรพสามิต ตามพระราชบัญญัติภาษีสรรพสามิต พ.ศ. ๒๕๖๐ (TA0301)" [loading]="loadingHeader">
+      <div class="ui grid">
+        <div class="ui centered sixteen wide column">
+          <div form [formGroup]="formGroup">
+            <!-- row 1 -->
+            <div inline>
+              <div field [col]="3">
+                <label class="full-width text-right">แบบฟอร์ม ตส.</label>
+              </div>
+              <ng-container *ngIf="flagPlan">
+                <div field [col]="4" [ngClass]="{'error': flagTopic}">
+                  <select formControlName="topic" id="topic" class="ui search dropdown full-width"
+                    (change)="onSelectTopic($event.target.value)">
+                    <option value="" style="color: grey">เลือกเรื่อง</option>
+                    <option *ngFor="let item of docTypeList" value="{{item.code}}">
+                      {{item.value}}
+                    </option>
+                  </select>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="!flagPlan">
+                <div field [col]="4">
+                  <input type="text" class="custom-readonly" value="{{docTypeName}}" readonly>
+                </div>
+              </ng-container>
+              <div field [col]="3">
+                <label class="full-width text-right">เลขเอกสาร</label>
+              </div>
+              <div field [col]="4">
+                <select formControlName="formTsNumber" id="formTsNumber" class="ui search dropdown full-width"
+                  (change)="searchFormTSNumber()">
+                  <option value="" style="color: grey">เลือกเลขเอกสาร</option>
+                  <option *ngFor="let item of formTsNumberList" value="{{item}}">{{item}}</option>
+                </select>
+              </div>
+            </div>
+            <ng-container *ngIf="!flagPlan">
+              <!-- row 2 -->
+              <div inline>
+                <div field [col]="3">
+                  <label class="text-right full-width">เลขออกตรวจ</label>
+                </div>
+                <div field [col]="4">
+                  <input type="text" class="custom-readonly full-width" formControlName="auditPlanCode" readonly>
+                </div>
+                <div field [col]="3">
+                  <label class="text-right full-width">ชื่อผู้ปฏิบัติงาน</label>
+                </div>
+                <div field [col]="4">
+                  <input type="text" class="custom-readonly full-width" formControlName="jobResp" readonly>
+                </div>
+                <div field [col]="1">
+                </div>
+              </div>
+              <!-- row 3 -->
+              <div inline>
+                <div field [col]="3">
+                  <label class="text-right full-width">เลขทะเบียนสรรพสามิต</label>
+                </div>
+                <div field [col]="4">
+                  <input type="text" class="custom-readonly full-width" formControlName="newRegId" readonly>
+                </div>
+                <div field [col]="3">
+                  <label class="text-right full-width">ชื่อโรงอุตสาหกรรม/สถานบริการ</label>
+                </div>
+                <div field [col]="4">
+                  <input type="text" class="custom-readonly full-width" formControlName="facFullname" readonly>
+                </div>
+                <div field [col]="1">
+                  <app-button-custom icon="info" (click)="detailModal()"></app-button-custom>
+                </div>
+              </div>
+            </ng-container>
+            <!-- row 4 -->
+            <div class="inline field btn text-center">
+              <app-button-custom color="green" icon="sticky note icon" text="สร้างเอกสารใหม่" (click)="onNewDoc()">
+              </app-button-custom>
+              <app-button-back (click)="goBack()" [disabled]="flagPlan"></app-button-back>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="ui center aligned grid">
+        <div class="eight wide column">
+          <app-button-custom text="สร้างเอกสาร" (click)="onSubmit($event)"></app-button-custom>
+          <app-button-clear (click)="onDiscard(false)"></app-button-clear>
+        </div>
+      </div> -->
+    </segment>
+    <router-outlet></router-outlet>
+  </div>
+
+  <!-- <app-rm01 *ngIf="sent && selectedTop == 'ขออนุมัติเดินทางไปปฏิบัติราชการ'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-rm01>
+
+  <app-rm02 *ngIf="sent && selectedTop == 'รายงานผลการตรวจติดตามแนะกำกับดูแล'" (discard)="onDiscard($event)" class="sixteen wide column segments">
+  </app-rm02> -->
+</form>
+
+
+<ui-modal [id]="'detailModal'" type="custom" size="large">
+  <div class="ui header">
+    ข้อมูลผู้ประกอบการ
+  </div>
+  <div class="content">
+    <div class="ui form" [formGroup]="formGroup">
+      <div class="ui grid" style="margin-bottom: -41px;">
+        <div class="one wide column"></div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">ชื่อผู้ประกอบการ</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="cusFullname" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="secDesc" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui grid">
+        <div class="one wide column"></div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <div class="ten wide field">
+              <input type="text" class="custom-readonly full-width" formControlName="areaDesc" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="seven wide column">
+          <div class="inline fields">
+            <div class="six wide field">
+              <label class="text-right full-width">ที่อยู่โรงอุตสาหกรรม/<br>สถานบริการ</label>
+            </div>
+            <div class="ten wide field">
+              <textarea class="custom-readonly full-width" cols="30" rows="3" formControlName="facAddress"
+                readonly></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <app-button-cancel class="deny"></app-button-cancel>
+  </div>
+</ui-modal>

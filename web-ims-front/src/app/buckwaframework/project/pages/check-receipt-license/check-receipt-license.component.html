@@ -1,0 +1,270 @@
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <h2 class="ui header">ใบอนุญาต</h2>
+
+    <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+      <span>ใบอนุญาต</span>
+    </div>
+
+    <div class="ui attached segment">
+
+      <div class="ui form">
+
+        <div class="inline fields">
+          <div class="eight wide field required">
+            <label class="custom-label-w-25">ใบอนุญาต</label>
+            <input value="ยส.ป1.ปลูกเอง" />
+          </div>
+          <div class="eight wide field required">
+            <label class="custom-label-w-25">เลขแบบพิมพ์</label>
+            <input/>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="eight wide field">
+            <label class="custom-label-w-25">พิมพ์เดือน</label>
+            <input value="ตุลาคม" />
+          </div>
+          <div class="eight wide field required">
+            <label class="custom-label-w-25">เลขใบอนุญาต</label>
+            <input/>
+          </div>
+        </div>
+
+        <div class="inline fields">
+          <div class="eight wide field">
+            <label class="custom-label-w-25">วัน/เดือน/ปี</label>
+            <input value="07/10/60" />
+          </div>
+          <div class="eight wide field required">
+            <label class="custom-label-w-25">เขต</label>
+            <input/>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="ui center aligned grid">
+        <div class="eight wide column">
+          <button class="ui mini primary button" style="width: 100px;">
+            <i class="add icon"></i>
+            เพิ่ม
+          </button>
+          <button class="ui mini button" style="width: 100px;">
+            <i class="refresh icon"></i>
+            ล้างข้อมูล
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <div class="ui attached segment">
+
+        <table class="ui small celled table striped selectable" id="tableResult">
+                <thead>
+                    <tr class="center aligned">
+                        <th>ประเภทใบอนุญาต</th>
+                        <th>แบบพิมพ์สรรพสามิต</th>
+                        <th>เขต</th>
+                        <th>วัน/เดือน/ปี</th>
+                        <th>เลขแบบพิมพ์</th>
+                        <th>เลขใบอนุญาต</th>
+                        <th>จำนวนเงิน</th>
+                        <th>10%</th>
+                        <th>97%%</th>
+                        <th>3%</th>
+                        <th>รวม</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ยส.ป1.ปลูกเอง</td>
+                        <td>ภส.08-17</td>
+                        <td>นอก</td>
+                        <td>07/10/60</td>
+                        <td>239810</td>
+                        <td>1480</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td>9.7</td>
+                        <td>0.3</td>
+                        <td>110</td>
+                    </tr>
+                    <tr class="bg-row-highlight">
+                        <td>ไพ่ ป1.</td>
+                        <td>ภส.04-23</td>
+                        <td>ใน</td>
+                        <td>07/10/60</td>
+                        <td>239811</td>
+                        <td>1481</td>
+                        <td>1,200.00</td>
+                        <td>120</td>
+                        <td>116.4</td>
+                        <td>3.6</td>
+                        <td>1,320.00</td>
+                    </tr>
+                    <tr class="bg-row-highlight">
+                        <td>ยส.ผลิต ยาเส้นปรุง</td>
+                        <td>ภส.04-06</td>
+                        <td>ใน</td>
+                        <td>08/10/60</td>
+                        <td>239814</td>
+                        <td>1482</td>
+                        <td>7,500.00</td>
+                        <td>750</td>
+                        <td>727.5</td>
+                        <td>22.5</td>
+                        <td>8,250.00</td>
+                    </tr>
+                    <tr>
+                        <td>เครื่องหมาย</td>
+                        <td>ภส.06-05</td>
+                        <td>ใน</td>
+                        <td>08/10/60</td>
+                        <td>239815</td>
+                        <td>1483</td>
+                        <td>150,000.00</td>
+                        <td>15000</td>
+                        <td>14550</td>
+                        <td>450</td>
+                        <td>165,000.00</td>
+                    </tr>
+                    <tr class="bg-row-highlight">
+                        <td>ยส.เพาะปลูก</td>
+                        <td>ภส.08-09</td>
+                        <td>นอก</td>
+                        <td>08/10/60</td>
+                        <td>239816</td>
+                        <td>1484</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr class="bg-row-highlight">
+                        <td>ยส.ผลิต ซิกาแรต</td>
+                        <td>ภส.04-06</td>
+                        <td>นอก</td>
+                        <td>08/10/60</td>
+                        <td>239818</td>
+                        <td>1485</td>
+                        <td>150,000.00</td>
+                        <td>15000</td>
+                        <td>14550</td>
+                        <td>450</td>
+                        <td>165,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>ยส.ผลิต ผลิตภัฑณ์</td>
+                        <td>ภส.04-06</td>
+                        <td>ใน</td>
+                        <td>11/10/60</td>
+                        <td>239819</td>
+                        <td>1486</td>
+                        <td>150,000.00</td>
+                        <td>15000</td>
+                        <td>14550</td>
+                        <td>450</td>
+                        <td>165,000.00</td>
+                    </tr>
+                    <tr class="bg-row-orange-highlight">
+                        <td>ยส.ป2.อื่น</td>
+                        <td>ภส.08-17</td>
+                        <td>นอก</td>
+                        <td>11/10/60</td>
+                        <td>239820</td>
+                        <td>1487</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td>9.7</td>
+                        <td>0.3</td>
+                        <td>110</td>
+                    </tr>
+                    <tr class="bg-row-orange-highlight">
+                        <td>ยส.ใบยาแห้ง</td>
+                        <td>ภส.08-11</td>
+                        <td>ใน</td>
+                        <td>14/10/60</td>
+                        <td>239821</td>
+                        <td>1490</td>
+                        <td>15,000.00</td>
+                        <td>1500</td>
+                        <td>1455</td>
+                        <td>45</td>
+                        <td>16,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>ไพ่ ผลิต</td>
+                        <td>ภส.04-08</td>
+                        <td>ใน</td>
+                        <td>14/10/60</td>
+                        <td>239822</td>
+                        <td>1491</td>
+                        <td>150,000.00</td>
+                        <td>15000</td>
+                        <td>14550</td>
+                        <td>450</td>
+                        <td>165,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>ไพ่ ป2. ปลอกอากร</td>
+                        <td>ภส.04-23</td>
+                        <td>นอก</td>
+                        <td>15/10/60</td>
+                        <td>239823</td>
+                        <td>1492</td>
+                        <td>500</td>
+                        <td>50</td>
+                        <td>48.5</td>
+                        <td>1.5</td>
+                        <td>550</td>
+                    </tr>
+                    <tr class="bg-row-orange-highlight">
+                        <td>ไพ่นำเข้า ไม่ปลอกอากร</td>
+                        <td>&nbsp;</td>
+                        <td>นอก</td>
+                        <td>16/10/60</td>
+                        <td>239824</td>
+                        <td>1493</td>
+                        <td>300</td>
+                        <td>30</td>
+                        <td>29.1</td>
+                        <td>0.9</td>
+                        <td>330</td>
+                    </tr>
+                    <tr class="bg-row-orange-highlight">
+                        <td>ไพ่นำเข้า ปลอกอากร</td>
+                        <td>&nbsp;</td>
+                        <td>นอก</td>
+                        <td>20/10/60</td>
+                        <td>239825</td>
+                        <td>1495</td>
+                        <td>300</td>
+                        <td>30</td>
+                        <td>29.1</td>
+                        <td>0.9</td>
+                        <td>330</td>
+                    </tr>
+                    <tr>
+                        <td>รวม</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>625000</td>
+                        <td>62500</td>
+                        <td>60625</td>
+                        <td>1875</td>
+                        <td>687500</td>
+                    </tr>
+                </tbody>
+            </table>  
+
+    </div>
+
+  </div>
+</div>

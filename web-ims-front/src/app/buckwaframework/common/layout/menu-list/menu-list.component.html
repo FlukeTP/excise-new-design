@@ -1,0 +1,20 @@
+<div class="accordion">
+  <ng-container *ngFor="let item of items">
+    <ng-container *ngIf="item.menuVoList && item.menuVoList.length > 0">
+      <div class="title sub first acd-text">
+        <i class="dropdown icon"></i>
+        {{item.menuName}}
+      </div>
+      <div class="content adjust-space">
+        <app-menu-list [items]="item.menuVoList"></app-menu-list>
+      </div>
+    </ng-container>
+
+    <div *ngIf="!item.menuVoList || item.menuVoList.length == 0" class="title sub second empty acd-text"
+      [routerLink]="[item.url]" routerLinkActive="active">
+      {{item.menuName}}
+    </div>
+
+    <div class="content adjust-space"></div>
+  </ng-container>
+</div>

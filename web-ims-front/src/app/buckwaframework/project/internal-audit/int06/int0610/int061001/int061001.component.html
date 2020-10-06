@@ -1,0 +1,60 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <segment header="ตั้งค่าจับคู่รหัสภาษี" [loading]="false">
+      <table class="ui small celled table striped selectable" style="width: 100%;">
+        <thead>
+          <tr>
+            <th style="text-align: center;" colspan="2"> บัญชีแยกประเภท </th>
+            <th style="text-align: center;" colspan="2"> งบสรุปยอดเงินภาษี </th>
+            <th style="text-align: center;" rowspan="2"> จัดการ </th>
+          </tr>
+          <tr>
+            <th style="text-align: center;"> เลขที่บัญชีแยกประเภท </th>
+            <th style="text-align: center;"> ชื่อบัญชีแยกประเภท </th>
+            <th style="text-align: center;"> รหัสภาษี </th>
+            <th style="text-align: center;"> รายการ </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listConfig">
+            <td> {{item.accountNo}} </td>
+            <td> {{item.accountDes}} </td>
+            <td> {{item.taxCode}} </td>
+            <td> {{item.taxDes}} </td>
+            <td>
+
+              <button class="ui mini yellow button">
+                <i class="edit icon"></i>
+                แก้ไข
+              </button>
+
+              <button class="ui mini red button">
+                <i class="trash alternate icon"></i>
+                ลบ
+              </button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="ui center aligned grid">
+        <div class="four wide column">
+          <!-- routerLink="/int01/4/2" -->
+          <button class="ui mini button" routerLink="/int06/10">
+            <i class="arrow circle left icon"></i>
+            ย้อนกลับ
+          </button>
+
+          <button class="ui mini green button">
+            <i class="plus icon"></i>
+            เพิ่ม
+          </button>
+
+        </div>
+      </div>
+    </segment>
+  </div>
+</div>

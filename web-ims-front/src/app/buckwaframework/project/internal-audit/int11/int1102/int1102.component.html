@@ -1,0 +1,110 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+      <segment header="รายงานผลการตรวจสอบการปฏิบัติงาน" [loading]="false">
+        <div class="ui form">
+
+          <div class="inline fields">
+            <div class="four wide field"></div>
+            <div class="four  wide field"></div>
+            <div class="four wide field">
+              <label class="text-right full-width">ปีงบประมาณ</label>
+            </div>
+            <div class="four  wide field">
+              <div class="ui input left icon">
+                <i class="calendar alternate outline icon"></i>
+                <input type="text" class="custom-readonly" placeholder="วว/ดดดด/ปปปป" value="{{yearhead}}" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="inline fields">
+            <div class="four wide field"></div>
+            <div class="four  wide field"></div>
+            <div class="four wide field">
+              <label class="text-right full-width">รูปแบบการตรวจสอบ</label>
+            </div>
+            <div class="four  wide field">
+              <input type="text" class="custom-readonly" value="{{dataheader_type}}" readonly>
+            </div>
+          </div>
+          <br>
+          <div class="inline fields">
+            <div class="sixteen wide field">
+              <label class="text-center full-width">
+                รายงานผลการตรวจสอบการปฏิบัติงานของ{{headerLineOne}}
+              </label>
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="four wide field">
+            </div>
+            <div class="two wide centered field">
+              <label class="text-right full-width">เรียน :</label>
+            </div>
+            <div class="two wide field">
+              อธิบดีกรมสรรพสามิต
+            </div>
+          </div>
+
+          <div class="inline fields">
+            <div class="four wide field">
+            </div>
+            <div class="two wide centered field">
+              <label class="text-right full-width">ระหว่างวันที่ :</label>
+            </div>
+            <div class="two wide field">
+              {{dateFromhead}}
+            </div>
+            <div class="one wide field">
+              <label class="text-right full-width">ถึง :</label>
+            </div>
+            <div class="two wide field">
+              {{dateTohead}}
+            </div>
+          </div>
+
+          <br />
+          <table class="ui small collapsing celled table aligned hover striped selectable" style="width: 100%;">
+            <thead>
+              <tr style="text-align: center">
+                <th>ลำดับที่</th>
+                <th>ประเด็นที่ตรวจ</th>
+                <th>ข้อเสนอแนะของผู้ตรวจสอบภายใน</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let t of datas; let i=index">
+                <td class="text-center">{{ i + 1 }}</td>
+                <td>{{ t.issues }}</td>
+                <td>{{ t.whatShouldBe }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+          <form [formGroup]="sendForm">
+            <div class="fields">
+              <div class="three wide field"></div>
+              <div class="ten wide field">
+                <label>หมายเหตุผู้อนุมัติ</label>
+                <textarea rows="4" formControlName="notation"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="ui center aligned grid">
+          <div class="sixteen wide column">
+            <app-button-export>
+            </app-button-export>
+            <app-button-custom color="green" icon="check icon" text="ผ่าน" (click)="sendpass()">
+            </app-button-custom>
+            <app-button-custom color="red" icon="remove icon" text="ไม่ผ่าน" (click)="sendfail()">
+            </app-button-custom>
+            <app-button-back routerLink="/int11/07"></app-button-back>
+          </div>
+        </div>
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>

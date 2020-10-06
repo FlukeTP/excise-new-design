@@ -1,0 +1,8 @@
+.scrollXTableCustom{    
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+}
+
+.menu-hide{
+    display: none !important;
+}

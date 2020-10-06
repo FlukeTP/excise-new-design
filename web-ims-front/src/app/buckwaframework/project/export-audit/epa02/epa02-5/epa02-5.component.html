@@ -1,0 +1,114 @@
+<div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+  <span>จัดการข้อมูลต้นทาง</span>
+</div>
+
+<div class="ui attached segment">
+  
+  <div class="ui grid center aligned">
+    <div class="sixteen wide column">
+      <h3>การตรวจส่งออกสินค้า ณ ด่านส่งออกสินค้า</h3>
+    </div>
+  </div>
+  <br>
+  <div class="inline fields">
+    <div class="four wide field ">
+      <h4>ข้อมูลผู้ส่งออก</h4>
+    </div>
+  </div>
+  <div class="ui form">
+    <input type="hidden" value="searchFlag">
+    <div class="inline fields">
+      <div class="one wide field "></div>
+      <div class="three wide field ">
+        <label>ชื่อ :</label>
+      </div>
+      <div class="four wide field">
+        <input type="text" [value]="formVo.cusName" >
+      </div>
+      <div class="three wide field ">
+        <label>เลขบัตรประชาชน/เลขทะเบียนนิติบุคคล :</label>
+      </div>
+      <div class="four wide field disabled input">
+        <input type="text" [value]="formVo.tin"  >
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div class="one wide field"></div>
+      <div class="three wide field ">
+        <label>เลขที่สาขาภาษีมูลค่าเพิ่ม (ถ้ามี) :</label>
+      </div>
+      <div class="four wide field disabled input">
+        <input type="text"  [value]="formVo.vatNo" >
+      </div>
+    </div>
+
+    <br>
+    <div class="inline fields">
+      <div class="four wide field ">
+        <h4>ข้อมูลนำสินค้าออก</h4>
+      </div>
+    </div>
+    <div class="inline fields">
+      <div class="one wide field"></div>
+      <div class="three  wide field ">
+        <label>ขอนำสินค้าออกจาก :</label>
+      </div>
+      <div class="four wide field">
+        <input type="text"  [value]="formVo.facname" >
+      </div>
+      <div class="three wide field ">
+        <label>ทะเบียนสรรพสามิต :</label>
+      </div>
+      <div class="four wide field">
+        <input type="text"  [value]="formVo.cusNewRegid" >
+      </div>
+    </div>
+
+    <div class="inline fields">
+      <div class="one wide field"></div>
+      <div class="three wide field ">
+        <label>เพื่อ :</label>
+      </div>
+      <div class="four wide field">
+        <input type="text"  [value]="formVo.remark"  >
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ///// Datatable Segment ///// -->
+<div class="ui segment" style="width: 100%;">
+
+  <input type="hidden" [(ngModel)]="exciseId">
+  <table id="dataTable" class="ui small celled table striped selectable" style="width: 100%;">
+    <thead>
+      <tr style="text-align: center;">
+        <th>รายการ</th>
+        <th>ประเภท</th>
+        <th>ชื่อสินค้าและชนิด</th>
+        <th>แบบ/รุ่น</th>
+        <th>ขนาด</th>
+        <th>จำนวน</th>
+        <th>ราคาขายปลีกแนะนำ</th>
+        <th>ภาษีตามมูลค่าร้อยละ </th>
+        <th>ภาษีตามปริมาณ </th>
+        <th>จำนวนภาษี </th>
+        <th>ทำรายการ </th>
+      </tr>
+    </thead>
+  </table>
+
+  <br>
+  <div class="ui center aligned grid">
+    <div class="four wide column">
+      <button class="ui mini button" style="width: 100px;" (click)="onClickBack()">
+        ย้อนกลับ
+      </button>
+    </div>
+  </div>
+
+</div>
+

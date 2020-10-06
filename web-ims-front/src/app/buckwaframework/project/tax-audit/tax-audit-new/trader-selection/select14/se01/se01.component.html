@@ -1,0 +1,57 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+
+<segment header="รายที่เลือกของภาคที่ 1" [loading]="false">
+  <div id="divDataTable">
+    <div>
+      <!-- <div style="overflow-x: scroll;overflow-y: hidden;padding-bottom: 14px;"> -->
+      <table id="userManagementDt" class="ui small celled table aligned hover nowrap" style="width: 100%">
+        <thead class="text-center">
+          <tr>
+            <th rowspan="2">ลำดับ</th>
+            <th rowspan="2">ทะเบียนสรรพสามิต เดิม/ใหม่</th>
+            <th rowspan="2">ชื่อผู้ประกอบการ</th>
+            <th rowspan="2">ชื่อโรงอุตสาหกรรม/สถานบริการ</th>
+            <th rowspan="2">ภาค</th>
+            <th rowspan="2">พื้นที่</th>
+            <th colspan="2">การชำระภาษีในสภาวะปกติ (บาท)</th>
+            <th rowspan="2">เปลี่ยนแปลง (ร้อยละ)</th>
+            <th rowspan="2">เปอร์เซ็นส่วนเบี่ยงเบน</th>
+            <th rowspan="2">ชำระภาษี(เดือน)</th>
+          </tr>
+          <tr>
+            <th>
+              5 เดือนแรก</th>
+            <th>
+              5 เดือนหลัง </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of datas;let i = index">
+            <td class="text-center">{{i+1}}</td>
+            <td>{{item.data1}}</td>
+            <td>{{item.data2}}</td>
+            <td>{{item.data3}}</td>
+            <td>{{item.data4}}</td>
+            <td>{{item.data5}}</td>
+            <td class="text-center">{{item.data6}}</td>
+            <td class="text-center">{{item.data7}}</td>
+            <td class="text-right">{{item.data8}}</td>
+            <td class="text-right">{{item.data9}}</td>
+            <td class="text-right">{{item.data10}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <!-- <div>ชื่อผู้ประกอบการที่ถูกเลือก: </div>
+          <div class="ui bulleted list" *ngFor="let item of dataSelect">
+            <div class="item">{{item.data.data2}}</div>
+          </div> -->
+      <br>
+      <div class="ui one column centered grid">
+        <div class="column aligned center">
+          <app-button-back routerLink="/tax-audit-new/select14"></app-button-back>
+        </div>
+      </div>
+    </div>
+  </div>
+</segment>

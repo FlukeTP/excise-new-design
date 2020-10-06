@@ -1,0 +1,77 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment [header]="headerEd" [loading]="false">
+    <form class="ui form" [formGroup]="formSaveConfig">
+      <!-- row 1 -->
+      <div class="inline fields  ui grid">
+        <div class="one wide field "></div>
+        <div class="three wide field ">
+          <label class="text-right full-width">ตำแหน่ง</label>
+        </div>
+        <div class="four wide field ">
+          <div class="ui input">
+            <input id="edPositionName" name="edPositionName" type="text" formControlName="edPositionName">
+          </div>
+        </div>
+        <div class="three wide field ">
+            <label class="text-right full-width">เบี้ยเลี้ยงครึ่งวัน</label>
+          </div>
+          <div class="four wide field ">
+            <input id="allowancesHalfDay" name="allowancesHalfDay" formControlName="allowancesHalfDay" numberOnly>
+          </div>
+          <div class="one wide field "></div>
+      </div>
+      <!-- row 2 -->
+      <div class="inline fields  ui grid">
+        <div class="one wide field "></div>
+        <div class="three wide field ">
+          <label class="text-right full-width">ค่าธรรมเนียม ACCOM</label>
+        </div>
+        <div class="four wide field ">
+          <div class="ui input">
+            <input id="accomFeeSingle" name="accomFeeSingle" type="text" formControlName="accomFeeSingle" numberOnly>
+          </div>
+        </div>
+        <div class="three wide field ">
+          <label class="text-right full-width">เบี้ยเลี้ยงหนึ่งวัน</label>
+        </div>
+        <div class="four wide field ">
+          <input id="allowancesDay" name="allowancesDay" type="text" formControlName="allowancesDay" numberOnly>
+        </div>
+        <div class="one wide field "></div>
+      </div>
+
+      <!-- row 3 -->
+      <div class="inline fields  ui grid">
+        <div class="one wide field "></div>
+        <div class="three wide field ">
+          <label class="text-right full-width">ค่าธรรมเนียม ACCOM สองเท่า</label>
+        </div>
+        <div class="four wide field ">
+          <div class="ui input">
+            <input id="accomFeeDouble" name="accomFeeDouble" type="text" formControlName="accomFeeDouble" numberOnly>
+          </div>
+        </div>
+      </div>
+
+      <!-- row 4 -->
+      <div class="inline fields  ui grid">
+        <div class="one wide field "></div>
+        <div class="three wide field ">
+          <label class="text-right full-width">ค่าธรรมเนียมแพ็คเกจ ACCOM</label>
+        </div>
+        <div class="four wide field ">
+          <div class="ui input">
+            <input id="accomFeePackages" name="accomFeePackages" type="text" formControlName="accomFeePackages" numberOnly>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="ui center aligned grid">
+      <div class="eight wide column">
+        <app-button-save (click)="saveConfig()" *ngIf="dataEdit == ''"></app-button-save>
+        <app-button-edit (click)="editDataposition()" *ngIf="dataEdit != ''"></app-button-edit>
+        <app-button-back (click)="routeTo('/management/ed/ed02')"></app-button-back>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

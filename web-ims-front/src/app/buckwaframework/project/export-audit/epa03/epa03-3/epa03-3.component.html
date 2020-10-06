@@ -1,0 +1,618 @@
+<div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+  <span>จัดการข้อมูลต้นทาง</span>
+</div>
+
+<ng-container *ngIf="searchFlag; else other_content">
+
+  <div class="ui attached segment">
+    <div class="ui grid center aligned">
+      <div class="sixteen wide column">
+        <h3>รายงานผลการตรวจส่งออก</h3>
+      </div>
+    </div>
+    <br><br>
+
+    <div class="ui form">
+      <div class="ui grid">
+        <!-- column 1 -->
+        <div class="eight wide field" style="text-align: center;">
+          <label>ข้อมูลการตามแบบคำขอยกเว้นหรือคืนภาษี (แบบเลขที่ 11101101) :</label>
+        </div>
+        <!-- column 2 -->
+        <div class="eight wide field" style="text-align: center;">
+          <label>ข้อมูลการนำสินค้าออกจากโรงอุตสาหกรรม :</label>
+        </div>
+      </div>
+      <hr><br>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>ชื่อผุ้ส่งออก :</p>
+        </div>
+        <div class="four wide field">
+          <label>บริษัท สยามแก๊ส แอนด์ ปิโตรเคมีคัลส์ จำกัด (มหาชน)</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>ชื่อผุ้ส่งออก :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="บริษัท สยามแก๊ส แอนด์ ปิโตรเคมีคัลส์ จำกัด (มหาชน)">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>สำนักงานสรรพสามิตต้นทาง :</p>
+        </div>
+        <div class="four wide field">
+          <label>สำนักงานสรรพสามิตภาค 10</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>สำนักงานสรรพสามิตต้นทาง :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="สำนักงานสรรพสามิตภาค 10">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>ด่านส่งออกสินค้าปลายทาง :</p>
+        </div>
+        <div class="four wide field">
+          <label>สำนักงานสรรพสามิต แม่สอด</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>ด่านส่งออกสินค้าปลายทาง :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="แม่สอด">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>สำนักงานสรรพสามิตปลายทาง :</p>
+        </div>
+        <div class="four wide field">
+          <label>สำนักงานสรรพสามิต แม่สอด</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>สำนักงานสรรพสามิตปลายทาง :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="แม่สอด">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>วันที่นำสินค้าออก :</p>
+        </div>
+        <div class="four wide field">
+          <label>30/11/2018</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>วันที่นำสินค้าออก :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="30/11/2018">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>ชนิดของสินค้า :</p>
+        </div>
+        <div class="four wide field">
+          <label>Diesel</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>ชนิดของสินค้า :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="Diesel">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>ปริมาณของสินค้า :</p>
+        </div>
+        <div class="four wide field">
+          <label>30000</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>ปริมาณของสินค้า :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="30000">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>ชื่อหรือเลขทะเบียนพาหนะ :</p>
+        </div>
+        <div class="four wide field">
+          <label>-</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>ชื่อหรือเลขทะเบียนพาหนะ :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>เส้นทางการขนส่ง :</p>
+        </div>
+        <div class="four wide field">
+          <label>-</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>เส้นทางการขนส่ง :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+        </div>
+        <div class="four wide field">
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <!-- <div class="three wide field">
+          <p>ค่า Marker :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="fuel">
+        </div> -->
+      </div>
+      <hr>
+      <br>
+
+      <!-- <div class="ui grid">
+        <div class="eight wide field" style="text-align: center;">
+          <label>จำนวนและหมายเลขดวงตรากรมสรรพสามิต :</label>
+        </div>
+        <div class="eight wide field" style="text-align: center;">
+          <label>จำนวนและหมายเลขดวงตรากรมสรรพสามิต :</label>
+        </div>
+      </div> -->
+
+      <div class="ui grid">
+        <div class="two column row">
+          <!-- column 1 Tax Stamp -->
+          <div class="column">
+
+            <div class="inline fields" *ngFor="let item of taxStampNo; let i = index">
+              <div class="two wide field">
+                <p>ดวงที่ {{i+1}}</p>
+              </div>
+              <div class="eight wide field">
+                <input type="text" [(ngModel)]="datas.stampName">
+              </div>
+              <div class="four wide field">
+                <button class="ui mini green button" (click)="addTaxField()">
+                  <i class="plus icon"></i>
+                  เพิ่ม
+                </button>
+                <button class="ui mini red button" (click)="delTaxField(i)">
+                  ลบ
+                </button>
+              </div>
+            </div>
+
+          </div>
+          <!-- column 2 Factory Stamp -->
+          <div class="column">
+
+            <div class="inline fields" *ngFor="let item of factoryStampNo; let i = index">
+              <div class="two wide field"></div>
+              <div class="two wide field">
+                <p>ดวงที่ {{i+1}}</p>
+              </div>
+              <div class="eight wide field">
+                <input type="text" [(ngModel)]="saveDatas.stampName">
+              </div>
+              <div class="four wide field">
+                <button class="ui mini green button" (click)="addFactoryField()">
+                  <i class="plus icon"></i>
+                  เพิ่ม
+                </button>
+                <button class="ui mini red button" (click)="delFactoryField(i)">
+                  ลบ
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- <hr>
+      <br> -->
+
+      <!-- Radio Box -->
+      <div class="ui grid center aligned">
+        <div class="inline fields">
+          <label>ผลการตรวจ:</label>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="result" checked="true">
+              <label>ผ่าน</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="result">
+              <label>ไม่ผ่าน</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comment Box -->
+      <div class="ui grid center aligned">
+        <label>หมายเหตุ</label>
+        <div class="fields">
+          <textarea rows="5" cols="100" [(ngModel)]="datas.comment1Dtl"></textarea>
+        </div>
+      </div>
+      <br>
+
+      <div class="ui center aligned grid">
+        <div class="four wide column">
+          <button class="ui mini button" style="width: 100px;" (click)="onClickBack()">
+            ย้อนกลับ
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</ng-container>
+
+
+
+
+
+
+<ng-template #other_content>
+
+  <div class="ui attached segment">
+    <div class="ui grid center aligned">
+      <div class="sixteen wide column">
+        <h3>รายงานผลการตรวจส่งออก</h3>
+      </div>
+    </div>
+    <br><br>
+
+    <div class="ui form">
+      <div class="ui grid">
+        <!-- column 1 -->
+        <div class="eight wide field" style="text-align: center;">
+          <label>ข้อมูลการตามแบบคำขอยกเว้นหรือคืนภาษี (แบบเลขที่ 11101101) :</label>
+        </div>
+        <!-- column 2 -->
+        <div class="eight wide field" style="text-align: center;">
+          <label>ข้อมูลการนำสินค้าออกจากโรงอุตสาหกรรม :</label>
+        </div>
+      </div>
+      <hr><br>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>ชื่อผุ้ส่งออก :</p>
+        </div>
+        <div class="four wide field">
+          <label>บริษัท สยามแก๊ส แอนด์ ปิโตรเคมีคัลส์ จำกัด (มหาชน)</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>ชื่อผุ้ส่งออก :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="บริษัท สยามแก๊ส แอนด์ ปิโตรเคมีคัลส์ จำกัด (มหาชน)">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>สำนักงานสรรพสามิตต้นทาง :</p>
+        </div>
+        <div class="four wide field">
+          <label>สำนักงานสรรพสามิตภาค 10</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>สำนักงานสรรพสามิตต้นทาง :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="สำนักงานสรรพสามิตภาค 10">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>ด่านส่งออกสินค้าปลายทาง :</p>
+        </div>
+        <div class="four wide field">
+          <label>สำนักงานสรรพสามิต แม่สอด</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>ด่านส่งออกสินค้าปลายทาง :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="แม่สอด">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>สำนักงานสรรพสามิตปลายทาง :</p>
+        </div>
+        <div class="four wide field">
+          <label>สำนักงานสรรพสามิต แม่สอด</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>สำนักงานสรรพสามิตปลายทาง :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="แม่สอด">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>วันที่นำสินค้าออก :</p>
+        </div>
+        <div class="four wide field">
+          <label>30/11/2018</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>วันที่นำสินค้าออก :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="30/11/2018">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>ชนิดของสินค้า :</p>
+        </div>
+        <div class="four wide field">
+          <label>Diesel</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>ชนิดของสินค้า :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="Diesel">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>ปริมาณของสินค้า :</p>
+        </div>
+        <div class="four wide field">
+          <label>90000</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>ปริมาณของสินค้า :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="90000">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>ชื่อหรือเลขทะเบียนพาหนะ :</p>
+        </div>
+        <div class="four wide field">
+          <label>-</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>ชื่อหรือเลขทะเบียนพาหนะ :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+          <p>เส้นทางการขนส่ง :</p>
+        </div>
+        <div class="four wide field">
+          <label>-</label>
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <div class="three wide field">
+          <p>เส้นทางการขนส่ง :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="inline fields">
+        <!-- column 1 -->
+        <div class="three wide field">
+        </div>
+        <div class="four wide field">
+        </div>
+        <div class="two wide field"></div>
+        <!-- column 2 -->
+        <!-- <div class="three wide field">
+          <p>ค่า Marker :</p>
+        </div>
+        <div class="four wide field">
+          <input type="text" value="fuel">
+        </div> -->
+      </div>
+      <hr>
+      <br>
+
+      <!-- <div class="ui grid">
+        <div class="eight wide field" style="text-align: center;">
+          <label>จำนวนและหมายเลขดวงตรากรมสรรพสามิต :</label>
+        </div>
+        <div class="eight wide field" style="text-align: center;">
+          <label>จำนวนและหมายเลขดวงตรากรมสรรพสามิต :</label>
+        </div>
+      </div> -->
+
+      <div class="ui grid">
+        <div class="two column row">
+          <!-- column 1 Tax Stamp -->
+          <div class="column">
+
+            <div class="inline fields" *ngFor="let item of taxStampNo; let i = index">
+              <div class="two wide field">
+                <p>ดวงที่ {{i+1}}</p>
+              </div>
+              <div class="eight wide field">
+                <input type="text" [(ngModel)]="datas.stampName">
+              </div>
+              <div class="four wide field">
+                <button class="ui mini green button" (click)="addTaxField()">
+                  <i class="plus icon"></i>
+                  เพิ่ม
+                </button>
+                <button class="ui mini red button" (click)="delTaxField(i)">
+                  ลบ
+                </button>
+              </div>
+            </div>
+
+          </div>
+          <!-- column 2 Factory Stamp -->
+          <div class="column">
+
+            <div class="inline fields" *ngFor="let item of factoryStampNo; let i = index">
+              <div class="two wide field"></div>
+              <div class="two wide field">
+                <p>ดวงที่ {{i+1}}</p>
+              </div>
+              <div class="eight wide field">
+                <input type="text" [(ngModel)]="saveDatas.stampName">
+              </div>
+              <div class="four wide field">
+                <button class="ui mini green button" (click)="addFactoryField()">
+                  <i class="plus icon"></i>
+                  เพิ่ม
+                </button>
+                <button class="ui mini red button" (click)="delFactoryField(i)">
+                  ลบ
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- <hr>
+      <br> -->
+
+      <!-- Radio Box -->
+      <div class="ui grid center aligned">
+        <div class="inline fields">
+          <label>ผลการตรวจ:</label>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="result" checked="true">
+              <label>ผ่าน</label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui radio checkbox">
+              <input type="radio" name="result">
+              <label>ไม่ผ่าน</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comment Box -->
+      <div class="ui grid center aligned">
+        <label>หมายเหตุ</label>
+        <div class="fields">
+          <textarea rows="5" cols="100" [(ngModel)]="datas.comment1Dtl"></textarea>
+        </div>
+      </div>
+      <br>
+
+      <div class="ui center aligned grid">
+        <div class="four wide column">
+          <button class="ui mini button" style="width: 100px;" (click)="onClickBack()">
+            ย้อนกลับ
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</ng-template>

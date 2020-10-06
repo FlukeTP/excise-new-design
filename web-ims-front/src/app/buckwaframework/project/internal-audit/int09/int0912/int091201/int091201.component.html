@@ -1,0 +1,338 @@
+<br>
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <segment header="กระดาษทำการตรวจสอบการปฏิบัติการของพนักงาน" [loading]="loading">
+      <div class="ui form">
+        <div [formGroup]="formSearch">
+          <div inline>
+            <div field [col]="2" class="required">
+              <label class="text-right full-width">สำนักงานสรรพสามิตภาค</label>
+            </div>
+            <ng-container *ngIf="!showDepartDtl">
+              <div field [col]="3" [ngClass]="{'error': invalidDataControl('sector')}">
+                <select class="ui dropdown full-width" id="sector" (change)="onChangeSector($event)"
+                  formControlName="sector">
+                  <option value="">เลือกสำนักงานสรรพสามิตภาค</option>
+                  <option *ngFor="let item of sectors" value="{{item.officeCode}}">{{item.deptName}}</option>
+                </select>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="showDepartDtl">
+              <div field [col]="3">
+                <input readonly class="custom-readonly" [value]="departDtl.sector">
+              </div>
+            </ng-container>
+            <div field [col]="2" class="required">
+              <label class="text-right full-width">สำนักงานสรรพสามิตพื้นที่</label>
+            </div>
+            <ng-container *ngIf="!showDepartDtl">
+              <div field [col]="3">
+                <select class="ui dropdown full-width" id="area" (change)="onChangeArea($event)" formControlName="area">
+                  <option value="">เลือกสำนักงานสรรพสามิตพื้นที่</option>
+                  <option value="0">ทั้งหมด</option>
+                  <option *ngFor="let item of areas" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+                </select>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="showDepartDtl">
+              <div field [col]="3">
+                <input readonly class="custom-readonly" [value]="departDtl.area">
+              </div>
+            </ng-container>
+            <div field [col]="2">
+              <label class="text-right full-width">สำนักงานสรรพสามิตสาขา</label>
+            </div>
+            <ng-container *ngIf="!showDepartDtl">
+              <div field [col]="3">
+                <select class="ui dropdown full-width" id="branch" formControlName="branch">
+                  <option value="">เลือกสำนักงานสรรพสามิตสาขา</option>
+                  <option value="0">ทั้งหมด</option>
+                  <option *ngFor="let item of branch" value="{{item.officeCode}}">{{item.deptShortName}}</option>
+                </select>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="showDepartDtl">
+              <div field [col]="3">
+                <input readonly class="custom-readonly" [value]="departDtl.branch">
+              </div>
+            </ng-container>
+          </div>
+          <div class="fields" inline>
+            <div field [col]="2" class="required">
+              <label class="text-right full-width">ประจำเดือน</label>
+            </div>
+            <ng-container *ngIf="!showDepartDtl">
+              <div field [col]="3" [ngClass]="{'error': invalidDataControl('auWorkingMonth')}">
+                <div class="ui calendar" id="monthly" style="width:100%">
+                  <div class="ui input left icon">
+                    <i class="calendar alter nate outline icon"></i>
+                    <input type="text" autocomplete="off" id="monthlyInput" name="monthlyInput" placeholder="เดือน/ปี">
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="showDepartDtl">
+              <div field [col]="3">
+                <input readonly class="custom-readonly" [value]="yearPick">
+              </div>
+            </ng-container>
+            <div field [col]="2">
+              <label class="text-right full-width">เลขที่ฏีกาเบิก</label>
+            </div>
+            <ng-container *ngIf="!showDepartDtl">
+              <div field [col]="3" [ngClass]="{'error': invalidDataControl('auPetitionNo')}">
+                <input type="text" formControlName="auPetitionNo">
+              </div>
+            </ng-container>
+            <ng-container *ngIf="showDepartDtl">
+              <div field [col]="3">
+                <input readonly class="custom-readonly" [value]="hdrData.auPetitionNo">
+              </div>
+            </ng-container>
+            <div field [col]="2">
+              <label class="text-right full-width">เลขที่กระดาษทำการ</label>
+            </div>
+            <div field [col]="3">
+              <select class="ui dropdown" id="auditWorkingNo" formControlName="auditWorkingNo"
+                (change)="searchAuditNo()">
+                <option value="">เลือกเลขที่กระดาษทำการ</option>
+                <option *ngFor="let paper of paperList; let i = index" [value]="paper.auditWorkingNo">
+                  {{paper.auditWorkingNo}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="ui center aligned grid">
+            <div class="eight wide column">
+              <app-button-search (click)="searchData()" [disabled]="showDepartDtl"></app-button-search>
+              <app-button-save (click)="saveData()" *ngIf="!showDepartDtl"></app-button-save>
+              <app-button-edit (click)="editData()" *ngIf="showDepartDtl"></app-button-edit>
+              <!-- <app-button-export></app-button-export> -->
+              <app-button-detail (click)="showDetial()"></app-button-detail>
+              <app-button-clear (click)="clearDataHead()"></app-button-clear>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div inline [formGroup]="formSearch">
+          <div class="scrollX" style="width: 100%;">
+            <table class="ui small celled table striped selectable">
+              <thead>
+                <tr class="text-center">
+                  <th>ลำดับที่</th>
+                  <th>ชื่อ-นามสกุล</th>
+                  <th>ตำแหน่ง</th>
+                  <th>จำนวนวัน</th>
+                  <th>อัตราค่าเบี้ยเลี้ยง</th>
+                  <th>จำนวนเงิน</th>
+                  <th>จำนวนเงินจากฎีกาเบิก</th>
+                  <th>ตรวจกับค่าเบี้ยเลี้ยง</th>
+                  <th>ตรวจกับค่าที่พัก</th>
+                  <th>ค่าใช้จ่ายในการเดินทางไปราชการ</th>
+                  <th>หมายเหตุ</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="iaAuditWorkingD1List">
+                <ng-container *ngIf="formSearch.controls.iaAuditWorkingD1List">
+                  <tr [formGroupName]="i"
+                    *ngFor="let data of formSearch.controls.iaAuditWorkingD1List.controls; let i = index"
+                    class="text-center">
+                    <td>{{i+1}}</td>
+                    <td class="text-left">{{data.get('personName').value | isEmpty}}</td>
+                    <td class="text-left">{{data.get('personPosName').value | isEmpty}}</td>
+                    <td class="text-right">{{ data.get('workOutDay').value | isEmpty}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <div class="ui input" style="min-width:250px">
+                        <input type="text">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="inline fields" style="margin-bottom: 0px;">
+                        <div class="field">
+                          <div class="ui radio checkbox">
+                            <input type="radio" value="Y" formControlName="resultAllowanceFlag">
+                            <label>ถูกต้อง</label>
+                          </div>
+                        </div>
+                        <div class="field">
+                          <div class="ui radio checkbox">
+                            <input type="radio" value="N" formControlName="resultAllowanceFlag">
+                            <label>พบประเด็น</label>
+                            <!-- name="resultAllowanceFlag{{i+1}}" -->
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="inline fields" style="margin-bottom: 0px;">
+                        <div class="field">
+                          <div class="ui radio checkbox">
+                            <input type="radio" value="Y" formControlName="resultAccomFeeFlag">
+                            <label>ถูกต้อง</label>
+                          </div>
+
+                        </div>
+                        <div class="field">
+                          <div class="ui radio checkbox">
+                            <input type="radio" value="N" formControlName="resultAccomFeeFlag">
+                            <label>พบประเด็น</label>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="inline fields" style="margin-bottom: 0px;">
+                        <div class="field">
+                          <div class="ui radio checkbox">
+                            <input type="radio" value="Y" formControlName="resultTransportFlag">
+                            <label>ถูกต้อง</label>
+                          </div>
+                        </div>
+                        <div class="field">
+                          <div class="ui radio checkbox">
+                            <input type="radio" value="N" formControlName="resultTransportFlag">
+                            <label>พบประเด็น</label>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ui input" style="min-width:250px">
+                        <!-- <input type="text" formControlName="auWorkingRemarks"> -->
+                        <textarea rows="1" maxlength="300" formControlName="auWorkingRemarks"></textarea>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-container *ngIf="dataList">
+                  <tr *ngIf="dataList.length == 0">
+                    <td colspan="11" class="text-center">ไม่พบข้อมูล</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <!-- <div class="scrollX" style="width: 100%;">
+            <table class="ui small celled table striped selectable">
+              <thead>
+                <tr class="text-center">
+                  <th>ลำดับที่</th>
+                  <th>ชื่อ-นามสกุล</th>
+                  <th>ตำแหน่ง</th>
+                  <th>จำนวนวัน</th>
+                  <th>อัตราค่าเบี้ยเลี้ยง</th>
+                  <th>จำนวนเงิน</th>
+                  <th>จำนวนเงินจากฎีกาเบิก</th>
+                  <th>ตรวจกับค่าเบี้ยเลี้ยง</th>
+                  <th>ตรวจกับค่าที่พัก</th>
+                  <th>ค่าใช้จ่ายในการเดินทางไปราชการ</th>
+                  <th>หมายเหตุ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of dataList; let i = index" class="text-center">
+                  <td>{{i+1}}</td>
+                  <td>{{data.userName | isEmpty}}</td>
+                  <td>{{data.userPosition | isEmpty}}</td>
+                  <td>{{data.day| isEmpty}}</td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <div class="ui input" style="min-width:250px">
+                      <input type="text">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="inline fields" style="margin-bottom: 0px;">
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="resultAllowanceFlag{{i+1}}" checked="checked">
+                          <label>ถูกต้อง</label>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="resultAllowanceFlag{{i+1}}">
+                          <label>พบประเด็น</label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="inline fields" style="margin-bottom: 0px;">
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="resultAccomFeeFlag{{i+1}}" checked="checked">
+                          <label>ถูกต้อง</label>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="resultAccomFeeFlag{{i+1}}">
+                          <label>พบประเด็น</label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="inline fields" style="margin-bottom: 0px;">
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="resultTransportFlag{{i+1}}" checked="checked">
+                          <label>ถูกต้อง</label>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="resultTransportFlag{{i+1}}">
+                          <label>พบประเด็น</label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ui input" style="min-width:250px">
+                      <input type="text">
+                    </div>
+                  </td>
+                </tr>
+                <ng-container *ngIf="dataList">
+                  <tr *ngIf="dataList.length == 0">
+                    <td colspan="11" class="text-center">ไม่พบข้อมูล</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div> -->
+        </div>
+        <div [formGroup]="formSearch">
+          <div inline>
+            <div field [col]="3">
+              <h3 class="text-right full-width">สรุปผลการตรวจการปฏิบัติการ</h3>
+            </div>
+          </div>
+          <div inline>
+            <div field [col]="3">
+              <label class="text-right full-width">ข้อตรวจพบ/ข้อสังเกต<br>(ข้อเท็จจริง/Condition) :</label>
+            </div>
+            <div field [col]="9">
+              <textarea rows="4" style="resize: none" id="d1ConditionText" maxlength="300"
+                formControlName="workingConditionText"></textarea>
+            </div>
+          </div>
+
+          <div inline>
+            <div field [col]="3">
+              <label class="text-right full-width">สิ่งที่ควรจะเป็น<br>(หลักเกณฑ์/Criteria) :</label>
+            </div>
+            <div field [col]="9">
+              <textarea rows="4" style="resize: none" id="d1CriteriaText" maxlength="300"
+                formControlName="workingCriteriaText"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </segment>
+  </div>
+</div>

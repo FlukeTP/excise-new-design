@@ -1,0 +1,198 @@
+<app-breadcrumb [route]="breadcrumb"></app-breadcrumb>
+<div class="ui grid">
+    <div class="sixteen wide column">
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>รายงานการใช้ใบเสร็จรับเงินภาษีสรรพสามิต
+            </span>
+        </div>
+
+        <div class="ui attached segment">
+            <table class="ui small celled table striped selectable" id="datatableTax" style="width: 100%;">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th>ลำดับที่</th>
+                        <th>สินค้า/บริการ</th>
+                        <th>จำนวนใบเสร็จ</th>
+                        <th>จำนวนเงิน</th>
+                        <th>มหาดไทย
+                            <br />10%</th>
+                        <th>นำส่งมหาดไทย
+                            <br />95%</th>
+                        <th>เงินฝาก/ค่าใช้จ่าย
+                            <br />5%</th>
+                        <th> ชดเชยกรมศุลฯ
+                            <br>0.75%</th>
+                        <th>ค่าพิมพ์แสตมป์ 1%</th>
+                        <th>ผู้สูงอายุุ 1%</th>
+                        <th>นำส่ง</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="text-align: center;">
+                        <td>1</td>
+                        <td>ภาษีสุรา</td>
+                        <td>1</td>
+                        <td>92,919.00</td>
+                        <td>8,491.90</td>
+                        <td>8,067.30</td>
+                        <td>424.60</td>
+                        <td>464.60</td>
+                        <td>92,909.71</td>
+                        <td>0.00</td>
+                        <td>101,410.90</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="text-right">
+                        <th colspan="2" style="text-align: right">รวม</th>
+                        <th>{{sumTax.count}}</th>
+                        <th>{{df(sumTax.netTaxAmount)}}</th>
+                        <th>{{df(sumTax.netLocAmount)}}</th>
+                        <th>{{df(sumTax.locOthAmount)}}</th>
+                        <th>{{df(sumTax.locExpAmount)}}</th>
+                        <th>{{df(sumTax.customAmount)}}</th>
+                        <th>{{df(sumTax.stampAmount)}}</th>
+                        <th>{{df(sumTax.olderFundAmount)}}</th>
+                        <th>{{df(sumTax.sendAmount)}}</th>
+                    </tr>
+                </tfoot>
+                <!-- <tfoot>
+                    <tr class="text-right">
+                        <th colspan="2" style="text-align: right">รวม</th>
+                        <th>{{sumTax.count}}</th>
+                        <th>{{df(sumTax.netTaxAmount)}}</th>
+                        <th>{{df(sumTax.netLocAmount)}}</th>
+                        <th>{{df(sumTax.locOthAmount)}}</th>
+                        <th>{{df(sumTax.locExpAmount)}}</th>
+                        <th>{{df(sumTax.customAmount)}}</th>
+                        <th>{{df(sumTax.stampAmount)}}</th>
+                        <th>{{df(sumTax.olderFundAmount)}}</th>
+                        <th>{{df(sumTax.sendAmount)}}</th>
+                    </tr>
+                </tfoot> -->
+            </table>
+        </div>
+        <br>
+        <div class="ui top centered attached header segment" style="background: #1e83db;color: white">
+            <span>เงินกองทุน อบจ. เงินบำรุงองค์การ</span>
+        </div>
+        <div class="ui attached segment">
+            <table id="datatableMaintain" class="ui small celled table striped selectable" style="width: 100%;">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th>ลำดับที่</th>
+                        <th>สินค้า/บริการ</th>
+                        <th>จำนวนใบเสร็จ</th>
+                        <th>จำนวนเงิน</th>
+                        <th>มหาดไทย
+                            <br />10%</th>
+                        <th>นำส่งมหาดไทย
+                            <br />95%</th>
+                        <th>เงินฝาก/ค่าใช้จ่าย
+                            <br />5%</th>
+                        <th> ชดเชยกรมศุลฯ
+                            <br>0.75%</th>
+                        <th>ค่าพิมพ์แสตมป์ 1%</th>
+                        <th>ผู้สูงอายุุ 1%</th>
+                        <th>นำส่ง</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="text-align: center;">
+                        <td>1</td>
+                        <td>เงินบำรุง กกท. (สุรา)</td>
+                        <td>1</td>
+                        <td>11.76</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>11.76</td>
+                    </tr>
+                    <tr style="text-align: center;">
+                        <td>2</td>
+                        <td>เงินบำรุงองค์การกระจายเสียงฯ สุรา</td>
+                        <td>1</td>
+                        <td>8.82</td>
+                        <td>0.00</td>
+                        <td>8.69</td>
+                        <td>0.13</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>8.82</td>
+                    </tr>
+                    <tr style="text-align: center;">
+                        <td>3</td>
+                        <td>เงินบำรุง สสส. (สุรา)</td>
+                        <td>1</td>
+                        <td>11.76</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>11.76</td>
+                    </tr>
+                    <tr style="text-align: center;">
+                        <td>4</td>
+                        <td>เงินกองทุนน้ำมันเชื้อเพลิง</td>
+                        <td>1</td>
+                        <td> 350,000.00 </td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>350,000.00</td>
+                    </tr>
+                    <tr style="text-align: center;">
+                        <td>5</td>
+                        <td>เงินกองทุนเพื่อส่งเสริมการอนุรักษ์พลังงาน</td>
+                        <td>1</td>
+                        <td> 2,500.00 </td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td> 2,500.00 </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="text-right">
+                        <th colspan="2" style="text-align: right">รวม</th>
+                        <th>{{sumMaintain.count}}</th>
+                        <th>{{df(sumMaintain.netTaxAmount)}}</th>
+                        <th>{{df(sumMaintain.netLocAmount)}}</th>
+                        <th>{{df(sumMaintain.locOthAmount)}}</th>
+                        <th>{{df(sumMaintain.locExpAmount)}}</th>
+                        <th>{{df(sumMaintain.customAmount)}}</th>
+                        <th>{{df(sumMaintain.stampAmount)}}</th>
+                        <th>{{df(sumMaintain.olderFundAmount)}}</th>
+                        <th>{{df(sumMaintain.sendAmount)}}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="ui attached segment">
+            <div class="ui center aligned grid">
+                <div class="eight wide column">
+                    <button class="ui yellow mini button" routerLink="">
+                        <i class="print icon"></i>ส่งออก
+                    </button>
+                    <button class="ui mini button" routerLink="/int06/05">
+                        <i class="close icon"></i>ยกเลิก
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<app-form-search header="ตรวจสอบการรับวัตถุดิบ" [formSearch]="formGroup" (search)="search($event)" (uploadTemplate)="uploadTemplate($event)"
+  (clear)="clear($event)" ></app-form-search>
+
+<segment header="อัพโหลด Template ข้อมูลสำหรับตรวจสอบการรับวัตถุดิบ" [loading]="false" *ngIf="hideUpload">
+  <form class="ui form ng-untouched ng-pristine ng-valid" id="upload-form" ngnativevalidate>
+    <div class="inline fields  ui grid">
+      <div class="three wide field">
+        <label class="text-right full-width">เลือกไฟล์ Template ข้อมูล</label>
+      </div>
+      <div class="four wide field">
+          <input id="file" type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" (change)="onChangeUpload($event)" required>
+      </div>
+      <div class="four wide field">
+        <app-button-upload (click)="onUpload($event)"></app-button-upload>
+      </div>
+    </div>
+  </form>
+</segment>
+
+<segment header="" [loading]="false" *ngIf="hideResult">
+  <div class="inline field btn text-right">
+    <app-button-export (click)="exportFile()"></app-button-export>
+  </div>
+  <table id="dataTable" class="ui small celled nowrap table striped selectable" style="width:100%">
+    <thead>
+      <tr style="text-align: center;">
+        <th class="one wide">ลำดับ</th>
+        <th class="six wide text-center">รายการ</th>
+        <th class="two wide text-center bg-blue" >ใบกำกับภาษีซื้อ</th>
+        <th class="two wide text-center bg-blue" >บัญชีประจำวัน ภส. ๐๗-๐๑</th>
+        <th class="one wide text-center bg-blue" >งบเดือน (ภส. ๐๗-๐๔)</th>
+        <th class="one wide">ข้อมูลจากภายนอก</th>
+        <th class="one wide">ผลต่างสูงสุด</th>
+      </tr>
+    </thead>
+  </table>
+</segment>

@@ -1,0 +1,75 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment header="รอบการผลิตสุรากลั่นชุมชน" [loading]="false">
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <form class="ui form" [formGroup]="planForm">
+          <div class="inline fields ui grid">
+            <div class="seven wide field">
+              <label class="text-right full-width">ปีงบประมาณ</label>
+            </div>
+            <div class="two wide field">
+              <select id="year" class="ui dropdown ai" formControlName="year">
+                <option value="2560">2560</option>
+                <option value="2561">2561</option>
+                <option value="2562">2562</option>
+              </select>
+            </div>
+            <div class="four wide field" style="text-align: right">
+              <app-button-search></app-button-search>
+            </div>
+            <div class="three wide field"></div>
+          </div>
+        </form>
+        <div class="ui grid">
+          <div class="sixteen wide column">
+            <table id="tableData" style="width: 100%" class="ui small celled nowrap table striped selectable">
+              <thead>
+                <tr style="text-align: center;">
+                  <!-- table 1 -->
+                  <th rowspan="2" style="width: 180px">ชื่อสถานประกอบการ</th>
+                  <th colspan="12">ปีงบประมาณ 2562</th>
+                </tr>
+                <tr style="text-align: center;">
+                  <!-- table 1 -->
+                  <th class="month-th" style="width: 48px" >ต.ค.</th>
+                  <th class="month-th" style="width: 48px" >พ.ย.</th>
+                  <th class="month-th" style="width: 48px" >ธ.ค.</th>
+                  <th class="month-th" style="width: 48px" >ม.ค.</th>
+                  <th class="month-th" style="width: 48px" >ก.พ.</th>
+                  <th class="month-th" style="width: 48px" >มี.ค.</th>
+                  <th class="month-th" style="width: 48px" >เม.ย.</th>
+                  <th class="month-th" style="width: 48px" >พ.ค.</th>
+                  <th class="month-th" style="width: 48px" >มิ.ย.</th>
+                  <th class="month-th" style="width: 48px" >ก.ค.</th>
+                  <th class="month-th" style="width: 48px" >ส.ค.</th>
+                  <th class="month-th" style="width: 48px" >ก.ย.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of dataTables; let i = index">
+                  <!-- name company -->
+                  <td>{{ data.companyName }}</td>
+                  <!-- (click)="viewDetail(data.id, month)" -->
+                  <!-- detail -->
+                  <td class="text-center" *ngFor="let detail of data.details; let j = index">
+                    <a class="ui label" [ngClass]="{'orange': subDtl.status == 'complete', 'black': subDtl.status == 'proceed' }" 
+                    *ngFor="let subDtl of detail.subDtl; let k = index" style="margin-bottom: 2px;" (click)="onClickMonth()">
+                      {{subDtl.text}}
+                    </a><br>
+                    <a class="ui label blue" *ngIf="detail.subDtl.length > 0" (click)="goTo(data.companyName,detail)">
+                      <i class="calendar alternate icon"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="ui one column centered grid">
+          <div class="column aligned center">
+          </div>
+        </div>
+      </div>
+    </div>
+  </segment>
+</with-breadcrumb>

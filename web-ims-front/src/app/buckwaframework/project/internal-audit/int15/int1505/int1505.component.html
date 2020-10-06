@@ -1,0 +1,89 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <segment [loading]="false" id="backcl">
+    <div class="large ui buttons" id="topview" *ngIf="tap == '2'">
+      <button class="large ui button" (click)="tabSlite('1')">รหัสบัญชีระบบ GFMIS</button>
+      <button class="large ui positive button active" (click)="tabSlite('2')">เพิ่มรายการ</button>
+    </div>
+    <div class="large ui buttons" id="topview" *ngIf="tap == '1'">
+      <button class="large ui positive button active" (click)="tabSlite('1')">รหัสบัญชีระบบ GFMIS</button>
+      <button class="large ui button " (click)="tabSlite('2')">เพิ่มรายการ</button>
+    </div>
+
+    <div class="large ui buttons" id="topview" *ngIf="tap == '3'">
+      <button class="large ui button " (click)="tabSlite('1')">รหัสบัญชีระบบ GFMIS</button>
+      <button class="large ui positive button active" (click)="tabSlite('2')">แก้ไขรายการ</button>
+    </div>
+    <!-- ------------------------------tab1-------------------------------------- -->
+    <div class="tabcontent" *ngIf="tap == '1' ">
+      <segment [loading]="false">
+        <table class="ui small celled nowrap table striped selectable" style="width:100%" id="datatableall">
+          <thead id="thHeader">
+            <tr style="text-align: center;">
+              <th class="text-center">รหัสบัญชี</th>
+              <th class="text-center">ชื่อบัญชี</th>
+              <th class="text-center">รายละเอียด</th>
+              <th class="text-center">หมวดบัญชี</th>
+              <th class="text-center">การจัดการ</th>
+            </tr>
+          </thead>
+        </table>
+      </segment>
+    </div>
+    <!-- ------------------------------tab2-------------------------------------- -->
+    <div class="tabcontent" *ngIf="tap == '2' || tap == '3'">
+      <segment header="บันทึกรหัสบัญชีระบบ GFMIS" [loading]="false">
+        <form [formGroup]="formsave">
+          <div class="ui form">
+            <div class="ui grid">
+              <div class="sixteen wide column">
+                <div inline>
+                  <div field [col]="3">
+                    <label class="text-right full-width">หมวดบัญชี</label>
+                  </div>
+                  <div field [col]="4">
+                    <select class="ui dropdown full-width" id="coaType" formControlName="coaType">
+                      <option value="">ทั้งหมด</option>
+                      <option value="0">ทั้งหมด</option>
+                      <option *ngFor="let item of coaParametor" value="{{item.value2}}">{{item.value1}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div inline>
+                  <div field [col]="3">
+                    <label class="text-right full-width">รหัสบัญชี</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="coaCode" maxlength="10" numberOnly>
+                  </div>
+                  <div field [col]="2">
+                    <label class="text-right full-width">ชื่อบัญชี</label>
+                  </div>
+                  <div field [col]="4">
+                    <input type="text" formControlName="coaName">
+                  </div>
+                </div>
+                <div inline>
+                  <div field [col]="3">
+                    <label class="text-right full-width">รายละเอียด</label>
+                  </div>
+                  <div field [col]="10">
+                    <textarea rows="4" style="resize: none" formControlName="coaDes" id="coaDes"
+                      maxlength="200"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="ui center aligned grid">
+          <div class="column">
+            <app-button-edit (click)="editApi()" *ngIf="tap == '3'"></app-button-edit>
+            <app-button-save (click)="saveTwoData()" *ngIf="tap == '2'"></app-button-save>
+            <app-button-delete (click)="deleteData()" *ngIf="tap == '3'"></app-button-delete>
+            <app-button-back (click)="tabSlite('1')"></app-button-back>
+          </div>
+        </div>
+      </segment>
+    </div>
+  </segment>
+</with-breadcrumb>

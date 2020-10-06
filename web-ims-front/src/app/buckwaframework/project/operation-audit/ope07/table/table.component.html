@@ -1,0 +1,41 @@
+<div id="parent" style="overflow-x: auto; margin-top: 15px; margin-bottom: 16px">
+  <table class="ui celled table small scrollXTableCustom" id="fixTable">
+    <thead class="text-center">
+      <tr>
+        <th *ngFor="let item of headerTable.rowspan ;let i = index" [attr.rowspan]="headerTable.rowspan[i]"
+          [attr.colspan]="headerTable.colspan[i]">{{headerTable.label[i]}}</th>
+      </tr>
+      <tr>
+        <th *ngFor="let item of headerTable.labelSub ;let i = index">{{headerTable.labelSub[i]}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of bodyTable ;let i = index">
+        <td class="text-center" *ngIf="enableGraph"><a href="javascript:void(0)" (click)="graphOnClick(i)"><i class="chart line icon"></i></a></td>
+        <td class="text-center">{{i+start+1}}</td>
+        <td *ngFor="let d of item.data; let i= index" [class]="item.class[i]">{{d}}</td>
+      </tr>
+      <tr *ngIf="bodyTable.length == 0">
+        <td [attr.colspan]="8" class="text-center">ไม่พบข้อมูล</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+<div class="ui grid">
+  <div class="five wide column">
+    <label>แสดง</label>&nbsp;<select class="ui dropdown" id="pageLenght" (change)="onChangePageLenght($event)"
+      style="z-index: 300;">
+      <option *ngFor="let item of lenght" value="{{item}}">{{item}}</option>
+    </select>&nbsp;
+    <label>รายการ</label>
+  </div>
+  <div class="six wide column text-center full-width">
+    <pre>แสดง {{ end!=0 ? start+1 : start}} ถึง {{ end }} จากทั้งหมด {{recordTotalDesc}} รายการ</pre>
+  </div>
+  <div class="five wide column text-right">
+    <pagination [step]="pageLenght" [class]="'right floated'" [active]="(start/pageLenght+1)" [pages]="paginationTotal"
+      (length)="pageChange($event)">
+    </pagination>
+  </div>
+</div>

@@ -1,0 +1,150 @@
+<with-breadcrumb [breadcrumb]="breadcrumb">
+  <div class="ui grid">
+    <div class="ui sixteen wide column form">
+
+      <segment header="แผนการออกตรวจประจำปี" [loading]="false">
+        <div class="ui form">
+          <form [formGroup]="formYear">
+            <div class="center-all inline fields">
+              <div class="field">
+                <label class="full-width text-right">ปีงบประมาณ</label>
+              </div>
+              <!-- <div class="field">
+                <select class="ui dropdown ai" id="selectYear" formControlName="year"
+                  (change)="handleSearch($event)">
+                  <option value="">กรุณาเลือก</option>
+                  <option *ngFor="let item of selectYear; let i=index" value="{{item}}">{{item}}</option>
+                </select>
+              </div> -->
+
+              <div class="field" id="calendarYear" class="ui calendar" >
+                <div class="ui input left icon">
+                  <i class="calendar alter nate outline icon"></i>
+                  <input type="calendar" formControlName="year" id="year" [attr.required]="true" autocomplete="off"
+                    placeholder="ปปปป">
+                </div>
+              </div>
+
+              <div class="field btn ">
+                <app-button-search (click)="onSearchPlan()"></app-button-search>
+                <app-button-custom (click)="createPlan()" icon="newspaper" text="สร้างแผนออกตรวจ" *ngIf="checkRole(['ROLE_OA_OPERATOR'])"></app-button-custom>
+              </div>
+              <div style="text-align: right">
+                <app-button-custom routerLink="/ope02/01/04" icon="calendar alternate" text="ปฏิทิน">
+                </app-button-custom>
+              </div>
+            </div>
+          </form>
+
+
+          <div class="inline field">
+            <table class="ui small very compact celled table nowrap">
+              <thead class="text-center">
+                <!-- line 1 -->
+                <tr>
+                  <th rowspan="2" width="5%">#</th>
+                  <th rowspan="2" width="10%">เดือนปี</th>
+                  <th rowspan="2" width="10%">จำนวนการออกตรวจ</th>
+                  <th colspan="4" width="65%">สถานะ</th>
+                  <th rowspan="2" width="10%">ผลการออกตรวจ</th>
+                </tr>
+                <!-- line 2 -->
+                <tr>
+                  <th width="17%">สร้าง</th>
+                  <th width="16%">รออนุมัติออกตรวจ</th>
+                  <th width="16%">อนุมัติ</th>
+                  <th width="16%">ออกตรวจ</th>
+                  <!-- <th>-</th> -->
+                </tr>
+              </thead>
+
+              <tbody class="text-center">
+                <ng-container *ngFor="let month of months; let i = index">
+                  <tr>
+                    <td class="text-top">{{ i + 1 }}</td>
+                    <td class="text-top">{{ month.name + ' ' + month.year }}</td>
+                    <td>{{month.create.length + month.waiting.length +month.approve.length+month.close.length+month.audit.length }}</td>
+                    <!-- จำนวน -->
+                    <td>
+                      <div class="inline field">
+                        <p [hidden]="!month.create.length > 0" *ngFor="let create of month.create ; let i = index"
+                          style="padding:2px 2px 2px 2px;">
+                          <!-- <app-button-detail (click)="managePlan('CREATE')">c</app-button-detail> -->
+                          <app-button-detail (click)="gotoDetail(create,'1')"></app-button-detail>
+                        </p>
+                        <div [hidden]="!month.create.length == 0">
+                          -
+                        </div>
+                      </div>
+
+                    </td>
+
+                    <!-- จำนวน -->
+                    <td>
+                      <div class="inline field">
+                        <p [hidden]="!month.waiting.length > 0" *ngFor="let waiting of month.waiting ; let i = index"
+                          style="padding:2px 2px 2px 2px;">
+                          <!-- <app-button-detail (click)="managePlan('CREATE')">c</app-button-detail> -->
+                          <app-button-detail (click)="gotoWaiting(waiting,'2')"></app-button-detail>
+                        </p>
+                        <div [hidden]="!month.waiting.length == 0">
+                          -
+                        </div>
+                      </div>
+
+                    </td>
+
+                    <!-- จำนวน -->
+                    <td>
+                      <div class="inline field">
+                        <p [hidden]="!month.approve.length > 0" *ngFor="let approve of month.approve ; let i = index"
+                          style="padding:2px 2px 2px 2px;">
+                          <!-- <app-button-detail (click)="managePlan('CREATE')">c</app-button-detail> -->
+                          <app-button-detail (click)="gotoWaiting(approve,'2')"></app-button-detail>
+                        </p>
+                        <div [hidden]="!month.approve.length == 0">
+                          -
+                        </div>
+                      </div>
+                    </td>
+
+                    <!-- จำนวน -->
+                    <td>
+
+                      <div class="inline field">
+                        <p [hidden]="!month.audit.length > 0" *ngFor="let audit of month.audit ; let i = index"
+                          style="padding:2px 2px 2px 2px;">
+                          <!-- <app-button-detail (click)="managePlan('CREATE')">c</app-button-detail> -->
+                          <app-button-detail (click)="gotoWaiting(audit,'2')"></app-button-detail>
+                        </p>
+                        <div [hidden]="!month.audit.length == 0">
+                          -
+                        </div>
+                      </div>
+                    </td>
+
+                    <!-- จำนวน -->
+                    <td>
+                      <div class="inline field">
+                        <p [hidden]="!month.close.length > 0" *ngFor="let close of month.close ; let i = index"
+                          style="padding:2px 2px 2px 2px;">
+                          <!-- <app-button-detail (click)="managePlan('CREATE')">c</app-button-detail> -->
+                          <app-button-detail (click)="gotoWaiting(close,'2')"></app-button-detail>
+                        </p>
+                        <div [hidden]="!month.approve.close == 0">
+                          -
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+
+
+            </table>
+          </div>
+        </div>
+      </segment>
+    </div>
+  </div>
+</with-breadcrumb>
